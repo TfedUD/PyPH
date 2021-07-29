@@ -1,5 +1,5 @@
 # PyPH
-The PyPH (Python for Passive House) project is a set of Python models which make working with Passive House software such as WUFI, PHPP and C3RRO easier. The PyPH modules allow for import and export from the various tools by way of the common 'PHX' datamodel format. The PyPH project has several parts which allow for many different types of usage. These include:
+The PyPH (Python for Passive House) project is a set of Python modules which make working with Passive House software such as WUFI, PHPP and C3RRO easier. The PyPH modules allow for import and export from the various tools by way of the common 'PHX' datamodel format. The PyPH project has several parts which allow for many different types of usage. These include:
 
 
 ## Model Schema:
