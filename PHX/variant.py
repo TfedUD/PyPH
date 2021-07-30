@@ -4,10 +4,38 @@
 """
 PHX Variant Classes
 """
-
 from ._base import _Base
-from .geometry import Geom
-from .hvac import HVAC, HVAC_System, HVAC_System_ZoneCover, HVAC_Device
+import PHX.hvac
+import PHX.component
+
+class Geom(_Base):
+    """Geometry Collection"""
+
+    def __init__(self):
+        super(Geom, self).__init__()
+        self.polygons = []
+    
+    @property
+    def vertices(self):
+        return (v for p in self.polygons for v in p.vertices)
+
+    def add_component_polygons( self, _compos):
+        # type: (list[PHX.component.Component]) -> None
+        """Adds component's polygons to the Geometry's 'polygons' list
+        
+        Arguments:
+        ----------
+            * _compos (list[Component]): The components to add the polygons from
+        """
+        
+        if not isinstance(_compos, list):
+            _compos = [ _compos ]
+
+        for compo in _compos:
+            for poly in compo.polygons:
+                if poly in self.polygons: continue
+                
+                self.polygons.append( poly )
 
 class PassivehouseData(_Base):
     def __init__(self):
@@ -82,12 +110,12 @@ class ClimateLocation(_Base):
         self.CO2concenration = 350
         self.Unit_CO2concentration = 48
 
-class WP_Room(_Base):
+class Room(_Base):
 
     _count = 0
 
     def __init__(self):
-        super(WP_Room, self).__init__()
+        super(Room, self).__init__()
         self.id = self._count
         self.n = 'default_room'
         self.type = 99
@@ -102,7 +130,7 @@ class WP_Room(_Base):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable """
         cls._count += 1
-        return super(WP_Room, cls).__new__(cls, *args, **kwargs)
+        return super(Room, cls).__new__(cls, *args, **kwargs)
     
 class Zone(_Base):
     
@@ -129,17 +157,23 @@ class Zone(_Base):
     
     @property
     def wp_display_name(self):
-        return f'Zone {self.id}: {self.n}'
+        return 'Zone {}: {}'.format(self.id, self.n)
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable """
         cls._count += 1
         return super(Zone, cls).__new__(cls, *args, **kwargs)
     
-    def add_new_WP_room(self, _new_room):
+    def add_new_room(self, _new_room):
+        # type (Room): -> None
+        """Adds a new Room (Space) to the Variant"""
+
         self.rooms_ventilation.append( _new_room )
 
     def add_new_appliance(self, _appliance):
+        # type (Appliance) -> None
+        """Adds an Appliance to the Variant"""
+
         self.appliances.append( _appliance )
 
 class Building(_Base):
@@ -154,7 +188,8 @@ class Building(_Base):
         self.has_been_generated = False
         self.has_been_changed_since_last_gen = False
     
-    def add_zones(self, _zones): #-> None
+    def add_zones(self, _zones): 
+        # type: (Zone) -> None
         """Adds a new Zone to the Building
         
         Arguments:
@@ -164,9 +199,12 @@ class Building(_Base):
         if not isinstance( _zones, list):
             _zones = [ _zones ]
 
-        self.lZone.extend( _zones )
+        for z in _zones:
+            if z in self.lZone: continue
+            self.lZone.append( z )
     
-    def add_components(self, _compos): #-> None
+    def add_components(self, _compos): 
+        # type: (PHX.component.Component) -> None
         """Adds new component to the variant.building.lComponent 
         
         Arguments:
@@ -180,7 +218,8 @@ class Building(_Base):
 
         self.lComponent.extend( _compos )
 
-    def get_zone_by_identifier(self, _zone_identifier_lookup): #-> Optional[Zone]
+    def get_zone_by_identifier(self, _zone_identifier_lookup):
+        #type: (str) -> Zone | None
         for zone in self.lZone:
             if zone.identifier == _zone_identifier_lookup:
                 return zone
@@ -207,7 +246,7 @@ class Variant(_Base):
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
         self.building = Building()
-        self.HVAC = HVAC()
+        self.HVAC = PHX.hvac.HVAC()
         self.res = None
         self.plugin = None
     
@@ -216,7 +255,8 @@ class Variant(_Base):
         cls._count += 1
         return super(Variant, cls).__new__(cls, *args, **kwargs)
     
-    def add_zones(self, _zones): #-> None
+    def add_zones(self, _zones):
+        # type: (list[Zone]) -> None
         """Adds new Zones to the Variant 
         
         Arguments:
@@ -230,7 +270,8 @@ class Variant(_Base):
 
         self.building.add_zones( _zones )
     
-    def add_components(self, _components): #-> None
+    def add_components(self, _components):
+        # type: (list[PHX.component.Component]) -> None
         """Adds new Components to the Variant 
         
         Arguments:
@@ -245,7 +286,8 @@ class Variant(_Base):
         self.building.add_components( _components )
         self.geom.add_component_polygons( _components )
 
-    def add_default_venilation_system(self):# -> None
+    def add_default_venilation_system(self):
+        # type: () -> None
         """Adds a Default HVAC Sytem to the Variant that will be assigned to all
             of the Zones in the Variant.
         
@@ -257,14 +299,14 @@ class Variant(_Base):
         --------
             * None
         """
-        default_hvac_system = HVAC_System()
+        default_hvac_system = PHX.hvac.HVAC_System()
         default_hvac_system.n = 'default_hvac_system'
         for zone in self.building.lZone:
-            new_zone_hvac = HVAC_System_ZoneCover()
+            new_zone_hvac = PHX.hvac.HVAC_System_ZoneCover()
             new_zone_hvac.idZone = zone.id
             default_hvac_system.add_new_zone_hvac_system( new_zone_hvac )
 
-        mech_vent_device = HVAC_Device()
+        mech_vent_device = PHX.hvac.HVAC_Device()
         default_hvac_system.add_new_hvac_device( mech_vent_device )
 
         self.HVAC.add_system( default_hvac_system )
@@ -273,5 +315,18 @@ class Variant(_Base):
     def zones(self):
         return self.building.lZone
 
-    def get_zone_by_identifier(self, _zone_identifier_lookup):# -> Optional[Zone]
+    def get_zone_by_identifier(self, _zone_identifier_lookup):
+        #type: (str) -> Zone | None
+        """Returns a Zone from the Variant's Zone list if it matches the specified Identifier
+        
+        Arguments:
+        ----------
+            * _zone_identifier_looup (str): The zone Identifier to lookup. 
+                ie: "4ef23cb3-89c5-4590-8069-dc395a183ac2"
+
+        Returns:
+        --------
+            * (Zone | None): The Zone, if found, or None if no matches are found
+        """
+
         return self.building.get_zone_by_identifier( _zone_identifier_lookup )

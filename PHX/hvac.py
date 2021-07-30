@@ -46,8 +46,8 @@ class HVAC_Device(_Base):
         self.id = self._count
         self.Name = ''
         self.IdentNr = self.id
-        self.SystemType = None  #HVAC_Device_SystemType()
-        self.TypeDevice = None #HVAC_Device_TypeDevice()
+        self.SystemType = None
+        self.TypeDevice = None
         self.UsedFor_Heating = False
         self.UsedFor_DHW = False
         self.UsedFor_Cooling = False
@@ -95,10 +95,12 @@ class HVAC_System(_Base):
         cls._count += 1
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
-    def add_new_zone_hvac_system(self, _zone_hvac: HVAC_System_ZoneCover) -> None:
+    def add_new_zone_hvac_system(self, _zone_hvac):
+        # type: (HVAC_System_ZoneCover) -> None
         self.lZoneCover.append( _zone_hvac )
     
-    def add_new_hvac_device(self, _hvac_device: HVAC_Device) -> None:
+    def add_new_hvac_device(self, _hvac_device): 
+        # type: (HVAC_Device) -> None
         self.lDevice.append( _hvac_device )
 
 
@@ -107,5 +109,6 @@ class HVAC(_Base):
         super(HVAC, self).__init__()
         self.lSystem = []
 
-    def add_system(self, _system: HVAC_System) -> None:
+    def add_system(self, _system):
+        # type: (HVAC_System) -> None
         self.lSystem.append( _system )

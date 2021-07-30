@@ -192,7 +192,7 @@ def _Component(_obj):
 		XML_Node('IdentNrWindowType', _obj.idWtC),
 	]
 
-def _WP_Room(_obj):
+def _Room(_obj):
 	return [
 		XML_Node('Name', _obj.n),
 		XML_Node( *Selection('WP_Room::Type', _obj.type).xml_data),

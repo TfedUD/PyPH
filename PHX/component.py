@@ -6,6 +6,12 @@ PHX Component Classes
 """
 
 from ._base import _Base
+import PHX.geometry
+
+class WindowHostNotFoundError(Exception):
+    def __init__(self, _p, _c):
+        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)
+        super(WindowHostNotFoundError, self).__init__(self.message)
 
 class WP_Color(_Base):
 
@@ -24,7 +30,7 @@ class Component(_Base):
         super(Component, self).__init__()
         self.id = self._count
         self.idSKP = self._count
-        self.n = ""
+        self.n = "No Name"
         self.visC = True
         self.type = 1
         self.idIC = 1
@@ -57,25 +63,26 @@ class Component(_Base):
         return super(Component, cls).__new__(cls, *args, **kwargs)
     
     def add_polygons(self, _polygons):
+        # type: (list[PHX.geometry.Polygon]) -> None
         """Adds a Polygon or list of Polygons to the Component
 
         Arguments:
         ----------
             * _polygons (list[Polygon]): The Polygons to add to the Component
-        
-        Returns:
-        --------
-            * None
         """
         
         if not isinstance( _polygons, list ):
             _polygons = [ _polygons ]
         
         for p in _polygons:
+            if not isinstance(p, PHX.geometry.Polygon): raise PHX.geometry.PolygonTypeError(p)
+            if p in self.polygons: continue
+            
             self.polygons.append( p )   
 
-    def add_window_as_child(self, _window_component, _poly_identifier ): #-> None
-        """Adds a Window's Polygons as 'children' of the Component's Polygon
+    def add_window_as_child(self, _window_component, _poly_identifier ): 
+        # type (Component, str) -> None
+        """Adds a Window's Polygons as 'children' of a Component's existing Polygon
 
         Arguments:
         ----------
@@ -84,5 +91,10 @@ class Component(_Base):
         """
         
         for p in self.polygons:
-            if p.identifier == _poly_identifier:
-                p.add_children( _window_component.polygons )
+            if not isinstance(p, PHX.geometry.Polygon): raise PHX.geometry.PolygonTypeError(p)
+            if p.identifier != _poly_identifier: continue
+            
+            p.add_children( _window_component.polygons )
+            break
+        else:
+            raise WindowHostNotFoundError(p, self)

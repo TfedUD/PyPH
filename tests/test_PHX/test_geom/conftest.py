@@ -1,10 +1,14 @@
-from PHX.geometry import Vector, Vertex, Polygon
+import PHX.geometry
 import pytest
 
 @pytest.fixture
 def reset_geometry_count():
-    Polygon._count = 9_999_999
-    Vertex._count = 0
+    """Re-set the class _count variable in order to test incrementing properly"""
+
+    PHX.geometry.Polygon._count = 9_999_999
+    PHX.geometry.Vertex._count = 0
+
     yield
-    Polygon._count = 9_999_999
-    Vertex._count = 0
+
+    PHX.geometry.Polygon._count = 9_999_999
+    PHX.geometry.Vertex._count = 0

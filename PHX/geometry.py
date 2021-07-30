@@ -7,13 +7,17 @@ PHX Geometry Classes
 
 from ._base import _Base
 from ladybug_geometry.geometry3d.face import Face3D
-from .component import Component
+
+class PolygonTypeError(Exception):
+    def __init__(self, _in):
+        self.message = 'Error: Expected input of type: "PHX.geometry.Polygon" Got: "{}"::"{}"?'.format(_in, type(_in))
+        super(PolygonTypeError, self).__init__(self.message)
 
 class PolygonNormalError(Exception):
     def __init__(self, _in):
-        self.message = f'Error: The Polygon "nVec" input should be a Vector with'\
-                    f'x,y,z attributes. Instead, got "{_in}", type: "{type(_in)}"'
-        super().__init__(self.message)
+        self.message = 'Error: The Polygon "nVec" input should be a Vector with'\
+                    'x,y,z attributes. Instead, got "{}", type: "{}"'.format(_in, type(_in))
+        super(PolygonNormalError, self).__init__(self.message)
 
 def LBT_geometry_dict_util(_dict):
     # type (dict): -> Optional[Face3D]
@@ -153,35 +157,7 @@ class Polygon(_Base):
             _child_polys = [ _child_polys ]
         
         for child_poly in _child_polys:
-            if child_poly.id not in self.children:
-                self.children.append( child_poly.id )
-
-class Geom(_Base):
-    """Geometry Collection"""
-
-    def __init__(self):
-        super(Geom, self).__init__()
-        self.polygons = []
-    
-    @property
-    def vertices(self):
-        return (v for p in self.polygons for v in p.vertices)
-
-    def add_component_polygons( self, _compos):
-        # type: (list[Component]) -> None
-        """Adds component's polygons to the Geometry's 'polygons' list
-        
-        Arguments:
-        ----------
-            * _compos (list[Component]): The components to add the polygons from
-        """
-        
-        if not isinstance(_compos, list):
-            _compos = [ _compos ]
-
-        for compo in _compos:
-            for poly in compo.polygons:
-                if poly not in self.polygons:
-                    self.polygons.append( poly )
-
-
+            if not isinstance(child_poly, Polygon): raise PolygonTypeError(child_poly)
+            if child_poly.id in self.children: continue
+            
+            self.children.append( child_poly.id )

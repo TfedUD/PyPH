@@ -1,12 +1,14 @@
-from PHX.component import Component
-from PHX.geometry import Geom, Polygon
+import PHX.component
+import PHX.geometry
+import PHX.variant
 
-def test_Geom_add_components(reset_geometry_count):
-    g1 = Geom()
-    c1 = Component()
-    c2 = Component()
-    p1 = Polygon()
-    p2 = Polygon()
+def test_Geom_add_components():
+    assert True
+    g1 = PHX.variant.Geom()
+    c1 = PHX.component.Component()
+    c2 = PHX.component.Component()
+    p1 = PHX.geometry.Polygon()
+    p2 = PHX.geometry.Polygon()
 
     c1.add_polygons(p1)
     c2.add_polygons(p2)

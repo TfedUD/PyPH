@@ -12,6 +12,8 @@ All PHX Classes should be written to comply with Python 2.7 (IronPython) format 
 Note: It is recommended to include type hints for documentation purposes. For details on type hints in Pythoon 2.7, See:
 [MYPY Typehints in Python 2](https://mypy.readthedocs.io/en/stable/cheat_sheet.html)
 
+Note: Grasshopper IronPython does NOT inlcude the 'typing' module for some reason - ensure that no PHX modules 'import typing' or it will throw an error when Grasshopper attempts to import.
+
 # PHX Class Usage:
 Most PHX classes are not designed to be 'run' on their own. These classes are data classes which are used by other interfaces (Rhino, WUFI, PHPP, etc.)
 
