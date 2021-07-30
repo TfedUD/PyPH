@@ -24,7 +24,26 @@ def test_Component_id(reset_component_count):
     assert c1.id == 1
     assert c2.id == 2
 
-def test_add_polygon_to_componet():
+def test_Polygon_ID_list(reset_component_count):
+    c1 = PHX.component.Component()
+    p1 = PHX.geometry.Polygon()
+    p2 = PHX.geometry.Polygon()
+    p3 = PHX.geometry.Polygon()
+    p4 = PHX.geometry.Polygon()
+
+    # add some Polygons
+    c1.add_polygons( [ p1, p2 ] )
+    assert c1.polygon_id_list == [ p1.id, p2.id ]
+
+    # add some more
+    c1.add_polygons( [ p3, p4] )
+    assert c1.polygon_id_list == [ p1.id, p2.id, p3.id, p4.id ]
+
+    # Add same one again, should ignore
+    c1.add_polygons( p3 )
+    assert c1.polygon_id_list == [ p1.id, p2.id, p3.id, p4.id ]
+
+def test_add_polygon_to_component():
     c1 = PHX.component.Component()
     p1 = PHX.geometry.Polygon()
 

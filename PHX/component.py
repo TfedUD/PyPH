@@ -8,6 +8,11 @@ PHX Component Classes
 from ._base import _Base
 import PHX.geometry
 
+class ComponentTypeError(Exception):
+    def __init__(self, _in):
+        self.message = 'Error: Expected input of type: "PHX.component.Component" Got: "{}"::"{}"?'.format(_in, type(_in))
+        super(ComponentTypeError, self).__init__(self.message)
+
 class WindowHostNotFoundError(Exception):
     def __init__(self, _p, _c):
         self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)

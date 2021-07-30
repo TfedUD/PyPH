@@ -8,6 +8,11 @@ from ._base import _Base
 import PHX.hvac
 import PHX.component
 
+class ZoneTypeError(Exception):
+    def __init__(self, _in):
+        self.message = 'Error: Expected input of type: "PHX.variant.Zone" Got: "{}"::"{}"?'.format(_in, type(_in))
+        super(ZoneTypeError, self).__init__(self.message)
+
 class Geom(_Base):
     """Geometry Collection"""
 
@@ -201,6 +206,8 @@ class Building(_Base):
 
         for z in _zones:
             if z in self.lZone: continue
+            if not isinstance(z, Zone):
+                raise ZoneTypeError(z)
             self.lZone.append( z )
     
     def add_components(self, _compos): 
@@ -216,7 +223,11 @@ class Building(_Base):
         if not isinstance(_compos, list):
             _compos = [ _compos ]
 
-        self.lComponent.extend( _compos )
+        for c in _compos:
+            if c in self.lComponent: continue
+            if not isinstance(c, PHX.component.Component):
+                raise PHX.component.ComponentTypeError(c)
+            self.lComponent.append( c )
 
     def get_zone_by_identifier(self, _zone_identifier_lookup):
         #type: (str) -> Zone | None
@@ -299,6 +310,7 @@ class Variant(_Base):
         --------
             * None
         """
+        
         default_hvac_system = PHX.hvac.HVAC_System()
         default_hvac_system.n = 'default_hvac_system'
         for zone in self.building.lZone:

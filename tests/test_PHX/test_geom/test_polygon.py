@@ -21,6 +21,10 @@ def test_Polygon_nVec(reset_geometry_count):
     v1 = Vector(0,0,1)
 
     p1.nVec = v1
+    assert p1.nVec.x == 0
+    assert p1.nVec.y == 0
+    assert p1.nVec.z == 1
+    assert p1.nVec == v1
 
     v2 = 'not a Vector'
     with pytest.raises(PolygonNormalError):
