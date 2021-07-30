@@ -7,8 +7,16 @@ PHX Geometry Classes
 
 from ._base import _Base
 from ladybug_geometry.geometry3d.face import Face3D
+from .component import Component
+
+class PolygonNormalError(Exception):
+    def __init__(self, _in):
+        self.message = f'Error: The Polygon "nVec" input should be a Vector with'\
+                    f'x,y,z attributes. Instead, got "{_in}", type: "{type(_in)}"'
+        super().__init__(self.message)
 
 def LBT_geometry_dict_util(_dict):
+    # type (dict): -> Optional[Face3D]
     """Utility for de-serializing Ladybug Geometry dictionaries
     
     Arguments:
@@ -17,7 +25,7 @@ def LBT_geometry_dict_util(_dict):
 
     Returns:
     --------
-        * LBT Geometry
+        * Optional[Face3D]: The Ladybug Face3D Object
     """
     
     object_type = _dict.get('type', None)
@@ -42,11 +50,11 @@ class Vector(_Base):
         * z (float):
     """
 
-    def __init__(self):
+    def __init__(self, x=0.0, y=0.0, z=0.0):
         super(Vector, self).__init__()
-        self.x = 0
-        self.y = 0
-        self.z = 0  
+        self.x = x
+        self.y = y
+        self.z = z 
 
 class Vertex(_Base):
     """ A single Vertex object with x, y, z positions and an ID number
@@ -64,12 +72,12 @@ class Vertex(_Base):
 
     _count = 0
 
-    def __init__(self):       
+    def __init__(self, x=0.0, y=0.0, z=0.0):       
         super(Vertex, self).__init__()
         self.id = self._count
-        self.x = 0.0
-        self.y = 0.0
-        self.z = 0.0
+        self.x = x
+        self.y = y
+        self.z = z
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable """
@@ -101,7 +109,6 @@ class Polygon(_Base):
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable """
-        
         cls._count += 1
         return super(Polygon, cls).__new__(cls, *args, **kwargs)
 
@@ -118,9 +125,7 @@ class Polygon(_Base):
     @nVec.setter
     def nVec(self, _in):
         if not hasattr(_in, 'x') or not hasattr(_in, 'y') or not hasattr(_in, 'z'):
-            msg = 'Error: The "nVec" input should be a Vector with'\
-                'x,y,z attributes. Got "{}", type: {type(_in_)}'.format(_in)
-            raise Exception(msg)
+            raise PolygonNormalError(_in)
         
         self._nVec = _in
     
@@ -134,18 +139,22 @@ class Polygon(_Base):
         return [ vert.id for vert in self.vertices ]
 
     def add_children(self, _child_polys):
-        """ Adds new child Poly IdentNrs to the 'children' list
+        # type: (list[Polygon]) -> None
+        """ Adds new child Poly Id-Numbers to the 'children' list. Used for
+        hosted surfaces such as windows and doors.
         
         Arguments:
         ----------
-            * _child_polys (list[Polygon]): A list of Poly objects to add as children (ie: for Windows)
+            * _child_polys (list[Polygon]): A list of Poly objects to add as children of the host.
         """
         if not _child_polys: return
 
         if not isinstance(_child_polys, list):
             _child_polys = [ _child_polys ]
-
-        self.children.extend( [ _.id for _ in _child_polys ] )
+        
+        for child_poly in _child_polys:
+            if child_poly.id not in self.children:
+                self.children.append( child_poly.id )
 
 class Geom(_Base):
     """Geometry Collection"""
@@ -159,11 +168,12 @@ class Geom(_Base):
         return (v for p in self.polygons for v in p.vertices)
 
     def add_component_polygons( self, _compos):
+        # type: (list[Component]) -> None
         """Adds component's polygons to the Geometry's 'polygons' list
         
         Arguments:
         ----------
-            * _compos (Component): The components to add the polygons from
+            * _compos (list[Component]): The components to add the polygons from
         """
         
         if not isinstance(_compos, list):
@@ -171,6 +181,7 @@ class Geom(_Base):
 
         for compo in _compos:
             for poly in compo.polygons:
-                self.polygons.append( poly )
+                if poly not in self.polygons:
+                    self.polygons.append( poly )
 
 

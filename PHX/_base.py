@@ -16,6 +16,10 @@ class _Base(object):
         self.identifier_short = str(self.identifier).split('-')[0]
         self.user_data = {}
     
+    def __new__(cls, *args, **kwargs):
+        """Included so that subclasses can customize their own __new__"""
+        return super(_Base, cls).__new__(cls)
+
     def to_dict(self):
         """Serialize the Object into a dictionary
         
