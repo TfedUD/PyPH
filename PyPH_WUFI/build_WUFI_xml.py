@@ -3,11 +3,11 @@
 
 """Functions used to create the full WUFI XML file"""
 
-from typing import Any
-from PHX.project import Project
+import PHX.project
+import PyPH_WUFI.xml_node
+import PyPH_WUFI.xml_object_data
+
 from xml.dom.minidom import Document, Element
-from .xml_node import XML_List, XML_Node, XML_Object
-from .xml_object_data import xml_data
 
 def _xml_str(_) -> str:
     """Util: Handle converting Boolean values to xml text format properly"""
@@ -25,7 +25,7 @@ def _add_node_attributes(_data, _element) -> None:
     
     Arguments:
     ----------
-        * _data (XML_Node | XML_Object | XML_List): The XML Data object to use as the source
+        * _data (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object | PyPH_WUFI.xml_node.XML_List): The XML Data object to use as the source
         * _elememt (xml.dom.minidom.Element): The element to set the Attributes for
     """
     
@@ -39,7 +39,7 @@ def _add_text_node(_doc, _parent_node, _data) -> None:
     ----------
         * _doc (xml.dom.minidom.doc): The XML document to operate on.
         * _parent_node (xml.dom.minidom.Element): The element to use as the 'parent' node.
-        * _data (XML_Node): The data object to add.
+        * _data (PyPH_WUFI.xml_node.XML_Node): The data object to add.
     """
     
     txt = _doc.createTextNode( _xml_str(_data.node_value) )           # 1) Create the new text-node 
@@ -58,23 +58,23 @@ def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
     ----------
         * _doc (xml.dom.minidom.doc): The XML document to operate on.
         * _parent_node (xml.dom.minidom.Element): The element to use as the 'parent' node.
-        * _item (XML_Node | XML_Object | XML_List): The XML Data object to walk through
+        * _item (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object | PyPH_WUFI.xml_node.XML_List): The XML Data object to walk through
     """
 
-    if isinstance(_item, XML_Node):
+    if isinstance(_item, PyPH_WUFI.xml_node.XML_Node):
         #-- Basic Node, write out the value
         _add_text_node( _doc, _parent_node, _item )
 
-    elif isinstance(_item, XML_Object):
+    elif isinstance(_item, PyPH_WUFI.xml_node.XML_Object):
         #-- Add a new node for the object, then try and add all its fields
         _new_parent_node = _doc.createElementNS(None, _xml_str(_item.node_name))
         _add_node_attributes(_item, _new_parent_node)
         _parent_node.appendChild(_new_parent_node) 
 
-        for item in xml_data(_item.node_object):
+        for item in PyPH_WUFI.xml_object_data.xml_data(_item.node_object):
             _add_children(_doc, _new_parent_node, item)
 
-    elif isinstance(_item, XML_List):
+    elif isinstance(_item, PyPH_WUFI.xml_node.XML_List):
         #-- Add a new node for the 'container', and then add each item in the list
         _new_parent_node = _doc.createElementNS(None, _xml_str(_item.node_name))
         _add_node_attributes(_item, _new_parent_node)
@@ -83,12 +83,12 @@ def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
         for each_item in _item.node_items:
             _add_children(_doc, _new_parent_node, each_item)
 
-def create_project_xml_text(_project: Project) -> str:
+def create_project_xml_text(_project: PHX.project.Project) -> str:
     """Create all the XML Nodes as text for the input Project
     
     Arguments:
     ----------
-        * _project (PyPH_WUFI.project.Project): the Project object to use as the 'source'
+        * _project (PHX.project.Project): the Project object to use as the 'source'
 
     Returns:
     --------
@@ -101,7 +101,7 @@ def create_project_xml_text(_project: Project) -> str:
     root = doc.createElementNS(None, 'WUFIplusProject')
     doc.appendChild(root)
     
-    for item in xml_data(_project):
+    for item in PyPH_WUFI.xml_object_data.xml_data(_project):
         _add_children(doc, root, item)
 
     return doc.toprettyxml()
@@ -112,7 +112,7 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
     Arguments:
     ----------
         * _file_address (str): The file path to save to
-        * _Project (PyPH_WUFI.project.Project): The Project Object to write to XML
+        * _Project (PHX.project.Project): The Project Object to write to XML
     """
 
     xml_text = create_project_xml_text( _Project )

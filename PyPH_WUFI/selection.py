@@ -7,7 +7,7 @@ During XML write, these objects will look to the "selection_options" module to
 see what options are 'valid' and to align attr-names and attr-values. 
 """
 
-from . import selection_options
+import PyPH_WUFI.selection_options
 
 class SelectionInputTypeError(Exception):
     def __init__(self, _name, _in):
@@ -32,7 +32,7 @@ class Selection:
     def get_attribute_data(self, _node_name):
         """Get the right data dict from the selection_options module"""
 
-        d = getattr(selection_options, f'__{self.parent_name}', {}).get(self.node_name, {})
+        d = getattr(PyPH_WUFI.selection_options, f'__{self.parent_name}', {}).get(self.node_name, {})
         
         if not d: raise Exception('Error: Cannot find data for Node: "{}"?'.format(self._node_name))
         else: return d
