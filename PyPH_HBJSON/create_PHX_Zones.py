@@ -1,17 +1,18 @@
+# -*- coding: utf-8 -*-
 """Functions used to build WUFI Zones and WUFI Rooms based on HB-Model inputs"""
 
-from honeybee.room import Room as HB_Room
+import honeybee.room
 import PHX.variant
 import PHX.spaces
 
 #-- Zones
 #-------------------------------------------------------------------------------
-def create_zone_from_HB_room( _hb_room: HB_Room ) -> PHX.variant.Zone:
+def create_zone_from_HB_room( _hb_room: honeybee.room.Room ) -> PHX.variant.Zone:
     """Creates a new Zone from a single Honeybee 'Room'
     
     Arguments:
     ----------
-        * _hb_room (Room): The Honeybee room to use as the source for the new Zone
+        * _hb_room (honeybee.room.Room): The Honeybee room to use as the source for the new Zone
 
     Returns:
     --------
@@ -34,7 +35,7 @@ def create_zone_from_HB_room( _hb_room: HB_Room ) -> PHX.variant.Zone:
 
     return zone
 
-def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
+def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: honeybee.room.Room) -> PHX.variant.Zone:
     """Create a new default Space object for a HB Room. This is used if no detailed
     Space information is supplied by the user. By default, each Honyebee Room will have a single 'Space.'
 
@@ -42,7 +43,7 @@ def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Ro
     ----------
         * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
             for the new PHX.spaces.Space
-        * _hb_room (Room): The source Honeybee 'Room' to use to set the name for
+        * _hb_room (honeybee.room.Room): The source Honeybee 'Room' to use to set the name for
             the new PHX.spaces.Space created.
 
     Returns:
@@ -60,7 +61,7 @@ def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Ro
     
     return _phx_Zone
 
-def add_detailed_Spaces_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
+def add_detailed_Spaces_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: honeybee.room.Room) -> PHX.variant.Zone:
     """Sets the Zone's Spaces based on detailed Space data found in the 
     Honyebee room.user_data['phx']['spaces'] dictionary.
 
@@ -68,7 +69,7 @@ def add_detailed_Spaces_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_
     ----------
         * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
             for the new PHX.spaces.Space
-        * _hb_room (Room): The source Honeybee 'Room' to use to set the name for
+        * _hb_room (honeybee.room.Room): The source Honeybee 'Room' to use to set the name for
             the new PHX.spaces.Space created.
 
     Returns:

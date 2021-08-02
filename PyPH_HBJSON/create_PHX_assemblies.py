@@ -1,12 +1,15 @@
-from honeybee.face import Face
-from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
+# -*- coding: utf-8 -*-
+"""Functions to create PHX Materiala, Assembly-Layers, and Construction Assemblies from HB-JSON"""
+
+import honeybee.face
+import honeybee_energy.material.opaque
 import PHX.component
-from PHX.assemblies import Assembly, Material, Layer
-from PHX.window_types import WindowType, WindowFrame
+import PHX.assemblies
+import PHX.window_types
 
 #--- Assemblies
 #-------------------------------------------------------------------------------
-def create_new_NoMassMaterial_from_hb_mat( _hb_material: EnergyMaterialNoMass, _thickness: float=0.1) -> Material:
+def create_new_NoMassMaterial_from_hb_mat( _hb_material: honeybee_energy.material.opaque.EnergyMaterialNoMass, _thickness: float=0.1) -> PHX.assemblies.Material:
     """
 
     Arguments:
@@ -18,7 +21,7 @@ def create_new_NoMassMaterial_from_hb_mat( _hb_material: EnergyMaterialNoMass, _
         * (tuple[Material, Thickness]): A Tuple with [0]=WUFI Material, [1]=Thickness (meters)
     """
     
-    new_material = Material()
+    new_material = PHX.assemblies.Material()
     new_material.n = _hb_material.display_name
 
     new_material.r_value = _hb_material.r_value
@@ -26,7 +29,7 @@ def create_new_NoMassMaterial_from_hb_mat( _hb_material: EnergyMaterialNoMass, _
 
     return new_material, _thickness
 
-def create_new_StandardMaterial_from_hb_mat( _hb_material: EnergyMaterial, _thickness: float) -> Material:
+def create_new_StandardMaterial_from_hb_mat( _hb_material: honeybee_energy.material.opaque.EnergyMaterial, _thickness: float) -> PHX.assemblies.Material:
     """
 
     Arguments:
@@ -38,7 +41,7 @@ def create_new_StandardMaterial_from_hb_mat( _hb_material: EnergyMaterial, _thic
         * (tuple[Material, Thickness]): A Tuple with [0]=WUFI Material, [1]=Thickness (meters)
     """
     
-    new_material = Material()
+    new_material = PHX.assemblies.Material()
     
     new_material.n = _hb_material.display_name
     new_material.tConD = _hb_material.conductivity
@@ -47,8 +50,8 @@ def create_new_StandardMaterial_from_hb_mat( _hb_material: EnergyMaterial, _thic
 
     return new_material, _thickness
 
-def create_new_material_from_hb_mat( _hb_material ) -> Material:
-    """Creates a new Material based on the parameters of a Honeybee Material
+def create_new_material_from_hb_mat( _hb_material ) -> PHX.assemblies.Material:
+    """Creates a new PHX.assemblies.Material based on the parameters of a Honeybee Material
 
     Arguments:
     ----------
@@ -57,7 +60,9 @@ def create_new_material_from_hb_mat( _hb_material ) -> Material:
 
     Returns:
     --------
-        * (tuple[Material, Thickness]): A Tuple with [0]=WUFI Material, [1]=Thickness (meters)
+        * (tuple[PHX.assemblies.Material, Thickness]): Tuple
+            [0]=PHX.assemblies.Material
+            [1]=Thickness (meters)
     """
     
     if hasattr( _hb_material, 'thickness'):
@@ -69,7 +74,7 @@ def create_new_material_from_hb_mat( _hb_material ) -> Material:
     else:
         raise Exception(f'Error: Cannot determine type of Honeybee Material: "{_hb_material}", type: "{type(_hb_material)}"')
         
-def create_new_assembly_from_hb_face( _face: Face ) -> Assembly:
+def create_new_assembly_from_hb_face( _face: honeybee.face.Face ) -> PHX.assemblies.Assembly:
     """Create a new Construction Assembly based on a source Honeybee Face. Will use 
         the parameters found on the Honeybee Face's .properties.energy.construction and 
         .properties.energy.construction.materials in order to create the new Assembly and 
@@ -77,15 +82,15 @@ def create_new_assembly_from_hb_face( _face: Face ) -> Assembly:
 
     Arguments:
     ----------
-        * _face (Face): The Honeyebee Face to use as the source
+        * _face (honeybee.face.Face): The Honeyebee Face to use as the source
     
     Returns:
     --------
-        * (Assembly): A new Construction Assembly based on the Construction found on 
+        * (PHX.assemblies.Assembly): A new Construction Assembly based on the Construction found on 
             the input Honeybee Face
     """
     
-    assembly = Assembly()
+    assembly = PHX.assemblies.Assembly()
     assembly.n = _face.properties.energy.construction.display_name
     assembly.identifier = _face.properties.energy.construction.identifier
 
@@ -96,7 +101,7 @@ def create_new_assembly_from_hb_face( _face: Face ) -> Assembly:
 
     #--- Build the Layers of the Assembly
     for layer_name in _face.properties.energy.construction.layers:
-        new_layer = Layer()
+        new_layer = PHX.assemblies.Layer()
 
         hb_material = _face.properties.energy.construction.materials[ materials[layer_name] ]
         new_layer.material, new_layer.thickness = create_new_material_from_hb_mat( hb_material )
@@ -108,14 +113,14 @@ def create_new_assembly_from_hb_face( _face: Face ) -> Assembly:
 
 #--- Windows
 #-------------------------------------------------------------------------------
-def create_new_window_type_from_hb_face( _face: Face ) -> WindowType:
+def create_new_window_type_from_hb_face( _face: honeybee.face.Face ) -> PHX.window_types.WindowType:
     """Create a new WindowType based on a source Honeybee Aperture. Will use 
         the parameters found on the Honeybee Aperture's .properties.energy.construction 
         in order to create the new WindowType
 
     Arguments:
     ----------
-        * _face (Face): The Honeyebee Face to use as the source
+        * _face (honeybee.face.Face): The Honeyebee Face to use as the source
     
     Returns:
     --------
@@ -123,7 +128,7 @@ def create_new_window_type_from_hb_face( _face: Face ) -> WindowType:
             the input Honeybee Aperture
     """
     
-    new_window_type = WindowType()
+    new_window_type = PHX.window_types.WindowType()
     
     new_window_type.n = _face.properties.energy.construction.display_name
     new_window_type.identifier = _face.properties.energy.construction.identifier
@@ -133,18 +138,18 @@ def create_new_window_type_from_hb_face( _face: Face ) -> WindowType:
     new_window_type.Ufr = _face.properties.energy.construction.u_factor
     new_window_type.gtr = _face.properties.energy.construction.solar_transmittance
 
-    new_frame = WindowFrame()
+    new_frame = PHX.window_types.WindowFrame()
     new_window_type.add_new_frame_element( new_frame, 'L' )
 
     return new_window_type
 
-def set_compo_window_type_from_hb_aperture( _window_compo: PHX.component.Component, _hb_face: Face, _window_type_collection):
+def set_compo_window_type_from_hb_aperture( _window_compo: PHX.component.Component, _hb_face: honeybee.face.Face, _window_type_collection):
     """Sets a Window Component's 'IdentNrAssembly' based on the Assembly of a Honeybee Aperture
 
     Arguments:
     ----------
         * _window_compo (PHX.component.Component): The Window Component to set the IdentNrAssembly of
-        * _hb_face (Face): The Honeybee Face. Will use the Face's Assembly Name as the key
+        * _hb_face (honeybee.face.Face): The Honeybee Face. Will use the Face's Assembly Name as the key
         * _window_type_collection (WindowTypeCollection): The Project's 
             WindowTypeCollection with all the WindowType Information
     

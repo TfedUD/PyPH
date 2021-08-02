@@ -1,12 +1,15 @@
-from honeybee.face import Face
-from honeybee.aperture import Aperture
-from PHX.geometry import Polygon, Vertex
-from PHX.variant import Zone
+# -*- coding: utf-8 -*-
+"""Functions to create 'Components' (surfaces / windows) from HB-JSON"""
+
+import honeybee.face
+import honeybee.aperture
+import PHX.geometry
+import PHX.variant
 import PHX.component
 
 #--- Opaque Components
 #-------------------------------------------------------------------------------
-def create_vertices_from_face( _hb_face: Face ) -> list[Vertex]:
+def create_vertices_from_face( _hb_face: honeybee.face.Face ) -> list[PHX.geometry.Vertex]:
     """Creates new Verts for each of the Vertices that make up a single Honeybee Face
     
     Arguments:
@@ -15,13 +18,13 @@ def create_vertices_from_face( _hb_face: Face ) -> list[Vertex]:
     
     Returns:
     -------_
-        * (list[Vertex]): A list of the new WP-Vertex objects, one for each HB-Vertex found
+        * (list[PHX.geometry.Vertex]): A list of the new WP-Vertex objects, one for each HB-Vertex found
             on the input Honeybee Face 
     """
         
     verts = []
     for vert in _hb_face.vertices:
-        new_vert = Vertex()
+        new_vert = PHX.geometry.Vertex()
         new_vert.x = vert.x
         new_vert.y = vert.y
         new_vert.z = vert.z
@@ -30,7 +33,7 @@ def create_vertices_from_face( _hb_face: Face ) -> list[Vertex]:
     
     return verts
 
-def create_poly_from_HB_face( _hb_face: Face ) -> Polygon:
+def create_poly_from_HB_face( _hb_face: honeybee.face.Face ) -> PHX.geometry.Polygon:
     """Creates a new Poly from a single Honeybee Face
     
     Arguments:
@@ -39,19 +42,19 @@ def create_poly_from_HB_face( _hb_face: Face ) -> Polygon:
     
     Returns:
     --------
-        * (Poly): A new Poly object, based on the input Honeybee Face
+        * (PHX.geometry.Polygon): A new Poly object, based on the input Honeybee Face
     """ 
 
     #--- Create the new Poly bits and pieces from the HB Face
     if not _hb_face: return None
     
-    poly = Polygon()
+    poly = PHX.geometry.Polygon()
     poly.vertices = create_vertices_from_face( _hb_face )
     poly.nVec = _hb_face.normal
 
     return poly
 
-def create_new_opaque_component_from_hb_face( _hb_face: Face) -> PHX.component.Component:
+def create_new_opaque_component_from_hb_face( _hb_face: honeybee.face.Face) -> PHX.component.Component:
     """Creates a new Component based on an input HB-Face
     
     Arguments:
@@ -60,7 +63,7 @@ def create_new_opaque_component_from_hb_face( _hb_face: Face) -> PHX.component.C
     
     Returns:
     --------
-        * (Component): The new Component with attributes based on the input HB Face(s)
+        * (PHX.component.Component): The new Component with attributes based on the input HB Face(s)
     """
     
     compo = PHX.component.Component()
@@ -73,17 +76,18 @@ def create_new_opaque_component_from_hb_face( _hb_face: Face) -> PHX.component.C
 
     return compo
 
-def set_compo_interior_exposure_from_hb_face(_compo: PHX.component.Component, _zone: Zone) -> PHX.component.Component:   
+def set_compo_interior_exposure_from_hb_face(_compo: PHX.component.Component, 
+                                            _zone: PHX.variant.Zone) -> PHX.component.Component:   
     """Sets a Component's Inner-Exposire Value based on the Honeyebee Face
     
     Arguments:
     ----------
         * _compo (PHX.component.Component): The Component to set the Inner-Exposure values for
-        * _zone (Zone): The Component's host Zone
+        * _zone (PHX.variant.Zone): The Component's host Zone
     
     Returns:
     --------
-        * (Component): The input Component, with modified Inner-Exposure Value
+        * (PHX.component.Component): The input Component, with modified Inner-Exposure Value
     """
     
     _compo.idIC = _zone.id
@@ -91,19 +95,21 @@ def set_compo_interior_exposure_from_hb_face(_compo: PHX.component.Component, _z
 
     return _compo
 
-def set_compo_exterior_exposure_from_hb_face(_compo: PHX.component.Component, _hb_face: Face, _zones: list[Zone] ) -> PHX.component.Component:
+def set_compo_exterior_exposure_from_hb_face(_compo: PHX.component.Component, 
+                                            _hb_face: honeybee.face.Face, 
+                                            _zones: list[PHX.variant.Zone] ) -> PHX.component.Component:
     """Sets a Component's Exterior-Exposure Value based on a Honeyebee Face
     
     Arguments:
     ----------
         * _compo (PHX.component.Component): The Component to set the Exterior-Exposure values for
-        * _hb_face (Face): The Honeybee Face to base the Component's Exterior-Exposure type on
-        * _zones (list[Zone]): A list of all the Zones in the Variant.Building. This is
+        * _hb_face (honeybee.face.Face): The Honeybee Face to base the Component's Exterior-Exposure type on
+        * _zones (list[PHX.variant.Zone]): A list of all the Zones in the Variant.Building. This is
             needed in order to properly solve 'interior' faces with 'Surface' adjacency.
 
     Returns:
     --------
-        * (Component): The Component with the modified Exterior-Exposure value
+        * (PHX.component.Component.Component): The Component with the modified Exterior-Exposure value
     """
 
     # Translate Honeybee Exposure Type (str) into WUFI Exposure values (int)
@@ -135,17 +141,18 @@ def set_compo_exterior_exposure_from_hb_face(_compo: PHX.component.Component, _h
     
     return _compo
 
-def set_compo_colors_by_hb_face( _compo: PHX.component.Component, _hb_face: Face ) -> PHX.component.Component:
+def set_compo_colors_by_hb_face( _compo: PHX.component.Component, 
+                                _hb_face: honeybee.face.Face ) -> PHX.component.Component:
     """Sets the Interior and Exterior Component Colors based on a Honeybee Face's Type (Wall | RoofCeiling | Floor)
 
     Arguments:
     ----------
-        * _compo (Component): The Component to set the colors for
-        * _hb_face (Face): The Honeybee Face to base the color settings on
+        * _compo (PHX.component.Component): The Component to set the colors for
+        * _hb_face (honeybee.face.Face): The Honeybee Face to base the color settings on
 
     Returns:
     --------
-        * (Component): The Component with modified colors applied
+        * (PHX.component.Component): The Component with modified colors applied
     """
 
     colors = {
@@ -187,13 +194,15 @@ def set_compo_colors_by_hb_face( _compo: PHX.component.Component, _hb_face: Face
 
     return _compo
 
-def set_compo_assembly_from_hb_face( _compo: PHX.component.Component, _hb_face: Face, _assembly_collection ) -> PHX.component.Component:
+def set_compo_assembly_from_hb_face( _compo: PHX.component.Component, 
+                                    _hb_face: honeybee.face.Face, 
+                                    _assembly_collection ) -> PHX.component.Component:
     """Sets a Component's 'IdentNrAssembly' based on the Assembly name from a Honeybee Face
 
     Arguments:
     ----------
-        * _compo (Component): The Component to set the Assembly of
-        * _hb_face (Face): The Honeybee Face. Will use the Face's Assembly Name as the key
+        * _compo (PHX.component.Component): The Component to set the Assembly of
+        * _hb_face (honeybee.face.Face): The Honeybee Face. Will use the Face's Assembly Name as the key
         * _assembly_collection (AssemblyCollection): The Project's Assembly Collection with all the Assembly Information
     
     Returns:
@@ -210,13 +219,14 @@ def set_compo_assembly_from_hb_face( _compo: PHX.component.Component, _hb_face: 
 
 #--- Window Components
 #-------------------------------------------------------------------------------
-def create_new_window_component_from_hb_aperture( _hb_Aperture: Aperture , _zone: Zone ) -> PHX.component.Component:
+def create_new_window_component_from_hb_aperture( _hb_Aperture: honeybee.aperture.Aperture, 
+                                        _zone: PHX.variant.Zone ) -> PHX.component.Component:
     """ Creates a new Window Component from a Honeybee 'Aperture'
     
     Arguments:
     ----------
-        * _hb_Aperture (Aperture): The Honeybee Aperture to use as the source for the new Component's Poly.
-        * _zone (Zone): The Host Zone which the new Winow Component is associate with.
+        * _hb_Aperture (honeybee.aperture.Aperture): The Honeybee Aperture to use as the source for the new Component's Poly.
+        * _zone (PHX.variant.Zone): The Host Zone which the new Winow Component is associate with.
     
     Returns:
     --------

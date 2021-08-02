@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Functions for importing / translating Honeybee Models into WUFI-JSON """
 
 import json
