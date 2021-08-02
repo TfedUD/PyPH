@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+"""Utility functions for working with Ladybug-Tools objects"""
+
 from copy import deepcopy
 from collections import defaultdict
-
 
 def add_to_HB_Obj_user_data( _hb_obj, _dict={}, _key='phx', _write_mode='update' ):
     """Adds the a new dictionary entry to the Honeybee Object's 'user_data'

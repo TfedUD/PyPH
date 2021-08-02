@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+"""Functions to create new Space-Volumes and set attributes based on Rhino Geometry inputs"""
 
-"""Module documentation goes here
-"""
+import PHX.spaces
+import gh_io
 
-from PHX.spaces import Volume
-
-def create_default_volume_geometry(IGH, _volume, _height=2.5): #-> list[LBT Geometry]
+def create_default_volume_geometry(IGH, _volume, _height=2.5):
+    # type: (gh_io.IGH, float, float) -> tuple[list, float]
     """Creates a default volume-geometry space shape for a Volume Object
     
     Arguments:
@@ -16,7 +16,9 @@ def create_default_volume_geometry(IGH, _volume, _height=2.5): #-> list[LBT Geom
 
     Returns:
     --------
-        * list (LBT Geometry): A list of the new volume space geometry as LBT Geometry
+        * tuple( list:(LBT Geometry), float: volume ): 
+            [0] A list of the new volume space geometry as LBT Geometry
+            [1] The total volume (m3) for the geometry
     """
 
     if not _volume: return None
@@ -28,12 +30,16 @@ def create_default_volume_geometry(IGH, _volume, _height=2.5): #-> list[LBT Geom
     new_volume_geometry = []
     for _ in merged_floor_geom:
         for lbt_face3D in _:
-            new_floor_srfc = IGH.convert_to_rhino_geom(lbt_face3D)
-            new_volume_geometry.append(IGH.grasshopper_components.Extrude(new_floor_srfc, extrusion_vector) )
+            new_floor_srfc = IGH.convert_to_rhino_geom(lbt_face3D)          
+            new_volume_geometry.append( IGH.grasshopper_components.Extrude(new_floor_srfc, extrusion_vector) )
     
-    return IGH.convert_to_LBT_geom(new_volume_geometry)
+    total_volume = sum( IGH.grasshopper_components.Volume(g).volume for g in  new_volume_geometry )
+    volume_geom = IGH.convert_to_LBT_geom(new_volume_geometry)
+    
+    return (volume_geom, total_volume)
 
-def create_volumes(IGH, _floors_dict, _space_geometry_dict): #-> dict
+def create_volumes(IGH, _floors_dict, _space_geometry_dict):
+    # type: (gh_io.IGH, dict, dict) -> dict
     """Creates a new Volume for each Floor input in the set. Will try and use any
     user-input space geometry to  form the Volume space-shape. Otherwise, will build 
     default room shapes based on the Floor
@@ -63,10 +69,10 @@ def create_volumes(IGH, _floors_dict, _space_geometry_dict): #-> dict
     for hb_room_dict in _floors_dict.values():
         hb_room_dict['Volumes'] = []
         
-        for space_name, list_of_floors in hb_room_dict['Floors'].items():
+        for list_of_floors in hb_room_dict['Floors'].values():
 
             for floor in list_of_floors:
-                new_volume = Volume()
+                new_volume = PHX.spaces.Volume()
                 new_volume.add_Floor( floor )
                 
                 merged_floor_geom = IGH.merge_Face3D( floor.geometry )
@@ -81,12 +87,13 @@ def create_volumes(IGH, _floors_dict, _space_geometry_dict): #-> dict
                         breps, closed = IGH.grasshopper_components.BrepJoin(test_geometry)
 
                         if closed is True:
+                            new_volume.volume = IGH.grasshopper_components.Volume(breps).volume
                             new_volume.volume_geometry = IGH.convert_to_LBT_geom(breps)
                             del space_geometry_dict[k] # to speed up later tests
-                        
+                 
                 #--- Add the default volume space, if needed
                 if not new_volume.volume_geometry:
-                    new_volume.volume_geometry = create_default_volume_geometry(IGH, new_volume)
+                    new_volume.volume_geometry, new_volume.volume = create_default_volume_geometry(IGH, new_volume)
                     
                 hb_room_dict['Volumes'].append( new_volume )
 

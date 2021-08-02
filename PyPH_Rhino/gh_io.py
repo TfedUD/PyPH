@@ -1,10 +1,19 @@
+# -*- coding: utf-8 -*-
+"""Grasshopper Interface Class. Used to pass Rhino, GH side dependancies to all other classes.
+
+This is done so that other classes can be tested by mocking out this Interface. If I 
+could figure out how to get Rhino dependancies to be recognized by testing framework, 
+probably would not need something like this? I suppose it does help reduce coupling?
+"""
+
 from contextlib import contextmanager
-from honeybee.face import Face, Face3D
+import honeybee.face
 from ladybug_rhino.togeometry import (to_face3d, to_linesegment3d, to_mesh3d, to_point3d, to_polyline3d)
 from ladybug_rhino.fromgeometry import (from_face3d, from_linesegment3d, from_mesh3d, from_point3d, from_polyline3d)
 
 class IGH:
-    """PyPH Interface for basic Grasshopper (and Rhino) dependancies 
+    """PyPH Interface for basic Grasshopper (and Rhino) dependancies that can be
+        used by other classes which accept this Interface object. 
     
     Arguments:
     ----------
@@ -24,7 +33,8 @@ class IGH:
         self.grasshopper_components = _ghc
         self.Grasshopper = _gh
 
-    def gh_compo_find_input_index_by_name(self, _input_name): #-> Optional(int)
+    def gh_compo_find_input_index_by_name(self, _input_name):
+        # type: (str) -> int
         """ 
         Compares an input name against the list of GH_Component Inputs. Returns the 
         index of any match or None if not found
@@ -35,7 +45,7 @@ class IGH:
         
         Returns:
         --------
-        * Optional (int): The index of the matching item, or None
+            * (int): The index of the matching item
         """
         
         for i, each in enumerate(list(self.ghenv.Component.Params.Input)):      
@@ -45,7 +55,8 @@ class IGH:
 
         raise Exception('Error: The input node "{}" cannot be founnd?'.format(_input_name))
 
-    def gh_compo_get_input_guids(self, _input_index_number): #-> list[System.Guid]
+    def gh_compo_get_input_guids(self, _input_index_number):
+        # type: (int) -> list[System.Guid]
         """
         Returns a list of all the GUIDs of the objects being passed to the 
         component's specified input node.
@@ -98,7 +109,8 @@ class IGH:
         finally:
             self.scriptcontext.doc = self.ghdoc
 
-    def get_rh_obj_UserText_dict(self, _rh_obj_guids): #->list[dict]
+    def get_rh_obj_UserText_dict(self, _rh_obj_guids):
+        # type: (System.guid) -> list[dict]
         """
         Get any Rhino-side UserText attribute data for the Object/Elements.
         Note: this only works in Rhino v6.0+ I believe...
@@ -142,7 +154,8 @@ class IGH:
         
         return output_list
 
-    def convert_to_LBT_geom(self, _inputs): #-> list
+    def convert_to_LBT_geom(self, _inputs):
+        # type: (list) -> list
         """Converts a list of RH- or GH-Geometry into a list of LBT-Geometry. If 
             input is a string, boolean or number, will just return that without converting.
 
@@ -187,7 +200,8 @@ class IGH:
         
         return lbt_geomertry
     
-    def convert_to_rhino_geom(self, _inputs): #-> list
+    def convert_to_rhino_geom(self, _inputs): 
+        # type: (list) -> list
         """Converts a list of LBT-Geometry into RH-Geometry.
 
         Arguments:
@@ -207,16 +221,17 @@ class IGH:
                  for __ in _:
                     result = self.convert_to_rhino_geom(__)
                     rh_geom.append(result)
-            elif isinstance(_, Face ):
+            elif isinstance(_, honeybee.face.Face ):
                 rh_geom.append( from_face3d( _.geometry ) )
-            elif isinstance(_, Face3D):
+            elif isinstance(_, honeybee.face.Face3D):
                 rh_geom.append( from_face3d( _ ) )
             else:
                 raise Exception('Input Error: Cannot convert "{}" to Rhino Geometry.'.format(type(_)))
         
         return rh_geom
     
-    def inset_LBT_face(self, _lbt_face, _inset_distance): #-> list
+    def inset_LBT_face(self, _lbt_face, _inset_distance):
+        # type: (honeybee.face.Face, float) -> list
         """Converts an LBT face to Rhino Geom and performs an 'inset' operation on it. Returns the newly inset Face3D 
         
         Arguments:
@@ -266,7 +281,8 @@ class IGH:
         else:
             return self.convert_to_LBT_geom(srfcInset_Neg)
 
-    def merge_Face3D(self, _face3Ds): #-> list
+    def merge_Face3D(self, _face3Ds):
+        # type: (honeybee.face.Face3D) -> list[ list[honeybee.face.Face3D] ]
         """Combine a set of Face3D surfaces together into 'merged' Face3Ds
         
         This *should* work on surfaces that are touching, AND ones that overlap. Using 
@@ -284,7 +300,7 @@ class IGH:
         #-- Pull out the Perimeter curves from each Face3D
         perims = []
         for face3D in _face3Ds:
-            rh_brep = self.convert_to_rhino_geom(face3D)
+            rh_brep = self.convert_to_rhino_geom( face3D )
             faces, edges, vertices = self.grasshopper_components.DeconstructBrep(rh_brep)
             perims.append(self.grasshopper_components.JoinCurves(edges, True))
         

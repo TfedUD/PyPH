@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
-
-"""Module documentation goes here
-"""
+"""Functions to create new FloorSegments and Floors based on Rhino Geometry input"""
 
 from collections import defaultdict
-from PHX.spaces import FloorSegment, Floor
+import PHX.spaces
+import gh_io
 
-def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms): #-> dict
+def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms):
+    # type: (list, list) -> dict
     """Sorts the floor surfaces based on which HB Room they are 'in'
 
     Uses the HB Room's 'is_point_inside()' method and tests against each floor surface's
     centroid. So note that the entire surface might not be 'in' the room - just
     the centroid.
+
+    Arguments:
+    ----------
+        * _floor_surfaces ():
+        * _hb_rooms ():
 
     Returns:
     --------
@@ -47,7 +52,8 @@ def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms): #-> dict
 
     return rooms
 
-def add_default_floor_surfaces(IGH, _room_dicts): #-> dict
+def add_default_floor_surfaces(IGH, _room_dicts):
+    # type: (gh_io.IGH, dict) -> dict
     """If no user-input floor surfaces are found for a HB Room, create a floor using inset
     
     Arguments:
@@ -89,7 +95,8 @@ def add_default_floor_surfaces(IGH, _room_dicts): #-> dict
     
     return _room_dicts
 
-def convert_inputs_to_FloorSements(_room_dicts): #-> dict
+def convert_inputs_to_FloorSements(_room_dicts): 
+    # type: (dict) -> dict
     """Convert the user-input dicts and floor surfaces into FloorSegment objects
     
     Arguments:
@@ -104,9 +111,9 @@ def convert_inputs_to_FloorSements(_room_dicts): #-> dict
     for room_identifier, room_dict in _room_dicts.items():
         for k, input_floor_surface_dict in room_dict['floor_surfaces'].items():
             
-            new_floor_seg = FloorSegment()
+            new_floor_seg = PHX.spaces.FloorSegment()
 
-            new_floor_seg.weighting_factor = input_floor_surface_dict.get('TFA_Factor')
+            new_floor_seg.weighting_factor = input_floor_surface_dict.get('TFA_Factor', 1.0)
             new_floor_seg.space_name = input_floor_surface_dict.get('Object Name')
             new_floor_seg.space_number = input_floor_surface_dict.get('Room_Number')
 
@@ -121,11 +128,14 @@ def convert_inputs_to_FloorSements(_room_dicts): #-> dict
             new_floor_seg.geometry = input_floor_surface_dict.get('Geometry')
             new_floor_seg.host_zone_identifier = room_identifier
 
+            new_floor_seg.floor_area_gross = sum( float(geom.area) for geom in new_floor_seg.geometry )
+
             room_dict['floor_surfaces'][k] = new_floor_seg
 
     return _room_dicts
 
-def group_FloorSegments_by_room_name(_room_dicts): #-> dict
+def group_FloorSegments_by_room_name(_room_dicts):
+    # type: (dict) -> dict
     """Sort / Combine User-Input FloorSegments based on their Object-Name & Room-Number
 
     Arguments:
@@ -150,7 +160,8 @@ def group_FloorSegments_by_room_name(_room_dicts): #-> dict
     
     return _room_dicts
 
-def find_neighbors(IGH, _floor_segment_list): #-> dict
+def find_neighbors(IGH, _floor_segment_list):
+    # type: (gh_io.IGH, list) -> dict
     """See if any FloorSegments in the inut list are 'neighbors.' Returns a dict
     of the FloorSegments, sorted by 'neighbor-group.'
     
@@ -198,7 +209,8 @@ def find_neighbors(IGH, _floor_segment_list): #-> dict
     
     return neighbor_groups
 
-def sort_FloorSegments_by_neighbor(IGH, _floor_segment_list): #-> dict
+def sort_FloorSegments_by_neighbor(IGH, _floor_segment_list):
+    # type: (gh_io.IGH, list) -> dict
     """Sorts all the FloorSegment Objects by 'Neighbor-Group' (if touching)
 
     Arguments:
@@ -222,7 +234,8 @@ def sort_FloorSegments_by_neighbor(IGH, _floor_segment_list): #-> dict
 
     return floors_sorted_by_neighbor
 
-def create_Floors_from_FloorSegments(IGH, _room_dicts): #-> dict
+def create_Floors_from_FloorSegments(IGH, _room_dicts):
+    # type: (gh_io, dict) -> dict
     """Creates new Floor Objects for the input FloorSegments. Sorts and groups
     new Floors by name / number and if the FloorSegments are 'touching'
     
@@ -236,7 +249,7 @@ def create_Floors_from_FloorSegments(IGH, _room_dicts): #-> dict
         * (dict): The room dicts, with the Floor Objects added to the 'Floor' key
     """
 
-    for k, v in _room_dicts.items():
+    for v in _room_dicts.values():
         v['Floors'] = {}
 
         for space_id, space_floor_segments_list in v['FloorSegments'].items():
@@ -245,7 +258,7 @@ def create_Floors_from_FloorSegments(IGH, _room_dicts): #-> dict
 
             for floor_segment_group in results.values():
 
-                new_floor = Floor()
+                new_floor = PHX.spaces.Floor()
                 for floor_segment in floor_segment_group:
                     new_floor.add_new_floor_segment(floor_segment)
 

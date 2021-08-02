@@ -16,7 +16,6 @@ def _FloorSegment(_cls, _input_dict):
 
     new_obj.weighting_factor = _input_dict.get('weighting_factor')
     new_obj.floor_area_gross = _input_dict.get('floor_area_gross')
-    new_obj.floor_area_weighted = _input_dict.get('floor_area_weighted')
     new_obj.space_name = _input_dict.get('space_name')
     new_obj.space_number = _input_dict.get('space_number')
     new_obj.non_res_lighting = _input_dict.get('non_res_lighting')
@@ -59,7 +58,8 @@ def _Volume(_cls, _input_dict):
     new_obj.space_name = _input_dict.get('space_name')
     new_obj.space_number = _input_dict.get('space_number')
     new_obj.host_zone_identifier = _input_dict.get('host_zone_identifier')
-    new_obj.average_ceiling_height = _input_dict.get('average_ceiling_height')
+    new_obj._average_ceiling_height = _input_dict.get('_average_ceiling_height')
+    new_obj._volume = _input_dict.get('_volume')
     
     floor_dict = _input_dict.get('floor')
     if floor_dict:

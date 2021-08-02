@@ -11,7 +11,6 @@ def _FloorSegment(_obj):
 
     d.update( { 'weighting_factor': _obj.weighting_factor }  )
     d.update( { 'floor_area_gross': _obj.floor_area_gross }  )
-    d.update( { 'floor_area_weighted': _obj.floor_area_weighted }  )
     d.update( { 'space_name': _obj.space_name }  )
     d.update( { 'space_number': _obj.space_number }  )
     d.update( { 'non_res_lighting': _obj.non_res_lighting }  )
@@ -55,7 +54,8 @@ def _Volume(_obj):
     d.update( { 'space_name': _obj.space_name }  )
     d.update( { 'space_number': _obj.space_number }  )
     d.update( { 'host_zone_identifier': _obj.host_zone_identifier }  )
-    d.update( { 'average_ceiling_height': _obj.average_ceiling_height }  )
+    d.update( { '_average_ceiling_height': _obj._average_ceiling_height }  )
+    d.update( { '_volume': _obj._volume }  )
     
     d.update( { 'floor': _obj.floor.to_dict() }  )
 

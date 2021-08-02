@@ -15,8 +15,8 @@ import PyPH_WUFI.build_WUFI_xml
 
 from PyPH_HBJSON.read_HBJSON_file import read_hb_json
 from PyPH_HBJSON.create_PHX_Zones import (create_zone_from_HB_room,
-                                                add_default_WP_room_from_HB_room,
-                                                add_detailed_WP_rooms_from_HB_room
+                                                add_default_Space_from_HB_room,
+                                                add_detailed_Spaces_from_HB_room
                                                 )
 from PyPH_HBJSON.create_PHX_components import (create_new_opaque_component_from_hb_face,
                                                 set_compo_interior_exposure_from_hb_face,
@@ -78,9 +78,9 @@ for room in hb_model.rooms:
     
     #--- Add space-level information, or a default space if none found on the Honeybee Model
     if room.user_data.get('phx', {}).get('spaces'):
-        new_zone = add_detailed_WP_rooms_from_HB_room( new_zone, room )
+        new_zone = add_detailed_Spaces_from_HB_room( new_zone, room )
     else:
-        new_zone = add_default_WP_room_from_HB_room( new_zone, room )
+        new_zone = add_default_Space_from_HB_room( new_zone, room )
 
     project_variant_1.add_zones( new_zone )
 

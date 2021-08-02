@@ -195,12 +195,28 @@ def _Component(_obj):
 def _Space(_obj):
 	return [
 		PyPH_WUFI.xml_node.XML_Node('Name', _obj.display_name),
-		# PyPH_WUFI.xml_node.XML_Node( *PyPH_WUFI.selection.Selection('WP_Room::Type', _obj.type).xml_data),
+		PyPH_WUFI.xml_node.XML_Node('Quantity', _obj.quantity),
+		PyPH_WUFI.xml_node.XML_Node( *PyPH_WUFI.selection.Selection('WP_Room::Type', _obj.type).xml_data),
+		
+		PyPH_WUFI.xml_node.XML_Node('AreaRoom', _obj.floor_area_weighted, 'unit', "m²"),
+		PyPH_WUFI.xml_node.XML_Node('ClearRoomHeight', _obj.clear_height, 'unit', "m"),
+
 		# PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent', _obj.idUPatV),
 		# PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.idVUnit),
-		# PyPH_WUFI.xml_node.XML_Node('Quantity', _obj.quantity),
+		
 		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply', _obj.design_flow_rate_supply),
 		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust', _obj.design_flow_rate_extract),
+		
+		# PyPH_WUFI.xml_node.XML_Node('Type choice="User defined">99</Type>
+		# PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent choice="Pattern 1: ERV Ventilation', _obj.display_name),
+		# PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.display_name),
+
+		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply unit="m³/h', _obj.display_name),
+		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust unit="m³/h', _obj.display_name),
+		# PyPH_WUFI.xml_node.XML_Node('SupplyFlowRateUserDef unit="m³/h', _obj.display_name),
+		# PyPH_WUFI.xml_node.XML_Node('ExhaustFlowRateUserDef unit="m³/h', _obj.display_name),
+		# PyPH_WUFI.xml_node.XML_Node('DesignFlowInterzonalUserDef', _obj.display_name),
+	
 	]
 
 def _Zone(_obj):

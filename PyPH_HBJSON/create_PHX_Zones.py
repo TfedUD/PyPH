@@ -34,43 +34,57 @@ def create_zone_from_HB_room( _hb_room: HB_Room ) -> PHX.variant.Zone:
 
     return zone
 
-def add_default_WP_room_from_HB_room( _wp_zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
-    """
+def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
+    """Create a new default Space object for a HB Room. This is used if no detailed
+    Space information is supplied by the user. By default, each Honyebee Room will have a single 'Space.'
 
     Arguments:
     ----------
-        * _wp_zone (PHX.variant.Zone):
-        * _hb_room (Room):
+        * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
+            for the new PHX.spaces.Space
+        * _hb_room (Room): The source Honeybee 'Room' to use to set the name for
+            the new PHX.spaces.Space created.
 
     Returns:
     --------
-        * (PHX.variant.Zone)
-
+        * (PHX.variant.Zone): The input PHX.variant.Zone with the new PHX.spaces.Space 
+            now as a 'child' of the Zone.
     """
 
-    new_room = PHX.spaces.Space()
-    new_room.n = f'{_hb_room.display_name}_room'
-    new_room.idUPatV = 1
+    new_space = PHX.spaces.Space()
+    new_space.space_number = None
+    new_space.space_name = f'{_hb_room.display_name}_room'
+    # new_space.idUPatV = 1
 
-    _wp_zone.add_new_space( new_room )
+    _phx_Zone.add_new_space( new_space )
     
-    return _wp_zone
+    return _phx_Zone
 
-def add_detailed_WP_rooms_from_HB_room( _wp_zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
-    """Sets the Zone's WP_Rooms based on detailed room data found in the 
+def add_detailed_Spaces_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: HB_Room) -> PHX.variant.Zone:
+    """Sets the Zone's Spaces based on detailed Space data found in the 
     Honyebee room.user_data['phx']['spaces'] dictionary.
-    
+
+    Arguments:
+    ----------
+        * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
+            for the new PHX.spaces.Space
+        * _hb_room (Room): The source Honeybee 'Room' to use to set the name for
+            the new PHX.spaces.Space created.
+
+    Returns:
+    --------
+        * (PHX.variant.Zone): The input PHX.variant.Zone with the new PHX.spaces.Space 
+            now as a 'child' of the Zone.
     """
 
     honeybee_spaces = _hb_room.user_data.get('phx', {}).get('spaces', {})
     for room_dict in honeybee_spaces.values():
+
         phx_space = PHX.spaces.Space.from_dict( room_dict )
 
-        new_ph_room = PHX.spaces.Space()
-
-        _wp_zone.add_new_space( new_ph_room )
+        _phx_Zone.add_new_space( phx_space )
     
-    return _wp_zone
+    return _phx_Zone
 
 def add_default_res_appliance_to_zone( _wp_zone: PHX.variant.Zone) -> PHX.variant.Zone:
     return None

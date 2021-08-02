@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
-
-"""Module documentation goes here
-"""
+"""Functions to create Floors, Volumes and Spaces from Rhino inputs"""
 
 from collections import defaultdict
-from PHX.spaces import Space
-from space_io import handle_input_geometry
-from space_floors import (sort_floor_surfaces_by_hb_room,
-                        add_default_floor_surfaces,
-                        convert_inputs_to_FloorSements,
-                        group_FloorSegments_by_room_name,
-                        create_Floors_from_FloorSegments)
-from space_volumes import create_volumes
 
+import PHX.spaces
+import space_io
+import space_floors
+import space_volumes
+import gh_io
 
 def build_floors(IGH, _floor_surfaces, _input_node_name, _HB_rooms):
+    # type: (gh_io.IGH, list, str, list) -> tuple[ dict, list]
     """Creates new Floor objects from user-inputs
     
     Arguments:
@@ -30,12 +26,12 @@ def build_floors(IGH, _floor_surfaces, _input_node_name, _HB_rooms):
         * (list[Rhino.Geometry.Brep]): A list of the Breps for all the FloorSegments
     """
 
-    input_floor_surfaces = handle_input_geometry(IGH, _floor_surfaces, _input_node_name)
-    hb_room_dicts = sort_floor_surfaces_by_hb_room(input_floor_surfaces, _HB_rooms)
-    hb_room_dicts = add_default_floor_surfaces(IGH, hb_room_dicts)
-    hb_room_dicts = convert_inputs_to_FloorSements(hb_room_dicts)
-    hb_room_dicts = group_FloorSegments_by_room_name(hb_room_dicts)
-    floors_dict = create_Floors_from_FloorSegments(IGH, hb_room_dicts)
+    input_floor_surfaces = space_io.handle_input_geometry(IGH, _floor_surfaces, _input_node_name)
+    hb_room_dicts = space_floors.sort_floor_surfaces_by_hb_room(input_floor_surfaces, _HB_rooms)
+    hb_room_dicts = space_floors.add_default_floor_surfaces(IGH, hb_room_dicts)
+    hb_room_dicts = space_floors.convert_inputs_to_FloorSements(hb_room_dicts)
+    hb_room_dicts = space_floors.group_FloorSegments_by_room_name(hb_room_dicts)
+    floors_dict = space_floors.create_Floors_from_FloorSegments(IGH, hb_room_dicts)
 
     #--- Get Floor Geometry for Preview
     floor_surface_breps_ = []
@@ -49,14 +45,15 @@ def build_floors(IGH, _floor_surfaces, _input_node_name, _HB_rooms):
     return floors_dict, floor_surface_breps_
 
 def build_volumes(IGH, _floors_dict, _space_geometry, _input_node_name):
+    # type: (gh_io.IGH, dict, list, str) -> tuple[ dict, list ]
     """Creates new Floor objects from user-inputs
     
     Arguments:
     ----------
         * IGH (gh_io.IGH): The PyPH Grasshopper Interface Object
-        * _floor_surfaces (list): The input items
+        * _floors_dict (dict): The input items to build volumes from
+        * _space_geometry (list): 
         * _input_node_name (str): The name (string) of the GH Component input node to read
-        * _HB_rooms (list[honeybee.rooms])
 
     Returns:
     --------
@@ -64,9 +61,9 @@ def build_volumes(IGH, _floors_dict, _space_geometry, _input_node_name):
         * (list[Rhino.Geometry.Brep]): A list of the Breps for all the Space Geometry
     """
     
-    input_space_geometry = handle_input_geometry(IGH, _space_geometry, _input_node_name)
+    input_space_geometry = space_io.handle_input_geometry(IGH, _space_geometry, _input_node_name)
     input_space_geometry_dict = { id(v):v for v in input_space_geometry }
-    volumes = create_volumes(IGH, _floors_dict, input_space_geometry_dict)
+    volumes = space_volumes.create_volumes(IGH, _floors_dict, input_space_geometry_dict)
 
     #-- Get geometry for preview
     volume_geometry_breps_ = []
@@ -78,7 +75,8 @@ def build_volumes(IGH, _floors_dict, _space_geometry, _input_node_name):
 
     return volumes, volume_geometry_breps_
 
-def build_spaces(_volume_dict): #-> dict
+def build_spaces(_volume_dict): 
+    # type: (dict) -> dict
     """Creates a new Space based on the input Volumes
     
     Arguments:
@@ -91,7 +89,7 @@ def build_spaces(_volume_dict): #-> dict
     """
 
     #--- Group the volumes by Space Name/Number
-    for hb_room_name, hb_room_dict in _volume_dict.items():
+    for hb_room_dict in _volume_dict.values():
         hb_room_dict['Spaces'] = []
         volume_groups_dict = defaultdict(list)
         
@@ -100,7 +98,7 @@ def build_spaces(_volume_dict): #-> dict
 
         #--- Create the new Space for each Volume group
         for volume_group in volume_groups_dict.values():
-            new_space = Space()
+            new_space = PHX.spaces.Space()
             for volume in volume_group:
                 new_space.add_new_volume(volume)
             

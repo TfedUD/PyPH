@@ -13,20 +13,39 @@ class FloorSegment(PHX._base._Base):
 
     def __init__(self):
         super(FloorSegment, self).__init__()
-        self.weighting_factor = 1
-        self.floor_area_gross = None
-        self.floor_area_weighted = None
+        self.weighting_factor = 1.0
+        self.floor_area_gross = 0.0
         self.space_name = None
         self.space_number = None
+        self.geometry = []
+        self.host_zone_identifier = None
+
         self.non_res_lighting = None
         self.non_res_motion = None
         self.non_res_usage = None
+
         self.ventilation_v_sup = 0.0
         self.ventilation_v_eta = 0.0
         self.ventilation_v_trans = 0.0
-        self.geometry = []
-        self.host_zone_identifier = None
-    
+
+    @property
+    def floor_area_weighted(self):
+        try:
+            weighting = float(self.weighting_factor)
+        except TypeError:
+            raise TypeError('Error: Cannot calculate with Floor Area Weighting Factor: "{}"'.format(self.weighting_factor))
+        
+        try:
+            fa_gross = float(self.floor_area_gross)
+        except TypeError:
+            raise TypeError('Error: Cannot calculate with Gross Floor Area of: "{}"'.format(self.floor_area_gross))
+
+        return float( fa_gross * weighting )
+
+    @floor_area_weighted.setter
+    def floor_area_weighted(self, _in):
+        raise Exception("Error: Please set the Floor Segment's Gross Floor Area and Weighting Factor, not the Weighted Area.")
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._FloorSegment(cls, _dict)
@@ -34,7 +53,7 @@ class FloorSegment(PHX._base._Base):
     @property
     def display_name(self):
         return '{}-{}'.format(self.space_number, self.space_name)
-    
+
     def __str__(self):
         return 'PHX_{}: {}'.format(self.__class__.__name__, self.display_name)
 
@@ -47,14 +66,24 @@ class Floor(PHX._base._Base):
 
         self.space_name = None
         self.space_number = None
+        self.host_zone_identifier = None
+
         self.non_res_lighting = None
         self.non_res_motion = None
         self.non_res_usage = None
+
         self.ventilation_v_sup = 0.0
         self.ventilation_v_eta = 0.0
         self.ventilation_v_trans = 0.0
-        self.host_zone_identifier = None
     
+    @property
+    def floor_area_gross(self):
+        return sum( seg.floor_area_gross for seg in self.floor_segments )
+
+    @property
+    def floor_area_weighted(self):
+        return sum( seg.floor_area_weighted for seg in self.floor_segments )
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Floor(cls, _dict)
@@ -64,7 +93,10 @@ class Floor(PHX._base._Base):
         return '{}-{}'.format(self.space_number, self.space_name)
 
     def add_new_floor_segment(self, _new_flr_seg):
+        """Adds a new FloorSegment to the Floor.floor_segments collection"""
+        
         if not _new_flr_seg: return
+        if _new_flr_seg in self.floor_segments: return
 
         self.floor_segments.append(_new_flr_seg)
 
@@ -83,7 +115,7 @@ class Floor(PHX._base._Base):
     
     @property
     def geometry(self):
-        if not self.floor_segments: return []
+        """Return all of the Geometry of all the FloorSegments in a single list"""
         
         geom = []
         for floor_segment in self.floor_segments:
@@ -156,9 +188,36 @@ class Volume(PHX._base._Base):
         self.host_zone_identifier = None
 
         self.floor = None
-        self.average_ceiling_height = 2.5
+        self._average_ceiling_height = 0.0
+        self._volume = 0.0
         self.volume_geometry = []
-    
+
+    @property
+    def floor_area_gross(self):
+        return float( self.floor.floor_area_gross )
+
+    @property
+    def floor_area_weighted(self):
+        return float( self.floor.floor_area_weighted )
+
+    @property
+    def volume(self):
+        return self._volume
+
+    @volume.setter
+    def volume(self, _in):
+        self._volume = float(_in)
+        self._average_ceiling_height = float( self._volume / self.floor_area_gross )
+
+    @property
+    def average_ceiling_height(self):
+        return self._average_ceiling_height
+
+    @average_ceiling_height.setter
+    def average_ceiling_height(self, _in):
+        self._average_ceiling_height = float(_in)
+        self._volume = float( self.floor_area_gross * self._average_ceiling_height )
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Volume(cls, _dict)
@@ -205,6 +264,8 @@ class Space(PHX._base._Base):
 
     def __init__(self):        
         super(Space, self).__init__()
+        self.quantity = 1
+        self.type = 99 #User-Defined
         self.space_name = None
         self.space_number = None
         self.host_zone_identifier = None
@@ -215,6 +276,26 @@ class Space(PHX._base._Base):
         self.equipment = None
         self.ventilation = None
  
+    @property
+    def clear_height(self):
+        """Return the area-weighted average ceiling height of the Space's volumes"""
+        
+        total_gross_areas = 0.0
+        total_fa_weighted_clg = 0.0
+        for v in self.volumes:
+            total_gross_areas += v.floor_area_gross
+            total_fa_weighted_clg += v.floor_area_gross * v.average_ceiling_height
+        
+        return total_fa_weighted_clg / total_gross_areas
+
+    @property
+    def floor_area_weighted(self):
+        total = 0.0
+        for v in self.volumes:
+            total += float(v.floor_area_weighted)
+        
+        return total
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Space(cls, _dict)
