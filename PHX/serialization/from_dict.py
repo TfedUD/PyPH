@@ -7,8 +7,9 @@ to the Object when it is instantiated in order to avoide circular reference prob
 certain functions use other PHX Object to_dict() constructors (ie: _Floor).
 """
 
-from ..geometry import LBT_geometry_dict_util
+# from ..geometry import LBT_geometry_dict_util
 import PHX
+import PHX.geometry
 
 def _FloorSegment(_cls, _input_dict):
     new_obj = _cls()
@@ -27,7 +28,7 @@ def _FloorSegment(_cls, _input_dict):
     new_obj.host_zone_identifier = _input_dict.get('host_zone_identifier')
 
     for _ in _input_dict.get('geometry', {}).values():
-        new_obj.geometry.append(LBT_geometry_dict_util(_))
+        new_obj.geometry.append(PHX.geometry.LBT_geometry_dict_util(_))
 
     return new_obj
 
@@ -68,7 +69,7 @@ def _Volume(_cls, _input_dict):
     for _ in _input_dict.get('volume_geometry', {}).values():
         new_geom_list = []
         for __ in _.values():
-            new_geom_list.append( LBT_geometry_dict_util(__) )
+            new_geom_list.append( PHX.geometry.LBT_geometry_dict_util(__) )
         new_obj.volume_geometry.append(new_geom_list)
 
     return new_obj

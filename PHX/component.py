@@ -5,7 +5,7 @@
 PHX Component Classes
 """
 
-from ._base import _Base
+import PHX._base
 import PHX.geometry
 
 class ComponentTypeError(Exception):
@@ -18,7 +18,7 @@ class WindowHostNotFoundError(Exception):
         self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)
         super(WindowHostNotFoundError, self).__init__(self.message)
 
-class WP_Color(_Base):
+class WP_Color(PHX._base._Base):
 
     def __init__(self, _a=255, _r=255, _g=255, _b=255):
         super(WP_Color, self).__init__()
@@ -27,7 +27,7 @@ class WP_Color(_Base):
         self.green = _g
         self.blue = _b
 
-class Component(_Base):
+class Component(PHX._base._Base):
     
     _count = 0
 

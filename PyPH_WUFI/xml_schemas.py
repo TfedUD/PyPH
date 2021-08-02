@@ -192,15 +192,15 @@ def _Component(_obj):
 		XML_Node('IdentNrWindowType', _obj.idWtC),
 	]
 
-def _Room(_obj):
+def _Space(_obj):
 	return [
-		XML_Node('Name', _obj.n),
-		XML_Node( *Selection('WP_Room::Type', _obj.type).xml_data),
-		XML_Node('IdentNrUtilizationPatternVent', _obj.idUPatV),
-		XML_Node('IdentNrVentilationUnit', _obj.idVUnit),
-		XML_Node('Quantity', _obj.quantity),
-		XML_Node('DesignVolumeFlowRateSupply', _obj.design_flow_rate_supply),
-		XML_Node('DesignVolumeFlowRateExhaust', _obj.design_flow_rate_extract),
+		XML_Node('Name', _obj.display_name),
+		# XML_Node( *Selection('WP_Room::Type', _obj.type).xml_data),
+		# XML_Node('IdentNrUtilizationPatternVent', _obj.idUPatV),
+		# XML_Node('IdentNrVentilationUnit', _obj.idVUnit),
+		# XML_Node('Quantity', _obj.quantity),
+		# XML_Node('DesignVolumeFlowRateSupply', _obj.design_flow_rate_supply),
+		# XML_Node('DesignVolumeFlowRateExhaust', _obj.design_flow_rate_extract),
 	]
 
 def _Zone(_obj):

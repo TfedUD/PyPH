@@ -1,7 +1,8 @@
 from honeybee.face import Face
 from honeybee.aperture import Aperture
 from PHX.geometry import Polygon, Vertex
-from PHX.variant import Zone, Component
+from PHX.variant import Zone
+import PHX.component
 
 #--- Opaque Components
 #-------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ def create_poly_from_HB_face( _hb_face: Face ) -> Polygon:
 
     return poly
 
-def create_new_opaque_component_from_hb_face( _hb_face: Face) -> Component:
+def create_new_opaque_component_from_hb_face( _hb_face: Face) -> PHX.component.Component:
     """Creates a new Component based on an input HB-Face
     
     Arguments:
@@ -62,7 +63,7 @@ def create_new_opaque_component_from_hb_face( _hb_face: Face) -> Component:
         * (Component): The new Component with attributes based on the input HB Face(s)
     """
     
-    compo = Component()
+    compo = PHX.component.Component()
     compo.n = _hb_face.display_name
 
     #-- Pack any polygons input onto the new Component
@@ -72,12 +73,12 @@ def create_new_opaque_component_from_hb_face( _hb_face: Face) -> Component:
 
     return compo
 
-def set_compo_interior_exposure_from_hb_face(_compo: Component, _zone: Zone) -> Component:   
+def set_compo_interior_exposure_from_hb_face(_compo: PHX.component.Component, _zone: Zone) -> PHX.component.Component:   
     """Sets a Component's Inner-Exposire Value based on the Honeyebee Face
     
     Arguments:
     ----------
-        * _compo (Component): The Component to set the Inner-Exposure values for
+        * _compo (PHX.component.Component): The Component to set the Inner-Exposure values for
         * _zone (Zone): The Component's host Zone
     
     Returns:
@@ -90,12 +91,12 @@ def set_compo_interior_exposure_from_hb_face(_compo: Component, _zone: Zone) -> 
 
     return _compo
 
-def set_compo_exterior_exposure_from_hb_face(_compo: Component, _hb_face: Face, _zones: list[Zone] ) -> Component:
+def set_compo_exterior_exposure_from_hb_face(_compo: PHX.component.Component, _hb_face: Face, _zones: list[Zone] ) -> PHX.component.Component:
     """Sets a Component's Exterior-Exposure Value based on a Honeyebee Face
     
     Arguments:
     ----------
-        * _compo (Component): The Component to set the Exterior-Exposure values for
+        * _compo (PHX.component.Component): The Component to set the Exterior-Exposure values for
         * _hb_face (Face): The Honeybee Face to base the Component's Exterior-Exposure type on
         * _zones (list[Zone]): A list of all the Zones in the Variant.Building. This is
             needed in order to properly solve 'interior' faces with 'Surface' adjacency.
@@ -134,7 +135,7 @@ def set_compo_exterior_exposure_from_hb_face(_compo: Component, _hb_face: Face, 
     
     return _compo
 
-def set_compo_colors_by_hb_face( _compo: Component, _hb_face: Face ) -> Component:
+def set_compo_colors_by_hb_face( _compo: PHX.component.Component, _hb_face: Face ) -> PHX.component.Component:
     """Sets the Interior and Exterior Component Colors based on a Honeybee Face's Type (Wall | RoofCeiling | Floor)
 
     Arguments:
@@ -186,7 +187,7 @@ def set_compo_colors_by_hb_face( _compo: Component, _hb_face: Face ) -> Componen
 
     return _compo
 
-def set_compo_assembly_from_hb_face( _compo: Component, _hb_face: Face, _assembly_collection ) -> Component:
+def set_compo_assembly_from_hb_face( _compo: PHX.component.Component, _hb_face: Face, _assembly_collection ) -> PHX.component.Component:
     """Sets a Component's 'IdentNrAssembly' based on the Assembly name from a Honeybee Face
 
     Arguments:
@@ -209,7 +210,7 @@ def set_compo_assembly_from_hb_face( _compo: Component, _hb_face: Face, _assembl
 
 #--- Window Components
 #-------------------------------------------------------------------------------
-def create_new_window_component_from_hb_aperture( _hb_Aperture: Aperture , _zone: Zone ) -> Component:
+def create_new_window_component_from_hb_aperture( _hb_Aperture: Aperture , _zone: Zone ) -> PHX.component.Component:
     """ Creates a new Window Component from a Honeybee 'Aperture'
     
     Arguments:
@@ -219,10 +220,10 @@ def create_new_window_component_from_hb_aperture( _hb_Aperture: Aperture , _zone
     
     Returns:
     --------
-        * (Component): The new Window Component with attributes based on the input HB-Aperture.
+        * (PHX.component.Component): The new Window Component with attributes based on the input HB-Aperture.
     """
 
-    window_compo = Component()
+    window_compo = PHX.component.Component()
 
     #-- Basic Component Attributes
     window_compo.n = _hb_Aperture.display_name

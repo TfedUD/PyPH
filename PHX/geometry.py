@@ -5,8 +5,8 @@
 PHX Geometry Classes
 """
 
-from ._base import _Base
-from ladybug_geometry.geometry3d.face import Face3D
+import PHX._base
+import ladybug_geometry.geometry3d.face
 
 class PolygonTypeError(Exception):
     def __init__(self, _in):
@@ -20,7 +20,7 @@ class PolygonNormalError(Exception):
         super(PolygonNormalError, self).__init__(self.message)
 
 def LBT_geometry_dict_util(_dict):
-    # type (dict): -> Optional[Face3D]
+    # type (dict): -> Optional[ladybug_geometry.geometry3d.face.Face3D]
     """Utility for de-serializing Ladybug Geometry dictionaries
     
     Arguments:
@@ -29,7 +29,7 @@ def LBT_geometry_dict_util(_dict):
 
     Returns:
     --------
-        * Optional[Face3D]: The Ladybug Face3D Object
+        * Optional[ladybug_geometry.geometry3d.face.Face3D]: The Ladybug Face3D Object
     """
     
     object_type = _dict.get('type', None)
@@ -37,14 +37,14 @@ def LBT_geometry_dict_util(_dict):
                                     'information found in the input dictionary?'
     
     if str(object_type) == 'Face3D':
-        new_obj = Face3D.from_dict(_dict)
+        new_obj = ladybug_geometry.geometry3d.face.Face3D.from_dict(_dict)
     else:
         new_obj = None
         raise Exception('Error: Cannot convert LBT Geometry of type: "{}"'.format(str(object_type)))
 
     return new_obj
 
-class Vector(_Base):
+class Vector(PHX._base._Base):
     """Simple Vector class used to represent Surface Normal
     
     Attributes:
@@ -60,7 +60,7 @@ class Vector(_Base):
         self.y = y
         self.z = z 
 
-class Vertex(_Base):
+class Vertex(PHX._base._Base):
     """ A single Vertex object with x, y, z positions and an ID number
 
     Will keep a running tally as objects are created, increments in the 'id'
@@ -88,7 +88,7 @@ class Vertex(_Base):
         cls._count += 1
         return super(Vertex, cls).__new__(cls, *args, **kwargs)
 
-class Polygon(_Base):
+class Polygon(PHX._base._Base):
     """A Single Polygon Object, part of a Component
     
     Attributes:

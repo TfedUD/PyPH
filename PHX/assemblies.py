@@ -5,9 +5,9 @@
 PHX Material and Assembly / Construction Classes.
 """
 
-from ._base import _Base
+import PHX._base
 
-class Material(_Base):
+class Material(PHX._base._Base):
     
     _count = 1
 
@@ -47,7 +47,7 @@ class Material(_Base):
         cls._count += 1
         return super(Material, cls).__new__(cls, *args, **kwargs)
 
-class Layer(_Base):
+class Layer(PHX._base._Base):
 
     _count = 0
 
@@ -62,7 +62,7 @@ class Layer(_Base):
         cls._count += 1
         return super(Layer, cls).__new__(cls, *args, **kwargs)
 
-class Assembly(_Base):
+class Assembly(PHX._base._Base):
     _count = 0
 
     def __init__(self):

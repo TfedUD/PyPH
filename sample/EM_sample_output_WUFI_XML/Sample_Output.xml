@@ -31,10 +31,10 @@
 		<Responsible_Email></Responsible_Email>
 		<Date_Project>
 			<Year>2021</Year>
-			<Month>7</Month>
-			<Day>29</Day>
-			<Hour>14</Hour>
-			<Minutes>56</Minutes>
+			<Month>8</Month>
+			<Day>2</Day>
+			<Hour>12</Hour>
+			<Minutes>18</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -2453,22 +2453,10 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="2">
 							<Room index="0">
-								<Name>default_room</Name>
-								<Type choice="User defined">99</Type>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<Quantity>1</Quantity>
-								<DesignVolumeFlowRateSupply>None</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust>None</DesignVolumeFlowRateExhaust>
+								<Name>None-None</Name>
 							</Room>
 							<Room index="1">
-								<Name>default_room</Name>
-								<Type choice="User defined">99</Type>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<Quantity>1</Quantity>
-								<DesignVolumeFlowRateSupply>None</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust>None</DesignVolumeFlowRateExhaust>
+								<Name>None-None</Name>
 							</Room>
 						</RoomsVentilation>
 						<HomeDevice count="0"/>
@@ -2488,22 +2476,10 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="2">
 							<Room index="0">
-								<Name>default_room</Name>
-								<Type choice="User defined">99</Type>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<Quantity>1</Quantity>
-								<DesignVolumeFlowRateSupply>None</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust>None</DesignVolumeFlowRateExhaust>
+								<Name>None-None</Name>
 							</Room>
 							<Room index="1">
-								<Name>default_room</Name>
-								<Type choice="User defined">99</Type>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<Quantity>1</Quantity>
-								<DesignVolumeFlowRateSupply>None</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust>None</DesignVolumeFlowRateExhaust>
+								<Name>None-None</Name>
 							</Room>
 						</RoomsVentilation>
 						<HomeDevice count="0"/>

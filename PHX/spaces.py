@@ -5,10 +5,10 @@
 PHX Space (Room) and Floor Area (iCFA / TFA) Classes
 """
 
-from ._base import _Base
-from .serialization.from_dict import _FloorSegment, _Floor, _Volume, _Space
+import PHX._base
+import PHX.serialization.from_dict
 
-class FloorSegment(_Base):
+class FloorSegment(PHX._base._Base):
     """An individual segment of floor area with some relevant attributes"""
 
     def __init__(self):
@@ -29,7 +29,7 @@ class FloorSegment(_Base):
     
     @classmethod
     def from_dict(cls, _dict):
-        return _FloorSegment(cls, _dict)
+        return PHX.serialization.from_dict._FloorSegment(cls, _dict)
 
     @property
     def display_name(self):
@@ -38,7 +38,7 @@ class FloorSegment(_Base):
     def __str__(self):
         return 'PHX_{}: {}'.format(self.__class__.__name__, self.display_name)
 
-class Floor(_Base):
+class Floor(PHX._base._Base):
     """A single Volume's Floor, made of one or more FloorSegments """
 
     def __init__(self):
@@ -57,7 +57,7 @@ class Floor(_Base):
     
     @classmethod
     def from_dict(cls, _dict):
-        return _Floor(cls, _dict)
+        return PHX.serialization.from_dict._Floor(cls, _dict)
 
     @property
     def display_name(self):
@@ -146,7 +146,7 @@ class Floor(_Base):
     def __str__(self):
         return 'PHX_{}: {} ({} FloorSegments)'.format(self.__class__.__name__, self.display_name, len(self.floor_segments))
 
-class Volume(_Base):
+class Volume(PHX._base._Base):
     """A single Volume, with a single Floor"""
 
     def __init__(self):
@@ -161,7 +161,7 @@ class Volume(_Base):
     
     @classmethod
     def from_dict(cls, _dict):
-        return _Volume(cls, _dict)
+        return PHX.serialization.from_dict._Volume(cls, _dict)
     
     @property
     def display_name(self):
@@ -178,12 +178,12 @@ class Volume(_Base):
     def __str__(self):
         return 'PHX_{}: {} ({} FloorSegments)'.format(self.__class__.__name__, self.display_name, len(self.floor.floor_segments))
 
-class Space(_Base):
+class Space(PHX._base._Base):
     """
-    The Space is the primary spatial unit for a Passive House. This would roughly 
+    The Space is the primary spatial unit for a Passive House model. This would roughly 
     map to a 'Zone' in EnergyPlus or 'Room' in Honeybee. The main difference is
     that the 'Space' contains information on all its sub-areas (Volumes) and
-    TFA/iCFA floor segments.
+    TFA/iCFA floor segments and floor areas.
 
     Space_01
       |
@@ -217,7 +217,7 @@ class Space(_Base):
  
     @classmethod
     def from_dict(cls, _dict):
-        return _Space(cls, _dict)
+        return PHX.serialization.from_dict._Space(cls, _dict)
        
     @property
     def display_name(self):

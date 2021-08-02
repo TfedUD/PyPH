@@ -6,13 +6,13 @@ Base class for all PHX Objects. Note, this includes the to_dict() method but not
 the from_dict() method due to circular import problems.
 """
 
-from uuid import uuid4
-from PHX.serialization import to_dict
+import uuid
+import PHX.serialization.to_dict
 
 class _Base(object):
 
     def __init__(self):
-        self.identifier = uuid4()
+        self.identifier = uuid.uuid4()
         self.identifier_short = str(self.identifier).split('-')[0]
         self.user_data = {}
     
@@ -30,7 +30,7 @@ class _Base(object):
 
         module = self.__class__.__module__
         class_name = self.__class__.__name__
-        func = getattr(to_dict, '_{}'.format(class_name))
+        func = getattr(PHX.serialization.to_dict, '_{}'.format(class_name))
         return func(self)
 
     def __str__(self):

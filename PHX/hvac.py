@@ -5,9 +5,9 @@
 PHX Basic HVAC Classes
 """
 
-from ._base import _Base
+import PHX._base
 
-class HVAC_PH_Parameters(_Base):
+class HVAC_PH_Parameters(PHX._base._Base):
     
     def __init__(self):
         super(HVAC_PH_Parameters, self).__init__()
@@ -37,7 +37,7 @@ class HVAC_PH_Parameters(_Base):
         self.AuxiliaryEnergyDHW = None
         self.InConditionedSpace = True
 
-class HVAC_Device(_Base):
+class HVAC_Device(PHX._base._Base):
 
     _count = 0
 
@@ -67,14 +67,14 @@ class HVAC_Device(_Base):
         cls._count += 1
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
 
-class HVAC_System_ZoneCover(_Base):
+class HVAC_System_ZoneCover(PHX._base._Base):
     
     def __init__(self):
         super(HVAC_System_ZoneCover, self).__init__()
         self.idZone = 1
         self.czHCVHD = [1.0, 1.0, 1.0, 1.0, 1.0]
 
-class HVAC_System(_Base):
+class HVAC_System(PHX._base._Base):
 
     _count = 0
 
@@ -104,7 +104,7 @@ class HVAC_System(_Base):
         self.lDevice.append( _hvac_device )
 
 
-class HVAC(_Base):
+class HVAC(PHX._base._Base):
     def __init__(self):
         super(HVAC, self).__init__()
         self.lSystem = []

@@ -5,9 +5,9 @@
 PHX Window Type Classes
 """
 
-from ._base import _Base
+import PHX._base
 
-class WindowFrame(_Base):
+class WindowFrame(PHX._base._Base):
     def __init__(self):
         super(WindowFrame, self).__init__()
         self.frame_width = 0.1
@@ -15,7 +15,7 @@ class WindowFrame(_Base):
         self.frame_psi_glazing = 0.04
         self.frame_psi_install = 0.04
 
-class WindowType(_Base):
+class WindowType(PHX._base._Base):
 
     _count = 0
 

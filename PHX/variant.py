@@ -4,16 +4,18 @@
 """
 PHX Variant Classes
 """
-from ._base import _Base
+
+import PHX._base
 import PHX.hvac
 import PHX.component
+import PHX.spaces
 
 class ZoneTypeError(Exception):
     def __init__(self, _in):
         self.message = 'Error: Expected input of type: "PHX.variant.Zone" Got: "{}"::"{}"?'.format(_in, type(_in))
         super(ZoneTypeError, self).__init__(self.message)
 
-class Geom(_Base):
+class Geom(PHX._base._Base):
     """Geometry Collection"""
 
     def __init__(self):
@@ -42,7 +44,7 @@ class Geom(_Base):
                 
                 self.polygons.append( poly )
 
-class PassivehouseData(_Base):
+class PassivehouseData(PHX._base._Base):
     def __init__(self):
         super(PassivehouseData, self).__init__()
 
@@ -56,7 +58,7 @@ class Weather_PeakLoad:
         self.rad_west = _rW
         self.rad_global = _rG
 
-class PH_ClimateLocation(_Base):
+class PH_ClimateLocation(PHX._base._Base):
 
     def __init__(self):
         super(PH_ClimateLocation, self).__init__()
@@ -90,7 +92,7 @@ class PH_ClimateLocation(_Base):
         self.peak_heating_2 = Weather_PeakLoad( -4.2, 16, 22, 46, 26, 38)
         self.peak_cooling = Weather_PeakLoad( 26.1, 64, 106, 132, 159, 230)
 
-class ClimateLocation(_Base):
+class ClimateLocation(PHX._base._Base):
 
     def __init__(self):
         super(ClimateLocation, self).__init__()
@@ -115,29 +117,29 @@ class ClimateLocation(_Base):
         self.CO2concenration = 350
         self.Unit_CO2concentration = 48
 
-class Room(_Base):
+# class Room(_Base):
 
-    _count = 0
+#     _count = 0
 
-    def __init__(self):
-        super(Room, self).__init__()
-        self.id = self._count
-        self.n = 'default_room'
-        self.type = 99
-        self.idUPatV = 1
-        self.idVUnit = 1
-        self.quantity = 1
-        self.area = None
-        self.clearH = None
-        self.design_flow_rate_supply = None
-        self.design_flow_rate_extract = None
+#     def __init__(self):
+#         super(Room, self).__init__()
+#         self.id = self._count
+#         self.n = 'default_room'
+#         self.type = 99
+#         self.idUPatV = 1
+#         self.idVUnit = 1
+#         self.quantity = 1
+#         self.area = None
+#         self.clearH = None
+#         self.design_flow_rate_supply = None
+#         self.design_flow_rate_extract = None
 
-    def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
-        cls._count += 1
-        return super(Room, cls).__new__(cls, *args, **kwargs)
+#     def __new__(cls, *args, **kwargs):
+#         """Used so I can keep a running tally for the id variable """
+#         cls._count += 1
+#         return super(Room, cls).__new__(cls, *args, **kwargs)
     
-class Zone(_Base):
+class Zone(PHX._base._Base):
     
     _count = 0
     
@@ -169,11 +171,11 @@ class Zone(_Base):
         cls._count += 1
         return super(Zone, cls).__new__(cls, *args, **kwargs)
     
-    def add_new_room(self, _new_room):
-        # type (Room): -> None
-        """Adds a new Room (Space) to the Variant"""
+    def add_new_space(self, _new_space):
+        # type (PHX.spaces.Space): -> None
+        """Adds a new Space (Room) to the Variant"""
 
-        self.rooms_ventilation.append( _new_room )
+        self.rooms_ventilation.append( _new_space )
 
     def add_new_appliance(self, _appliance):
         # type (Appliance) -> None
@@ -181,7 +183,7 @@ class Zone(_Base):
 
         self.appliances.append( _appliance )
 
-class Building(_Base):
+class Building(PHX._base._Base):
     
     def __init__(self):
         super(Building, self).__init__()
@@ -240,7 +242,7 @@ class Building(_Base):
         else:
             return None
 
-class Variant(_Base):
+class Variant(PHX._base._Base):
     _count = 0
 
     def __init__(self):

@@ -1,6 +1,6 @@
 from honeybee.face import Face
 from honeybee_energy.material.opaque import EnergyMaterial, EnergyMaterialNoMass
-from PHX.variant import Component
+import PHX.component
 from PHX.assemblies import Assembly, Material, Layer
 from PHX.window_types import WindowType, WindowFrame
 
@@ -138,12 +138,12 @@ def create_new_window_type_from_hb_face( _face: Face ) -> WindowType:
 
     return new_window_type
 
-def set_compo_window_type_from_hb_aperture( _window_compo: Component, _hb_face: Face, _window_type_collection):
+def set_compo_window_type_from_hb_aperture( _window_compo: PHX.component.Component, _hb_face: Face, _window_type_collection):
     """Sets a Window Component's 'IdentNrAssembly' based on the Assembly of a Honeybee Aperture
 
     Arguments:
     ----------
-        * _window_compo (Component): The Window Component to set the IdentNrAssembly of
+        * _window_compo (PHX.component.Component): The Window Component to set the IdentNrAssembly of
         * _hb_face (Face): The Honeybee Face. Will use the Face's Assembly Name as the key
         * _window_type_collection (WindowTypeCollection): The Project's 
             WindowTypeCollection with all the WindowType Information

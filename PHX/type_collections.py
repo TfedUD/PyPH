@@ -5,12 +5,12 @@
 PHX Type Collection Classes for organizing Assembly, Window and Utilization Patterns
 """
 
-from .assemblies import Assembly
-from .window_types import WindowType
-from .utilization_patterns import UtilizationVentilationPattern
-from ._base import _Base
+import PHX.assemblies
+import PHX.window_types
+import PHX.utilization_patterns
+import PHX._base
 
-class UtilizationPatternsVentilationCollection(_Base):
+class UtilizationPatternsVentilationCollection(PHX._base._Base):
     def __init__(self):
         super(UtilizationPatternsVentilationCollection, self).__init__()
         self._utilization_patterns = {}
@@ -19,34 +19,37 @@ class UtilizationPatternsVentilationCollection(_Base):
     def utilization_patterns(self):
         return self._utilization_patterns.values()
    
-    def add_new_utilization_pattern_to_collection(self, _utilization_pattern: UtilizationVentilationPattern) -> None:
-        """Adds a UtilizationVentilationPattern to the collection's dictionary 
+    def add_new_utilization_pattern_to_collection(self, _utilization_pattern: PHX.utilization_patterns.UtilizationVentilationPattern) -> None:
+        """Adds a PHX.utilization_patterns.UtilizationVentilationPattern to the collection's dictionary 
         
         Arguments:
         ----------
-            * _utilization_pattern (UtilizationVentilationpattern): The new UtilizationVentilationpattern
-                to add to the collection
+            * _utilization_pattern (PHX.utilization_patterns.UtilizationVentilationpattern): 
+                The new PHX.utilization_patterns.UtilizationVentilationpattern to add to the collection
         Returns:
         --------
             * None
         """
         self._utilization_patterns[ _utilization_pattern.identifier ] = _utilization_pattern
 
-    def get_utiliztion_pattern_by_identifier( self, _utilization_pattern_identifier: str ) -> UtilizationVentilationPattern:
-        """Searches the UtilizationPatternsVentilationCollection for a Utilization Pattern with a specific Identifier Key
+    def get_utiliztion_pattern_by_identifier( self, _utilization_pattern_identifier: str ) -> PHX.utilization_patterns.UtilizationVentilationPattern:
+        """Searches the PHX.utilization_patterns.UtilizationPatternsVentilationCollection 
+            for a Utilization Pattern with a specific Identifier Key
         
         Arguments:
         ----------
-            * _utilization_pattern_identifier (str): The Assembly Identifier to search for
+            * _utilization_pattern_identifier (str): The PHX.assemblies.Assembly Identifier to search for
         
         Returns:
         --------
-            * (UtilizationVentilationPattern): The UtilizationPattern Object matching the input Identifier, or None if not found
+            * (PHX.utilization_patterns.UtilizationVentilationPattern): The 
+                PHX.utilization_patterns.UtilizationPattern Object matching the 
+                input Identifier, or None if not found
         """
         
         return self._utilization_patterns.get( _utilization_pattern_identifier )
 
-class WindowTypeCollection(_Base):
+class WindowTypeCollection(PHX._base._Base):
         
     def __init__(self):
         super(WindowTypeCollection, self).__init__()
@@ -56,19 +59,19 @@ class WindowTypeCollection(_Base):
     def window_types(self):
         return self._window_types.values()
 
-    def add_new_window_type_to_collection(self, _window_type: WindowType) -> None:
+    def add_new_window_type_to_collection(self, _window_type: PHX.window_types.WindowType) -> None:
         """Adds a WindowType to the collection dictionary 
         
         Arguments:
         ----------
-            * _window_type (WindowType): The new WindowType to add to the collection
+            * _window_type (PHX.window_types.WindowType): The new WindowType to add to the collection
         Returns:
         --------
             * None
         """
         self._window_types[ _window_type.identifier ] = _window_type
 
-    def get_window_type_by_identifier( self, _window_type_identifier: str ) -> WindowType:
+    def get_window_type_by_identifier( self, _window_type_identifier: str ) -> PHX.window_types.WindowType:
         """Searches the WindowTypeCollection for a WindowType with a specific Identiier Key
         
         Arguments:
@@ -77,12 +80,12 @@ class WindowTypeCollection(_Base):
         
         Returns:
         --------
-            * (WindowType): The WindowType Object matching the input Identifier, or None if not found
+            * (PHX.window_types.WindowType): The WindowType Object matching the input Identifier, or None if not found
         """
         
         return self._window_types.get( _window_type_identifier )
 
-class AssemblyCollection(_Base):
+class AssemblyCollection(PHX._base._Base):
     """Collection of all the Assemblies in the Project
     
     Attributes:
@@ -99,7 +102,7 @@ class AssemblyCollection(_Base):
     def project_assemblies(self):
         return self._project_assemblies.values()
 
-    def get_assembly_by_name(self, _assembly_name: str) -> Assembly:
+    def get_assembly_by_name(self, _assembly_name: str) -> PHX.assemblies.Assembly:
         """Searches the AssemblyCollection for an Assembly with a specific Name
         
         Arguments:
@@ -108,17 +111,17 @@ class AssemblyCollection(_Base):
         
         Returns:
         --------
-            * (Assembly): The Assembly matching the input Name, or None if not found
+            * (PHX.assemblies.Assembly): The Assembly matching the input Name, or None if not found
         """
         
         return self._project_assemblies.get( _assembly_name )
 
-    def add_new_assembly_to_collection(self, _assembly: Assembly) -> None:
+    def add_new_assembly_to_collection(self, _assembly: PHX.assemblies.Assembly) -> None:
         """Adds an Assembly to the collection dictionary 
         
         Arguments:
         ----------
-            * _assembly (Assembly): The new Assembly to add to the collection
+            * _assembly (PHX.assemblies.Assembly): The new Assembly to add to the collection
         Returns:
         --------
             * None

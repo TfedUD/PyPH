@@ -5,13 +5,12 @@
 PHX Project Classes
 """
 
-from ._base import _Base
+import PHX._base
+import PHX.type_collections
 from datetime import datetime
-from .type_collections import (AssemblyCollection,
-                                WindowTypeCollection,
-                                UtilizationPatternsVentilationCollection)
 
-class Date(_Base):
+
+class Date(PHX._base._Base):
 
     def __init__(self):
         super(Date, self).__init__()
@@ -21,7 +20,7 @@ class Date(_Base):
         self.Hour = datetime.now().hour
         self.Minutes = datetime.now().minute
 
-class ProjectData(_Base):
+class ProjectData(PHX._base._Base):
 
     def __init__(self):
         super(ProjectData, self).__init__()
@@ -52,7 +51,7 @@ class ProjectData(_Base):
         self.date = Date()
         self.wBkg = True
 
-class Project(_Base):
+class Project(PHX._base._Base):
     
     def __init__(self):
         super(Project, self).__init__()
@@ -77,12 +76,12 @@ class Project(_Base):
         for var in args:
             self.lVariant.append( var )
 
-    def add_assemblies_from_collection(self, _assmbly_c: AssemblyCollection) -> None:
+    def add_assemblies_from_collection(self, _assmbly_c: PHX.type_collections.AssemblyCollection) -> None:
         """Extends the lAssembly list with all of the Assemblies from an AssemblyCollection Object
         
         Arguments:
         ----------
-            * _assmbly_c (AssemblyCollection): The AssemblyCollection to get the Assemblies from 
+            * _assmbly_c (PHX.type_collections.AssemblyCollection): The PHX.type_collections.AssemblyCollection to get the Assemblies from 
         
         Returns:
         --------
@@ -90,12 +89,12 @@ class Project(_Base):
         """
         self.lAssembly.extend( _assmbly_c.project_assemblies )
 
-    def add_window_types_from_collection(self, _win_type_c: WindowTypeCollection) -> None:
-        """Extends the lWindow list with all of the window_types from an AssemblyCollection Object
+    def add_window_types_from_collection(self, _win_type_c: PHX.type_collections.WindowTypeCollection) -> None:
+        """Extends the lWindow list with all of the window_types from an PHX.type_collections.AssemblyCollection Object
         
         Arguments:
         ----------
-            * _win_type_c (WindowTypeCollection): The WindowTypeCollection to get the WindowTypes from 
+            * _win_type_c (PHX.type_collections.WindowTypeCollection): The WindowTypeCollection to get the WindowTypes from 
         
         Returns:
         --------
@@ -103,7 +102,7 @@ class Project(_Base):
         """
         self.lWindow.extend( _win_type_c.window_types )
 
-    def add_vent_utilization_patterns_from_collection( self, _util_pattern_c:UtilizationPatternsVentilationCollection) -> None:
+    def add_vent_utilization_patterns_from_collection( self, _util_pattern_c:PHX.type_collections.UtilizationPatternsVentilationCollection) -> None:
         self.lUtilVentPH.extend( _util_pattern_c.utilization_patterns )
 
 

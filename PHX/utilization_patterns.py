@@ -5,15 +5,15 @@
 PHX Occupant Utilization Pattern Classes
 """
 
-from ._base import _Base
+import PHX._base
 
-class VentilationUtilization(_Base):
+class VentilationUtilization(PHX._base._Base):
     def __init__(self, _dos, _pdf):
         super(VentilationUtilization, self).__init__()
         self.daily_op_sched = _dos
         self.frac_of_design_airflow = _pdf
 
-class UtilizationVentilationPattern(_Base):
+class UtilizationVentilationPattern(PHX._base._Base):
 
     _count = 0
 
