@@ -1,27 +1,26 @@
 from collections import namedtuple
 import pytest
-from ladybug_geometry.geometry3d import Point3D, Face3D
-
+import ladybug_geometry.geometry3d
 
 #-- Ladybug Geometry
 #-------------------------------------------------------------------------------
 @pytest.fixture()
 def face3D_1():
-    pt_1 = Point3D(0,0,0)
-    pt_2 = Point3D(10,0,0)
-    pt_3 = Point3D(10,10,0)
-    pt_4 = Point3D(0,10,0)
+    pt_1 = ladybug_geometry.geometry3d.Point3D(0,0,0)
+    pt_2 = ladybug_geometry.geometry3d.Point3D(10,0,0)
+    pt_3 = ladybug_geometry.geometry3d.Point3D(10,10,0)
+    pt_4 = ladybug_geometry.geometry3d.Point3D(0,10,0)
 
-    return Face3D([pt_1, pt_2, pt_3, pt_4])
+    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
 
 @pytest.fixture()
 def face3D_2():
-    pt_1 = Point3D(0,0,0)
-    pt_2 = Point3D(-10,0,0)
-    pt_3 = Point3D(-10,-10,0)
-    pt_4 = Point3D(0,-10,0)
+    pt_1 = ladybug_geometry.geometry3d.Point3D(0,0,0)
+    pt_2 = ladybug_geometry.geometry3d.Point3D(-10,0,0)
+    pt_3 = ladybug_geometry.geometry3d.Point3D(-10,-10,0)
+    pt_4 = ladybug_geometry.geometry3d.Point3D(0,-10,0)
 
-    return Face3D([pt_1, pt_2, pt_3, pt_4])
+    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
 
 
 #-- FloorSegments
@@ -29,7 +28,6 @@ def face3D_2():
 FloorSegment_Data = namedtuple('FloorSegment_Data', [
                                     'weighting_factor',
                                     'floor_area_gross',
-                                    'floor_area_weighted',
                                     'space_name',
                                     'space_number',
                                     'non_res_lighting',
@@ -44,29 +42,73 @@ FloorSegment_Data = namedtuple('FloorSegment_Data', [
 
 @pytest.fixture()
 def floor_segment_a():
-    return FloorSegment_Data(1, None, None,
-                            'A First Floor Segment', 101, None,
-                            None, None, 0.0, 0.0, 0.0, [], 'ABC-123')
+    return FloorSegment_Data(
+                        weighting_factor=1,
+                        floor_area_gross=None,
+                        space_name='A First Floor Segment',
+                        space_number=101,
+                        non_res_lighting=None,
+                        non_res_motion=None,
+                        non_res_usage=None,
+                        ventilation_v_sup=0.0,
+                        ventilation_v_eta=0.0,
+                        ventilation_v_trans=0.0,
+                        geometry=[],
+                        host_zone_identifier='ABC-123'
+                        )
 
 @pytest.fixture()
 def floor_segment_b(face3D_1):
-    return FloorSegment_Data(1, None, None,
-                            'A Second Floor Segment', 102, None,
-                            None, None, 0.0, 0.0, 0.0, [face3D_1], 'DEF-456')
+    return FloorSegment_Data(
+                        weighting_factor=1,
+                        floor_area_gross=None,
+                        space_name= 'A Second Floor Segment',
+                        space_number=102,
+                        non_res_lighting=None,
+                        non_res_motion=None,
+                        non_res_usage=None,
+                        ventilation_v_sup=0.0,
+                        ventilation_v_eta=0.0,
+                        ventilation_v_trans=0.0,
+                        geometry=[face3D_1],
+                        host_zone_identifier='DEF-456'
+                        )
 
 @pytest.fixture()
 def floor_segment_c1(face3D_2):
-    return FloorSegment_Data(1, None, None,
-                        'A Third Floor Segment', 103, None,
-                        None, None, 0.0, 0.0, 0.0, [face3D_2], 'GHI-789')
+    return FloorSegment_Data(
+                        weighting_factor=1,
+                        floor_area_gross=None,
+                        space_name= 'A Third Floor Segment',
+                        space_number=103,
+                        non_res_lighting=None,
+                        non_res_motion=None,
+                        non_res_usage=None,
+                        ventilation_v_sup=0.0,
+                        ventilation_v_eta=0.0,
+                        ventilation_v_trans=0.0,
+                        geometry=[face3D_2],
+                        host_zone_identifier='GHI-789'
+                        )
 
 @pytest.fixture()
 def floor_segment_c2(face3D_2):
     """Same name/number as c_1, different geomtery"""
 
-    return FloorSegment_Data(1, None, None,
-                        'A Third Floor Segment', 103, None,
-                        None, None, 0.0, 0.0, 0.0, [face3D_1], 'GHI-789')
+    return FloorSegment_Data(
+                        weighting_factor=1,
+                        floor_area_gross=None,
+                        space_name= 'A Third Floor Segment',
+                        space_number=103,
+                        non_res_lighting=None,
+                        non_res_motion=None,
+                        non_res_usage=None,
+                        ventilation_v_sup=0.0,
+                        ventilation_v_eta=0.0,
+                        ventilation_v_trans=0.0,
+                        geometry=[face3D_1],
+                        host_zone_identifier='GHI-789'
+                        )
 
 #-- Space
 #-------------------------------------------------------------------------------
