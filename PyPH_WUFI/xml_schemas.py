@@ -35,18 +35,18 @@ def _WindowType(_obj):
 	
 def  _UtilizationVentilationPattern(_obj):
 	return [
-		PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.id),
-		PyPH_WUFI.xml_node.XML_Node('Name', _obj.n),
-		PyPH_WUFI.xml_node.XML_Node('OperatingDays', _obj.OperatingDays),
-		PyPH_WUFI.xml_node.XML_Node('OperatingWeeks', _obj.OperatingWeeks),
-		PyPH_WUFI.xml_node.XML_Node('Maximum_DOS', _obj.Maximum_DOS),
-		PyPH_WUFI.xml_node.XML_Node('Maximum_PDF', _obj.Maximum_PDF),
-		PyPH_WUFI.xml_node.XML_Node('Standard_DOS', _obj.Standard_DOS),
-		PyPH_WUFI.xml_node.XML_Node('Standard_PDF', _obj.Standard_PDF),
-		PyPH_WUFI.xml_node.XML_Node('Basic_DOS', _obj.Basic_DOS),
-		PyPH_WUFI.xml_node.XML_Node('Basic_PDF', _obj.Basic_PDF),
-		PyPH_WUFI.xml_node.XML_Node('Minimum_DOS', _obj.Minimum_DOS),
-		PyPH_WUFI.xml_node.XML_Node('Minimum_PDF', _obj.Minimum_PDF),
+		# PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.id),
+		# PyPH_WUFI.xml_node.XML_Node('Name', _obj.n),
+		# PyPH_WUFI.xml_node.XML_Node('OperatingDays', _obj.OperatingDays),
+		# PyPH_WUFI.xml_node.XML_Node('OperatingWeeks', _obj.OperatingWeeks),
+		# PyPH_WUFI.xml_node.XML_Node('Maximum_DOS', _obj.Maximum_DOS),
+		# PyPH_WUFI.xml_node.XML_Node('Maximum_PDF', _obj.Maximum_PDF),
+		# PyPH_WUFI.xml_node.XML_Node('Standard_DOS', _obj.Standard_DOS),
+		# PyPH_WUFI.xml_node.XML_Node('Standard_PDF', _obj.Standard_PDF),
+		# PyPH_WUFI.xml_node.XML_Node('Basic_DOS', _obj.Basic_DOS),
+		# PyPH_WUFI.xml_node.XML_Node('Basic_PDF', _obj.Basic_PDF),
+		# PyPH_WUFI.xml_node.XML_Node('Minimum_DOS', _obj.Minimum_DOS),
+		# PyPH_WUFI.xml_node.XML_Node('Minimum_PDF', _obj.Minimum_PDF),
 	]
 
 def _Material(_obj):
@@ -202,20 +202,13 @@ def _Space(_obj):
 		PyPH_WUFI.xml_node.XML_Node('ClearRoomHeight', _obj.clear_height, 'unit', "m"),
 
 		# PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent', _obj.idUPatV),
-		# PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.idVUnit),
-		
-		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply', _obj.design_flow_rate_supply),
-		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust', _obj.design_flow_rate_extract),
-		
-		# PyPH_WUFI.xml_node.XML_Node('Type choice="User defined">99</Type>
-		# PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent choice="Pattern 1: ERV Ventilation', _obj.display_name),
-		# PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.display_name),
+		PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.ventilation.ventilator.id),
 
-		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply unit="m³/h', _obj.display_name),
-		# PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust unit="m³/h', _obj.display_name),
+		PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply', _obj.ventilation.supply, 'unit', 'm³/h'),
+		PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust', _obj.ventilation.extract, 'unit', 'm³/h'),
+		PyPH_WUFI.xml_node.XML_Node('DesignFlowInterzonalUserDef', _obj.ventilation.transfer, 'unit', 'm³/h'),
 		# PyPH_WUFI.xml_node.XML_Node('SupplyFlowRateUserDef unit="m³/h', _obj.display_name),
 		# PyPH_WUFI.xml_node.XML_Node('ExhaustFlowRateUserDef unit="m³/h', _obj.display_name),
-		# PyPH_WUFI.xml_node.XML_Node('DesignFlowInterzonalUserDef', _obj.display_name),
 	
 	]
 
@@ -280,7 +273,7 @@ def _HVAC_PH_Parameters(_obj):
 def _HVAC_Device(_obj):
 	return [
 		PyPH_WUFI.xml_node.XML_Node('Name', _obj.Name),
-		PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.IdentNr),
+		PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.id),
 		PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection('HVAC_Device::SystemType', _obj.SystemType).xml_data),
 		PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection('HVAC_Device::TypeDevice', _obj.TypeDevice).xml_data),
 		PyPH_WUFI.xml_node.XML_Node('UsedFor_Heating', _obj.UsedFor_Heating),
@@ -299,12 +292,12 @@ def _HVAC_Device(_obj):
 
 def _HVAC_System_ZoneCover(_obj):
 	return [
-		PyPH_WUFI.xml_node.XML_Node('IdentNrZone', _obj.n),
-		PyPH_WUFI.xml_node.XML_Node('CoverageHeating', _obj.czHCVHD[0]),
-		PyPH_WUFI.xml_node.XML_Node('CoverageCooling', _obj.czHCVHD[1]),
-		PyPH_WUFI.xml_node.XML_Node('CoverageVentilation', _obj.czHCVHD[2]),
-		PyPH_WUFI.xml_node.XML_Node('CoverageHumidification', _obj.czHCVHD[3]),
-		PyPH_WUFI.xml_node.XML_Node('CoverageDehumidification', _obj.czHCVHD[4]),
+		PyPH_WUFI.xml_node.XML_Node('IdentNrZone', _obj.idZoneCovered),
+		PyPH_WUFI.xml_node.XML_Node('CoverageHeating', _obj.cover_heating),
+		PyPH_WUFI.xml_node.XML_Node('CoverageCooling', _obj.cover_cooling),
+		PyPH_WUFI.xml_node.XML_Node('CoverageVentilation', _obj.cover_ventilation),
+		PyPH_WUFI.xml_node.XML_Node('CoverageHumidification', _obj.cover_humidification),
+		PyPH_WUFI.xml_node.XML_Node('CoverageDehumidification', _obj.cover_dehumidification),
 	]
 
 def _HVAC_System(_obj):
@@ -385,6 +378,6 @@ def _Project(_obj):
 		PyPH_WUFI.xml_node.XML_List('Assemblies', [PyPH_WUFI.xml_node.XML_Object('Assembly', _, 'index', i) for i, _ in enumerate(_obj.lAssembly)] ),
 		PyPH_WUFI.xml_node.XML_List('WindowTypes', [PyPH_WUFI.xml_node.XML_Object('WindowType', _, 'index', i) for i, _ in enumerate(_obj.lWindow)] ),
 		PyPH_WUFI.xml_node.XML_List('SolarProtectionTypes', _obj.lSolProt),
-		PyPH_WUFI.xml_node.XML_List('UtilisationPatternsVentilation', [PyPH_WUFI.xml_node.XML_Object('UtilizationPatternVent', _, 'index', i) for i, _ in enumerate(_obj.lUtilVentPH)] ),
+		# PyPH_WUFI.xml_node.XML_List('UtilisationPatternsVentilation', [PyPH_WUFI.xml_node.XML_Object('UtilizationPatternVent', _, 'index', i) for i, _ in enumerate(_obj.lUtilVentPH)] ),
 		PyPH_WUFI.xml_node.XML_List('Variants', [PyPH_WUFI.xml_node.XML_Object('Variant', _, 'index', i) for i, _ in enumerate(_obj.lVariant)] ),
 	]

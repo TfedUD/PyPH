@@ -1,53 +1,80 @@
 # -*- coding: utf-8 -*-
 # -*- Python Version: 2.7 -*-
 
-"""
-PHX Type Collection Classes for organizing Assembly, Window and Utilization Patterns
-"""
+"""PHX Type Collection Classes for organizing Assembly, Window and Ventilization-Utilization Patterns"""
 
 import PHX.assemblies
 import PHX.window_types
 import PHX.utilization_patterns
 import PHX._base
 
-class UtilizationPatternsVentilationCollection(PHX._base._Base):
+class Collection(PHX._base._Base):
     def __init__(self):
-        super(UtilizationPatternsVentilationCollection, self).__init__()
-        self._utilization_patterns = {}
-    
-    @property
-    def utilization_patterns(self):
-        return self._utilization_patterns.values()
-   
-    def add_new_utilization_pattern_to_collection(self, _utilization_pattern: PHX.utilization_patterns.UtilizationVentilationPattern) -> None:
-        """Adds a PHX.utilization_patterns.UtilizationVentilationPattern to the collection's dictionary 
-        
-        Arguments:
-        ----------
-            * _utilization_pattern (PHX.utilization_patterns.UtilizationVentilationpattern): 
-                The new PHX.utilization_patterns.UtilizationVentilationpattern to add to the collection
-        Returns:
-        --------
-            * None
-        """
-        self._utilization_patterns[ _utilization_pattern.identifier ] = _utilization_pattern
+        super(Collection, self).__init__()
+        self._items = {}
+        self._allowed_types = object
 
-    def get_utiliztion_pattern_by_identifier( self, _utilization_pattern_identifier: str ) -> PHX.utilization_patterns.UtilizationVentilationPattern:
-        """Searches the PHX.utilization_patterns.UtilizationPatternsVentilationCollection 
-            for a Utilization Pattern with a specific Identifier Key
+    def get_item_by_identifier(self, _identifier):
+        #type: (str) -> Any
+        return self._items[ _identifier ]
+
+    def items(self):
+        # type: () -> list
+        return self._items.values()
+
+    def add_to_collection(self, _item):
+        # type: (Any) -> None
+        if not isinstance(_item, self._allowed_types):
+            msg = 'Error: Cannot add "{}" to Collection: "{}" only'\
+                'objects of type: "{}" allowed'.format( type(_item), self.__class__.__name__, self._allowed_types)
+            raise TypeError(msg)
         
-        Arguments:
-        ----------
-            * _utilization_pattern_identifier (str): The PHX.assemblies.Assembly Identifier to search for
+        self._items[ _item.identifier ] = _item
+
+class CVent_Util_Patterns(Collection):
+    def __init__(self):
+        super(CVent_Util_Patterns, self).__init__()
+        self._allowed_types = PHX.utilization_patterns.UtilizationVentilationPattern
+        self.add_to_collection( PHX.utilization_patterns.UtilizationVentilationPattern() ) #default
+
+# class UtilizationPatternsVentilationCollection(PHX._base._Base):
+#     def __init__(self):
+#         super(UtilizationPatternsVentilationCollection, self).__init__()
+#         self._utilization_patterns = {}
+    
+#     @property
+#     def utilization_patterns(self):
+#         return self._utilization_patterns.values()
+   
+#     def add_new_utilization_pattern_to_collection(self, _utilization_pattern: PHX.utilization_patterns.UtilizationVentilationPattern) -> None:
+#         """Adds a PHX.utilization_patterns.UtilizationVentilationPattern to the collection's dictionary 
         
-        Returns:
-        --------
-            * (PHX.utilization_patterns.UtilizationVentilationPattern): The 
-                PHX.utilization_patterns.UtilizationPattern Object matching the 
-                input Identifier, or None if not found
-        """
+#         Arguments:
+#         ----------
+#             * _utilization_pattern (PHX.utilization_patterns.UtilizationVentilationpattern): 
+#                 The new PHX.utilization_patterns.UtilizationVentilationpattern to add to the collection
+#         Returns:
+#         --------
+#             * None
+#         """
+#         self._utilization_patterns[ _utilization_pattern.identifier ] = _utilization_pattern
+
+#     def get_utiliztion_pattern_by_identifier( self, _utilization_pattern_identifier: str ) -> PHX.utilization_patterns.UtilizationVentilationPattern:
+#         """Searches the PHX.utilization_patterns.UtilizationPatternsVentilationCollection 
+#             for a Utilization Pattern with a specific Identifier Key
         
-        return self._utilization_patterns.get( _utilization_pattern_identifier )
+#         Arguments:
+#         ----------
+#             * _utilization_pattern_identifier (str): The PHX.assemblies.Assembly Identifier to search for
+        
+#         Returns:
+#         --------
+#             * (PHX.utilization_patterns.UtilizationVentilationPattern): The 
+#                 PHX.utilization_patterns.UtilizationPattern Object matching the 
+#                 input Identifier, or None if not found
+#         """
+        
+#         return self._utilization_patterns.get( _utilization_pattern_identifier )
 
 class WindowTypeCollection(PHX._base._Base):
         

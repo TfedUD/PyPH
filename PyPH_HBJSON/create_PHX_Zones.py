@@ -4,11 +4,15 @@
 import honeybee.room
 import PHX.variant
 import PHX.spaces
+import LBT_Utils.program
 
 #-- Zones
 #-------------------------------------------------------------------------------
 def create_zone_from_HB_room( _hb_room: honeybee.room.Room ) -> PHX.variant.Zone:
-    """Creates a new Zone from a single Honeybee 'Room'
+    """Creates a new Zone from a single Honeybee 'Room'.
+
+    Note: This function does not create the 'Spaces' within the Zone. Use
+    create_PHX_Zones.add_Spaces_from_HB_room() in order to add Spaces if desired.
     
     Arguments:
     ----------
@@ -35,57 +39,43 @@ def create_zone_from_HB_room( _hb_room: honeybee.room.Room ) -> PHX.variant.Zone
 
     return zone
 
-def add_default_Space_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: honeybee.room.Room) -> PHX.variant.Zone:
-    """Create a new default Space object for a HB Room. This is used if no detailed
-    Space information is supplied by the user. By default, each Honyebee Room will have a single 'Space.'
+def set_Space_ventilation_from_HB_room( _hb_room, _phx_Space ):
+    """Calcs and sets Space's ventilation flow rates based on the host Honeyebee Room"""
 
-    Arguments:
-    ----------
-        * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
-            for the new PHX.spaces.Space
-        * _hb_room (honeybee.room.Room): The source Honeybee 'Room' to use to set the name for
-            the new PHX.spaces.Space created.
+    #- Ventilation Airflow
+    total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec( _hb_room )
 
-    Returns:
-    --------
-        * (PHX.variant.Zone): The input PHX.variant.Zone with the new PHX.spaces.Space 
-            now as a 'child' of the Zone.
-    """
+    _phx_Space.ventilation.supply = total_vent_airflow * 3600
+    _phx_Space.ventilation.extract = total_vent_airflow * 3600
+    _phx_Space.ventilation.transfer = 0.0
 
-    new_space = PHX.spaces.Space()
-    new_space.space_number = None
-    new_space.space_name = f'{_hb_room.display_name}_room'
-    # new_space.idUPatV = 1
-
-    _phx_Zone.add_new_space( new_space )
+    #- Ventilization Utilization Pattern
     
-    return _phx_Zone
+def create_Spaces_from_HB_room(_hb_room):
+    # type: (honeybee.room.Room) -> list[PHX.spaces.Space]
+    """Returns a list of new Spaces based on the Honeybee Room"""
 
-def add_detailed_Spaces_from_HB_room( _phx_Zone: PHX.variant.Zone, _hb_room: honeybee.room.Room) -> PHX.variant.Zone:
-    """Sets the Zone's Spaces based on detailed Space data found in the 
-    Honyebee room.user_data['phx']['spaces'] dictionary.
+    #--- Get any detailed user-determined Space info on the HB-Room
+    user_determined_space_dict = _hb_room.user_data.get('phx', {}).get('spaces', [])
 
-    Arguments:
-    ----------
-        * _phx_Zone (PHX.variant.Zone): The PHX.Zone Object to serve as the 'host'
-            for the new PHX.spaces.Space
-        * _hb_room (honeybee.room.Room): The source Honeybee 'Room' to use to set the name for
-            the new PHX.spaces.Space created.
-
-    Returns:
-    --------
-        * (PHX.variant.Zone): The input PHX.variant.Zone with the new PHX.spaces.Space 
-            now as a 'child' of the Zone.
-    """
-
-    honeybee_spaces = _hb_room.user_data.get('phx', {}).get('spaces', {})
-    for room_dict in honeybee_spaces.values():
-
-        phx_space = PHX.spaces.Space.from_dict( room_dict )
-
-        _phx_Zone.add_new_space( phx_space )
+    spaces = []
+    if user_determined_space_dict:
+        #--- Build new Spaces based on the User-determiend detailed inputs
+        for space_dict in user_determined_space_dict.values():
+            new_phx_space = PHX.spaces.Space.from_dict( space_dict )
+            
+            set_Space_ventilation_from_HB_room(_hb_room, new_phx_space)
+        spaces.append( new_phx_space )
+    else:
+        #--- Build a default space if no detailed ones provided
+        new_phx_space = PHX.spaces.Space()
+        new_phx_space.space_number = None
+        new_phx_space.space_name = f'{_hb_room.display_name}_room'
+        
+        set_Space_ventilation_from_HB_room(_hb_room, new_phx_space)
+    spaces.append( new_phx_space )
     
-    return _phx_Zone
+    return spaces
 
 def add_default_res_appliance_to_zone( _wp_zone: PHX.variant.Zone) -> PHX.variant.Zone:
     return None

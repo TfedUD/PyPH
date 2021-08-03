@@ -44,7 +44,7 @@ FloorSegment_Data = namedtuple('FloorSegment_Data', [
 def floor_segment_a():
     return FloorSegment_Data(
                         weighting_factor=1,
-                        floor_area_gross=None,
+                        floor_area_gross=100,
                         space_name='A First Floor Segment',
                         space_number=101,
                         non_res_lighting=None,
@@ -61,7 +61,7 @@ def floor_segment_a():
 def floor_segment_b(face3D_1):
     return FloorSegment_Data(
                         weighting_factor=1,
-                        floor_area_gross=None,
+                        floor_area_gross=200,
                         space_name= 'A Second Floor Segment',
                         space_number=102,
                         non_res_lighting=None,
@@ -78,7 +78,7 @@ def floor_segment_b(face3D_1):
 def floor_segment_c1(face3D_2):
     return FloorSegment_Data(
                         weighting_factor=1,
-                        floor_area_gross=None,
+                        floor_area_gross=300,
                         space_name= 'A Third Floor Segment',
                         space_number=103,
                         non_res_lighting=None,
@@ -97,7 +97,7 @@ def floor_segment_c2(face3D_2):
 
     return FloorSegment_Data(
                         weighting_factor=1,
-                        floor_area_gross=None,
+                        floor_area_gross=400,
                         space_name= 'A Third Floor Segment',
                         space_number=103,
                         non_res_lighting=None,

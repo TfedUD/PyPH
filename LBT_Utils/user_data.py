@@ -3,8 +3,10 @@
 
 from copy import deepcopy
 from collections import defaultdict
+import honeybee
 
 def add_to_HB_Obj_user_data( _hb_obj, _dict={}, _key='phx', _write_mode='update' ):
+    # type: ( honeybee, dict, str, str ) -> honeybee
     """Adds the a new dictionary entry to the Honeybee Object's 'user_data'
 
     Arguments:
@@ -21,6 +23,7 @@ def add_to_HB_Obj_user_data( _hb_obj, _dict={}, _key='phx', _write_mode='update'
         * Honeybee Object: The Input HB Object with its 'user_data' updated
     
     """
+
     new_user_data = deepcopy( _hb_obj.user_data )
     if not isinstance(new_user_data, dict):
         new_user_data = {}
@@ -40,6 +43,7 @@ def add_to_HB_Obj_user_data( _hb_obj, _dict={}, _key='phx', _write_mode='update'
             new_user_data['phx'][_key] = _dict
 
     _hb_obj.user_data = new_user_data
+    
     return _hb_obj
 
 

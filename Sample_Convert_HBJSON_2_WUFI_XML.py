@@ -10,14 +10,11 @@ import PHX.project
 import PHX.variant
 import PHX.type_collections
 import PHX.utilization_patterns
-
+import PHX.hvac
 import PyPH_WUFI.build_WUFI_xml
 
 from PyPH_HBJSON.read_HBJSON_file import read_hb_json
-from PyPH_HBJSON.create_PHX_Zones import (create_zone_from_HB_room,
-                                                add_default_Space_from_HB_room,
-                                                add_detailed_Spaces_from_HB_room
-                                                )
+import PyPH_HBJSON.create_PHX_Zones
 from PyPH_HBJSON.create_PHX_components import (create_new_opaque_component_from_hb_face,
                                                 set_compo_interior_exposure_from_hb_face,
                                                 set_compo_exterior_exposure_from_hb_face,
@@ -42,9 +39,9 @@ print('>>>>>', hb_model)
 
 #-- Build the Ventilation Utilization Pattern (Schedule) Collection
 #-------------------------------------------------------------------------------
-vent_util_pattern_collection = PHX.type_collections.UtilizationPatternsVentilationCollection()
-default_utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern()
-vent_util_pattern_collection.add_new_utilization_pattern_to_collection( default_utilization_pattern )
+# vent_util_pattern_collection = PHX.type_collections.UtilizationPatternsVentilationCollection()
+# default_utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern()
+# vent_util_pattern_collection.add_new_utilization_pattern_to_collection( default_utilization_pattern )
 
 #--- Build the Construction Assembly-Types, Window-Types
 #-------------------------------------------------------------------------------
@@ -64,23 +61,25 @@ for room in hb_model.rooms:
 project_variant_1 = PHX.variant.Variant()
 
 
-#-- Default HVAC
+#-- HVAC System
 #-------------------------------------------------------------------------------
-project_variant_1.add_default_venilation_system()
+# project_variant_1.add_default_ventilation_system()
+project_HVAC_System = PHX.hvac.HVAC_System()
+project_variant_1.HVAC.add_system( project_HVAC_System )
 
 #-------------------------------------------------------------------------------
 #--- Build the Zones and Rooms
 #--- Build all the Zones first. The Zones need to all be in place so that the exterior 
 #--- exposures for any adjacent-surfaces can be set with the proper ID number when building Components.
 for room in hb_model.rooms:
-    new_zone = create_zone_from_HB_room( room )
-    #new_zone = add_default_res_appliance_to_zone( new_zone )
+    new_zone = PyPH_HBJSON.create_PHX_Zones.create_zone_from_HB_room( room )
+    new_spaces = PyPH_HBJSON.create_PHX_Zones.create_Spaces_from_HB_room( room )
+    new_zone.add_spaces( new_spaces )
     
-    #--- Add space-level information, or a default space if none found on the Honeybee Model
-    if room.user_data.get('phx', {}).get('spaces'):
-        new_zone = add_detailed_Spaces_from_HB_room( new_zone, room )
-    else:
-        new_zone = add_default_Space_from_HB_room( new_zone, room )
+    project_HVAC_System.add_zone_to_system_coverage( new_zone )
+    project_HVAC_System.add_zone_hvac_devices( new_zone )
+
+    #new_zone = add_default_res_appliance_to_zone( new_zone )
 
     project_variant_1.add_zones( new_zone )
 
@@ -118,7 +117,7 @@ proj_1 = PHX.project.Project()
 proj_1.add_variant(project_variant_1)
 proj_1.add_assemblies_from_collection( assmbly_collection )
 proj_1.add_window_types_from_collection( window_type_collection )
-proj_1.add_vent_utilization_patterns_from_collection( vent_util_pattern_collection )
+# proj_1.add_vent_utilization_patterns_from_collection( vent_util_pattern_collection )
 
 #-------------------------------------------------------------------------------
 PyPH_WUFI.build_WUFI_xml.write_Project_to_wp_xml_file(TARGET_FILE_XML, proj_1)

@@ -7,6 +7,20 @@ PHX Space (Room) and Floor Area (iCFA / TFA) Classes
 
 import PHX._base
 import PHX.serialization.from_dict
+import PHX.hvac
+import PHX.utilization_patterns
+
+class PropertiesVentilation(PHX._base._Base):
+
+    def __init__(self):
+        super(PropertiesVentilation, self).__init__()
+        self.airflows = PHX.hvac.HVAC_Ventilation_Airflows()
+        self.ventilator = PHX.hvac.HVAC_Device.default_ventilator()
+        self.utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern()
+   
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._PropertiesVentilation(cls, _dict)
 
 class FloorSegment(PHX._base._Base):
     """An individual segment of floor area with some relevant attributes"""
@@ -92,27 +106,29 @@ class Floor(PHX._base._Base):
     def display_name(self):
         return '{}-{}'.format(self.space_number, self.space_name)
 
-    def add_new_floor_segment(self, _new_flr_seg):
-        """Adds a new FloorSegment to the Floor.floor_segments collection"""
+    def add_new_floor_segment(self, _new_flr_segs):
+        """Adds new FloorSegment(s) to the Floor.floor_segments collection"""
         
-        if not _new_flr_seg: return
-        if _new_flr_seg in self.floor_segments: return
-
-        self.floor_segments.append(_new_flr_seg)
-
-        self.space_number = self._join_string_values( _new_flr_seg, 'space_number')
-        self.space_name = self._join_string_values( _new_flr_seg, 'space_name')
+        if not isinstance( _new_flr_segs, list): _new_flr_segs = [ _new_flr_segs ]
         
-        self.non_res_lighting = self._join_string_values( _new_flr_seg, 'non_res_lighting')
-        self.non_res_motion = self._join_string_values( _new_flr_seg, 'non_res_motion')
-        self.non_res_usage = self._join_string_values( _new_flr_seg, 'non_res_usage')
-        
-        self.ventilation_v_sup = self._join_ventilation_values( _new_flr_seg, 'ventilation_v_sup')
-        self.ventilation_v_eta = self._join_ventilation_values( _new_flr_seg, 'ventilation_v_eta')
-        self.ventilation_v_trans = self._join_ventilation_values( _new_flr_seg, 'ventilation_v_trans')
+        for seg in _new_flr_segs:
+            if seg in self.floor_segments: return
 
-        self.host_zone_identifier = self._join_string_values( _new_flr_seg, 'host_zone_identifier')
-    
+            self.floor_segments.append(seg)
+
+            self.space_number = self._join_string_values( seg, 'space_number')
+            self.space_name = self._join_string_values( seg, 'space_name')
+            
+            self.non_res_lighting = self._join_string_values( seg, 'non_res_lighting')
+            self.non_res_motion = self._join_string_values( seg, 'non_res_motion')
+            self.non_res_usage = self._join_string_values( seg, 'non_res_usage')
+            
+            self.ventilation_v_sup = self._join_ventilation_values( seg, 'ventilation_v_sup')
+            self.ventilation_v_eta = self._join_ventilation_values( seg, 'ventilation_v_eta')
+            self.ventilation_v_trans = self._join_ventilation_values( seg, 'ventilation_v_trans')
+
+            self.host_zone_identifier = self._join_string_values( seg, 'host_zone_identifier')
+        
     @property
     def geometry(self):
         """Return all of the Geometry of all the FloorSegments in a single list"""
@@ -239,7 +255,7 @@ class Volume(PHX._base._Base):
 
 class Space(PHX._base._Base):
     """
-    The Space is the primary spatial unit for a Passive House model. This would roughly 
+    The 'Space' is the primary spatial unit for a Passive House model. This would roughly 
     map to a 'Zone' in EnergyPlus or 'Room' in Honeybee. The main difference is
     that the 'Space' contains information on all its sub-areas (Volumes) and
     TFA/iCFA floor segments and floor areas.
@@ -265,7 +281,7 @@ class Space(PHX._base._Base):
     def __init__(self):        
         super(Space, self).__init__()
         self.quantity = 1
-        self.type = 99 #User-Defined
+        self.type = 99 #-- User-Defined
         self.space_name = None
         self.space_number = None
         self.host_zone_identifier = None
@@ -274,8 +290,8 @@ class Space(PHX._base._Base):
 
         self.occupancy = None
         self.equipment = None
-        self.ventilation = None
- 
+        self.ventilation = PropertiesVentilation()
+
     @property
     def clear_height(self):
         """Return the area-weighted average ceiling height of the Space's volumes"""
@@ -305,6 +321,7 @@ class Space(PHX._base._Base):
         return '{}-{}'.format(self.space_number, self.space_name)
     
     def add_new_volume(self, _new_volume):
+        # type: (PHX.spaces.Volume) -> None
         """Adds a new Volume onto the Space. Verifies that the names/numbers/hosts match
         
         Arguments:

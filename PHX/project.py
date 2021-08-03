@@ -8,7 +8,7 @@ PHX Project Classes
 import PHX._base
 import PHX.type_collections
 from datetime import datetime
-
+import PHX.type_collections#.UtilizationPatternsVentilationCollection()
 
 class Date(PHX._base._Base):
 
@@ -67,7 +67,7 @@ class Project(PHX._base._Base):
         self.lSolProt = []
         self.lOverhang = []
         self.lUtilNResPH = []
-        self.lUtilVentPH = []
+        self.lUtilVentPH = PHX.type_collections.CVent_Util_Patterns()
         self.lFile = []
         self.timeProf = {}
         self.lVariant = []
@@ -102,8 +102,8 @@ class Project(PHX._base._Base):
         """
         self.lWindow.extend( _win_type_c.window_types )
 
-    def add_vent_utilization_patterns_from_collection( self, _util_pattern_c:PHX.type_collections.UtilizationPatternsVentilationCollection) -> None:
-        self.lUtilVentPH.extend( _util_pattern_c.utilization_patterns )
+    # def add_vent_utilization_patterns_from_collection( self, _util_pattern_c:PHX.type_collections.UtilizationPatternsVentilationCollection) -> None:
+    #     self.lUtilVentPH.extend( _util_pattern_c.utilization_patterns )
 
 
 

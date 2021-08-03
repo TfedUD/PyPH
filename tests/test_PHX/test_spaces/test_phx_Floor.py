@@ -1,34 +1,6 @@
 import PHX.spaces
 import pytest
 
-@pytest.fixture()
-def floor_segments(floor_segment_a, floor_segment_b, floor_segment_c1, floor_segment_c2):
-    """Create new FloorSegments based on the input namedtuples"""
-    
-    params_a = floor_segment_a._asdict()
-    params_b = floor_segment_b._asdict()
-    params_c1 = floor_segment_c1._asdict()
-    params_c2 = floor_segment_c2._asdict()
-    
-    seg_1 = PHX.spaces.FloorSegment()
-    seg_2 = PHX.spaces.FloorSegment()
-    seg_3 = PHX.spaces.FloorSegment()
-    seg_4 = PHX.spaces.FloorSegment()
-
-    for k,v in params_a.items():
-        setattr(seg_1, k, v)
-
-    for k,v in params_b.items():
-        setattr(seg_2, k, v)
-    
-    for k,v in params_c1.items():
-        setattr(seg_3, k, v)
-
-    for k,v in params_c2.items():
-        setattr(seg_4, k, v)
-
-    return seg_1, seg_2, seg_3, seg_4
-
 #---- Floor
 #-------------------------------------------------------------------------------
 def test_Floor_add_FloorSegment(floor_segments):
@@ -85,3 +57,31 @@ def test_Floor_add_two_FloorSegments_with_same_names(floor_segments):
     new_flr.add_new_floor_segment( flr_seg_3b )
     
     assert len(new_flr.geometry) == 2
+
+def test_floor_areas(floor_segments):
+    #-- Build some FloorSegments, add to the Floor
+    flr_seg_2 = floor_segments[2]
+    flr_seg_2.floor_area_gross = 400
+    flr_seg_2.weighting_factor = 1
+    flr_seg_3 = floor_segments[3]
+    flr_seg_3.floor_area_gross = 200
+    flr_seg_3.weighting_factor = 0.5
+
+    new_flr = PHX.spaces.Floor()
+    new_flr.add_new_floor_segment( [flr_seg_2, flr_seg_3] )
+
+    # Check that the floor weighting factors work
+    assert new_flr.floor_area_gross == 600
+    assert new_flr.floor_area_weighted == 500
+
+    #--- Check the geometry comes through
+    for g in flr_seg_2.geometry:
+        assert g in new_flr.geometry
+    
+    for g in flr_seg_3.geometry:
+        assert g in new_flr.geometry
+
+
+
+
+
