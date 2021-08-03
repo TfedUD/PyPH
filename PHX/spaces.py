@@ -16,7 +16,7 @@ class PropertiesVentilation(PHX._base._Base):
         super(PropertiesVentilation, self).__init__()
         self.airflows = PHX.hvac.HVAC_Ventilation_Airflows()
         self.ventilator = PHX.hvac.HVAC_Device.default_ventilator()
-        self.utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern()
+        self.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
    
     @classmethod
     def from_dict(cls, _dict):

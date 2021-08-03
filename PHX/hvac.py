@@ -82,8 +82,7 @@ class HVAC_Device(PHX._base._Base):
     @classmethod
     def default_ventilator(cls):
         """Returns a new Device for a default Ventilator (HRV/ERV)"""
-        if cls._default_ventilator:
-            return cls._default_ventilator
+        if cls._default_ventilator: return cls._default_ventilator
         
         new_obj = cls()
 
@@ -92,8 +91,11 @@ class HVAC_Device(PHX._base._Base):
         new_obj.SystemType = 1
 
         cls._default_ventilator = new_obj
-
         return new_obj
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
 
 class HVAC_System_ZoneCover(PHX._base._Base):
     

@@ -32,21 +32,23 @@ def _WindowType(_obj):
 		PyPH_WUFI.xml_node.XML_Node('MeanEmissivity', _obj.frEmisE),
 		PyPH_WUFI.xml_node.XML_Node('g_Value', _obj.gtr),
 		]
-	
-def  _UtilizationVentilationPattern(_obj):
+
+def  _UtilizationPattern_Ventilation(_obj):
 	return [
-		# PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.id),
-		# PyPH_WUFI.xml_node.XML_Node('Name', _obj.n),
-		# PyPH_WUFI.xml_node.XML_Node('OperatingDays', _obj.OperatingDays),
-		# PyPH_WUFI.xml_node.XML_Node('OperatingWeeks', _obj.OperatingWeeks),
-		# PyPH_WUFI.xml_node.XML_Node('Maximum_DOS', _obj.Maximum_DOS),
-		# PyPH_WUFI.xml_node.XML_Node('Maximum_PDF', _obj.Maximum_PDF),
-		# PyPH_WUFI.xml_node.XML_Node('Standard_DOS', _obj.Standard_DOS),
-		# PyPH_WUFI.xml_node.XML_Node('Standard_PDF', _obj.Standard_PDF),
-		# PyPH_WUFI.xml_node.XML_Node('Basic_DOS', _obj.Basic_DOS),
-		# PyPH_WUFI.xml_node.XML_Node('Basic_PDF', _obj.Basic_PDF),
-		# PyPH_WUFI.xml_node.XML_Node('Minimum_DOS', _obj.Minimum_DOS),
-		# PyPH_WUFI.xml_node.XML_Node('Minimum_PDF', _obj.Minimum_PDF),
+		PyPH_WUFI.xml_node.XML_Node('IdentNr', _obj.id),
+		PyPH_WUFI.xml_node.XML_Node('Name', _obj.n),
+
+		PyPH_WUFI.xml_node.XML_Node('OperatingDays', _obj.OperatingDays),
+		PyPH_WUFI.xml_node.XML_Node('OperatingWeeks', _obj.OperatingWeeks),
+
+		PyPH_WUFI.xml_node.XML_Node('Maximum_DOS', _obj.utilizations.maximum.daily_op_sched),
+		PyPH_WUFI.xml_node.XML_Node('Maximum_PDF', _obj.utilizations.maximum.frac_of_design_airflow),
+		PyPH_WUFI.xml_node.XML_Node('Standard_DOS', _obj.utilizations.standard.daily_op_sched),
+		PyPH_WUFI.xml_node.XML_Node('Standard_PDF', _obj.utilizations.standard.frac_of_design_airflow),
+		PyPH_WUFI.xml_node.XML_Node('Basic_DOS', _obj.utilizations.basic.daily_op_sched),
+		PyPH_WUFI.xml_node.XML_Node('Basic_PDF', _obj.utilizations.basic.frac_of_design_airflow),
+		PyPH_WUFI.xml_node.XML_Node('Minimum_DOS', _obj.utilizations.minimum.daily_op_sched),
+		PyPH_WUFI.xml_node.XML_Node('Minimum_PDF', _obj.utilizations.minimum.frac_of_design_airflow),
 	]
 
 def _Material(_obj):
@@ -197,19 +199,13 @@ def _Space(_obj):
 		PyPH_WUFI.xml_node.XML_Node('Name', _obj.display_name),
 		PyPH_WUFI.xml_node.XML_Node('Quantity', _obj.quantity),
 		PyPH_WUFI.xml_node.XML_Node( *PyPH_WUFI.selection.Selection('WP_Room::Type', _obj.type).xml_data),
-		
 		PyPH_WUFI.xml_node.XML_Node('AreaRoom', _obj.floor_area_weighted, 'unit', "m²"),
 		PyPH_WUFI.xml_node.XML_Node('ClearRoomHeight', _obj.clear_height, 'unit', "m"),
-
-		# PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent', _obj.idUPatV),
+		PyPH_WUFI.xml_node.XML_Node('IdentNrUtilizationPatternVent', _obj.ventilation.utilization_pattern.id),
 		PyPH_WUFI.xml_node.XML_Node('IdentNrVentilationUnit', _obj.ventilation.ventilator.id),
-
 		PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateSupply', _obj.ventilation.supply, 'unit', 'm³/h'),
 		PyPH_WUFI.xml_node.XML_Node('DesignVolumeFlowRateExhaust', _obj.ventilation.extract, 'unit', 'm³/h'),
-		PyPH_WUFI.xml_node.XML_Node('DesignFlowInterzonalUserDef', _obj.ventilation.transfer, 'unit', 'm³/h'),
-		# PyPH_WUFI.xml_node.XML_Node('SupplyFlowRateUserDef unit="m³/h', _obj.display_name),
-		# PyPH_WUFI.xml_node.XML_Node('ExhaustFlowRateUserDef unit="m³/h', _obj.display_name),
-	
+		PyPH_WUFI.xml_node.XML_Node('DesignFlowInterzonalUserDef', _obj.ventilation.transfer, 'unit', 'm³/h'),	
 	]
 
 def _Zone(_obj):
@@ -368,6 +364,8 @@ def _ProjectData(_obj):
 		]
 
 def _Project(_obj):
+	_obj.collect_utilization_patterns_from_zones()
+	
 	return [
 		PyPH_WUFI.xml_node.XML_Node('DataVersion', _obj.data_version),
         PyPH_WUFI.xml_node.XML_Node('UnitSystem', _obj.unit_system),
@@ -378,6 +376,6 @@ def _Project(_obj):
 		PyPH_WUFI.xml_node.XML_List('Assemblies', [PyPH_WUFI.xml_node.XML_Object('Assembly', _, 'index', i) for i, _ in enumerate(_obj.lAssembly)] ),
 		PyPH_WUFI.xml_node.XML_List('WindowTypes', [PyPH_WUFI.xml_node.XML_Object('WindowType', _, 'index', i) for i, _ in enumerate(_obj.lWindow)] ),
 		PyPH_WUFI.xml_node.XML_List('SolarProtectionTypes', _obj.lSolProt),
-		# PyPH_WUFI.xml_node.XML_List('UtilisationPatternsVentilation', [PyPH_WUFI.xml_node.XML_Object('UtilizationPatternVent', _, 'index', i) for i, _ in enumerate(_obj.lUtilVentPH)] ),
+		PyPH_WUFI.xml_node.XML_List('UtilisationPatternsVentilation', [PyPH_WUFI.xml_node.XML_Object('UtilizationPatternVent', _, 'index', i) for i, _ in enumerate(_obj.lUtilVentPH.items)] ),
 		PyPH_WUFI.xml_node.XML_List('Variants', [PyPH_WUFI.xml_node.XML_Object('Variant', _, 'index', i) for i, _ in enumerate(_obj.lVariant)] ),
 	]

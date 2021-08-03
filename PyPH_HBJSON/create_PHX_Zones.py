@@ -4,6 +4,7 @@
 import honeybee.room
 import PHX.variant
 import PHX.spaces
+import PHX.utilization_patterns
 import LBT_Utils.program
 
 #-- Zones
@@ -49,8 +50,6 @@ def set_Space_ventilation_from_HB_room( _hb_room, _phx_Space ):
     _phx_Space.ventilation.extract = total_vent_airflow * 3600
     _phx_Space.ventilation.transfer = 0.0
 
-    #- Ventilization Utilization Pattern
-    
 def create_Spaces_from_HB_room(_hb_room):
     # type: (honeybee.room.Room) -> list[PHX.spaces.Space]
     """Returns a list of new Spaces based on the Honeybee Room"""

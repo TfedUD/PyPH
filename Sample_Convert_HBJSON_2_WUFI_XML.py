@@ -35,13 +35,6 @@ TARGET_FILE_XML = "sample/EM_sample_output_WUFI_XML/Sample_Output.xml"
 #-------------------------------------------------------------------------------
 #--- Read in an existing HB_JSON and re-build the HB Objects
 hb_model = read_hb_json(SOURCE_FILE)
-print('>>>>>', hb_model)
-
-#-- Build the Ventilation Utilization Pattern (Schedule) Collection
-#-------------------------------------------------------------------------------
-# vent_util_pattern_collection = PHX.type_collections.UtilizationPatternsVentilationCollection()
-# default_utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern()
-# vent_util_pattern_collection.add_new_utilization_pattern_to_collection( default_utilization_pattern )
 
 #--- Build the Construction Assembly-Types, Window-Types
 #-------------------------------------------------------------------------------
@@ -56,19 +49,22 @@ for room in hb_model.rooms:
             new_window_type = create_new_window_type_from_hb_face( aperture )
             window_type_collection.add_new_window_type_to_collection( new_window_type )
 
+
+#--- Start a new Project and add a new Variant
 #-------------------------------------------------------------------------------
-#--- Create a new Variant
+proj_1 = PHX.project.Project()
 project_variant_1 = PHX.variant.Variant()
+proj_1.add_variant(project_variant_1)
 
 
-#-- HVAC System
+#-- Start the HVAC System
 #-------------------------------------------------------------------------------
-# project_variant_1.add_default_ventilation_system()
 project_HVAC_System = PHX.hvac.HVAC_System()
 project_variant_1.HVAC.add_system( project_HVAC_System )
 
-#-------------------------------------------------------------------------------
+
 #--- Build the Zones and Rooms
+#-------------------------------------------------------------------------------
 #--- Build all the Zones first. The Zones need to all be in place so that the exterior 
 #--- exposures for any adjacent-surfaces can be set with the proper ID number when building Components.
 for room in hb_model.rooms:
@@ -83,8 +79,9 @@ for room in hb_model.rooms:
 
     project_variant_1.add_zones( new_zone )
 
-#-------------------------------------------------------------------------------
+
 #--- Bulild all the Components (Surfaces, Windows)
+#-------------------------------------------------------------------------------
 for room in hb_model.rooms:
     zone = project_variant_1.get_zone_by_identifier( room.identifier )
     
@@ -108,16 +105,15 @@ for room in hb_model.rooms:
         #-- Pack the new Polygo, Component onto the Variant.
         project_variant_1.add_components( opaque_compo)
 
-#-------------------------------------------------------------------------------
+
 #--- Clean up the Variant
+#-------------------------------------------------------------------------------
 #project_variant_1.group_components_by( 'assembly' )
 
 #-------------------------------------------------------------------------------
-proj_1 = PHX.project.Project()
-proj_1.add_variant(project_variant_1)
 proj_1.add_assemblies_from_collection( assmbly_collection )
 proj_1.add_window_types_from_collection( window_type_collection )
-# proj_1.add_vent_utilization_patterns_from_collection( vent_util_pattern_collection )
 
+#--- Output the new Project to an XML file for WUFI
 #-------------------------------------------------------------------------------
 PyPH_WUFI.build_WUFI_xml.write_Project_to_wp_xml_file(TARGET_FILE_XML, proj_1)

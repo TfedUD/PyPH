@@ -6,6 +6,28 @@ Functions for converting PHX Objects to serializable text dictionaries. All PHX 
 should be able to be converted to fully text represenations.
 """
 
+#-- HVAC
+def _UtilizationPattern_Ventilation(_obj):
+    d = {}
+
+    return d
+
+def _PropertiesVentilation(_obj):
+    d = {}
+
+    return d
+
+def _HVAC_Device(_obj):
+    d = {}
+
+    return d
+
+def _HVAC_Ventilation_Airflows(_cls, _input_dict):
+    d = {}
+
+    return d
+
+#-- Spaces
 def _FloorSegment(_obj):
     d = {}  
 

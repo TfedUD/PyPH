@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>8</Month>
 			<Day>3</Day>
-			<Hour>17</Hour>
-			<Minutes>17</Minutes>
+			<Hour>18</Hour>
+			<Minutes>58</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -272,6 +272,22 @@
 		</WindowType>
 	</WindowTypes>
 	<SolarProtectionTypes count="0"/>
+	<UtilisationPatternsVentilation count="1">
+		<UtilizationPatternVent index="0">
+			<IdentNr>1</IdentNr>
+			<Name>_default_24hr_operation_schd_</Name>
+			<OperatingDays>7</OperatingDays>
+			<OperatingWeeks>52</OperatingWeeks>
+			<Maximum_DOS>0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
+			<Standard_DOS>24</Standard_DOS>
+			<Standard_PDF>0.77</Standard_PDF>
+			<Basic_DOS>0</Basic_DOS>
+			<Basic_PDF>1.0</Basic_PDF>
+			<Minimum_DOS>0</Minimum_DOS>
+			<Minimum_PDF>1.0</Minimum_PDF>
+		</UtilizationPatternVent>
+	</UtilisationPatternsVentilation>
 	<Variants count="1">
 		<Variant index="0">
 			<IdentNr>1</IdentNr>
@@ -2442,6 +2458,7 @@
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">29.510391070111744</AreaRoom>
 								<ClearRoomHeight unit="m">3.3333333333333326</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">123.6516514520548</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">123.6516514520548</DesignVolumeFlowRateExhaust>
@@ -2453,6 +2470,7 @@
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">29.510391070111744</AreaRoom>
 								<ClearRoomHeight unit="m">3.3333333333333326</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">123.6516514520548</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">123.6516514520548</DesignVolumeFlowRateExhaust>
@@ -2481,6 +2499,7 @@
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">9.83679702337059</AreaRoom>
 								<ClearRoomHeight unit="m">5.0000000000000036</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">123.6516514520548</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">123.6516514520548</DesignVolumeFlowRateExhaust>
@@ -2492,6 +2511,7 @@
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">9.83679702337059</AreaRoom>
 								<ClearRoomHeight unit="m">5.0000000000000036</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">123.6516514520548</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">123.6516514520548</DesignVolumeFlowRateExhaust>

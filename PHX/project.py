@@ -102,8 +102,12 @@ class Project(PHX._base._Base):
         """
         self.lWindow.extend( _win_type_c.window_types )
 
-    # def add_vent_utilization_patterns_from_collection( self, _util_pattern_c:PHX.type_collections.UtilizationPatternsVentilationCollection) -> None:
-    #     self.lUtilVentPH.extend( _util_pattern_c.utilization_patterns )
-
+    def collect_utilization_patterns_from_zones(self):
+        """Set the Project Utilization Patterns based on the values in the Variants / Buildings / Zones / Rooms"""
+        
+        for v in self.lVariant:
+            for z in v.building.lZone:
+                for r in z.rooms_ventilation:
+                    self.lUtilVentPH.add_to_collection( r.ventilation.utilization_pattern )
 
 

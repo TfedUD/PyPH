@@ -249,39 +249,11 @@ class Variant(PHX._base._Base):
         return super(Variant, cls).__new__(cls, *args, **kwargs)
     
     def add_zones(self, _zones):
-        # type: (list[Zone]) -> None
+        # type: (list[PHX.spaces.Zone]) -> None
         """Adds new Zones to the Variant."""
         
         if not isinstance(_zones, list): _zones = [_zones]
-        self.building.add_zones( _zones )
-        
-        # for zone in _zones:
-        #     #-------------------------------------------------------------------
-        #     #-- Zone Ventilation, HVAC
-        #     default_HVAC_System = self.HVAC.lSystem[0]
-            
-        #     #-- Assumed that we want the System to cover all the zones in the Variant
-        #     #-- Move this to the HVAC builder
-        #     # zone_cover = PHX.hvac.HVAC_System_ZoneCover()
-        #     # zone_cover.cover_ventilation = 1
-        #     # default_HVAC_System.add_zone_to_System_coverage( zone_cover )
-            
-        #     #-- Add new ERV/HRV for each fo the rooms in the Zone
-        #     for room in zone.rooms_ventilation:
-        #         #- Ensure that we aren't duplicating Ventilation device
-        #         #- Note: this will affect the state of the zone.room.ventilation.ventilator
-        #         #- If it finds an existing Ventilator with the same name, will update 
-        #         #- overwrite the existing zone.room.ventilation.ventilator with the existing one.
-        #         for exg_device in default_HVAC_System.lDevice:
-        #             if room.ventilation.ventilator.Name == exg_device.Name:
-        #                 room.ventilation.ventilator = exg_device
-        #                 break
-        #         else:
-        #             default_HVAC_System.add_new_HVAC_device( room.ventilation.ventilator )
-
-        # #-----------------------------------------------------------------------
-        # #-- Add the zone
-            
+        self.building.add_zones( _zones )         
     
     def add_components(self, _components):
         # type: (list[PHX.component.Component]) -> None
@@ -298,32 +270,6 @@ class Variant(PHX._base._Base):
 
         self.building.add_components( _components )
         self.geom.add_component_polygons( _components )
-
-    # def add_default_ventilation_system(self):
-    #     # type: () -> None
-    #     """Adds a Default HVAC Sytem to the Variant that will be assigned to all
-    #         of the Zones in the Variant.
-        
-    #     Arguments:
-    #     ----------
-    #         * None
-        
-    #     Returns:
-    #     --------
-    #         * None
-    #     """
-        
-    #     default_hvac_system = PHX.hvac.HVAC_System()
-    #     default_hvac_system.n = 'default_hvac_system'
-    #     for zone in self.building.lZone:
-    #         new_zone_hvac = PHX.hvac.HVAC_System_ZoneCover()
-    #         new_zone_hvac.idZone = zone.id
-    #         default_hvac_system.add_new_zone_hvac_system( new_zone_hvac )
-
-    #     mech_vent_device = PHX.hvac.HVAC_Device()
-    #     default_hvac_system.add_new_hvac_device( mech_vent_device )
-
-    #     self.HVAC.add_system( default_hvac_system )
 
     @property
     def zones(self):

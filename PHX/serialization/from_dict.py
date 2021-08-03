@@ -3,22 +3,46 @@
 
 """
 Functions for converting text dictionaries to PHX Objects. These functions are passed 
-to the Object when it is instantiated in order to avoide circular reference problems since 
-certain functions use other PHX Object to_dict() constructors (ie: _Floor).
+to the Object when it is instantiated in order to avoid circular reference problems since 
+certain functions use other PHX Object to_dict() constructors.
+
+ie: _Floor calls _FloorSegment.to_dict()
 """
 
-# from ..geometry import LBT_geometry_dict_util
 import PHX
 import PHX.geometry
 import PHX.hvac
 import PHX.spaces
+import PHX.utilization_patterns
 import LBT_Utils.geometry
+
+#-- HVAC
+def _UtilizationPattern_Ventilation(_cls, _input_dict):
+    new_obj = _cls()
+    
+    return new_obj
 
 def _PropertiesVentilation(_cls, _input_dict):
     new_obj = _cls()
 
+    if _input_dict:
+        new_obj.airflows = PHX.hvac.HVAC_Ventilation_Airflows.from_dict(_input_dict.get('airflows', {}))
+        new_obj.ventilator = PHX.hvac.HVAC_Device.from_dict(_input_dict.get('ventilator', {}))
+        new_obj.utilization_pattern = PHX.utilization_patterns.UtilizationVentilationPattern.from_dict(_input_dict.get('utilization_pattern', {}))
+
     return new_obj
 
+def _HVAC_Ventilation_Airflows(_cls, _input_dict):
+    new_obj = _cls()
+    
+    return new_obj
+
+def _HVAC_Device(_cls, _input_dict):
+    new_obj = _cls()
+    
+    return new_obj
+
+#-- Spaces
 def _FloorSegment(_cls, _input_dict):
     new_obj = _cls()
 
@@ -90,7 +114,7 @@ def _Space(_cls, _input_dict):
     new_obj.host_zone_identifier = _input_dict.get('host_zone_identifier')
     new_obj.occupancy = _input_dict.get('occupancy')
     new_obj.equipment = _input_dict.get('equipment')
-    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict( _input_dict.get('ventilation') )
+    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict( _input_dict.get('ventilation', {}) )
 
     new_obj.volumes = []
     for volume_dict in _input_dict.get('volumes', {}).values():
