@@ -6,16 +6,53 @@ PHX Occupant Utilization Pattern Classes
 """
 
 import PHX._base
+import PHX.serialization.from_dict
 
 class VentilationUtilization(PHX._base._Base):
     def __init__(self, _dos=0, _pdf=0):
         super(VentilationUtilization, self).__init__()
-        self.daily_op_sched = _dos
-        self.frac_of_design_airflow = _pdf
+        self._daily_op_sched = _dos
+        self._frac_of_design_airflow = _pdf
 
-    def set(self, _op_sched, _frac_of_des_air):
-        self.daily_op_sched = _op_sched
-        self.frac_of_design_airflow = _frac_of_des_air
+    @property
+    def daily_op_sched(self):
+        return self._daily_op_sched
+    
+    @daily_op_sched.setter
+    def daily_op_sched(self, _in):
+        if _in is None: return
+
+        try:
+            _in = float(_in)
+        except ValueError:
+            raise ValueError('Error: Input must be a number. Got: "{}", type: "{}"'.format(_in, type(_in)))
+
+        if _in > 24.0:
+            raise ValueError('Error: Cannot set hours of operation higher than 24. Got: "{}"'.format(_in))
+
+        self._daily_op_sched = _in
+
+    @property
+    def frac_of_design_airflow(self):
+        return self._frac_of_design_airflow
+    
+    @frac_of_design_airflow.setter
+    def frac_of_design_airflow(self, _in):
+        if _in is None:return
+
+        try:
+            _in = float(_in)
+        except ValueError:
+            raise ValueError('Error: Input must be a number. Got: "{}", type: "{}"'.format(_in, type(_in)))
+
+        if _in > 1.0: _in = _in/100
+        
+        self._frac_of_design_airflow = _in
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._VentilationUtilization(cls, _dict)
+
 
 class VentilationUtilizations(PHX._base._Base):
     
@@ -25,6 +62,10 @@ class VentilationUtilizations(PHX._base._Base):
         self.standard = VentilationUtilization()
         self.basic = VentilationUtilization()
         self.minimum = VentilationUtilization()
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._VentilationUtilizations(cls, _dict)
 
 class UtilizationPattern_Ventilation(PHX._base._Base):
 
@@ -45,6 +86,18 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         cls._count += 1
         return super(UtilizationPattern_Ventilation, cls).__new__(cls, *args, **kwargs)
     
+    def validate_total_hours(self):
+
+        total_operating_hours = 0
+        total_operating_hours += self.utilizations.maximum.daily_op_sched
+        total_operating_hours += self.utilizations.standard.daily_op_sched
+        total_operating_hours += self.utilizations.basic.daily_op_sched
+        total_operating_hours += self.utilizations.minimum.daily_op_sched
+
+        if total_operating_hours != 24.0:
+            return 'Error: hours do not total 24. Please check your inputs.'
+
+
     @classmethod
     def default(cls):
         if cls._default: return cls._default
@@ -59,7 +112,6 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         cls._default = new_obj
         return new_obj
 
-
     @classmethod
     def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._UtilizationVentilationPattern(cls, _dict)
+        return PHX.serialization.from_dict._UtilizationPattern_Ventilation(cls, _dict)

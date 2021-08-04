@@ -10,6 +10,7 @@ import PHX.serialization.from_dict
 import PHX.variant
 
 class HVAC_Ventilation_Airflows(PHX._base._Base):
+    
     def __init__(self):
         super(HVAC_Ventilation_Airflows, self).__init__()
         self.supply = 0.0
@@ -28,13 +29,11 @@ class HVAC_PH_Parameters(PHX._base._Base):
         self.ElectricEfficiency = 0.45 #W/m3h
         self.FrostProtection = True
         self.Quantity = 1
-        self.ElectricEfficiency = 0.45 #W/m3h
         self.SubsoilHeatExchangeEfficiency = 0.0
         self.HumidityRecoveryEfficiency = 0.0
         self.VolumeFlowRateFrom = None
         self.VolumeFlowRateTo = None
         self.TemperatureBelowDefrostUsed = None
-        self.FrostProtection = True
         self.DefrostRequired = False
         self.NoSummerBypass = True
         self.HRVCalculatorData = None
@@ -49,6 +48,10 @@ class HVAC_PH_Parameters(PHX._base._Base):
         self.AuxiliaryEnergy = None
         self.AuxiliaryEnergyDHW = None
         self.InConditionedSpace = True
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HVAC_PH_Parameters(cls, _dict)
 
 class HVAC_Device(PHX._base._Base):
 
@@ -80,7 +83,7 @@ class HVAC_Device(PHX._base._Base):
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
-    def default_ventilator(cls):
+    def default_ventilator(cls, *args, **kwargs):
         """Returns a new Device for a default Ventilator (HRV/ERV)"""
         if cls._default_ventilator: return cls._default_ventilator
         

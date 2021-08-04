@@ -17,7 +17,7 @@ class PropertiesVentilation(PHX._base._Base):
         self.airflows = PHX.hvac.HVAC_Ventilation_Airflows()
         self.ventilator = PHX.hvac.HVAC_Device.default_ventilator()
         self.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
-   
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._PropertiesVentilation(cls, _dict)
@@ -315,11 +315,11 @@ class Space(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Space(cls, _dict)
-       
+
     @property
     def display_name(self):
         return '{}-{}'.format(self.space_number, self.space_name)
-    
+
     def add_new_volume(self, _new_volume):
         # type: (PHX.spaces.Volume) -> None
         """Adds a new Volume onto the Space. Verifies that the names/numbers/hosts match
@@ -355,6 +355,6 @@ class Space(PHX._base._Base):
                     'Volume with Host-Zone: "{}"'.format(_new_volume.host_zone_identifier, self.host_zone_identifier))
 
         self.volumes.append(_new_volume)
-    
+
     def __str__(self):
         return 'PHX_{}: {} ({} Volumes)'.format(self.__class__.__name__, self.display_name, len(self.volumes))

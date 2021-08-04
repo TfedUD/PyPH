@@ -6,15 +6,15 @@
     "rooms": [
         {
             "display_name": "Room_1", 
-            "identifier": "Room_1_e5da5d4b", 
+            "identifier": "Room_1_db0546c9", 
             "faces": [
                 {
-                    "display_name": "Room_1_e5da5d4b..Face0", 
-                    "identifier": "Room_1_e5da5d4b..Face0", 
+                    "display_name": "Room_1_db0546c9..Face0", 
+                    "identifier": "Room_1_db0546c9..Face0", 
                     "apertures": [
                         {
-                            "display_name": "Room_1_e5da5d4b..Face0_Glz0", 
-                            "identifier": "Room_1_e5da5d4b..Face0_Glz0", 
+                            "display_name": "Room_1_db0546c9..Face0_Glz0", 
+                            "identifier": "Room_1_db0546c9..Face0_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -61,8 +61,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face0_Glz1", 
-                            "identifier": "Room_1_e5da5d4b..Face0_Glz1", 
+                            "display_name": "Room_1_db0546c9..Face0_Glz1", 
+                            "identifier": "Room_1_db0546c9..Face0_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -109,8 +109,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face0_Glz2", 
-                            "identifier": "Room_1_e5da5d4b..Face0_Glz2", 
+                            "display_name": "Room_1_db0546c9..Face0_Glz2", 
+                            "identifier": "Room_1_db0546c9..Face0_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -203,8 +203,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_1_e5da5d4b..Face1", 
-                    "identifier": "Room_1_e5da5d4b..Face1", 
+                    "display_name": "Room_1_db0546c9..Face1", 
+                    "identifier": "Room_1_db0546c9..Face1", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -233,8 +233,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "Room_2_8c0178b9..Face3", 
-                            "Room_2_8c0178b9"
+                            "Room_2_f4bd5b3d..Face3", 
+                            "Room_2_f4bd5b3d"
                         ], 
                         "type": "Surface"
                     }, 
@@ -250,12 +250,12 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_1_e5da5d4b..Face2", 
-                    "identifier": "Room_1_e5da5d4b..Face2", 
+                    "display_name": "Room_1_db0546c9..Face2", 
+                    "identifier": "Room_1_db0546c9..Face2", 
                     "apertures": [
                         {
-                            "display_name": "Room_1_e5da5d4b..Face2_Glz0", 
-                            "identifier": "Room_1_e5da5d4b..Face2_Glz0", 
+                            "display_name": "Room_1_db0546c9..Face2_Glz0", 
+                            "identifier": "Room_1_db0546c9..Face2_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -302,8 +302,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face2_Glz1", 
-                            "identifier": "Room_1_e5da5d4b..Face2_Glz1", 
+                            "display_name": "Room_1_db0546c9..Face2_Glz1", 
+                            "identifier": "Room_1_db0546c9..Face2_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -350,8 +350,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face2_Glz2", 
-                            "identifier": "Room_1_e5da5d4b..Face2_Glz2", 
+                            "display_name": "Room_1_db0546c9..Face2_Glz2", 
+                            "identifier": "Room_1_db0546c9..Face2_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -444,12 +444,12 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_1_e5da5d4b..Face3", 
-                    "identifier": "Room_1_e5da5d4b..Face3", 
+                    "display_name": "Room_1_db0546c9..Face3", 
+                    "identifier": "Room_1_db0546c9..Face3", 
                     "apertures": [
                         {
-                            "display_name": "Room_1_e5da5d4b..Face3_Glz0", 
-                            "identifier": "Room_1_e5da5d4b..Face3_Glz0", 
+                            "display_name": "Room_1_db0546c9..Face3_Glz0", 
+                            "identifier": "Room_1_db0546c9..Face3_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -496,8 +496,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face3_Glz1", 
-                            "identifier": "Room_1_e5da5d4b..Face3_Glz1", 
+                            "display_name": "Room_1_db0546c9..Face3_Glz1", 
+                            "identifier": "Room_1_db0546c9..Face3_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -544,8 +544,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_1_e5da5d4b..Face3_Glz2", 
-                            "identifier": "Room_1_e5da5d4b..Face3_Glz2", 
+                            "display_name": "Room_1_db0546c9..Face3_Glz2", 
+                            "identifier": "Room_1_db0546c9..Face3_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -638,8 +638,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_1_e5da5d4b..Face4", 
-                    "identifier": "Room_1_e5da5d4b..Face4", 
+                    "display_name": "Room_1_db0546c9..Face4", 
+                    "identifier": "Room_1_db0546c9..Face4", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -681,8 +681,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_1_e5da5d4b..Face5", 
-                    "identifier": "Room_1_e5da5d4b..Face5", 
+                    "display_name": "Room_1_db0546c9..Face5", 
+                    "identifier": "Room_1_db0546c9..Face5", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -732,145 +732,16 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "23088": {
+                        "11975": {
                             "equipment": null, 
                             "volumes": {
-                                "23087": {
+                                "11974": {
                                     "_average_ceiling_height": 5.0, 
                                     "space_number": null, 
                                     "_volume": 42.452062621433726, 
                                     "volume_geometry": {
-                                        "23086": {
-                                            "23080": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        -1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    [
-                                                        2.2709234908616263, 
-                                                        6.3429812444031857, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    [
-                                                        2.2709234908616263, 
-                                                        9.1263903375882336, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    [
-                                                        5.3212880761735128, 
-                                                        9.1263903375882336, 
-                                                        0.26830045167821681
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23081": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        5.3212880761735128, 
-                                                        9.1263903375882336, 
-                                                        5.2683004516782166
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        5.3212880761735128, 
-                                                        9.1263903375882336, 
-                                                        5.2683004516782166
-                                                    ], 
-                                                    [
-                                                        2.2709234908616258, 
-                                                        9.1263903375882336, 
-                                                        5.2683004516782166
-                                                    ], 
-                                                    [
-                                                        2.2709234908616258, 
-                                                        6.3429812444031857, 
-                                                        5.2683004516782166
-                                                    ], 
-                                                    [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        5.2683004516782166
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23082": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    "n": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    [
-                                                        5.3212880761735128, 
-                                                        9.1263903375882336, 
-                                                        0.26830045167821681
-                                                    ], 
-                                                    [
-                                                        5.3212880761735128, 
-                                                        9.1263903375882336, 
-                                                        5.2683004516782166
-                                                    ], 
-                                                    [
-                                                        5.3212880761735128, 
-                                                        6.3429812444031857, 
-                                                        5.2683004516782166
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23083": {
+                                        "11973": {
+                                            "11970": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -913,7 +784,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23084": {
+                                            "11971": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -956,7 +827,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23085": {
+                                            "11972": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -998,6 +869,135 @@
                                                         5.2683004516782166
                                                     ]
                                                 ]
+                                            }, 
+                                            "11967": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        -1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    [
+                                                        2.2709234908616263, 
+                                                        6.3429812444031857, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    [
+                                                        2.2709234908616263, 
+                                                        9.1263903375882336, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    [
+                                                        5.3212880761735128, 
+                                                        9.1263903375882336, 
+                                                        0.26830045167821681
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11968": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        5.3212880761735128, 
+                                                        9.1263903375882336, 
+                                                        5.2683004516782166
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        5.3212880761735128, 
+                                                        9.1263903375882336, 
+                                                        5.2683004516782166
+                                                    ], 
+                                                    [
+                                                        2.2709234908616258, 
+                                                        9.1263903375882336, 
+                                                        5.2683004516782166
+                                                    ], 
+                                                    [
+                                                        2.2709234908616258, 
+                                                        6.3429812444031857, 
+                                                        5.2683004516782166
+                                                    ], 
+                                                    [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        5.2683004516782166
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11969": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    "n": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    [
+                                                        5.3212880761735128, 
+                                                        9.1263903375882336, 
+                                                        0.26830045167821681
+                                                    ], 
+                                                    [
+                                                        5.3212880761735128, 
+                                                        9.1263903375882336, 
+                                                        5.2683004516782166
+                                                    ], 
+                                                    [
+                                                        5.3212880761735128, 
+                                                        6.3429812444031857, 
+                                                        5.2683004516782166
+                                                    ]
+                                                ]
                                             }
                                         }
                                     }, 
@@ -1008,7 +1008,7 @@
                                         "space_number": null, 
                                         "non_res_lighting": null, 
                                         "floor_segments": {
-                                            "23070": {
+                                            "11959": {
                                                 "non_res_usage": null, 
                                                 "ventilation_v_sup": 0.0, 
                                                 "weighting_factor": 1.0, 
@@ -1016,7 +1016,7 @@
                                                 "space_number": null, 
                                                 "non_res_lighting": null, 
                                                 "geometry": {
-                                                    "23079": {
+                                                    "11966": {
                                                         "type": "Face3D", 
                                                         "plane": {
                                                             "o": [
@@ -1064,714 +1064,148 @@
                                                 "non_res_motion": null, 
                                                 "ventilation_v_trans": 0.0, 
                                                 "ventilation_v_eta": 0.0, 
-                                                "host_zone_identifier": "Room_1_e5da5d4b"
+                                                "host_zone_identifier": "Room_1_db0546c9"
                                             }
                                         }, 
                                         "space_name": null, 
                                         "non_res_motion": null, 
                                         "ventilation_v_trans": 0.0, 
                                         "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_1_e5da5d4b"
+                                        "host_zone_identifier": "Room_1_db0546c9"
                                     }, 
-                                    "host_zone_identifier": "Room_1_e5da5d4b"
+                                    "host_zone_identifier": "Room_1_db0546c9"
                                 }
                             }, 
                             "space_number": null, 
                             "occupancy": null, 
-                            "ventilation": null, 
+                            "ventilation": {
+                                "airflows": {
+                                    "transfer": 0.0, 
+                                    "supply": 0.0, 
+                                    "extract": 0.0
+                                }, 
+                                "ventilator": {
+                                    "UsedFor_Cooling": false, 
+                                    "UsedFor_Dehumidification": false, 
+                                    "MoistureRecovery": 0.0, 
+                                    "Name": "__default_ventilation__", 
+                                    "Ventilation_Parameters": {}, 
+                                    "HeatRecovery": 0.75, 
+                                    "IdentNr_OptionalClimate": -1, 
+                                    "SystemType": 1, 
+                                    "id": 1, 
+                                    "UseOptionalClimate": false, 
+                                    "UsedFor_Humidification": false, 
+                                    "TypeDevice": 1, 
+                                    "UsedFor_Ventilation": true, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": true, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": false, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "AuxiliaryEnergy": null, 
+                                        "Basic_VOS": 0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": null, 
+                                        "Minimum_VOS": 0, 
+                                        "VolumeFlowRateTo": null, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": null, 
+                                        "Maximum_VOS": 0, 
+                                        "VolumeFlowRateFrom": null, 
+                                        "ElectricEfficiency": 0.45000000000000001
+                                    }, 
+                                    "UsedFor_Heating": false, 
+                                    "UsedFor_DHW": false
+                                }, 
+                                "utilization_pattern": {
+                                    "utilizations": {
+                                        "maximum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "standard": {
+                                            "daily_op_sched": 24, 
+                                            "frac_of_design_airflow": 0.77000000000000002
+                                        }, 
+                                        "basic": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "minimum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }
+                                    }, 
+                                    "OperatingWeeks": 52, 
+                                    "id": 1, 
+                                    "n": "_default_24hr_operation_schd_", 
+                                    "OperatingDays": 7
+                                }
+                            }, 
                             "space_name": null, 
-                            "host_zone_identifier": "Room_1_e5da5d4b"
+                            "host_zone_identifier": "Room_1_db0546c9"
                         }, 
-                        "23116": {
+                        "12003": {
                             "equipment": null, 
                             "volumes": {
-                                "23115": {
-                                    "_average_ceiling_height": 2.4999999999999973, 
-                                    "space_number": "101", 
-                                    "_volume": 24.591992558426433, 
-                                    "volume_geometry": {
-                                        "23114": {
-                                            "23108": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        -1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23109": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23110": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23111": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        -1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23112": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23113": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.9274872715782365, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.9274872715782365, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        4.923660097939349, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        7.4900007949840566, 
-                                                        0.8880286727692619, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }
-                                        }
-                                    }, 
-                                    "space_name": "Kitchen", 
-                                    "floor": {
-                                        "non_res_usage": "-", 
-                                        "ventilation_v_sup": 0.0, 
-                                        "space_number": "101", 
-                                        "non_res_lighting": "-", 
-                                        "floor_segments": {
-                                            "23071": {
-                                                "non_res_usage": "-", 
-                                                "ventilation_v_sup": "0.0", 
-                                                "weighting_factor": "1", 
-                                                "floor_area_gross": 9.8367970233705844, 
-                                                "space_number": "101", 
-                                                "non_res_lighting": "-", 
-                                                "geometry": {
-                                                    "23107": {
-                                                        "type": "Face3D", 
-                                                        "plane": {
-                                                            "o": [
-                                                                7.4900007949840566, 
-                                                                0.8880286727692619, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            "n": [
-                                                                0.0, 
-                                                                0.0, 
-                                                                1.0
-                                                            ], 
-                                                            "type": "Plane", 
-                                                            "x": [
-                                                                1.0, 
-                                                                0.0, 
-                                                                0.0
-                                                            ]
-                                                        }, 
-                                                        "boundary": [
-                                                            [
-                                                                7.4900007949840566, 
-                                                                0.8880286727692619, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                9.9274872715782365, 
-                                                                0.8880286727692619, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                9.9274872715782365, 
-                                                                4.923660097939349, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                7.4900007949840566, 
-                                                                4.923660097939349, 
-                                                                0.23948874020058497
-                                                            ]
-                                                        ]
-                                                    }
-                                                }, 
-                                                "space_name": "Kitchen", 
-                                                "non_res_motion": "-", 
-                                                "ventilation_v_trans": "0.0", 
-                                                "ventilation_v_eta": "0.0", 
-                                                "host_zone_identifier": "Room_1_e5da5d4b"
-                                            }
-                                        }, 
-                                        "space_name": "Kitchen", 
-                                        "non_res_motion": "-", 
-                                        "ventilation_v_trans": 0.0, 
-                                        "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_1_e5da5d4b"
-                                    }, 
-                                    "host_zone_identifier": "Room_1_e5da5d4b"
-                                }, 
-                                "23097": {
-                                    "_average_ceiling_height": 2.5000000000000009, 
-                                    "space_number": "101", 
-                                    "_volume": 24.591992558426469, 
-                                    "volume_geometry": {
-                                        "23096": {
-                                            "23090": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        -1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23091": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23092": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23093": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        -1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23094": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23095": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        9.1457711633893801, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        9.1457711633893801, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        9.3145219651246762, 
-                                                        2.739488740200585
-                                                    ], 
-                                                    [
-                                                        6.7082846867952002, 
-                                                        5.2788905399545891, 
-                                                        2.739488740200585
-                                                    ]
-                                                ]
-                                            }
-                                        }
-                                    }, 
-                                    "space_name": "Kitchen", 
-                                    "floor": {
-                                        "non_res_usage": "-", 
-                                        "ventilation_v_sup": 0.0, 
-                                        "space_number": "101", 
-                                        "non_res_lighting": "-", 
-                                        "floor_segments": {
-                                            "23072": {
-                                                "non_res_usage": "-", 
-                                                "ventilation_v_sup": "0.0", 
-                                                "weighting_factor": "1", 
-                                                "floor_area_gross": 9.8367970233705844, 
-                                                "space_number": "101", 
-                                                "non_res_lighting": "-", 
-                                                "geometry": {
-                                                    "23089": {
-                                                        "type": "Face3D", 
-                                                        "plane": {
-                                                            "o": [
-                                                                6.7082846867952002, 
-                                                                5.2788905399545891, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            "n": [
-                                                                0.0, 
-                                                                0.0, 
-                                                                1.0
-                                                            ], 
-                                                            "type": "Plane", 
-                                                            "x": [
-                                                                1.0, 
-                                                                0.0, 
-                                                                0.0
-                                                            ]
-                                                        }, 
-                                                        "boundary": [
-                                                            [
-                                                                6.7082846867952002, 
-                                                                5.2788905399545891, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                9.1457711633893801, 
-                                                                5.2788905399545891, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                9.1457711633893801, 
-                                                                9.3145219651246762, 
-                                                                0.23948874020058497
-                                                            ], 
-                                                            [
-                                                                6.7082846867952002, 
-                                                                9.3145219651246762, 
-                                                                0.23948874020058497
-                                                            ]
-                                                        ]
-                                                    }
-                                                }, 
-                                                "space_name": "Kitchen", 
-                                                "non_res_motion": "-", 
-                                                "ventilation_v_trans": "0.0", 
-                                                "ventilation_v_eta": "0.0", 
-                                                "host_zone_identifier": "Room_1_e5da5d4b"
-                                            }
-                                        }, 
-                                        "space_name": "Kitchen", 
-                                        "non_res_motion": "-", 
-                                        "ventilation_v_trans": 0.0, 
-                                        "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_1_e5da5d4b"
-                                    }, 
-                                    "host_zone_identifier": "Room_1_e5da5d4b"
-                                }, 
-                                "23106": {
+                                "11984": {
                                     "_average_ceiling_height": 5.0, 
                                     "space_number": "101", 
                                     "_volume": 49.183985116852881, 
                                     "volume_geometry": {
-                                        "23105": {
-                                            "23100": {
+                                        "11983": {
+                                            "11977": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        6.0383129557584967, 
+                                                        1.5294484210086381, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        -1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        6.0383129557584967, 
+                                                        1.5294484210086381, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        3.6008264791643203, 
+                                                        1.5294484210086381, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        3.6008264791643203, 
+                                                        5.5650798461787261, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.0383129557584967, 
+                                                        5.5650798461787261, 
+                                                        0.23948874020058497
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11978": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -1814,7 +1248,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23101": {
+                                            "11979": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -1857,7 +1291,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23102": {
+                                            "11980": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -1900,7 +1334,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23103": {
+                                            "11981": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -1943,7 +1377,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23104": {
+                                            "11982": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -1983,49 +1417,6 @@
                                                         3.6008264791643203, 
                                                         1.5294484210086381, 
                                                         5.239488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23099": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        6.0383129557584967, 
-                                                        1.5294484210086381, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        -1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        6.0383129557584967, 
-                                                        1.5294484210086381, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        3.6008264791643203, 
-                                                        1.5294484210086381, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        3.6008264791643203, 
-                                                        5.5650798461787261, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        6.0383129557584967, 
-                                                        5.5650798461787261, 
-                                                        0.23948874020058497
                                                     ]
                                                 ]
                                             }
@@ -2038,7 +1429,7 @@
                                         "space_number": "101", 
                                         "non_res_lighting": "-", 
                                         "floor_segments": {
-                                            "23073": {
+                                            "11960": {
                                                 "non_res_usage": "-", 
                                                 "ventilation_v_sup": "0.0", 
                                                 "weighting_factor": "1", 
@@ -2046,7 +1437,7 @@
                                                 "space_number": "101", 
                                                 "non_res_lighting": "-", 
                                                 "geometry": {
-                                                    "23098": {
+                                                    "11976": {
                                                         "type": "Face3D", 
                                                         "plane": {
                                                             "o": [
@@ -2094,23 +1485,774 @@
                                                 "non_res_motion": "-", 
                                                 "ventilation_v_trans": "0.0", 
                                                 "ventilation_v_eta": "0.0", 
-                                                "host_zone_identifier": "Room_1_e5da5d4b"
+                                                "host_zone_identifier": "Room_1_db0546c9"
                                             }
                                         }, 
                                         "space_name": "Kitchen", 
                                         "non_res_motion": "-", 
                                         "ventilation_v_trans": 0.0, 
                                         "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_1_e5da5d4b"
+                                        "host_zone_identifier": "Room_1_db0546c9"
                                     }, 
-                                    "host_zone_identifier": "Room_1_e5da5d4b"
+                                    "host_zone_identifier": "Room_1_db0546c9"
+                                }, 
+                                "11993": {
+                                    "_average_ceiling_height": 2.4999999999999973, 
+                                    "space_number": "101", 
+                                    "_volume": 24.591992558426433, 
+                                    "volume_geometry": {
+                                        "11992": {
+                                            "11991": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11986": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        -1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11987": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11988": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11989": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        -1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        4.923660097939349, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11990": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.9274872715782365, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        7.4900007949840566, 
+                                                        0.8880286727692619, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }
+                                        }
+                                    }, 
+                                    "space_name": "Kitchen", 
+                                    "floor": {
+                                        "non_res_usage": "-", 
+                                        "ventilation_v_sup": 0.0, 
+                                        "space_number": "101", 
+                                        "non_res_lighting": "-", 
+                                        "floor_segments": {
+                                            "11961": {
+                                                "non_res_usage": "-", 
+                                                "ventilation_v_sup": "0.0", 
+                                                "weighting_factor": "1", 
+                                                "floor_area_gross": 9.8367970233705844, 
+                                                "space_number": "101", 
+                                                "non_res_lighting": "-", 
+                                                "geometry": {
+                                                    "11985": {
+                                                        "type": "Face3D", 
+                                                        "plane": {
+                                                            "o": [
+                                                                7.4900007949840566, 
+                                                                0.8880286727692619, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            "n": [
+                                                                0.0, 
+                                                                0.0, 
+                                                                1.0
+                                                            ], 
+                                                            "type": "Plane", 
+                                                            "x": [
+                                                                1.0, 
+                                                                0.0, 
+                                                                0.0
+                                                            ]
+                                                        }, 
+                                                        "boundary": [
+                                                            [
+                                                                7.4900007949840566, 
+                                                                0.8880286727692619, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                9.9274872715782365, 
+                                                                0.8880286727692619, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                9.9274872715782365, 
+                                                                4.923660097939349, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                7.4900007949840566, 
+                                                                4.923660097939349, 
+                                                                0.23948874020058497
+                                                            ]
+                                                        ]
+                                                    }
+                                                }, 
+                                                "space_name": "Kitchen", 
+                                                "non_res_motion": "-", 
+                                                "ventilation_v_trans": "0.0", 
+                                                "ventilation_v_eta": "0.0", 
+                                                "host_zone_identifier": "Room_1_db0546c9"
+                                            }
+                                        }, 
+                                        "space_name": "Kitchen", 
+                                        "non_res_motion": "-", 
+                                        "ventilation_v_trans": 0.0, 
+                                        "ventilation_v_eta": 0.0, 
+                                        "host_zone_identifier": "Room_1_db0546c9"
+                                    }, 
+                                    "host_zone_identifier": "Room_1_db0546c9"
+                                }, 
+                                "12002": {
+                                    "_average_ceiling_height": 2.5000000000000009, 
+                                    "space_number": "101", 
+                                    "_volume": 24.591992558426469, 
+                                    "volume_geometry": {
+                                        "12001": {
+                                            "11995": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        -1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11996": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11997": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11998": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        -1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "11999": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "12000": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        9.1457711633893801, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        9.1457711633893801, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        9.3145219651246762, 
+                                                        2.739488740200585
+                                                    ], 
+                                                    [
+                                                        6.7082846867952002, 
+                                                        5.2788905399545891, 
+                                                        2.739488740200585
+                                                    ]
+                                                ]
+                                            }
+                                        }
+                                    }, 
+                                    "space_name": "Kitchen", 
+                                    "floor": {
+                                        "non_res_usage": "-", 
+                                        "ventilation_v_sup": 0.0, 
+                                        "space_number": "101", 
+                                        "non_res_lighting": "-", 
+                                        "floor_segments": {
+                                            "11962": {
+                                                "non_res_usage": "-", 
+                                                "ventilation_v_sup": "0.0", 
+                                                "weighting_factor": "1", 
+                                                "floor_area_gross": 9.8367970233705844, 
+                                                "space_number": "101", 
+                                                "non_res_lighting": "-", 
+                                                "geometry": {
+                                                    "11994": {
+                                                        "type": "Face3D", 
+                                                        "plane": {
+                                                            "o": [
+                                                                6.7082846867952002, 
+                                                                5.2788905399545891, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            "n": [
+                                                                0.0, 
+                                                                0.0, 
+                                                                1.0
+                                                            ], 
+                                                            "type": "Plane", 
+                                                            "x": [
+                                                                1.0, 
+                                                                0.0, 
+                                                                0.0
+                                                            ]
+                                                        }, 
+                                                        "boundary": [
+                                                            [
+                                                                6.7082846867952002, 
+                                                                5.2788905399545891, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                9.1457711633893801, 
+                                                                5.2788905399545891, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                9.1457711633893801, 
+                                                                9.3145219651246762, 
+                                                                0.23948874020058497
+                                                            ], 
+                                                            [
+                                                                6.7082846867952002, 
+                                                                9.3145219651246762, 
+                                                                0.23948874020058497
+                                                            ]
+                                                        ]
+                                                    }
+                                                }, 
+                                                "space_name": "Kitchen", 
+                                                "non_res_motion": "-", 
+                                                "ventilation_v_trans": "0.0", 
+                                                "ventilation_v_eta": "0.0", 
+                                                "host_zone_identifier": "Room_1_db0546c9"
+                                            }
+                                        }, 
+                                        "space_name": "Kitchen", 
+                                        "non_res_motion": "-", 
+                                        "ventilation_v_trans": 0.0, 
+                                        "ventilation_v_eta": 0.0, 
+                                        "host_zone_identifier": "Room_1_db0546c9"
+                                    }, 
+                                    "host_zone_identifier": "Room_1_db0546c9"
                                 }
                             }, 
                             "space_number": "101", 
                             "occupancy": null, 
-                            "ventilation": null, 
+                            "ventilation": {
+                                "airflows": {
+                                    "transfer": 0.0, 
+                                    "supply": 0.0, 
+                                    "extract": 0.0
+                                }, 
+                                "ventilator": {
+                                    "UsedFor_Cooling": false, 
+                                    "UsedFor_Dehumidification": false, 
+                                    "MoistureRecovery": 0.0, 
+                                    "Name": "__default_ventilation__", 
+                                    "Ventilation_Parameters": {}, 
+                                    "HeatRecovery": 0.75, 
+                                    "IdentNr_OptionalClimate": -1, 
+                                    "SystemType": 1, 
+                                    "id": 1,
+                                    "UseOptionalClimate": false, 
+                                    "UsedFor_Humidification": false, 
+                                    "TypeDevice": 1, 
+                                    "UsedFor_Ventilation": true, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": true, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": false, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "AuxiliaryEnergy": null, 
+                                        "Basic_VOS": 0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": null, 
+                                        "Minimum_VOS": 0, 
+                                        "VolumeFlowRateTo": null, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": null, 
+                                        "Maximum_VOS": 0, 
+                                        "VolumeFlowRateFrom": null, 
+                                        "ElectricEfficiency": 0.45000000000000001
+                                    }, 
+                                    "UsedFor_Heating": false, 
+                                    "UsedFor_DHW": false
+                                }, 
+                                "utilization_pattern": {
+                                    "utilizations": {
+                                        "maximum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "standard": {
+                                            "daily_op_sched": 24, 
+                                            "frac_of_design_airflow": 0.77000000000000002
+                                        }, 
+                                        "basic": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "minimum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }
+                                    }, 
+                                    "OperatingWeeks": 52, 
+                                    "id": 1, 
+                                    "n": "_default_24hr_operation_schd_", 
+                                    "OperatingDays": 7
+                                }
+                            }, 
                             "space_name": "Kitchen", 
-                            "host_zone_identifier": "Room_1_e5da5d4b"
+                            "host_zone_identifier": "Room_1_db0546c9"
                         }
                     }
                 }
@@ -2123,22 +2265,22 @@
                 "energy": {
                     "program_type": "Generic Office Program", 
                     "type": "RoomEnergyPropertiesAbridged", 
-                    "hvac": "Room_1_e5da5d4b Ideal Loads Air System"
+                    "hvac": "Room_1_db0546c9 Ideal Loads Air System"
                 }, 
                 "type": "RoomPropertiesAbridged"
             }
         }, 
         {
             "display_name": "Room_2", 
-            "identifier": "Room_2_8c0178b9", 
+            "identifier": "Room_2_f4bd5b3d", 
             "faces": [
                 {
-                    "display_name": "Room_2_8c0178b9..Face0", 
-                    "identifier": "Room_2_8c0178b9..Face0", 
+                    "display_name": "Room_2_f4bd5b3d..Face0", 
+                    "identifier": "Room_2_f4bd5b3d..Face0", 
                     "apertures": [
                         {
-                            "display_name": "Room_2_8c0178b9..Face0_Glz0", 
-                            "identifier": "Room_2_8c0178b9..Face0_Glz0", 
+                            "display_name": "Room_2_f4bd5b3d..Face0_Glz0", 
+                            "identifier": "Room_2_f4bd5b3d..Face0_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2185,8 +2327,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face0_Glz1", 
-                            "identifier": "Room_2_8c0178b9..Face0_Glz1", 
+                            "display_name": "Room_2_f4bd5b3d..Face0_Glz1", 
+                            "identifier": "Room_2_f4bd5b3d..Face0_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2233,8 +2375,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face0_Glz2", 
-                            "identifier": "Room_2_8c0178b9..Face0_Glz2", 
+                            "display_name": "Room_2_f4bd5b3d..Face0_Glz2", 
+                            "identifier": "Room_2_f4bd5b3d..Face0_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2327,12 +2469,12 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_2_8c0178b9..Face1", 
-                    "identifier": "Room_2_8c0178b9..Face1", 
+                    "display_name": "Room_2_f4bd5b3d..Face1", 
+                    "identifier": "Room_2_f4bd5b3d..Face1", 
                     "apertures": [
                         {
-                            "display_name": "Room_2_8c0178b9..Face1_Glz0", 
-                            "identifier": "Room_2_8c0178b9..Face1_Glz0", 
+                            "display_name": "Room_2_f4bd5b3d..Face1_Glz0", 
+                            "identifier": "Room_2_f4bd5b3d..Face1_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2379,8 +2521,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face1_Glz1", 
-                            "identifier": "Room_2_8c0178b9..Face1_Glz1", 
+                            "display_name": "Room_2_f4bd5b3d..Face1_Glz1", 
+                            "identifier": "Room_2_f4bd5b3d..Face1_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2427,8 +2569,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face1_Glz2", 
-                            "identifier": "Room_2_8c0178b9..Face1_Glz2", 
+                            "display_name": "Room_2_f4bd5b3d..Face1_Glz2", 
+                            "identifier": "Room_2_f4bd5b3d..Face1_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2521,12 +2663,12 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_2_8c0178b9..Face2", 
-                    "identifier": "Room_2_8c0178b9..Face2", 
+                    "display_name": "Room_2_f4bd5b3d..Face2", 
+                    "identifier": "Room_2_f4bd5b3d..Face2", 
                     "apertures": [
                         {
-                            "display_name": "Room_2_8c0178b9..Face2_Glz0", 
-                            "identifier": "Room_2_8c0178b9..Face2_Glz0", 
+                            "display_name": "Room_2_f4bd5b3d..Face2_Glz0", 
+                            "identifier": "Room_2_f4bd5b3d..Face2_Glz0", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2573,8 +2715,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face2_Glz1", 
-                            "identifier": "Room_2_8c0178b9..Face2_Glz1", 
+                            "display_name": "Room_2_f4bd5b3d..Face2_Glz1", 
+                            "identifier": "Room_2_f4bd5b3d..Face2_Glz1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2621,8 +2763,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Room_2_8c0178b9..Face2_Glz2", 
-                            "identifier": "Room_2_8c0178b9..Face2_Glz2", 
+                            "display_name": "Room_2_f4bd5b3d..Face2_Glz2", 
+                            "identifier": "Room_2_f4bd5b3d..Face2_Glz2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "boundary": [
@@ -2715,8 +2857,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_2_8c0178b9..Face3", 
-                    "identifier": "Room_2_8c0178b9..Face3", 
+                    "display_name": "Room_2_f4bd5b3d..Face3", 
+                    "identifier": "Room_2_f4bd5b3d..Face3", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -2745,8 +2887,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "Room_1_e5da5d4b..Face1", 
-                            "Room_1_e5da5d4b"
+                            "Room_1_db0546c9..Face1", 
+                            "Room_1_db0546c9"
                         ], 
                         "type": "Surface"
                     }, 
@@ -2762,8 +2904,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_2_8c0178b9..Face4", 
-                    "identifier": "Room_2_8c0178b9..Face4", 
+                    "display_name": "Room_2_f4bd5b3d..Face4", 
+                    "identifier": "Room_2_f4bd5b3d..Face4", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -2805,8 +2947,8 @@
                     }
                 }, 
                 {
-                    "display_name": "Room_2_8c0178b9..Face5", 
-                    "identifier": "Room_2_8c0178b9..Face5", 
+                    "display_name": "Room_2_f4bd5b3d..Face5", 
+                    "identifier": "Room_2_f4bd5b3d..Face5", 
                     "geometry": {
                         "type": "Face3D", 
                         "boundary": [
@@ -2856,16 +2998,16 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "23137": {
+                        "12014": {
                             "equipment": null, 
                             "volumes": {
-                                "23136": {
+                                "12013": {
                                     "_average_ceiling_height": 2.5000000000000022, 
                                     "space_number": "101", 
                                     "_volume": 24.591992558426508, 
                                     "volume_geometry": {
-                                        "23135": {
-                                            "23129": {
+                                        "12012": {
+                                            "12006": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -2908,7 +3050,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23130": {
+                                            "12007": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -2951,7 +3093,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23131": {
+                                            "12008": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -2994,7 +3136,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23132": {
+                                            "12009": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -3037,7 +3179,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23133": {
+                                            "12010": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -3080,7 +3222,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23134": {
+                                            "12011": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -3132,7 +3274,7 @@
                                         "space_number": "101", 
                                         "non_res_lighting": "-", 
                                         "floor_segments": {
-                                            "23075": {
+                                            "11957": {
                                                 "non_res_usage": "-", 
                                                 "ventilation_v_sup": "0.0", 
                                                 "weighting_factor": "1", 
@@ -3140,7 +3282,7 @@
                                                 "space_number": "101", 
                                                 "non_res_lighting": "-", 
                                                 "geometry": {
-                                                    "23128": {
+                                                    "12005": {
                                                         "type": "Face3D", 
                                                         "plane": {
                                                             "o": [
@@ -3188,206 +3330,105 @@
                                                 "non_res_motion": "-", 
                                                 "ventilation_v_trans": "0.0", 
                                                 "ventilation_v_eta": "0.0", 
-                                                "host_zone_identifier": "Room_2_8c0178b9"
+                                                "host_zone_identifier": "Room_2_f4bd5b3d"
                                             }
                                         }, 
                                         "space_name": "Another ROom", 
                                         "non_res_motion": "-", 
                                         "ventilation_v_trans": 0.0, 
                                         "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_2_8c0178b9"
+                                        "host_zone_identifier": "Room_2_f4bd5b3d"
                                     }, 
-                                    "host_zone_identifier": "Room_2_8c0178b9"
+                                    "host_zone_identifier": "Room_2_f4bd5b3d"
                                 }
                             }, 
                             "space_number": "101", 
                             "occupancy": null, 
-                            "ventilation": null, 
+                            "ventilation": {
+                                "airflows": {
+                                    "transfer": 0.0, 
+                                    "supply": 0.0, 
+                                    "extract": 0.0
+                                }, 
+                                "ventilator": {
+                                    "UsedFor_Cooling": false, 
+                                    "UsedFor_Dehumidification": false, 
+                                    "MoistureRecovery": 0.0, 
+                                    "Name": "__default_ventilation__", 
+                                    "Ventilation_Parameters": {}, 
+                                    "HeatRecovery": 0.75, 
+                                    "IdentNr_OptionalClimate": -1, 
+                                    "SystemType": 1, 
+                                    "id": 1, 
+                                    "UseOptionalClimate": false, 
+                                    "UsedFor_Humidification": false, 
+                                    "TypeDevice": 1, 
+                                    "UsedFor_Ventilation": true, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": true, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": false, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "AuxiliaryEnergy": null, 
+                                        "Basic_VOS": 0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": null, 
+                                        "Minimum_VOS": 0, 
+                                        "VolumeFlowRateTo": null, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": null, 
+                                        "Maximum_VOS": 0, 
+                                        "VolumeFlowRateFrom": null, 
+                                        "ElectricEfficiency": 0.45000000000000001
+                                    }, 
+                                    "UsedFor_Heating": false, 
+                                    "UsedFor_DHW": false
+                                }, 
+                                "utilization_pattern": {
+                                    "utilizations": {
+                                        "maximum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "standard": {
+                                            "daily_op_sched": 24, 
+                                            "frac_of_design_airflow": 0.77000000000000002
+                                        }, 
+                                        "basic": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "minimum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }
+                                    }, 
+                                    "OperatingWeeks": 52, 
+                                    "id": 1, 
+                                    "n": "_default_24hr_operation_schd_", 
+                                    "OperatingDays": 7
+                                }
+                            }, 
                             "space_name": "Another ROom", 
-                            "host_zone_identifier": "Room_2_8c0178b9"
+                            "host_zone_identifier": "Room_2_f4bd5b3d"
                         }, 
-                        "23127": {
+                        "12024": {
                             "equipment": null, 
                             "volumes": {
-                                "23126": {
+                                "12023": {
                                     "_average_ceiling_height": 5.0000000000000036, 
                                     "space_number": null, 
                                     "_volume": 49.18398511685298, 
                                     "volume_geometry": {
-                                        "23125": {
-                                            "23121": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        13.640340411675972, 
-                                                        0.93404863819763551, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    "n": [
-                                                        1.0, 
-                                                        0.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        13.640340411675972, 
-                                                        0.93404863819763551, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        4.9696800633677247, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        4.9696800633677238, 
-                                                        5.239488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23122": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        13.640340411675972, 
-                                                        4.9696800633677247, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        1.7763568394002506e-16
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        13.640340411675972, 
-                                                        4.9696800633677247, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        11.202853935081789, 
-                                                        4.9696800633677247, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        11.202853935081787, 
-                                                        4.9696800633677238, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        4.9696800633677238, 
-                                                        5.239488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23123": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        11.202853935081789, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        -1.0, 
-                                                        0.0, 
-                                                        -3.5527136788005011e-16
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.0, 
-                                                        1.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        11.202853935081789, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        11.202853935081787, 
-                                                        0.93404863819763551, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    [
-                                                        11.202853935081787, 
-                                                        4.9696800633677238, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    [
-                                                        11.202853935081789, 
-                                                        4.9696800633677247, 
-                                                        0.23948874020058497
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23124": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        11.202853935081789, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        -1.0, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -1.0, 
-                                                        -0.0, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        11.202853935081789, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        0.93404863819763551, 
-                                                        0.23948874020058497
-                                                    ], 
-                                                    [
-                                                        13.640340411675972, 
-                                                        0.93404863819763551, 
-                                                        5.239488740200585
-                                                    ], 
-                                                    [
-                                                        11.202853935081787, 
-                                                        0.93404863819763551, 
-                                                        5.239488740200585
-                                                    ]
-                                                ]
-                                            }, 
-                                            "23119": {
+                                        "12022": {
+                                            "12016": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -3430,7 +3471,7 @@
                                                     ]
                                                 ]
                                             }, 
-                                            "23120": {
+                                            "12017": {
                                                 "type": "Face3D", 
                                                 "plane": {
                                                     "o": [
@@ -3472,6 +3513,178 @@
                                                         5.239488740200585
                                                     ]
                                                 ]
+                                            }, 
+                                            "12018": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        13.640340411675972, 
+                                                        0.93404863819763551, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    "n": [
+                                                        1.0, 
+                                                        0.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        13.640340411675972, 
+                                                        0.93404863819763551, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        4.9696800633677247, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        4.9696800633677238, 
+                                                        5.239488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "12019": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        13.640340411675972, 
+                                                        4.9696800633677247, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        1.7763568394002506e-16
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        13.640340411675972, 
+                                                        4.9696800633677247, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        11.202853935081789, 
+                                                        4.9696800633677247, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        11.202853935081787, 
+                                                        4.9696800633677238, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        4.9696800633677238, 
+                                                        5.239488740200585
+                                                    ]
+                                                ]
+                                            }, 
+                                            "12020": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        11.202853935081789, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        -1.0, 
+                                                        0.0, 
+                                                        -3.5527136788005011e-16
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.0, 
+                                                        1.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        11.202853935081789, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        11.202853935081787, 
+                                                        0.93404863819763551, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    [
+                                                        11.202853935081787, 
+                                                        4.9696800633677238, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    [
+                                                        11.202853935081789, 
+                                                        4.9696800633677247, 
+                                                        0.23948874020058497
+                                                    ]
+                                                ]
+                                            }, 
+                                            "12021": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        11.202853935081789, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        -1.0, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -1.0, 
+                                                        -0.0, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        11.202853935081789, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        0.93404863819763551, 
+                                                        0.23948874020058497
+                                                    ], 
+                                                    [
+                                                        13.640340411675972, 
+                                                        0.93404863819763551, 
+                                                        5.239488740200585
+                                                    ], 
+                                                    [
+                                                        11.202853935081787, 
+                                                        0.93404863819763551, 
+                                                        5.239488740200585
+                                                    ]
+                                                ]
                                             }
                                         }
                                     }, 
@@ -3482,7 +3695,7 @@
                                         "space_number": null, 
                                         "non_res_lighting": null, 
                                         "floor_segments": {
-                                            "23074": {
+                                            "11958": {
                                                 "non_res_usage": null, 
                                                 "ventilation_v_sup": 0.0, 
                                                 "weighting_factor": 1.0, 
@@ -3490,7 +3703,7 @@
                                                 "space_number": null, 
                                                 "non_res_lighting": null, 
                                                 "geometry": {
-                                                    "23118": {
+                                                    "12015": {
                                                         "type": "Face3D", 
                                                         "plane": {
                                                             "o": [
@@ -3538,23 +3751,94 @@
                                                 "non_res_motion": null, 
                                                 "ventilation_v_trans": 0.0, 
                                                 "ventilation_v_eta": 0.0, 
-                                                "host_zone_identifier": "Room_2_8c0178b9"
+                                                "host_zone_identifier": "Room_2_f4bd5b3d"
                                             }
                                         }, 
                                         "space_name": "A First Room", 
                                         "non_res_motion": null, 
                                         "ventilation_v_trans": 0.0, 
                                         "ventilation_v_eta": 0.0, 
-                                        "host_zone_identifier": "Room_2_8c0178b9"
+                                        "host_zone_identifier": "Room_2_f4bd5b3d"
                                     }, 
-                                    "host_zone_identifier": "Room_2_8c0178b9"
+                                    "host_zone_identifier": "Room_2_f4bd5b3d"
                                 }
                             }, 
                             "space_number": null, 
                             "occupancy": null, 
-                            "ventilation": null, 
+                            "ventilation": {
+                                "airflows": {
+                                    "transfer": 0.0, 
+                                    "supply": 0.0, 
+                                    "extract": 0.0
+                                }, 
+                                "ventilator": {
+                                    "UsedFor_Cooling": false, 
+                                    "UsedFor_Dehumidification": false, 
+                                    "MoistureRecovery": 0.0, 
+                                    "Name": "__default_ventilation__", 
+                                    "Ventilation_Parameters": {}, 
+                                    "HeatRecovery": 0.75, 
+                                    "IdentNr_OptionalClimate": -1, 
+                                    "SystemType": 1, 
+                                    "id": 1, 
+                                    "UseOptionalClimate": false, 
+                                    "UsedFor_Humidification": false, 
+                                    "TypeDevice": 1, 
+                                    "UsedFor_Ventilation": true, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": true, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": false, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "AuxiliaryEnergy": null, 
+                                        "Basic_VOS": 0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": null, 
+                                        "Minimum_VOS": 0, 
+                                        "VolumeFlowRateTo": null, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": null, 
+                                        "Maximum_VOS": 0, 
+                                        "VolumeFlowRateFrom": null, 
+                                        "ElectricEfficiency": 0.45000000000000001
+                                    }, 
+                                    "UsedFor_Heating": false, 
+                                    "UsedFor_DHW": false
+                                }, 
+                                "utilization_pattern": {
+                                    "utilizations": {
+                                        "maximum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "standard": {
+                                            "daily_op_sched": 24, 
+                                            "frac_of_design_airflow": 0.77000000000000002
+                                        }, 
+                                        "basic": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }, 
+                                        "minimum": {
+                                            "daily_op_sched": 0, 
+                                            "frac_of_design_airflow": 1.0
+                                        }
+                                    }, 
+                                    "OperatingWeeks": 52, 
+                                    "id": 1, 
+                                    "n": "_default_24hr_operation_schd_", 
+                                    "OperatingDays": 7
+                                }
+                            }, 
                             "space_name": "A First Room", 
-                            "host_zone_identifier": "Room_2_8c0178b9"
+                            "host_zone_identifier": "Room_2_f4bd5b3d"
                         }
                     }
                 }
@@ -3567,7 +3851,7 @@
                 "energy": {
                     "program_type": "Generic Office Program", 
                     "type": "RoomEnergyPropertiesAbridged", 
-                    "hvac": "Room_2_8c0178b9 Ideal Loads Air System"
+                    "hvac": "Room_2_f4bd5b3d Ideal Loads Air System"
                 }, 
                 "type": "RoomPropertiesAbridged"
             }
@@ -3597,7 +3881,7 @@
             "materials": [], 
             "hvacs": [
                 {
-                    "identifier": "Room_1_e5da5d4b Ideal Loads Air System", 
+                    "identifier": "Room_1_db0546c9 Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -3613,7 +3897,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "Room_2_8c0178b9 Ideal Loads Air System", 
+                    "identifier": "Room_2_f4bd5b3d Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
