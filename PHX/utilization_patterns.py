@@ -53,7 +53,6 @@ class VentilationUtilization(PHX._base._Base):
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._VentilationUtilization(cls, _dict)
 
-
 class VentilationUtilizations(PHX._base._Base):
     
     def __init__(self):
@@ -103,11 +102,20 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         if cls._default: return cls._default
         
         new_obj = cls()
+        
         new_obj.n = '_default_24hr_operation_schd_'
-        new_obj.utilizations.maximum.set( 0, 1.00 )
-        new_obj.utilizations.standard.set(24, 0.77 )
-        new_obj.utilizations.basic.set( 0, 1.00 )
-        new_obj.utilizations.minimum.set( 0, 1.00 )
+
+        new_obj.utilizations.maximum.daily_op_sched = 0
+        new_obj.utilizations.maximum.frac_of_design_airflow = 1.00
+
+        new_obj.utilizations.standard.daily_op_sched = 24
+        new_obj.utilizations.standard.frac_of_design_airflow = 0.77
+
+        new_obj.utilizations.basic.daily_op_sched = 0
+        new_obj.utilizations.basic.frac_of_design_airflow = 0.50
+
+        new_obj.utilizations.minimum.daily_op_sched = 0
+        new_obj.utilizations.minimum.frac_of_design_airflow = 0.34
 
         cls._default = new_obj
         return new_obj

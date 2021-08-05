@@ -4,7 +4,8 @@
 import honeybee.room
 import statistics
 
-def calc_HB_Room_avg_occupancy( _hb_room: honeybee.room.Room ) -> float:
+def calc_HB_Room_avg_occupancy( _hb_room):
+    # type: (honeybee.room.Room ) -> float
     """Returns the 'average' HB Room occupancy"""
 
     #-- Figure out the max occupancy (Num of People)
@@ -20,7 +21,8 @@ def calc_HB_Room_avg_occupancy( _hb_room: honeybee.room.Room ) -> float:
 
     return peak_occupancy * mean_occupancy
 
-def calc_HB_Room_total_ventilation_m3sec(_hb_room: honeybee.room.Room) -> float:
+def calc_HB_Room_total_ventilation_m3sec(_hb_room ):
+    # type: (honeybee.room.Room) -> float
     """Returns the total peak ventilation airflow for a Honeybee Room
     
     Arguments:
