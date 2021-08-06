@@ -74,6 +74,13 @@ class Component(PHX._base._Base):
         cls._count += 1
         return super(Component, cls).__new__(cls, *args, **kwargs)
 
+    def __add__(self, _other):
+        self.polygons.extend(_other.polygons)
+        return self
+
+    def __radd__(self, _other):
+        return self.__add__(_other)
+
     def add_polygons(self, _polygons):
         # type: (list[PHX.geometry.Polygon]) -> None
         """Adds a Polygon or list of Polygons to the Component

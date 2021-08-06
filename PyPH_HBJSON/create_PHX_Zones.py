@@ -63,12 +63,11 @@ def create_Spaces_from_HB_room(_hb_room):
 
     spaces = []
     if user_determined_space_dict:
-        print("-------working on room: ", _hb_room, "-------")
         # --- Build new Spaces based on the User-determiend detailed inputs
         for space_dict in user_determined_space_dict.values():
 
             new_phx_space = PHX.spaces.Space.from_dict(space_dict)
-            print(new_phx_space)
+
             spaces.append(new_phx_space)
     else:
         # --- Build a default space if no detailed ones provided

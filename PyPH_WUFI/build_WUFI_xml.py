@@ -3,6 +3,8 @@
 
 """Functions used to create the full WUFI XML file"""
 
+from datetime import datetime
+
 import PHX.project
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.xml_object_data
@@ -101,8 +103,7 @@ def create_project_xml_text(_project: PHX.project.Project) -> str:
     --------
         * (str) The XML Nodes as Text
     """
-    print("- " * 50)
-    print("writing out to xml.....")
+
     doc = Document()
 
     root = doc.createElementNS(None, "WUFIplusProject")
@@ -124,7 +125,23 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
     """
 
     xml_text = create_project_xml_text(_Project)
-    with open(_file_address, "w") as f:
-        f.writelines(xml_text)
+    try:
+        with open(_file_address, "w") as f:
+            f.writelines(xml_text)
+
+    except PermissionError:
+        # - In case the file is being used by WUFI or something else, make a new copy.
+
+        old_file_name = _file_address.split(".xml")[0]
+        t = datetime.now()
+        new_file_address = f"{old_file_name}_{t.hour}_{t.minute}_{t.second}.xml"
+
+        print(
+            f"Target file: {_file_address} is currently being used by another process and is protected.\n"
+            f"Writing to a new file: {new_file_address}"
+        )
+
+        with open(new_file_address, "w") as f:
+            f.writelines(xml_text)
 
     print("Done.")

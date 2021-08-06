@@ -5,6 +5,9 @@
 PHX Variant Classes
 """
 
+from collections import defaultdict
+from functools import reduce
+
 import PHX._base
 import PHX.hvac
 import PHX.component
@@ -389,6 +392,32 @@ class Variant(PHX._base._Base):
         self.building.add_components(_components)
         self.geom.add_component_polygons(_components)
 
+    def get_component_groups(self, group_by=None):
+        """Gets the Variant's components, grouped by some category
+
+        Arguments:
+        ----------
+            _group_by (str): 'zone' | None
+
+        Returns:
+        -------
+            * (dict): The Component groups Dictionary
+        """
+
+        compo_groups = defaultdict(list)
+
+        if not group_by:
+            compo_groups[self.building.id] = self.building.lComponent
+
+        elif str(group_by).upper() == "ZONE":
+            # Group compos that are in the same zone, (and the same exposures)
+
+            for compo in self.building.lComponent:
+                key = "IC_{}_EC_{}_TYP_{}".format(compo.idIC, compo.idEC, compo.type)
+                compo_groups[key].append(compo)
+
+        return compo_groups
+
     @property
     def zones(self):
         return self.building.lZone
@@ -408,3 +437,46 @@ class Variant(PHX._base._Base):
         """
 
         return self.building.get_zone_by_identifier(_zone_identifier_lookup)
+
+    def merge_components(self, by="assembly"):
+        # type: (str) -> None
+        """Groups (joins) Components by the desginated characteristic.
+
+        Note: this function will edit/change the variant.building.lComponent list and
+        will join Components together.
+
+        Arguments:
+        ----------
+            * by (str): 'assembly', '...'
+
+        Returns:
+        --------
+            * (None)
+        """
+
+        exg_compo_dict = self.get_component_groups(group_by="zone")
+        new_compo_list = []
+
+        if "ASSEMBLY" in str(by).upper():
+            for zone_compos in exg_compo_dict.values():
+
+                compo_groups = defaultdict(list)
+
+                # -- Group by Assembly
+                for compo in zone_compos:
+                    if compo.idAssC != -1:
+                        # -- Opaque Component
+                        compo_groups[compo.idAssC].append(compo)
+                    elif compo.idWtC != -1:
+                        # -- Window Component
+                        compo_groups[compo.idWtC].append(compo)
+                    else:
+                        compo_groups[-1].append(compo)
+
+                # -- Join the groups into single new Component
+                for compo_gr in compo_groups.values():
+                    compo_joined = reduce(lambda a, b: a + b, compo_gr)
+                    new_compo_list.append(compo_joined)
+
+            # -- Replace the Bilding's Compo List with the new one
+            self.building.lComponent = new_compo_list

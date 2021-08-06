@@ -34,12 +34,14 @@ from PyPH_HBJSON.create_PHX_assemblies import (
 SOURCE_FILE = "sample/EM_sample_input_HBJSON/Sample_Input.hbjson"
 TARGET_FILE_XML = "sample/EM_sample_output_WUFI_XML/Sample_Output.xml"
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # --- Read in an existing HB_JSON and re-build the HB Objects
+print("- " * 50)
+print("> Reading in the HBJSON file...")
 hb_model = read_hb_json(SOURCE_FILE)
 
 # --- Build the Construction Assembly-Types, Window-Types
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 assmbly_collection = PHX.type_collections.AssemblyCollection()
 window_type_collection = PHX.type_collections.WindowTypeCollection()
 for room in hb_model.rooms:
@@ -53,20 +55,20 @@ for room in hb_model.rooms:
 
 
 # --- Start a new Project and add a new Variant
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 proj_1 = PHX.project.Project()
 project_variant_1 = PHX.variant.Variant()
 proj_1.add_variant(project_variant_1)
 
 
 # -- Start the HVAC System
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 project_HVAC_System = PHX.hvac.HVAC_System()
 project_variant_1.HVAC.add_system(project_HVAC_System)
 
 
 # --- Build the Zones and Rooms
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # --- Build all the Zones first. The Zones need to all be in place so that the exterior
 # --- exposures for any adjacent-surfaces can be set with the proper ID number when building Components.
 for room in hb_model.rooms:
@@ -83,7 +85,7 @@ for room in hb_model.rooms:
 
 
 # --- Bulild all the Components (Surfaces, Windows)
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 for room in hb_model.rooms:
     zone = project_variant_1.get_zone_by_identifier(room.identifier)
 
@@ -115,13 +117,14 @@ for room in hb_model.rooms:
 
 
 # --- Clean up the Variant
-# -------------------------------------------------------------------------------
-# project_variant_1.group_components_by( 'assembly' )
+# ------------------------------------------------------------------------------
+project_variant_1.merge_components(by="assembly")
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 proj_1.add_assemblies_from_collection(assmbly_collection)
 proj_1.add_window_types_from_collection(window_type_collection)
 
 # --- Output the new Project to an XML file for WUFI
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
+print("> Writing out the XML file...")
 PyPH_WUFI.build_WUFI_xml.write_Project_to_wp_xml_file(TARGET_FILE_XML, proj_1)
