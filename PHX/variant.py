@@ -344,6 +344,7 @@ class Building(PHX._base._Base):
 
 class Variant(PHX._base._Base):
     _count = 0
+    _default = None
 
     def __init__(self):
         super(Variant, self).__init__()
@@ -367,6 +368,17 @@ class Variant(PHX._base._Base):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Variant, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls):
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+        new_obj.n = "Default Variant"
+
+        cls._default = new_obj
+        return new_obj
 
     def add_zones(self, _zones):
         # type: (list[PHX.spaces.Zone]) -> None

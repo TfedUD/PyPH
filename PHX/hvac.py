@@ -159,10 +159,6 @@ class HVAC_System(PHX._base._Base):
         cls._count += 1
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
-    # def add_new_HVAC_device(self, _device):
-    #     # type: (HVAC_Device) -> None
-    #     self.lDevice[ _device.id ].append(_device)
-
     def add_zone_to_system_coverage(self, _zone):
         # type: (HVAC_System_ZoneCover) -> None
         """Adds a Zone to the HVAC System's Covered Areas"""
@@ -201,7 +197,11 @@ class HVAC_System(PHX._base._Base):
 class HVAC(PHX._base._Base):
     def __init__(self):
         super(HVAC, self).__init__()
-        self.lSystem = []
+        self.lSystem = [HVAC_System()]
+
+    @property
+    def default_system(self):
+        return self.lSystem[0]
 
     def add_system(self, _systems):
         # type: (HVAC_System) -> None

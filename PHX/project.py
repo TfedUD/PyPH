@@ -5,7 +5,9 @@
 PHX Project Classes
 """
 
+from collections import defaultdict
 import PHX._base
+import PHX.variant
 import PHX.type_collections
 from datetime import datetime
 import PHX.type_collections  # .UtilizationPatternsVentilationCollection()
@@ -70,11 +72,29 @@ class Project(PHX._base._Base):
         self.lUtilVentPH = PHX.type_collections.CVent_Util_Patterns()
         self.lFile = []
         self.timeProf = {}
-        self.lVariant = []
+        self._variants = {}
+
+    @property
+    def lVariant(self):
+        return self._variants.values()
 
     def add_variant(self, *args) -> None:
         for var in args:
-            self.lVariant.append(var)
+            if isinstance(var, PHX.variant.Variant):
+                self._variants[var.identifier] = var
+            else:
+                msg = (
+                    "Error: Input must be type PHX.variant.Variant."
+                    'Got: "{}"'.format(var)
+                )
+                raise TypeError(msg)
+
+    def get_variant_by_identifier(self, _identifier):
+        for var in self.lVariant:
+            if str(var.identifier) == str(_identifier):
+                return var
+        else:
+            return None
 
     def add_assemblies_from_collection(
         self, _assmbly_c: PHX.type_collections.AssemblyCollection
