@@ -1,6 +1,7 @@
 import PHX.geometry
 import pytest
 
+
 @pytest.fixture
 def reset_geometry_count():
     """Re-set the class _count variable in order to test incrementing properly"""

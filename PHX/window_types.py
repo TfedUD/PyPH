@@ -7,6 +7,7 @@ PHX Window Type Classes
 
 import PHX._base
 
+
 class WindowFrame(PHX._base._Base):
     def __init__(self):
         super(WindowFrame, self).__init__()
@@ -14,6 +15,7 @@ class WindowFrame(PHX._base._Base):
         self.frame_u_factor = 1
         self.frame_psi_glazing = 0.04
         self.frame_psi_install = 0.04
+
 
 class WindowType(PHX._base._Base):
 
@@ -23,7 +25,7 @@ class WindowType(PHX._base._Base):
         super(WindowType, self).__init__()
         self.id = self._count
         self.idDB = None
-        self.n = 'default_window_type'
+        self.n = "default_window_type"
         self.detU = True
         self.detGd = False
         self.Uw = 2.5
@@ -40,29 +42,30 @@ class WindowType(PHX._base._Base):
         self.gtr = 0.4
         self.lAngleTr = []
         self.lWLayer = []
-        self.lrtbFrW =   [None, None, None, None]
-        self.lrtbFrU =   [None, None, None, None]
+        self.lrtbFrW = [None, None, None, None]
+        self.lrtbFrU = [None, None, None, None]
         self.lrtbGlPsi = [None, None, None, None]
         self.lrtbFrPsi = [None, None, None, None]
 
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(WindowType, cls).__new__(cls, *args, **kwargs)
-    
-    def add_new_frame_element(self, _frame, _edge_id='L'):
-        if not _frame: return
+
+    def add_new_frame_element(self, _frame, _edge_id="L"):
+        if not _frame:
+            return
 
         frame_positions = {
-            'L': 0,
-            'R': 1,
-            'T': 2,
-            'B': 3,
-            }
+            "L": 0,
+            "R": 1,
+            "T": 2,
+            "B": 3,
+        }
 
-        #-- Which frame edge to set
-        frame_pos = frame_positions.get( str(_edge_id).upper(), 0 )
-        
+        # -- Which frame edge to set
+        frame_pos = frame_positions.get(str(_edge_id).upper(), 0)
+
         self.lrtbFrW[frame_pos] = _frame.frame_width
         self.lrtbFrU[frame_pos] = _frame.frame_u_factor
         self.lrtbGlPsi[frame_pos] = _frame.frame_psi_glazing

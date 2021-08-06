@@ -1,6 +1,7 @@
 import pytest
 import PHX.variant
 
+
 @pytest.fixture
 def reset_variant_count():
     """Re-set the class _count variable in order to test incrementing properly"""

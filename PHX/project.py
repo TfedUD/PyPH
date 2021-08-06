@@ -8,10 +8,10 @@ PHX Project Classes
 import PHX._base
 import PHX.type_collections
 from datetime import datetime
-import PHX.type_collections#.UtilizationPatternsVentilationCollection()
+import PHX.type_collections  # .UtilizationPatternsVentilationCollection()
+
 
 class Date(PHX._base._Base):
-
     def __init__(self):
         super(Date, self).__init__()
         self.Year = datetime.now().year
@@ -20,12 +20,12 @@ class Date(PHX._base._Base):
         self.Hour = datetime.now().hour
         self.Minutes = datetime.now().minute
 
-class ProjectData(PHX._base._Base):
 
+class ProjectData(PHX._base._Base):
     def __init__(self):
         super(ProjectData, self).__init__()
-        self.xml_tag = 'ProjectData', 
-        self.cN = 'Client Name'
+        self.xml_tag = ("ProjectData",)
+        self.cN = "Client Name"
         self.cLoc = ""
         self.cPostC = ""
         self.cStr = ""
@@ -51,8 +51,8 @@ class ProjectData(PHX._base._Base):
         self.date = Date()
         self.wBkg = True
 
+
 class Project(PHX._base._Base):
-    
     def __init__(self):
         super(Project, self).__init__()
         self.data_version = 48
@@ -71,43 +71,47 @@ class Project(PHX._base._Base):
         self.lFile = []
         self.timeProf = {}
         self.lVariant = []
-    
+
     def add_variant(self, *args) -> None:
         for var in args:
-            self.lVariant.append( var )
+            self.lVariant.append(var)
 
-    def add_assemblies_from_collection(self, _assmbly_c: PHX.type_collections.AssemblyCollection) -> None:
+    def add_assemblies_from_collection(
+        self, _assmbly_c: PHX.type_collections.AssemblyCollection
+    ) -> None:
         """Extends the lAssembly list with all of the Assemblies from an AssemblyCollection Object
-        
-        Arguments:
-        ----------
-            * _assmbly_c (PHX.type_collections.AssemblyCollection): The PHX.type_collections.AssemblyCollection to get the Assemblies from 
-        
-        Returns:
-        --------
-            * None
-        """
-        self.lAssembly.extend( _assmbly_c.project_assemblies )
 
-    def add_window_types_from_collection(self, _win_type_c: PHX.type_collections.WindowTypeCollection) -> None:
-        """Extends the lWindow list with all of the window_types from an PHX.type_collections.AssemblyCollection Object
-        
         Arguments:
         ----------
-            * _win_type_c (PHX.type_collections.WindowTypeCollection): The WindowTypeCollection to get the WindowTypes from 
-        
+            * _assmbly_c (PHX.type_collections.AssemblyCollection): The PHX.type_collections.AssemblyCollection to get the Assemblies from
+
         Returns:
         --------
             * None
         """
-        self.lWindow.extend( _win_type_c.window_types )
+        self.lAssembly.extend(_assmbly_c.project_assemblies)
+
+    def add_window_types_from_collection(
+        self, _win_type_c: PHX.type_collections.WindowTypeCollection
+    ) -> None:
+        """Extends the lWindow list with all of the window_types from an PHX.type_collections.AssemblyCollection Object
+
+        Arguments:
+        ----------
+            * _win_type_c (PHX.type_collections.WindowTypeCollection): The WindowTypeCollection to get the WindowTypes from
+
+        Returns:
+        --------
+            * None
+        """
+        self.lWindow.extend(_win_type_c.window_types)
 
     def collect_utilization_patterns_from_zones(self):
         """Set the Project Utilization Patterns based on the values in the Variants / Buildings / Zones / Rooms"""
-        
+
         for v in self.lVariant:
             for z in v.building.lZone:
                 for r in z.rooms_ventilation:
-                    self.lUtilVentPH.add_to_collection( r.ventilation.utilization_pattern )
-
-
+                    self.lUtilVentPH.add_to_collection(
+                        r.ventilation.utilization_pattern
+                    )

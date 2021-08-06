@@ -1,8 +1,8 @@
 import PHX.spaces
 import pytest
 
-#---- Floor Segments
-#-------------------------------------------------------------------------------
+# ---- Floor Segments
+# -------------------------------------------------------------------------------
 def test_floor_segment_basics(floor_segment_a):
     seg_1 = PHX.spaces.FloorSegment()
 
@@ -21,8 +21,8 @@ def test_floor_segment_basics(floor_segment_a):
     seg_1.host_zone_identifier = floor_segment_a.host_zone_identifier
 
     assert seg_1.weighting_factor == 1
-    assert seg_1.space_name == 'A First Floor Segment'
-    assert seg_1.display_name == '101-A First Floor Segment'
+    assert seg_1.space_name == "A First Floor Segment"
+    assert seg_1.display_name == "101-A First Floor Segment"
     assert seg_1.space_number == 101
     assert seg_1.non_res_lighting == None
     assert seg_1.non_res_motion == None
@@ -31,10 +31,11 @@ def test_floor_segment_basics(floor_segment_a):
     assert seg_1.ventilation_v_eta == 0.0
     assert seg_1.ventilation_v_trans == 0.0
     assert seg_1.geometry == []
-    assert seg_1.host_zone_identifier == 'ABC-123'
+    assert seg_1.host_zone_identifier == "ABC-123"
+
 
 def test_add_geomgetry_to_floor_segment(floor_segments, face3D_1):
-    
+
     seg_1 = floor_segments[0]
     seg_2 = floor_segments[1]
     seg_3 = floor_segments[2]
@@ -43,26 +44,27 @@ def test_add_geomgetry_to_floor_segment(floor_segments, face3D_1):
     assert len(seg_2.geometry) == 1
     assert len(seg_3.geometry) == 1
 
-    seg_1.geometry.append( face3D_1 )
-    seg_3.geometry.append( face3D_1 )
+    seg_1.geometry.append(face3D_1)
+    seg_3.geometry.append(face3D_1)
 
     assert len(seg_1.geometry) == 1
     assert len(seg_2.geometry) == 1
     assert len(seg_3.geometry) == 2
 
+
 def test_floor_segments_weighting(floor_segment_a):
 
-        seg_1 = PHX.spaces.FloorSegment()
-        seg_1.floor_area_gross = 200
+    seg_1 = PHX.spaces.FloorSegment()
+    seg_1.floor_area_gross = 200
 
-        assert seg_1.weighting_factor == 1
-        assert seg_1.floor_area_weighted == 200
+    assert seg_1.weighting_factor == 1
+    assert seg_1.floor_area_weighted == 200
 
-        seg_1.weighting_factor = 0.6
-        assert seg_1.floor_area_weighted == 120
+    seg_1.weighting_factor = 0.6
+    assert seg_1.floor_area_weighted == 120
 
-        seg_1.weighting_factor = 0.2
-        assert seg_1.floor_area_weighted == 40
+    seg_1.weighting_factor = 0.2
+    assert seg_1.floor_area_weighted == 40
 
-        with pytest.raises(Exception):
-            seg_1.floor_area_weighted = 1000
+    with pytest.raises(Exception):
+        seg_1.floor_area_weighted = 1000

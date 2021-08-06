@@ -8,13 +8,26 @@ probably would not need something like this? I suppose it does help reduce coupl
 
 from contextlib import contextmanager
 import honeybee.face
-from ladybug_rhino.togeometry import (to_face3d, to_linesegment3d, to_mesh3d, to_point3d, to_polyline3d)
-from ladybug_rhino.fromgeometry import (from_face3d, from_linesegment3d, from_mesh3d, from_point3d, from_polyline3d)
+from ladybug_rhino.togeometry import (
+    to_face3d,
+    to_linesegment3d,
+    to_mesh3d,
+    to_point3d,
+    to_polyline3d,
+)
+from ladybug_rhino.fromgeometry import (
+    from_face3d,
+    from_linesegment3d,
+    from_mesh3d,
+    from_point3d,
+    from_polyline3d,
+)
+
 
 class IGH:
     """PyPH Interface for basic Grasshopper (and Rhino) dependancies that can be
-        used by other classes which accept this Interface object. 
-    
+        used by other classes which accept this Interface object.
+
     Arguments:
     ----------
         * _ghdoc: (ghdoc)
@@ -35,51 +48,55 @@ class IGH:
 
     def gh_compo_find_input_index_by_name(self, _input_name):
         # type: (str) -> int
-        """ 
-        Compares an input name against the list of GH_Component Inputs. Returns the 
+        """
+        Compares an input name against the list of GH_Component Inputs. Returns the
         index of any match or None if not found
-        
+
         Arguments:
         ----------
             * _input_name (str): The name to search for
-        
+
         Returns:
         --------
             * (int): The index of the matching item
         """
-        
-        for i, each in enumerate(list(self.ghenv.Component.Params.Input)):      
+
+        for i, each in enumerate(list(self.ghenv.Component.Params.Input)):
             names = [str(each.Name).upper(), str(each.NickName).upper()]
             if _input_name.upper() in names:
                 return i
 
-        raise Exception('Error: The input node "{}" cannot be founnd?'.format(_input_name))
+        raise Exception(
+            'Error: The input node "{}" cannot be founnd?'.format(_input_name)
+        )
 
     def gh_compo_get_input_guids(self, _input_index_number):
         # type: (int) -> list[System.Guid]
         """
-        Returns a list of all the GUIDs of the objects being passed to the 
+        Returns a list of all the GUIDs of the objects being passed to the
         component's specified input node.
 
         Arguments:
         ----------
-            * _input_index_number (int): The index number of the input node to 
+            * _input_index_number (int): The index number of the input node to
                 look at.
-        
+
         Returns:
         --------
-            * list[System.Guid]: The GUIDs of the objects being input into the specified 
+            * list[System.Guid]: The GUIDs of the objects being input into the specified
                 component input node.
         """
 
         guids = []
         try:
-            for _ in self.ghenv.Component.Params.Input[_input_index_number].VolatileData[0]:
+            for _ in self.ghenv.Component.Params.Input[
+                _input_index_number
+            ].VolatileData[0]:
                 try:
                     guids.append(_.ReferenceID)
                 except AttributeError:
-                    # If input doesn't have a ReferenceID, its probably a Panel text or number input               
-                    guids.append( None )
+                    # If input doesn't have a ReferenceID, its probably a Panel text or number input
+                    guids.append(None)
         except ValueError:
             nm = self.ghenv.Component.Params.Input[_input_index_number].NickName
             print('No input values found for "{}".'.format(nm))
@@ -90,7 +107,7 @@ class IGH:
     def context_rh_doc(self):
         """
         Context Manager used to switch Grasshopper's scriptcontext.doc
-        to Rhino.RhinoDoc.ActiveDoc temporaily. This is needed when trying 
+        to Rhino.RhinoDoc.ActiveDoc temporaily. This is needed when trying
         to access information such as UserText for Rhino objects
 
         Use:
@@ -104,7 +121,7 @@ class IGH:
             yield
         except Exception as e:
             self.scriptcontext.doc = self.ghdoc
-            print('Exception:', e.message)
+            print("Exception:", e.message)
             raise Exception
         finally:
             self.scriptcontext.doc = self.ghdoc
@@ -114,49 +131,50 @@ class IGH:
         """
         Get any Rhino-side UserText attribute data for the Object/Elements.
         Note: this only works in Rhino v6.0+ I believe...
-        
+
         Arguments:
         ----------
             _rh_obj_guids list(Rhino Guid): The Rhino Guid(s) of the Object/Elements.
-        
+
         Returns:
         --------
             output_list list[dict]: A list of dictionaries, each with all the data found
                 in the Rhino object's UserText library.
         """
-        
-        def is_grasshopper_geometry(_guid):
-            """If its GH generated geom, will have this GUID always """
-            return str(_guid) == '00000000-0000-0000-0000-000000000000'
 
-        if not _rh_obj_guids: return []
-        if not isinstance(_rh_obj_guids, list): _rh_obj_guids = [ _rh_obj_guids ]
-        
+        def is_grasshopper_geometry(_guid):
+            """If its GH generated geom, will have this GUID always"""
+            return str(_guid) == "00000000-0000-0000-0000-000000000000"
+
+        if not _rh_obj_guids:
+            return []
+        if not isinstance(_rh_obj_guids, list):
+            _rh_obj_guids = [_rh_obj_guids]
+
         output_list = []
         with self.context_rh_doc():
             for guid in _rh_obj_guids:
                 if not guid or is_grasshopper_geometry(guid):
-                    output_list.append( {'Object Name':None} )
+                    output_list.append({"Object Name": None})
                 else:
-                    #-- Go get the data from Rhino
-                    rh_obj = self.Rhino.RhinoDoc.ActiveDoc.Objects.Find( guid )
-                    object_rh_UserText_dict = { 
-                        k:self.rhinoscriptsyntax.GetUserText(rh_obj, k) 
-                        for k in 
-                        self.rhinoscriptsyntax.GetUserText(rh_obj) 
-                        }
+                    # -- Go get the data from Rhino
+                    rh_obj = self.Rhino.RhinoDoc.ActiveDoc.Objects.Find(guid)
+                    object_rh_UserText_dict = {
+                        k: self.rhinoscriptsyntax.GetUserText(rh_obj, k)
+                        for k in self.rhinoscriptsyntax.GetUserText(rh_obj)
+                    }
 
-                    #-- Fix the name
+                    # -- Fix the name
                     object_name = self.rhinoscriptsyntax.ObjectName(guid)
-                    object_rh_UserText_dict['Object Name'] = object_name
+                    object_rh_UserText_dict["Object Name"] = object_name
 
-                    output_list.append( object_rh_UserText_dict )
-        
+                    output_list.append(object_rh_UserText_dict)
+
         return output_list
 
     def convert_to_LBT_geom(self, _inputs):
         # type: (list) -> list
-        """Converts a list of RH- or GH-Geometry into a list of LBT-Geometry. If 
+        """Converts a list of RH- or GH-Geometry into a list of LBT-Geometry. If
             input is a string, boolean or number, will just return that without converting.
 
         Arguments:
@@ -167,9 +185,10 @@ class IGH:
         --------
             * list: The input (RH/GH) geometry, converted to LBT-Geometry
         """
-        
-        if not isinstance(_inputs, list): _inputs = [ _inputs ]
-        
+
+        if not isinstance(_inputs, list):
+            _inputs = [_inputs]
+
         lbt_geomertry = []
         for _ in _inputs:
             if isinstance(_, list):
@@ -178,29 +197,31 @@ class IGH:
                     lbt_geomertry.append(result)
             elif isinstance(_, (str, int, float)):
                 try:
-                    lbt_geomertry.append( float(str(_)) )
+                    lbt_geomertry.append(float(str(_)))
                 except ValueError:
-                    lbt_geomertry.append( str(_) )
+                    lbt_geomertry.append(str(_))
             elif isinstance(_, bool):
-                lbt_geomertry.append( _ )
+                lbt_geomertry.append(_)
             elif isinstance(_, self.Rhino.Geometry.Brep):
-                lbt_geomertry.append( to_face3d(_) )
+                lbt_geomertry.append(to_face3d(_))
             elif isinstance(_, self.Rhino.Geometry.PolylineCurve):
-                lbt_geomertry.append( to_polyline3d(_) )
+                lbt_geomertry.append(to_polyline3d(_))
             elif isinstance(_, self.Rhino.Geometry.LineCurve):
-                lbt_geomertry.append( to_linesegment3d(_) )
+                lbt_geomertry.append(to_linesegment3d(_))
             elif isinstance(_, self.Rhino.Geometry.Line):
-                lbt_geomertry.append( to_linesegment3d( self.Rhino.Geometry.LineCurve(_) ) )
+                lbt_geomertry.append(to_linesegment3d(self.Rhino.Geometry.LineCurve(_)))
             elif isinstance(_, self.Rhino.Geometry.Mesh):
-                lbt_geomertry.append( to_mesh3d(_) )
+                lbt_geomertry.append(to_mesh3d(_))
             elif isinstance(_, self.Rhino.Geometry.Point3d):
-                lbt_geomertry.append( to_point3d(_) )
+                lbt_geomertry.append(to_point3d(_))
             else:
-                raise Exception('Input Error: Cannot convert "{}" to LBT Geometry.'.format(type(_)))
-        
+                raise Exception(
+                    'Input Error: Cannot convert "{}" to LBT Geometry.'.format(type(_))
+                )
+
         return lbt_geomertry
-    
-    def convert_to_rhino_geom(self, _inputs): 
+
+    def convert_to_rhino_geom(self, _inputs):
         # type: (list) -> list
         """Converts a list of LBT-Geometry into RH-Geometry.
 
@@ -212,70 +233,92 @@ class IGH:
         --------
             * list: The input LBT geometry, converted to Rhino-Geometry
         """
-        
-        if not isinstance(_inputs, list): _inputs = [_inputs]
-        
+
+        if not isinstance(_inputs, list):
+            _inputs = [_inputs]
+
         rh_geom = []
         for _ in _inputs:
             if isinstance(_, list):
-                 for __ in _:
+                for __ in _:
                     result = self.convert_to_rhino_geom(__)
                     rh_geom.append(result)
-            elif isinstance(_, honeybee.face.Face ):
-                rh_geom.append( from_face3d( _.geometry ) )
+            elif isinstance(_, honeybee.face.Face):
+                rh_geom.append(from_face3d(_.geometry))
             elif isinstance(_, honeybee.face.Face3D):
-                rh_geom.append( from_face3d( _ ) )
+                rh_geom.append(from_face3d(_))
             else:
-                raise Exception('Input Error: Cannot convert "{}" to Rhino Geometry.'.format(type(_)))
-        
+                raise Exception(
+                    'Input Error: Cannot convert "{}" to Rhino Geometry.'.format(
+                        type(_)
+                    )
+                )
+
         return rh_geom
-    
+
     def inset_LBT_face(self, _lbt_face, _inset_distance):
         # type: (honeybee.face.Face, float) -> list
-        """Converts an LBT face to Rhino Geom and performs an 'inset' operation on it. Returns the newly inset Face3D 
-        
+        """Converts an LBT face to Rhino Geom and performs an 'inset' operation on it. Returns the newly inset Face3D
+
         Arguments:
         ----------
             * _lbt_face (honeybee.face.Face): The LBT Face to inset
-            * _inset_distance (float): The distance to inset the surface        
-        
+            * _inset_distance (float): The distance to inset the surface
+
         Returns:
         --------
             * (honeybee.face.Face): A new LBT Face, inset by the specified amount
         """
-        
+
         rh_floor_surface = self.convert_to_rhino_geom(_lbt_face)
-        
-        if _inset_distance < 0.001: return rh_floor_surface
-        
-        #-----------------------------------------------------------------------
-        srfcPerim = self.grasshopper_components.JoinCurves( self.grasshopper_components.BrepEdges(rh_floor_surface)[0], preserve=False )
-        
+
+        if _inset_distance < 0.001:
+            return rh_floor_surface
+
+        # -----------------------------------------------------------------------
+        srfcPerim = self.grasshopper_components.JoinCurves(
+            self.grasshopper_components.BrepEdges(rh_floor_surface)[0], preserve=False
+        )
+
         # Get the inset Curve
-        #-----------------------------------------------------------------------
-        srfcCentroid = self.Rhino.Geometry.AreaMassProperties.Compute(rh_floor_surface).Centroid
+        # -----------------------------------------------------------------------
+        srfcCentroid = self.Rhino.Geometry.AreaMassProperties.Compute(
+            rh_floor_surface
+        ).Centroid
         plane = self.grasshopper_components.XYPlane(srfcCentroid)
         plane = self.grasshopper_components.IsPlanar(rh_floor_surface, True).plane
-        srfcPerim_Inset_Pos = self.grasshopper_components.OffsetCurve(srfcPerim, _inset_distance, plane, 1)
-        srfcPerim_Inset_Neg = self.grasshopper_components.OffsetCurve(srfcPerim, _inset_distance*-1, plane, 1)
+        srfcPerim_Inset_Pos = self.grasshopper_components.OffsetCurve(
+            srfcPerim, _inset_distance, plane, 1
+        )
+        srfcPerim_Inset_Neg = self.grasshopper_components.OffsetCurve(
+            srfcPerim, _inset_distance * -1, plane, 1
+        )
 
         # Choose the right Offset Curve. The one with the smaller area
         # Check IsPlanar first to avoid self.grasshopper_components.BoundarySurfaces error
-        #-----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
         if srfcPerim_Inset_Pos.IsPlanar:
-            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces( srfcPerim_Inset_Pos )
+            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(
+                srfcPerim_Inset_Pos
+            )
         else:
-            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces( srfcPerim ) # Use the normal perim
+            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(
+                srfcPerim
+            )  # Use the normal perim
 
         if srfcPerim_Inset_Neg.IsPlanar():
-            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces( srfcPerim_Inset_Neg )
+            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(
+                srfcPerim_Inset_Neg
+            )
         else:
-            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces( srfcPerim ) # Use the normal perim
-        
-        #-----------------------------------------------------------------------
+            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(
+                srfcPerim
+            )  # Use the normal perim
+
+        # -----------------------------------------------------------------------
         area_Pos = self.grasshopper_components.Area(srfcInset_Pos).area
         area_neg = self.grasshopper_components.Area(srfcInset_Neg).area
-        
+
         if area_Pos < area_neg:
             return self.convert_to_LBT_geom(srfcInset_Pos)
         else:
@@ -284,8 +327,8 @@ class IGH:
     def merge_Face3D(self, _face3Ds):
         # type: (honeybee.face.Face3D) -> list[ list[honeybee.face.Face3D] ]
         """Combine a set of Face3D surfaces together into 'merged' Face3Ds
-        
-        This *should* work on surfaces that are touching, AND ones that overlap. Using 
+
+        This *should* work on surfaces that are touching, AND ones that overlap. Using
         GH MergeFaces() only works on 'touching' surfaces, but not overlapping ones.
 
         Arguments:
@@ -297,24 +340,27 @@ class IGH:
             * (list[list[honeybee.face.Face3D]]): The merged Face3Ds
         """
 
-        #-- Pull out the Perimeter curves from each Face3D
+        # -- Pull out the Perimeter curves from each Face3D
         perims = []
         for face3D in _face3Ds:
-            rh_brep = self.convert_to_rhino_geom( face3D )
-            faces, edges, vertices = self.grasshopper_components.DeconstructBrep(rh_brep)
+            rh_brep = self.convert_to_rhino_geom(face3D)
+            faces, edges, vertices = self.grasshopper_components.DeconstructBrep(
+                rh_brep
+            )
             perims.append(self.grasshopper_components.JoinCurves(edges, True))
-        
+
         joined_curves = self.grasshopper_components.RegionUnion(perims)
 
-        if not isinstance(joined_curves, list): joined_curves = [joined_curves]
-        
-        #-- Intersect and Merge the Perimeter Curves back togther, make new Face3Ds
-        new_LBT_face3ds= []
+        if not isinstance(joined_curves, list):
+            joined_curves = [joined_curves]
+
+        # -- Intersect and Merge the Perimeter Curves back togther, make new Face3Ds
+        new_LBT_face3ds = []
         for crv in joined_curves:
             merged_breps = self.Rhino.Geometry.Brep.CreatePlanarBreps(crv, 0.01)
-            
+
             for new_brep in merged_breps:
-                new_LBT_Face = self.convert_to_LBT_geom( new_brep )
+                new_LBT_Face = self.convert_to_LBT_geom(new_brep)
                 new_LBT_face3ds.extend(new_LBT_Face)
 
         return new_LBT_face3ds

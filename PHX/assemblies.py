@@ -7,15 +7,16 @@ PHX Material and Assembly / Construction Classes.
 
 import PHX._base
 
+
 class Material(PHX._base._Base):
-    
+
     _count = 1
 
     def __init__(self):
         super(Material, self).__init__()
         self.id = self._count
         self.idDB = None
-        self.n = 'default_material'
+        self.n = "default_material"
         self.tConD = 1
         self.densB = 50
         self.poros = 0.95
@@ -41,11 +42,12 @@ class Material(PHX._base._Base):
         self.nWCRedGen = None
         self.nWCtCondGen = None
         self.TtCondGen = None
-    
+
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Material, cls).__new__(cls, *args, **kwargs)
+
 
 class Layer(PHX._base._Base):
 
@@ -56,34 +58,35 @@ class Layer(PHX._base._Base):
         self.id = self._count
         self.thickness = 0.0254
         self.material = Material()
-    
+
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Layer, cls).__new__(cls, *args, **kwargs)
+
 
 class Assembly(PHX._base._Base):
     _count = 0
 
     def __init__(self):
         self.id = self._count
-        self.n = 'default_assembly'
+        self.n = "default_assembly"
         self.Order_Layers = 2
         self.Grid_Kind = 2
         self.Layers = []
-    
+
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Assembly, cls).__new__(cls, *args, **kwargs)
 
     def add_layer(self, _layer: Layer) -> None:
         """Add a new Layer to the Assembly
-        
+
         Arguments:
         ----------
             * _layer (Layer): The new Layer object to add to the Assembly
-        
+
         Returns:
         --------
             * None
@@ -92,8 +95,8 @@ class Assembly(PHX._base._Base):
             return
 
         if not isinstance(_layer, Layer):
-            raise TypeError(f'Error: add_layer() only accepts "Layer" Objects. Got: {_layer}, type="{type(_layer)}"')
-        
-        self.Layers.append( _layer )
+            raise TypeError(
+                f'Error: add_layer() only accepts "Layer" Objects. Got: {_layer}, type="{type(_layer)}"'
+            )
 
-
+        self.Layers.append(_layer)

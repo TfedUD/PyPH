@@ -9,24 +9,42 @@ import PHX._base
 import PHX.serialization.from_dict
 import PHX.variant
 
+
 class HVAC_Ventilation_Airflows(PHX._base._Base):
-    
     def __init__(self):
         super(HVAC_Ventilation_Airflows, self).__init__()
         self.supply = 0.0
         self.extract = 0.0
         self.transfer = 0.0
 
+    def join(self, _other):
+        """Returns a new airflow object with the maximum values from each input"""
+        new_obj = self.__class__()
+
+        new_obj.supply = max(self.supply, _other.supply)
+        new_obj.extract = max(self.extract, _other.extract)
+        new_obj.transfer = max(self.transfer, _other.transfer)
+
+        return new_obj
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_Ventilation_Airflows(cls, _dict)
 
+    def __repr__(self):
+        return "{}(supply={:.02f}, extract={:.02f}, transfer={:.02f})".format(
+            self.__class__.__name__, self.supply, self.extract, self.transfer
+        )
+
+    def __str__(self):
+        return self.__repr__()
+
+
 class HVAC_PH_Parameters(PHX._base._Base):
-    
     def __init__(self):
         super(HVAC_PH_Parameters, self).__init__()
         self.HumidityRecoveryEfficiency = 0.0
-        self.ElectricEfficiency = 0.45 #W/m3h
+        self.ElectricEfficiency = 0.45  # W/m3h
         self.FrostProtection = True
         self.Quantity = 1
         self.SubsoilHeatExchangeEfficiency = 0.0
@@ -53,6 +71,7 @@ class HVAC_PH_Parameters(PHX._base._Base):
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_PH_Parameters(cls, _dict)
 
+
 class HVAC_Device(PHX._base._Base):
 
     _count = 0
@@ -61,7 +80,7 @@ class HVAC_Device(PHX._base._Base):
     def __init__(self):
         super(HVAC_Device, self).__init__()
         self.id = self._count
-        self.Name = ''
+        self.Name = ""
         self.SystemType = None
         self.TypeDevice = None
         self.UsedFor_Heating = False
@@ -78,18 +97,19 @@ class HVAC_Device(PHX._base._Base):
         self.MoistureRecovery = 0.0
 
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
     def default_ventilator(cls, *args, **kwargs):
         """Returns a new Device for a default Ventilator (HRV/ERV)"""
-        if cls._default_ventilator: return cls._default_ventilator
-        
+        if cls._default_ventilator:
+            return cls._default_ventilator
+
         new_obj = cls()
 
-        new_obj.Name = '__default_ventilation__'
+        new_obj.Name = "__default_ventilation__"
         new_obj.TypeDevice = 1
         new_obj.SystemType = 1
 
@@ -100,8 +120,8 @@ class HVAC_Device(PHX._base._Base):
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
 
+
 class HVAC_System_ZoneCover(PHX._base._Base):
-    
     def __init__(self):
         super(HVAC_System_ZoneCover, self).__init__()
         self.idZoneCovered = 1
@@ -109,7 +129,8 @@ class HVAC_System_ZoneCover(PHX._base._Base):
         self.cover_cooling = 0
         self.cover_ventilation = 0
         self.cover_humidification = 0
-        self.cover_dehumidification = 0  
+        self.cover_dehumidification = 0
+
 
 class HVAC_System(PHX._base._Base):
 
@@ -127,14 +148,14 @@ class HVAC_System(PHX._base._Base):
         self.PHdistrib = None
 
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
-        
+        """Used so I can keep a running tally for the id variable"""
+
         cls._count += 1
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
-    def add_new_HVAC_device(self, _device ):
+    def add_new_HVAC_device(self, _device):
         # type: (HVAC_Device) -> None
-        self.lDevice.append( _device )
+        self.lDevice.append(_device)
 
     def add_zone_to_system_coverage(self, _zone):
         # type: (HVAC_System_ZoneCover) -> None
@@ -143,13 +164,14 @@ class HVAC_System(PHX._base._Base):
         new_coverage = HVAC_System_ZoneCover()
         new_coverage.idZoneCovered = _zone.id
 
-        self.lZoneCover.append( new_coverage )
+        self.lZoneCover.append(new_coverage)
 
     def add_zone_hvac_devices(self, _zones):
         # type: (list[PHX.variant.Zone]) -> None
         """Adds the HVAC Devices found on a Zone (Ventilation)"""
 
-        if not isinstance(_zones, list): _zones = [_zones]
+        if not isinstance(_zones, list):
+            _zones = [_zones]
         for zone in _zones:
             for space in zone.rooms_ventilation:
                 self.add_devices_to_system(space.ventilation.ventilator)
@@ -158,10 +180,13 @@ class HVAC_System(PHX._base._Base):
         # type: (list[HVAC_Device]) -> None
         """Adds HVAC Devices to the HVAC System"""
 
-        if not isinstance(_devices, list): _devices = [_devices]
+        if not isinstance(_devices, list):
+            _devices = [_devices]
         for d in _devices:
-            if d in self.lDevice: continue # ensure no duplicates
-            self.lDevice.append( d )
+            if d in self.lDevice:
+                continue  # ensure no duplicates
+            self.lDevice.append(d)
+
 
 class HVAC(PHX._base._Base):
     def __init__(self):
@@ -170,7 +195,8 @@ class HVAC(PHX._base._Base):
 
     def add_system(self, _systems):
         # type: (HVAC_System) -> None
-        if not isinstance(_systems, list): _systems = [_systems]
+        if not isinstance(_systems, list):
+            _systems = [_systems]
 
         for sys in _systems:
-            self.lSystem.append( sys )
+            self.lSystem.append(sys)

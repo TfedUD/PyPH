@@ -8,18 +8,24 @@ PHX Component Classes
 import PHX._base
 import PHX.geometry
 
+
 class ComponentTypeError(Exception):
     def __init__(self, _in):
-        self.message = 'Error: Expected input of type: "PHX.component.Component" Got: "{}"::"{}"?'.format(_in, type(_in))
+        self.message = 'Error: Expected input of type: "PHX.component.Component" Got: "{}"::"{}"?'.format(
+            _in, type(_in)
+        )
         super(ComponentTypeError, self).__init__(self.message)
+
 
 class WindowHostNotFoundError(Exception):
     def __init__(self, _p, _c):
-        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)
+        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(
+            _p.id, _c.n
+        )
         super(WindowHostNotFoundError, self).__init__(self.message)
 
-class WP_Color(PHX._base._Base):
 
+class WP_Color(PHX._base._Base):
     def __init__(self, _a=255, _r=255, _g=255, _b=255):
         super(WP_Color, self).__init__()
         self.alpha = _a
@@ -27,8 +33,9 @@ class WP_Color(PHX._base._Base):
         self.green = _g
         self.blue = _b
 
+
 class Component(PHX._base._Base):
-    
+
     _count = 0
 
     def __init__(self):
@@ -50,23 +57,23 @@ class Component(PHX._base._Base):
         self.polygons = []
         self.idAssC = -1
         self.idWtC = -1
-    
+
     @property
     def polygon_id_list(self):
         """Get the list of the Component's Poly id numbers
-        
+
         Returns:
         --------
             * list[int]: ie: [10000001, 10000002, .... ]
         """
 
-        return [ poly.id for poly in self.polygons ]
+        return [poly.id for poly in self.polygons]
 
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable """
+        """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Component, cls).__new__(cls, *args, **kwargs)
-    
+
     def add_polygons(self, _polygons):
         # type: (list[PHX.geometry.Polygon]) -> None
         """Adds a Polygon or list of Polygons to the Component
@@ -75,17 +82,19 @@ class Component(PHX._base._Base):
         ----------
             * _polygons (list[Polygon]): The Polygons to add to the Component
         """
-        
-        if not isinstance( _polygons, list ):
-            _polygons = [ _polygons ]
-        
-        for p in _polygons:
-            if not isinstance(p, PHX.geometry.Polygon): raise PHX.geometry.PolygonTypeError(p)
-            if p in self.polygons: continue
-            
-            self.polygons.append( p )   
 
-    def add_window_as_child(self, _window_component, _poly_identifier ): 
+        if not isinstance(_polygons, list):
+            _polygons = [_polygons]
+
+        for p in _polygons:
+            if not isinstance(p, PHX.geometry.Polygon):
+                raise PHX.geometry.PolygonTypeError(p)
+            if p in self.polygons:
+                continue
+
+            self.polygons.append(p)
+
+    def add_window_as_child(self, _window_component, _poly_identifier):
         # type (Component, str) -> None
         """Adds a Window's Polygons as 'children' of a Component's existing Polygon
 
@@ -94,12 +103,14 @@ class Component(PHX._base._Base):
             * _window_component (Component): The Window Component to add as a child
             * _poly_identifier (str): The identifier of the polygon face to add the Window to
         """
-        
+
         for p in self.polygons:
-            if not isinstance(p, PHX.geometry.Polygon): raise PHX.geometry.PolygonTypeError(p)
-            if p.identifier != _poly_identifier: continue
-            
-            p.add_children( _window_component.polygons )
+            if not isinstance(p, PHX.geometry.Polygon):
+                raise PHX.geometry.PolygonTypeError(p)
+            if p.identifier != _poly_identifier:
+                continue
+
+            p.add_children(_window_component.polygons)
             break
         else:
             raise WindowHostNotFoundError(p, self)
