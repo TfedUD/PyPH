@@ -393,6 +393,7 @@ class Variant(PHX._base._Base):
         self.geom.add_component_polygons(_components)
 
     def get_component_groups(self, group_by=None):
+        # type: (str) -> dict[PHX.component.Component]
         """Gets the Variant's components, grouped by some category
 
         Arguments:

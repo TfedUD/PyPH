@@ -43,6 +43,6 @@ class _Base(object):
         return str(self)
 
     def __repr__(self):
-        return "{}(identifier={!r}, {!r})".format(
+        return "{}(identifier={!r}, user_data={!r})".format(
             self.__class__.__name__, self.identifier_short, self.user_data
         )

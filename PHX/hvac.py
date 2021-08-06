@@ -5,6 +5,8 @@
 PHX Basic HVAC Classes
 """
 
+from collections import defaultdict
+
 import PHX._base
 import PHX.serialization.from_dict
 import PHX.variant
@@ -142,10 +144,14 @@ class HVAC_System(PHX._base._Base):
         self.typeSys = 1
         self.id = self._count
         self.lZoneCover = []
-        self.lDevice = []
+        self._device_dict = defaultdict(list)
         self.distrib = None
         self.suppDev = None
         self.PHdistrib = None
+
+    @property
+    def lDevice(self):
+        return list(self._device_dict.values())
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -153,9 +159,9 @@ class HVAC_System(PHX._base._Base):
         cls._count += 1
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
-    def add_new_HVAC_device(self, _device):
-        # type: (HVAC_Device) -> None
-        self.lDevice.append(_device)
+    # def add_new_HVAC_device(self, _device):
+    #     # type: (HVAC_Device) -> None
+    #     self.lDevice[ _device.id ].append(_device)
 
     def add_zone_to_system_coverage(self, _zone):
         # type: (HVAC_System_ZoneCover) -> None
@@ -168,24 +174,28 @@ class HVAC_System(PHX._base._Base):
 
     def add_zone_hvac_devices(self, _zones):
         # type: (list[PHX.variant.Zone]) -> None
-        """Adds the HVAC Devices found on a Zone (Ventilation)"""
+        """Adds the HVAC Devices found on a Zone (Ventilation) to the HVAC System"""
 
         if not isinstance(_zones, list):
             _zones = [_zones]
+
         for zone in _zones:
             for space in zone.rooms_ventilation:
                 self.add_devices_to_system(space.ventilation.ventilator)
 
     def add_devices_to_system(self, _devices):
         # type: (list[HVAC_Device]) -> None
-        """Adds HVAC Devices to the HVAC System"""
+        """Adds any HVAC Devices to the HVAC System"""
 
         if not isinstance(_devices, list):
             _devices = [_devices]
+
+        # -- Ensure no duplicates
         for d in _devices:
-            if d in self.lDevice:
-                continue  # ensure no duplicates
-            self.lDevice.append(d)
+            if not isinstance(d, HVAC_Device):
+                raise Exception("Error")
+
+            self._device_dict[d.id] = d
 
 
 class HVAC(PHX._base._Base):

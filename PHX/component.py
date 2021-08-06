@@ -78,8 +78,7 @@ class Component(PHX._base._Base):
         self.polygons.extend(_other.polygons)
         return self
 
-    def __radd__(self, _other):
-        return self.__add__(_other)
+    __radd__ = __add__
 
     def add_polygons(self, _polygons):
         # type: (list[PHX.geometry.Polygon]) -> None
