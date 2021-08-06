@@ -107,7 +107,9 @@ class Project(PHX._base._Base):
         self.lWindow.extend(_win_type_c.window_types)
 
     def collect_utilization_patterns_from_zones(self):
-        """Set the Project Utilization Patterns based on the values in the Variants / Buildings / Zones / Rooms"""
+        """Set the Project Utilization Patterns based on the values in the
+        Variants / Buildings / Zones / Rooms
+        """
 
         for v in self.lVariant:
             for z in v.building.lZone:

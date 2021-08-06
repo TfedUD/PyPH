@@ -13,8 +13,11 @@ import PHX.serialization.to_dict
 class _Base(object):
     def __init__(self):
         self.identifier = uuid.uuid4()
-        self.identifier_short = str(self.identifier).split("-")[0]
         self.user_data = {}
+
+    @property
+    def identifier_short(self):
+        return str(self.identifier).split("-")[0]
 
     def __new__(cls, *args, **kwargs):
         """Included so that subclasses can customize their own __new__"""

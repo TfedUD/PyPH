@@ -35,6 +35,7 @@ def _WindowType(_obj):
     ]
 
 
+# - Utilization Patterns
 def _UtilizationPattern_Ventilation(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -68,6 +69,7 @@ def _UtilizationPattern_Ventilation(_obj):
     ]
 
 
+# - Constructions
 def _Material(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
@@ -111,6 +113,7 @@ def _Assembly(_obj):
     ]
 
 
+# - Geometry
 def _Vertex(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),

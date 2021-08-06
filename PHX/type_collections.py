@@ -35,10 +35,12 @@ class Collection(PHX._base._Base):
             )
             raise TypeError(msg)
 
-        self._items[_item.identifier] = _item
+        self._items[_item.id] = _item
 
 
 class CVent_Util_Patterns(Collection):
+    """Collection of Ventilation Utilization Patterns"""
+
     def __init__(self):
         super(CVent_Util_Patterns, self).__init__()
         self._allowed_types = PHX.utilization_patterns.UtilizationPattern_Ventilation
