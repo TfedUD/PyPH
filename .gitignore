@@ -1,3 +1,4 @@
 .env
 nb_wrkspc
 __pycache__/
+.gitignore
