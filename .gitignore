@@ -1,2 +1,3 @@
 .env
 nb_wrkspc
+__pycache__/
