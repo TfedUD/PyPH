@@ -176,11 +176,9 @@ class IGH:
         # type: (list) -> list
         """Converts a list of RH- or GH-Geometry into a list of LBT-Geometry. If
             input is a string, boolean or number, will just return that without converting.
-
         Arguments:
         ----------
             * _inputs (list): The Rhino items / objects to try and convert
-
         Returns:
         --------
             * list: The input (RH/GH) geometry, converted to LBT-Geometry
@@ -364,3 +362,37 @@ class IGH:
                 new_LBT_face3ds.extend(new_LBT_Face)
 
         return new_LBT_face3ds
+
+
+def handle_inputs(IGH, _input_objects, _input_name):
+    # type: (IGH, list, str) -> list[dict]
+    """
+    Generic Rhino / GH Geometry input handler
+
+    Arguments:
+    ----------
+        * IGH (PyPH_Rhino.gh_io.IGH)
+        * _input_objects (Any):
+        * _input_name (str):
+        * _lbt_geom (bool): Set 'True' to return all geometry as Ladybug_geometry (Default)
+            or set 'False' to return all geometry as Rhino/Input geometry.
+
+    Returns:
+    --------
+        (list[dict]): A list of the object dictionaries with all the information found.
+    """
+
+    if not isinstance(_input_objects, list):
+        _input_objects = [_input_objects]
+
+    # -- Get the Input Object Attribute UserText values (if any)
+    input_index_number = IGH.gh_compo_find_input_index_by_name(_input_name)
+    input_guids = IGH.gh_compo_get_input_guids(input_index_number)
+    inputs = IGH.get_rh_obj_UserText_dict(input_guids)
+
+    # -- Add the Input Geometry to the output dictionary
+    input_geometry = IGH.convert_to_LBT_geom(_input_objects)
+    for d, g in zip(inputs, input_geometry):
+        d.update({"Geometry": g})
+
+    return inputs

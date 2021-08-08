@@ -103,6 +103,7 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         return super(UtilizationPattern_Ventilation, cls).__new__(cls, *args, **kwargs)
 
     def validate_total_hours(self):
+        TOLERANCE = 0.01
 
         total_operating_hours = 0
         total_operating_hours += self.utilizations.maximum.daily_op_sched
@@ -110,8 +111,10 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         total_operating_hours += self.utilizations.basic.daily_op_sched
         total_operating_hours += self.utilizations.minimum.daily_op_sched
 
-        if total_operating_hours != 24.0:
-            return "Error: hours do not total 24. Please check your inputs."
+        if 24.0 - total_operating_hours > TOLERANCE:
+            return "Error: total hours input ({}) do not total 24. Please check your inputs.".format(
+                total_operating_hours
+            )
 
     @classmethod
     def default(cls):
