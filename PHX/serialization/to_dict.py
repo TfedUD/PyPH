@@ -41,11 +41,18 @@ def _UtilizationPattern_Ventilation(_obj):
 
 
 # -- Ventilation
-def _PHX_SummerVent(_obj):
+def _SummerVent(_obj):
     d = {}
 
-    d.update({"day_ach": _obj.day_ach})
-    d.update({"night_ach": _obj.night_ach})
+    d.update({"avg_mech_ach": _obj.avg_mech_ach})
+    d.update({"day_window_ach": _obj.day_window_ach})
+    d.update({"night_window_ach": _obj.night_window_ach})
+    d.update({"additional_mech_ach": _obj.additional_mech_ach})
+    d.update({"additional_mech_spec_power": _obj.additional_mech_spec_power})
+    d.update({"exhaust_ach": _obj.exhaust_ach})
+    d.update({"exhaust_spec_power": _obj.exhaust_spec_power})
+    d.update({"additional_mech_control_mode": _obj.additional_mech_control_mode})
+    d.update({"avg_mech_control_mode": _obj.avg_mech_control_mode})
 
     return d
 

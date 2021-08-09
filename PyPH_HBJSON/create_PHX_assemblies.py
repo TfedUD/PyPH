@@ -11,6 +11,8 @@ import PHX.window_types
 
 # --- Assemblies
 # -------------------------------------------------------------------------------
+
+
 def create_new_NoMassMaterial_from_hb_mat(
     _hb_material: honeybee_energy.material.opaque.EnergyMaterialNoMass,
     _thickness: float = 0.1,
@@ -19,7 +21,8 @@ def create_new_NoMassMaterial_from_hb_mat(
 
     Arguments:
     ----------
-        * _hb_material (honeybee_energy.material.opaque.EnergyMaterialNoMass): The source Honeybee NoMass Material
+        * _hb_material (honeybee_energy.material.opaque.EnergyMaterialNoMass):
+            The source Honeybee NoMass Material
 
     Returns:
     --------
@@ -84,7 +87,8 @@ def create_new_material_from_hb_mat(_hb_material) -> PHX.assemblies.Material:
         return create_new_NoMassMaterial_from_hb_mat(_hb_material, 0.100)
     else:
         raise Exception(
-            f'Error: Cannot determine type of Honeybee Material: "{_hb_material}", type: "{type(_hb_material)}"'
+            f"Error: Cannot determine type of Honeybee Material: "
+            f'"{_hb_material}", type: "{type(_hb_material)}"'
         )
 
 

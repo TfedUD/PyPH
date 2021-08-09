@@ -12,6 +12,7 @@ import PHX._base
 import PHX.hvac
 import PHX.component
 import PHX.spaces
+import PHX.summer_ventilation
 
 
 class ZoneTypeError(Exception):
@@ -255,6 +256,7 @@ class Zone(PHX._base._Base):
         self.rooms_ventilation = []
         self.source_zone_identifiers = []
         self.appliances = []
+        self.summer_ventilation = PHX.summer_ventilation.SummerVent()
 
     @property
     def wp_display_name(self):

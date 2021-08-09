@@ -84,7 +84,7 @@ def _Material(_obj):
 
 def _Layer(_obj):
     return [
-        PyPH_WUFI.xml_node.XML_Node("Thickness", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node("Thickness", _obj.thickness, "unit", "m"),
         PyPH_WUFI.xml_node.XML_Object("Material", _obj.material),
     ]
 
@@ -452,6 +452,49 @@ def _Zone(_obj):
                 PyPH_WUFI.xml_node.XML_Node("Device", _, "index", i)
                 for i, _ in enumerate(_obj.appliances)
             ],
+        ),
+        # -- Summer Ventilation Crap
+        PyPH_WUFI.xml_node.XML_Node(  # = same as winter
+            "SummerMechanicalVentilationNight",
+            _obj.summer_ventilation.avg_mech_ach,
+            "unit",
+            "1/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "SummerNaturalVentilationDay",
+            _obj.summer_ventilation.day_window_ach,
+            "unit",
+            "1/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "SummerNaturalVentilationNight",
+            _obj.summer_ventilation.night_window_ach,
+            "unit",
+            '1/h',
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MechanicalAutomaticControlledVentilation",
+            _obj.summer_ventilation.additional_mech_ach,
+            "unit",
+            "1/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "SpecificPowerConsumptionAdditionalVentCooling",
+            _obj.summer_ventilation.additional_mech_spec_power,
+            "unit",
+            "Wh/m³",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "ACHViaMechanicalVentilationExhaustAir",
+            _obj.summer_ventilation.exhaust_ach,
+            "unit",
+            "1/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "SpecificPowerConsumption",
+            _obj.summer_ventilation.exhaust_spec_power,
+            "unit",
+            "Wh/m³",
         ),
     ]
 

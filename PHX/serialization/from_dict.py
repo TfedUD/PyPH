@@ -61,11 +61,20 @@ def _UtilizationPattern_Ventilation(_cls, _input_dict):
 
 
 # -- Ventilation
-def _PHX_SummerVent(_cls, _input_dict):
+def _SummerVent(_cls, _input_dict):
     new_obj = _cls()
 
-    new_obj.day_ach = _input_dict.get("day_ach")
-    new_obj.night_ach = _input_dict.get("night_ach")
+    new_obj.avg_mech_ach = _input_dict.get("avg_mech_ach")
+    new_obj.day_window_ach = _input_dict.get("day_window_ach")
+    new_obj.night_window_ach = _input_dict.get("night_window_ach")
+    new_obj.additional_mech_ach = _input_dict.get("additional_mech_ach")
+    new_obj.additional_mech_spec_power = _input_dict.get("additional_mech_spec_power")
+    new_obj.exhaust_ach = _input_dict.get("exhaust_ach")
+    new_obj.exhaust_spec_power = _input_dict.get("exhaust_spec_power")
+    new_obj.additional_mech_control_mode = _input_dict.get(
+        "additional_mech_control_mode"
+    )
+    new_obj.avg_mech_control_mode = _input_dict.get("avg_mech_control_mode")
 
     return new_obj
 

@@ -6,6 +6,7 @@
 import honeybee.room
 import PHX.variant
 import PHX.spaces
+import PHX.summer_ventilation
 import PHX.utilization_patterns
 import LBT_Utils.program
 
@@ -39,6 +40,11 @@ def create_zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zone:
     if _hb_room.floor_area:
         zone.floor_area = _hb_room.floor_area
         zone.floor_area_selection = 6  # User Determined
+
+    # -- Summer Ventilation Parameters
+    zone.summer_ventilation = PHX.summer_ventilation.SummerVent.from_dict(
+        _hb_room.user_data.get("phx", {}).get("summ_vent", {})
+    )
 
     return zone
 
