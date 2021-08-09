@@ -309,6 +309,7 @@ class Space(PHX._base._Base):
         self.space_number = None
         self.host_zone_identifier = None
 
+        self.volume = 0.0
         self.volumes = []
 
         self.occupancy = None
@@ -394,6 +395,7 @@ class Space(PHX._base._Base):
             self.ventilation
         )  # Ensure all Space / Vol / Floor / Seg point to the same Object
 
+        self.volume += _new_volume.volume
         self.volumes.append(_new_volume)
 
     def __str__(self):

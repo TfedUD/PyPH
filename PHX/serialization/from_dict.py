@@ -60,6 +60,16 @@ def _UtilizationPattern_Ventilation(_cls, _input_dict):
     return new_obj
 
 
+# -- Ventilation
+def _PHX_SummerVent(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.day_ach = _input_dict.get("day_ach")
+    new_obj.night_ach = _input_dict.get("night_ach")
+
+    return new_obj
+
+
 # -- HVAC
 def _PropertiesVentilation(_cls, _input_dict):
     new_obj = _cls()
@@ -225,8 +235,8 @@ def _Space(_cls, _input_dict):
     new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(
         _input_dict.get("ventilation", {})
     )
-
-    new_obj.volumes = []
+    new_obj.volume = _input_dict.get("volume")  # Number
+    new_obj.volumes = []  # Volume Objects
     for volume_dict in _input_dict.get("volumes", {}).values():
         new_obj.volumes.append(PHX.spaces.Volume.from_dict(volume_dict))
 

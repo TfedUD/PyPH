@@ -40,6 +40,16 @@ def _UtilizationPattern_Ventilation(_obj):
     return d
 
 
+# -- Ventilation
+def _PHX_SummerVent(_obj):
+    d = {}
+
+    d.update({"day_ach": _obj.day_ach})
+    d.update({"night_ach": _obj.night_ach})
+
+    return d
+
+
 # -- HVAC
 def _PropertiesVentilation(_obj):
     d = {}
@@ -187,6 +197,8 @@ def _Space(_obj):
     d.update({"occupancy": _obj.occupancy})
     d.update({"equipment": _obj.equipment})
     d.update({"ventilation": _obj.ventilation.to_dict()})
+
+    d.update({"volume": _obj.volume})
 
     volumes_dict = {}
     for volume in _obj.volumes:
