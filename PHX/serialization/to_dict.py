@@ -131,6 +131,59 @@ def _HVAC_Device(_obj):
     return d
 
 
+def _HVAC_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"n": _obj.n})
+    d.update({"typeSys": _obj.typeSys})
+    d.update({"lZoneCover": _obj.lZoneCover})
+    d.update({"_device_dict": _obj._device_dict})
+    d.update({"distrib": _obj.distrib})
+    d.update({"suppDev": _obj.suppDev})
+    d.update({"PHdistrib": _obj.PHdistrib})
+
+    return d
+
+
+# -- HVAC: Ventilation
+def _HVAC_Ventilation_Duct_Segment(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"length": _obj.length})
+    d.update({"diameter": _obj.diameter})
+    d.update({"width": _obj.width})
+    d.update({"height": _obj.height})
+    d.update({"insulation_thickness": _obj.insulation_thickness})
+    d.update({"insulation_conductivity": _obj.insulation_conductivity})
+
+    return d
+
+
+def _HVAC_Ventilation_Duct(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
+
+    return d
+
+
+def _HVAC_Ventilation_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"type": _obj.type})
+    d.update({"ventilator": _obj.ventilator.to_dict()})
+    d.update({"duct_01": _obj.duct_01.to_dict()})
+    d.update({"duct_02": _obj.duct_02.to_dict()})
+
+    return d
+
+
 # -- Spaces
 def _FloorSegment(_obj):
     d = {}

@@ -79,6 +79,49 @@ def _SummerVent(_cls, _input_dict):
     return new_obj
 
 
+# -- HVAC: Ventilation
+def _HVAC_Ventilation_Duct_Segment(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.length = _input_dict.get("length")
+    new_obj.diameter = _input_dict.get("diameter")
+    new_obj.width = _input_dict.get("width")
+    new_obj.height = _input_dict.get("height")
+    new_obj.insulation_thickness = _input_dict.get("insulation_thickness")
+    new_obj.insulation_conductivity = _input_dict.get("insulation_conductivity")
+
+    return new_obj
+
+
+def _HVAC_Ventilation_Duct(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    for d in _input_dict.get("segments"):
+        new_obj.segments.append(PHX.hvac.HVAC_Ventilation_Duct_Segment.from_dict(d))
+
+    return new_obj
+
+
+def _HVAC_Ventilation_System(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.type = _input_dict.get("type")
+
+    new_obj.duct_01 = PHX.hvac.HVAC_Device.from_dict(_input_dict.get("ventilator", {}))
+    new_obj.duct_01 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(
+        _input_dict.get("duct_01", {})
+    )
+    new_obj.duct_02 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(
+        _input_dict.get("duct_02", {})
+    )
+
+    return new_obj
+
+
 # -- HVAC
 def _PropertiesVentilation(_cls, _input_dict):
     new_obj = _cls()
@@ -162,6 +205,22 @@ def _HVAC_Device(_cls, _input_dict):
     )
     new_obj.HeatRecovery = _input_dict.get("HeatRecovery")
     new_obj.MoistureRecovery = _input_dict.get("MoistureRecovery")
+
+    return new_obj
+
+
+def _HVAC_System(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.n = _input_dict.get("n")
+    new_obj.typeSys = _input_dict.get("typeSys")
+    new_obj.lZoneCover = _input_dict.get("lZoneCover")
+    new_obj._device_dict = _input_dict.get("_device_dict")
+    new_obj.distrib = _input_dict.get("distrib")
+    new_obj.suppDev = _input_dict.get("suppDev")
+    new_obj.PHdistrib = _input_dict.get("PHdistrib")
 
     return new_obj
 

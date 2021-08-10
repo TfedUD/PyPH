@@ -8,13 +8,26 @@ import PHX.variant
 import PHX.project
 
 
-def get_host_variant(
+def get_host_PHX_Variant(
     _project: PHX.project.Project, _hb_room: honeybee.room.Room
 ) -> PHX.variant.Variant:
-    """Returns the HB Room's Host Variant. Will create a new variant
-    based on the id/name info found on the HB Room user_data.
+    """Returns a Honybee Room's Host PHX-Variant.
 
-    If none is found, returns the Default variant for the projecg
+    Will first look for the Honeybee.room.Room.user_data['phx']['variants_id'] to
+    get a name/id for the PHX-Variant. If name/id is found, will create a new variant
+    with that id if none already exists on the PHX.project.Project object.
+
+    If none is found (this attribute wasn't set by the
+    user), will return the PHX.project.Project's default-variant.
+
+    Arguments:
+    ----------
+        * _project (PHX.project.Project): The PHX-Project Object.
+        * _ hb_room (honeybee.room.Room): The Honeybee Room to use as the source.
+
+    Returns:
+    --------
+        * (PHX.variant.Variant): The Honeybee Room's host PHX-Variant.
     """
 
     var_ident = (
@@ -35,4 +48,5 @@ def get_host_variant(
             host_variant.n = var_name
 
     _project.add_variant(host_variant)
+
     return host_variant

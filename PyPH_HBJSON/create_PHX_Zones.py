@@ -12,19 +12,19 @@ import LBT_Utils.program
 
 # -- Zones
 # -------------------------------------------------------------------------------
-def create_zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zone:
-    """Creates a new Zone from a single Honeybee 'Room'.
+def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zone:
+    """Creates a new PHX-Zone from a single Honeybee 'Room'.
 
-    Note: This function does not create the 'Spaces' within the Zone. Use
+    Note: This function does not create the 'PHX-Spaces' within the PHX-Zone. Use
     create_PHX_Zones.add_Spaces_from_HB_room() in order to add Spaces if desired.
 
     Arguments:
     ----------
-        * _hb_room (honeybee.room.Room): The Honeybee room to use as the source for the new Zone
+        * _hb_room (honeybee.room.Room): The Honeybee room to use as the source for the new PHX-Zone
 
     Returns:
     --------
-        * (Zone): The new Zone object with Attributes based on the Honeybee Room
+        * (PHX.variant.Zone): The new PHX-Zone object with Attributes based on the Honeybee Room
     """
 
     zone = PHX.variant.Zone()
@@ -50,7 +50,7 @@ def create_zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zone:
 
 
 def set_Space_ventilation_from_HB_room(_hb_room, _phx_Space):
-    """Calcs and sets Space's ventilation flow rates based on the host Honeyebee Room"""
+    """Calcs and sets PHX-Space's ventilation flow rates based on the host Honeyebee Room"""
 
     # - Ventilation Airflow
     total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(
@@ -62,9 +62,9 @@ def set_Space_ventilation_from_HB_room(_hb_room, _phx_Space):
     _phx_Space.ventilation.transfer = 0.0
 
 
-def create_Spaces_from_HB_room(_hb_room):
+def create_PHX_Spaces_from_HB_room(_hb_room):
     # type: (honeybee.room.Room) -> list[PHX.spaces.Space]
-    """Returns a list of new Spaces based on the Honeybee Room"""
+    """Returns a list of new PHX-Spaces based on the Honeybee Room"""
 
     # --- Get any detailed user-determined Space info on the HB-Room
     user_determined_space_dict = _hb_room.user_data.get("phx", {}).get("spaces", [])

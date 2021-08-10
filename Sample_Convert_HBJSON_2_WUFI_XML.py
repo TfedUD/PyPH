@@ -66,13 +66,15 @@ project_1 = PHX.project.Project()
 # --- exposures for any adjacent-surfaces can be set with the proper ID number
 # --- when building Components.
 for room in hb_model.rooms:
-    host_variant = PyPH_HBJSON.create_PHX_variants.get_host_variant(project_1, room)
-    new_zone = PyPH_HBJSON.create_PHX_Zones.create_zone_from_HB_room(room)
-    new_spaces = PyPH_HBJSON.create_PHX_Zones.create_Spaces_from_HB_room(room)
+    host_variant = PyPH_HBJSON.create_PHX_variants.get_host_PHX_Variant(project_1, room)
+    new_zone = PyPH_HBJSON.create_PHX_Zones.create_PHX_Zone_from_HB_room(room)
+    new_spaces = PyPH_HBJSON.create_PHX_Zones.create_PHX_Spaces_from_HB_room(room)
     new_zone.add_spaces(new_spaces)
 
+    # Note: for now, all Honeybee Rooms get a single 'System'. Might need to
+    # change this in the future? Not sure when/if you would need more than 1 system?
     host_variant.HVAC.default_system.add_zone_to_system_coverage(new_zone)
-    host_variant.HVAC.default_system.add_zone_hvac_devices(new_zone)
+    host_variant.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
 
     # new_zone = add_default_res_appliance_to_zone( new_zone )
 
@@ -82,7 +84,7 @@ for room in hb_model.rooms:
 # # --- Bulild all the Components (Surfaces, Windows)
 # # ----------------------------------------------------------------------------
 for room in hb_model.rooms:
-    host_variant = PyPH_HBJSON.create_PHX_variants.get_host_variant(project_1, room)
+    host_variant = PyPH_HBJSON.create_PHX_variants.get_host_PHX_Variant(project_1, room)
     zone = host_variant.get_zone_by_identifier(room.identifier)
 
     for face in room.faces:
