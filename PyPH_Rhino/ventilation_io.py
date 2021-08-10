@@ -44,11 +44,11 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
             new_duct_seg = PHX.hvac.HVAC_Ventilation_Duct_Segment()
 
             # -- Basic Duct Segment Params
-            new_duct_seg.diameter = _in.get("ductDiameter")
-            new_duct_seg.width = _in.get("ductWidth")
+            new_duct_seg.diameter = _in.get("ductDiameter", 0.0)
+            new_duct_seg.width = _in.get("ductWidth", 0.0)
             new_duct_seg.height = _in.get("ductHeight")
-            new_duct_seg.insulation_thickness = _in.get("insulThickness")
-            new_duct_seg.insulation_conductivity = _in.get("insulConductivity")
+            new_duct_seg.insulation_thickness = _in.get("insulThickness", 0.0)
+            new_duct_seg.insulation_conductivity = _in.get("insulConductivity", 0.0)
 
             # -- Sort out the Duct Segment Length
             try:
