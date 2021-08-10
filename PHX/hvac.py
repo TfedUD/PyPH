@@ -203,6 +203,13 @@ class HVAC_Ventilation_Duct(PHX._base._Base):
         cls._default = new_obj
         return new_obj
 
+    def __add__(self, other):
+        self.segments.extend(other.segments)
+        return self
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
 
 class HVAC_Ventilation_System(PHX._base._Base):
     """HVAC System for Fresh-Air Ventilation Devices and Distribution"""

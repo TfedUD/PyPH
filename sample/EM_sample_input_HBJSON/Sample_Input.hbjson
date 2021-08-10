@@ -2073,28 +2073,55 @@
                     "variant_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "975da496-4f4c-4a2c-8642-3e21580e6b2f"
+                        "identifier": "f4cf40fa-f689-444c-8ff5-c954c327dac5"
                     }, 
                     "hvac_sys_vent": {
-                        "identifier": "cdf2adf3-7f7b-445a-b2cb-34a10d250790", 
+                        "identifier": "90943dc2-4060-408c-9e37-fe8c6a34b2b8", 
                         "duct_01": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
-                                    "width": 0.0, 
-                                    "length": 5, 
-                                    "insulation_conductivity": 0.040000000000000001, 
-                                    "height": 0.0, 
-                                    "diameter": 0.16, 
-                                    "insulation_thickness": 0.025399999999999999
+                                    "identifier": "df7ce576-e4cc-4e3a-b8ff-ef072ef18bea", 
+                                    "width": null, 
+                                    "length": 12.0, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "d1aeddf3-f273-49f4-ab06-8d4b7fa3756a", 
+                                    "width": null, 
+                                    "length": 2.4494897427831779, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "2d8d121f-bdd9-4386-9304-92c09654e33a", 
+                                    "width": null, 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "fd19778a-0fe6-4b20-9b3a-8972df8b5610", 
+                                    "width": "152.4", 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": "0.04", 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": "38.1"
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "c9090e00-7ec9-4e51-912e-e40f48257fff"
                         }, 
                         "duct_02": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
+                                    "identifier": "92b36295-0584-41b3-9471-4caab672d754", 
                                     "width": 0.0, 
                                     "length": 5, 
                                     "insulation_conductivity": 0.040000000000000001, 
@@ -2103,7 +2130,7 @@
                                     "insulation_thickness": 0.025399999999999999
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "2346b328-94b1-47e8-ac28-f112d8cace7f"
                         }, 
                         "name": "My Test Vent System", 
                         "ventilator": {
@@ -11519,28 +11546,55 @@
                     "variant_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "975da496-4f4c-4a2c-8642-3e21580e6b2f"
+                        "identifier": "f4cf40fa-f689-444c-8ff5-c954c327dac5"
                     }, 
                     "hvac_sys_vent": {
-                        "identifier": "cdf2adf3-7f7b-445a-b2cb-34a10d250790", 
+                        "identifier": "90943dc2-4060-408c-9e37-fe8c6a34b2b8", 
                         "duct_01": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
-                                    "width": 0.0, 
-                                    "length": 5, 
-                                    "insulation_conductivity": 0.040000000000000001, 
-                                    "height": 0.0, 
-                                    "diameter": 0.16, 
-                                    "insulation_thickness": 0.025399999999999999
+                                    "identifier": "df7ce576-e4cc-4e3a-b8ff-ef072ef18bea", 
+                                    "width": null, 
+                                    "length": 12.0, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "d1aeddf3-f273-49f4-ab06-8d4b7fa3756a", 
+                                    "width": null, 
+                                    "length": 2.4494897427831779, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "2d8d121f-bdd9-4386-9304-92c09654e33a", 
+                                    "width": null, 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "fd19778a-0fe6-4b20-9b3a-8972df8b5610", 
+                                    "width": "152.4", 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": "0.04", 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": "38.1"
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "c9090e00-7ec9-4e51-912e-e40f48257fff"
                         }, 
                         "duct_02": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
+                                    "identifier": "92b36295-0584-41b3-9471-4caab672d754", 
                                     "width": 0.0, 
                                     "length": 5, 
                                     "insulation_conductivity": 0.040000000000000001, 
@@ -11549,7 +11603,7 @@
                                     "insulation_thickness": 0.025399999999999999
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "2346b328-94b1-47e8-ac28-f112d8cace7f"
                         }, 
                         "name": "My Test Vent System", 
                         "ventilator": {
@@ -21028,28 +21082,55 @@
                     "variant_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "975da496-4f4c-4a2c-8642-3e21580e6b2f"
+                        "identifier": "f4cf40fa-f689-444c-8ff5-c954c327dac5"
                     }, 
                     "hvac_sys_vent": {
-                        "identifier": "cdf2adf3-7f7b-445a-b2cb-34a10d250790", 
+                        "identifier": "90943dc2-4060-408c-9e37-fe8c6a34b2b8", 
                         "duct_01": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
-                                    "width": 0.0, 
-                                    "length": 5, 
-                                    "insulation_conductivity": 0.040000000000000001, 
-                                    "height": 0.0, 
-                                    "diameter": 0.16, 
-                                    "insulation_thickness": 0.025399999999999999
+                                    "identifier": "df7ce576-e4cc-4e3a-b8ff-ef072ef18bea", 
+                                    "width": null, 
+                                    "length": 12.0, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "d1aeddf3-f273-49f4-ab06-8d4b7fa3756a", 
+                                    "width": null, 
+                                    "length": 2.4494897427831779, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "2d8d121f-bdd9-4386-9304-92c09654e33a", 
+                                    "width": null, 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "fd19778a-0fe6-4b20-9b3a-8972df8b5610", 
+                                    "width": "152.4", 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": "0.04", 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": "38.1"
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "c9090e00-7ec9-4e51-912e-e40f48257fff"
                         }, 
                         "duct_02": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
+                                    "identifier": "92b36295-0584-41b3-9471-4caab672d754", 
                                     "width": 0.0, 
                                     "length": 5, 
                                     "insulation_conductivity": 0.040000000000000001, 
@@ -21058,7 +21139,7 @@
                                     "insulation_thickness": 0.025399999999999999
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "2346b328-94b1-47e8-ac28-f112d8cace7f"
                         }, 
                         "name": "My Test Vent System", 
                         "ventilator": {
@@ -30126,28 +30207,55 @@
                     "variant_id": {
                         "id": 1, 
                         "name": "Non-Residential", 
-                        "identifier": "d10d975b-9a74-44c2-9958-8c4a0d4020d7"
+                        "identifier": "226898a7-c6a3-4e1d-b6d2-9373f8996922"
                     }, 
                     "hvac_sys_vent": {
-                        "identifier": "cdf2adf3-7f7b-445a-b2cb-34a10d250790", 
+                        "identifier": "90943dc2-4060-408c-9e37-fe8c6a34b2b8", 
                         "duct_01": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
-                                    "width": 0.0, 
-                                    "length": 5, 
-                                    "insulation_conductivity": 0.040000000000000001, 
-                                    "height": 0.0, 
-                                    "diameter": 0.16, 
-                                    "insulation_thickness": 0.025399999999999999
+                                    "identifier": "df7ce576-e4cc-4e3a-b8ff-ef072ef18bea", 
+                                    "width": null, 
+                                    "length": 12.0, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "d1aeddf3-f273-49f4-ab06-8d4b7fa3756a", 
+                                    "width": null, 
+                                    "length": 2.4494897427831779, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "2d8d121f-bdd9-4386-9304-92c09654e33a", 
+                                    "width": null, 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "fd19778a-0fe6-4b20-9b3a-8972df8b5610", 
+                                    "width": "152.4", 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": "0.04", 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": "38.1"
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "c9090e00-7ec9-4e51-912e-e40f48257fff"
                         }, 
                         "duct_02": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
+                                    "identifier": "92b36295-0584-41b3-9471-4caab672d754", 
                                     "width": 0.0, 
                                     "length": 5, 
                                     "insulation_conductivity": 0.040000000000000001, 
@@ -30156,7 +30264,7 @@
                                     "insulation_thickness": 0.025399999999999999
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "2346b328-94b1-47e8-ac28-f112d8cace7f"
                         }, 
                         "name": "My Test Vent System", 
                         "ventilator": {
@@ -41734,28 +41842,55 @@
                     "variant_id": {
                         "id": 1, 
                         "name": "Non-Residential", 
-                        "identifier": "d10d975b-9a74-44c2-9958-8c4a0d4020d7"
+                        "identifier": "226898a7-c6a3-4e1d-b6d2-9373f8996922"
                     }, 
                     "hvac_sys_vent": {
-                        "identifier": "cdf2adf3-7f7b-445a-b2cb-34a10d250790", 
+                        "identifier": "90943dc2-4060-408c-9e37-fe8c6a34b2b8", 
                         "duct_01": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
-                                    "width": 0.0, 
-                                    "length": 5, 
-                                    "insulation_conductivity": 0.040000000000000001, 
-                                    "height": 0.0, 
-                                    "diameter": 0.16, 
-                                    "insulation_thickness": 0.025399999999999999
+                                    "identifier": "df7ce576-e4cc-4e3a-b8ff-ef072ef18bea", 
+                                    "width": null, 
+                                    "length": 12.0, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "d1aeddf3-f273-49f4-ab06-8d4b7fa3756a", 
+                                    "width": null, 
+                                    "length": 2.4494897427831779, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "2d8d121f-bdd9-4386-9304-92c09654e33a", 
+                                    "width": null, 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": null, 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": null
+                                }, 
+                                {
+                                    "identifier": "fd19778a-0fe6-4b20-9b3a-8972df8b5610", 
+                                    "width": "152.4", 
+                                    "length": 18.352293044849283, 
+                                    "insulation_conductivity": "0.04", 
+                                    "height": null, 
+                                    "diameter": null, 
+                                    "insulation_thickness": "38.1"
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "c9090e00-7ec9-4e51-912e-e40f48257fff"
                         }, 
                         "duct_02": {
                             "segments": [
                                 {
-                                    "identifier": "b0c9ee29-aea2-4893-a83e-14bd86d10334", 
+                                    "identifier": "92b36295-0584-41b3-9471-4caab672d754", 
                                     "width": 0.0, 
                                     "length": 5, 
                                     "insulation_conductivity": 0.040000000000000001, 
@@ -41764,7 +41899,7 @@
                                     "insulation_thickness": 0.025399999999999999
                                 }
                             ], 
-                            "identifier": "c359914b-a32c-4a14-bd71-87e2ced4a767"
+                            "identifier": "2346b328-94b1-47e8-ac28-f112d8cace7f"
                         }, 
                         "name": "My Test Vent System", 
                         "ventilator": {

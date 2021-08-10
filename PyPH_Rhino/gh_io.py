@@ -24,6 +24,15 @@ from ladybug_rhino.fromgeometry import (
 )
 
 
+class LBTGeometryConversionError(Exception):
+    def __init__(self, _in):
+        self.message = 'Input Error: Cannot convert "{}" to LBT Geometry.'.format(
+            type(_in)
+        )
+
+        super(LBTGeometryConversionError, self).__init__(self.message)
+
+
 class IGH:
     """PyPH Interface for basic Grasshopper (and Rhino) dependancies that can be
         used by other classes which accept this Interface object.
@@ -213,9 +222,7 @@ class IGH:
             elif isinstance(_, self.Rhino.Geometry.Point3d):
                 lbt_geomertry.append(to_point3d(_))
             else:
-                raise Exception(
-                    'Input Error: Cannot convert "{}" to LBT Geometry.'.format(type(_))
-                )
+                raise LBTGeometryConversionError(_)
 
         return lbt_geomertry
 
@@ -374,8 +381,6 @@ def handle_inputs(IGH, _input_objects, _input_name):
         * IGH (PyPH_Rhino.gh_io.IGH)
         * _input_objects (Any):
         * _input_name (str):
-        * _lbt_geom (bool): Set 'True' to return all geometry as Ladybug_geometry (Default)
-            or set 'False' to return all geometry as Rhino/Input geometry.
 
     Returns:
     --------
