@@ -45,7 +45,6 @@ class HVAC_Ventilation_Airflows(PHX._base._Base):
 class HVAC_PH_Parameters(PHX._base._Base):
     def __init__(self):
         super(HVAC_PH_Parameters, self).__init__()
-        self.HumidityRecoveryEfficiency = 0.0
         self.ElectricEfficiency = 0.45  # W/m3h
         self.FrostProtection = True
         self.Quantity = 1

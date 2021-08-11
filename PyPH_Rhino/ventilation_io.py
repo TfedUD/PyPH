@@ -76,11 +76,3 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
         new_duct = sum(new_ducts, start=PHX.hvac.HVAC_Ventilation_Duct())
 
         return new_duct
-
-
-def handle_unit_input(_input):
-    """Handle user-input of HVAC Ventilator-Unit at the HVAC-System level"""
-
-    new_unit = PHX.hvac.HVAC_Device.default_ventilator()
-
-    return new_unit

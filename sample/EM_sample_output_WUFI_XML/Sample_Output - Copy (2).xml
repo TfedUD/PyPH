@@ -32,9 +32,9 @@
 		<Date_Project>
 			<Year>2021</Year>
 			<Month>8</Month>
-			<Day>11</Day>
-			<Hour>10</Hour>
-			<Minutes>51</Minutes>
+			<Day>10</Day>
+			<Hour>17</Hour>
+			<Minutes>17</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -5699,7 +5699,7 @@
 					</Component>
 					<Component index="4">
 						<IdentNr>4</IdentNr>
-						<Name>Aperture_62a4f05a</Name>
+						<Name>Aperture_e525c7ef</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: FLOOR_5">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -5877,7 +5877,7 @@
 					</Component>
 					<Component index="9">
 						<IdentNr>48</IdentNr>
-						<Name>Aperture_9758e95e</Name>
+						<Name>Aperture_4ee10de1</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 2: FLOOR_4">2</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -6083,7 +6083,7 @@
 					</Component>
 					<Component index="15">
 						<IdentNr>92</IdentNr>
-						<Name>Aperture_6d8d3db6</Name>
+						<Name>Aperture_fc218b3b</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 3: FLOOR_3">3</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -6157,90 +6157,6 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="10">
 							<Room index="0">
-								<Name>501-STUDIO A</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="1">
-								<Name>505-STUDIO C</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
-								<ClearRoomHeight unit="m">2.500000000000001</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="2">
-								<Name>500-CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="3">
-								<Name>506-STUDIO B</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">43.95391422936316</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="4">
-								<Name>ES-5-EGRESS STAIR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">13.360745475230576</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="5">
-								<Name>508-UTILITY</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">3.5556311753282093</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999947</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="6">
-								<Name>504-1BR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="7">
 								<Name>502-STUDIO A</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6252,7 +6168,7 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="8">
+							<Room index="1">
 								<Name>503-STUDIO A</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6264,7 +6180,43 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="9">
+							<Room index="2">
+								<Name>505-STUDIO C</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000001</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="3">
+								<Name>504-1BR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="4">
+								<Name>500-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="5">
 								<Name>507-LAUNDRY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6274,6 +6226,54 @@
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="6">
+								<Name>506-STUDIO B</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">43.95391422936316</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="7">
+								<Name>508-UTILITY</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">3.5556311753282093</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999947</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="8">
+								<Name>501-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="9">
+								<Name>ES-5-EGRESS STAIR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">13.360745475230576</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
@@ -6301,34 +6301,10 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="10">
 							<Room index="0">
-								<Name>404-1BR</Name>
+								<Name>405-STUDIO C</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="1">
-								<Name>407-LAUNDRY</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000067</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="2">
-								<Name>401-STUDIO A</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
+								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
@@ -6336,31 +6312,7 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="3">
-								<Name>400-CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="4">
-								<Name>403-STUDIO A</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">39.69618773044898</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999925</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="5">
+							<Room index="1">
 								<Name>408-UTILITY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6372,19 +6324,7 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="6">
-								<Name>402-STUDIO A</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="7">
+							<Room index="2">
 								<Name>406-STUDIO B</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6396,11 +6336,71 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="8">
-								<Name>405-STUDIO C</Name>
+							<Room index="3">
+								<Name>407-LAUNDRY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
+								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000067</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="4">
+								<Name>400-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="5">
+								<Name>402-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="6">
+								<Name>404-1BR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="7">
+								<Name>403-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">39.69618773044898</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999925</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="8">
+								<Name>401-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
@@ -6457,11 +6457,11 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="1">
-								<Name>306-STUDIO B</Name>
+								<Name>301-STUDIO A</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">43.95391422936316</AreaRoom>
-								<ClearRoomHeight unit="m">2.500000000000001</ClearRoomHeight>
+								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
@@ -6469,18 +6469,6 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="2">
-								<Name>ES-3-EGRESS STAIR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">13.360745475230576</AreaRoom>
-								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="3">
 								<Name>300-CORRIDOR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6492,16 +6480,28 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="4">
-								<Name>305-STUDIO C</Name>
+							<Room index="3">
+								<Name>304-1BR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
-								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
+								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="4">
+								<Name>ES-3-EGRESS STAIR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">13.360745475230576</AreaRoom>
+								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="5">
@@ -6517,11 +6517,11 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="6">
-								<Name>301-STUDIO A</Name>
+								<Name>303-STUDIO A</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">41.37944225242831</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
+								<AreaRoom unit="m²">39.69618773044898</AreaRoom>
+								<ClearRoomHeight unit="m">2.499999999999994</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
@@ -6529,6 +6529,18 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="7">
+								<Name>305-STUDIO C</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">42.40225611071397</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="8">
 								<Name>302-STUDIO A</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -6540,24 +6552,12 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="8">
-								<Name>304-1BR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">60.84229750485575</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
 							<Room index="9">
-								<Name>303-STUDIO A</Name>
+								<Name>306-STUDIO B</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">39.69618773044898</AreaRoom>
-								<ClearRoomHeight unit="m">2.499999999999994</ClearRoomHeight>
+								<AreaRoom unit="m²">43.95391422936316</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000001</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
@@ -6613,9 +6613,9 @@
 								<CoverageDehumidification>0</CoverageDehumidification>
 							</ZoneCoverage>
 						</ZonesCoverage>
-						<Devices count="1">
+						<Devices count="3">
 							<Device index="0">
-								<Name>A First test unit</Name>
+								<Name>__default_ventilation__</Name>
 								<IdentNr>1</IdentNr>
 								<SystemType choice="Mechanical ventilation">1</SystemType>
 								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
@@ -6655,8 +6655,96 @@
 									<AuxiliaryEnergyDHW>None</AuxiliaryEnergyDHW>
 									<InConditionedSpace>None</InConditionedSpace>
 								</PH_Parameters>
-								<HeatRecovery>0.65</HeatRecovery>
-								<MoistureRecovery>0.65</MoistureRecovery>
+								<HeatRecovery>0.75</HeatRecovery>
+								<MoistureRecovery>0.0</MoistureRecovery>
+							</Device>
+							<Device index="1">
+								<Name>__default_ventilation__</Name>
+								<IdentNr>1</IdentNr>
+								<SystemType choice="Mechanical ventilation">1</SystemType>
+								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
+								<UsedFor_Heating>false</UsedFor_Heating>
+								<UsedFor_DHW>false</UsedFor_DHW>
+								<UsedFor_Cooling>false</UsedFor_Cooling>
+								<UsedFor_Ventilation>true</UsedFor_Ventilation>
+								<UsedFor_Humidification>false</UsedFor_Humidification>
+								<UsedFor_Dehumidification>false</UsedFor_Dehumidification>
+								<Ventilation_Parameters>{}</Ventilation_Parameters>
+								<UseOptionalClimate>false</UseOptionalClimate>
+								<IdentNr_OptionalClimate>-1</IdentNr_OptionalClimate>
+								<PH_Parameters>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<FrostProtection>None</FrostProtection>
+									<Quantity>None</Quantity>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<SubsoilHeatExchangeEfficiency>None</SubsoilHeatExchangeEfficiency>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<VolumeFlowRateFrom>None</VolumeFlowRateFrom>
+									<VolumeFlowRateTo>None</VolumeFlowRateTo>
+									<TemperatureBelowDefrostUsed>None</TemperatureBelowDefrostUsed>
+									<FrostProtection>None</FrostProtection>
+									<DefrostRequired>None</DefrostRequired>
+									<NoSummerBypass>None</NoSummerBypass>
+									<HRVCalculatorData>None</HRVCalculatorData>
+									<Maximum_VOS>None</Maximum_VOS>
+									<Maximum_PP>None</Maximum_PP>
+									<Standard_VOS>None</Standard_VOS>
+									<Standard_PP>None</Standard_PP>
+									<Basic_VOS>None</Basic_VOS>
+									<Basic_PP>None</Basic_PP>
+									<Minimum_VOS>None</Minimum_VOS>
+									<Minimum_PP>None</Minimum_PP>
+									<AuxiliaryEnergy>None</AuxiliaryEnergy>
+									<AuxiliaryEnergyDHW>None</AuxiliaryEnergyDHW>
+									<InConditionedSpace>None</InConditionedSpace>
+								</PH_Parameters>
+								<HeatRecovery>0.75</HeatRecovery>
+								<MoistureRecovery>0.0</MoistureRecovery>
+							</Device>
+							<Device index="2">
+								<Name>__default_ventilation__</Name>
+								<IdentNr>1</IdentNr>
+								<SystemType choice="Mechanical ventilation">1</SystemType>
+								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
+								<UsedFor_Heating>false</UsedFor_Heating>
+								<UsedFor_DHW>false</UsedFor_DHW>
+								<UsedFor_Cooling>false</UsedFor_Cooling>
+								<UsedFor_Ventilation>true</UsedFor_Ventilation>
+								<UsedFor_Humidification>false</UsedFor_Humidification>
+								<UsedFor_Dehumidification>false</UsedFor_Dehumidification>
+								<Ventilation_Parameters>{}</Ventilation_Parameters>
+								<UseOptionalClimate>false</UseOptionalClimate>
+								<IdentNr_OptionalClimate>-1</IdentNr_OptionalClimate>
+								<PH_Parameters>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<FrostProtection>None</FrostProtection>
+									<Quantity>None</Quantity>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<SubsoilHeatExchangeEfficiency>None</SubsoilHeatExchangeEfficiency>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<VolumeFlowRateFrom>None</VolumeFlowRateFrom>
+									<VolumeFlowRateTo>None</VolumeFlowRateTo>
+									<TemperatureBelowDefrostUsed>None</TemperatureBelowDefrostUsed>
+									<FrostProtection>None</FrostProtection>
+									<DefrostRequired>None</DefrostRequired>
+									<NoSummerBypass>None</NoSummerBypass>
+									<HRVCalculatorData>None</HRVCalculatorData>
+									<Maximum_VOS>None</Maximum_VOS>
+									<Maximum_PP>None</Maximum_PP>
+									<Standard_VOS>None</Standard_VOS>
+									<Standard_PP>None</Standard_PP>
+									<Basic_VOS>None</Basic_VOS>
+									<Basic_PP>None</Basic_PP>
+									<Minimum_VOS>None</Minimum_VOS>
+									<Minimum_PP>None</Minimum_PP>
+									<AuxiliaryEnergy>None</AuxiliaryEnergy>
+									<AuxiliaryEnergyDHW>None</AuxiliaryEnergyDHW>
+									<InConditionedSpace>None</InConditionedSpace>
+								</PH_Parameters>
+								<HeatRecovery>0.75</HeatRecovery>
+								<MoistureRecovery>0.0</MoistureRecovery>
 							</Device>
 						</Devices>
 						<Distribution>None</Distribution>
@@ -10230,7 +10318,7 @@
 					</Component>
 					<Component index="3">
 						<IdentNr>134</IdentNr>
-						<Name>Aperture_804e3635</Name>
+						<Name>Aperture_dbc2c6a2</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 4: FLOOR_2">4</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -10482,7 +10570,7 @@
 					</Component>
 					<Component index="11">
 						<IdentNr>172</IdentNr>
-						<Name>Aperture_ba6f2ffe</Name>
+						<Name>Aperture_63102046</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 5: FLOOR_1">5</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -10565,42 +10653,18 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="11">
 							<Room index="0">
-								<Name>208-PANTRY</Name>
+								<Name>205-KITCHEN</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">9.50409758304436</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
+								<AreaRoom unit="m²">38.759588514193865</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">375.064935151</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">375.064935151</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="1">
-								<Name>207-RESTROOM</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">10.637818497629052</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000075</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="2">
-								<Name>205-OFFICE</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">12.502643978879957</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000044</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">33.1168831245</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">33.1168831245</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="3">
 								<Name>201-GAME ROOM</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10612,7 +10676,19 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">1246.62337691</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="4">
+							<Room index="2">
+								<Name>208-PANTRY</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">9.50409758304436</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="3">
 								<Name>202-CONFERENCE ROOM</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10624,16 +10700,28 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="5">
-								<Name>205-KITCHEN</Name>
+							<Room index="4">
+								<Name>ES-2-EGRESS STAIR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">38.759588514193865</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
+								<AreaRoom unit="m²">13.368695944784456</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000006</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">375.064935151</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">375.064935151</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="5">
+								<Name>207-RESTROOM</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">10.637818497629052</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000075</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="6">
@@ -10649,15 +10737,15 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="7">
-								<Name>200-CORRIDOR</Name>
+								<Name>205-OFFICE</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">56.623925222150625</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<AreaRoom unit="m²">12.502643978879957</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000044</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">33.1168831245</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">33.1168831245</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="8">
@@ -10673,6 +10761,18 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="9">
+								<Name>200-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">56.623925222150625</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="10">
 								<Name>204-MEETING ROOM</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10682,18 +10782,6 @@
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">308.961039032</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">308.961039032</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="10">
-								<Name>ES-2-EGRESS STAIR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">13.368695944784456</AreaRoom>
-								<ClearRoomHeight unit="m">2.500000000000006</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
@@ -10721,90 +10809,6 @@
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
 						<RoomsVentilation count="12">
 							<Room index="0">
-								<Name>102-COATS</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">10.683585908954806</AreaRoom>
-								<ClearRoomHeight unit="m">2.499999999999994</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="1">
-								<Name>105-TRASH STORAGE</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">18.096028254085798</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">496.493506608</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">551.688311815</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="2">
-								<Name>109-EXIT CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">9.470285247927132</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="3">
-								<Name>108-CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">11.849854672234056</AreaRoom>
-								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="4">
-								<Name>107-RESTROOM</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">13.545720757660318</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">165.454545493</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="5">
-								<Name>100-VESTIBULE</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">7.547800502869686</AreaRoom>
-								<ClearRoomHeight unit="m">2.499999999999999</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="6">
-								<Name>SERVICE STAIR-SS-1</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">8.594091961905358</AreaRoom>
-								<ClearRoomHeight unit="m">2.5000000000000053</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="7">
 								<Name>104-WATER</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10816,7 +10820,31 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="8">
+							<Room index="1">
+								<Name>109-EXIT CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">9.470285247927132</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="2">
+								<Name>ES-1-EGRESS STAIR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">13.62851718644951</AreaRoom>
+								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="3">
 								<Name>101-LEGION HALL</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10828,19 +10856,19 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">1698.96103935</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="9">
-								<Name>103-PREP. SPACE</Name>
+							<Room index="4">
+								<Name>108-CORRIDOR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">17.632069138350282</AreaRoom>
+								<AreaRoom unit="m²">11.849854672234056</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">143.37662341</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">143.37662341</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="10">
+							<Room index="5">
 								<Name>106-RESTROOM</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -10852,16 +10880,76 @@
 								<DesignVolumeFlowRateExhaust unit="m³/h">331.038961115</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
-							<Room index="11">
-								<Name>ES-1-EGRESS STAIR</Name>
+							<Room index="6">
+								<Name>100-VESTIBULE</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">13.62851718644951</AreaRoom>
-								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
+								<AreaRoom unit="m²">7.547800502869686</AreaRoom>
+								<ClearRoomHeight unit="m">2.499999999999999</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="7">
+								<Name>105-TRASH STORAGE</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">18.096028254085798</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">496.493506608</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">551.688311815</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="8">
+								<Name>SERVICE STAIR-SS-1</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">8.594091961905358</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000053</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="9">
+								<Name>102-COATS</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">10.683585908954806</AreaRoom>
+								<ClearRoomHeight unit="m">2.499999999999994</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="10">
+								<Name>103-PREP. SPACE</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">17.632069138350282</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">143.37662341</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">143.37662341</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="11">
+								<Name>107-RESTROOM</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">13.545720757660318</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">165.454545493</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
@@ -10905,9 +10993,9 @@
 								<CoverageDehumidification>0</CoverageDehumidification>
 							</ZoneCoverage>
 						</ZonesCoverage>
-						<Devices count="1">
+						<Devices count="2">
 							<Device index="0">
-								<Name>A second Test unit</Name>
+								<Name>__default_ventilation__</Name>
 								<IdentNr>1</IdentNr>
 								<SystemType choice="Mechanical ventilation">1</SystemType>
 								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
@@ -10947,8 +11035,52 @@
 									<AuxiliaryEnergyDHW>None</AuxiliaryEnergyDHW>
 									<InConditionedSpace>None</InConditionedSpace>
 								</PH_Parameters>
-								<HeatRecovery>0.97</HeatRecovery>
-								<MoistureRecovery>0.97</MoistureRecovery>
+								<HeatRecovery>0.75</HeatRecovery>
+								<MoistureRecovery>0.0</MoistureRecovery>
+							</Device>
+							<Device index="1">
+								<Name>__default_ventilation__</Name>
+								<IdentNr>1</IdentNr>
+								<SystemType choice="Mechanical ventilation">1</SystemType>
+								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
+								<UsedFor_Heating>false</UsedFor_Heating>
+								<UsedFor_DHW>false</UsedFor_DHW>
+								<UsedFor_Cooling>false</UsedFor_Cooling>
+								<UsedFor_Ventilation>true</UsedFor_Ventilation>
+								<UsedFor_Humidification>false</UsedFor_Humidification>
+								<UsedFor_Dehumidification>false</UsedFor_Dehumidification>
+								<Ventilation_Parameters>{}</Ventilation_Parameters>
+								<UseOptionalClimate>false</UseOptionalClimate>
+								<IdentNr_OptionalClimate>-1</IdentNr_OptionalClimate>
+								<PH_Parameters>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<FrostProtection>None</FrostProtection>
+									<Quantity>None</Quantity>
+									<ElectricEfficiency>None</ElectricEfficiency>
+									<SubsoilHeatExchangeEfficiency>None</SubsoilHeatExchangeEfficiency>
+									<HumidityRecoveryEfficiency>None</HumidityRecoveryEfficiency>
+									<VolumeFlowRateFrom>None</VolumeFlowRateFrom>
+									<VolumeFlowRateTo>None</VolumeFlowRateTo>
+									<TemperatureBelowDefrostUsed>None</TemperatureBelowDefrostUsed>
+									<FrostProtection>None</FrostProtection>
+									<DefrostRequired>None</DefrostRequired>
+									<NoSummerBypass>None</NoSummerBypass>
+									<HRVCalculatorData>None</HRVCalculatorData>
+									<Maximum_VOS>None</Maximum_VOS>
+									<Maximum_PP>None</Maximum_PP>
+									<Standard_VOS>None</Standard_VOS>
+									<Standard_PP>None</Standard_PP>
+									<Basic_VOS>None</Basic_VOS>
+									<Basic_PP>None</Basic_PP>
+									<Minimum_VOS>None</Minimum_VOS>
+									<Minimum_PP>None</Minimum_PP>
+									<AuxiliaryEnergy>None</AuxiliaryEnergy>
+									<AuxiliaryEnergyDHW>None</AuxiliaryEnergyDHW>
+									<InConditionedSpace>None</InConditionedSpace>
+								</PH_Parameters>
+								<HeatRecovery>0.75</HeatRecovery>
+								<MoistureRecovery>0.0</MoistureRecovery>
 							</Device>
 						</Devices>
 						<Distribution>None</Distribution>

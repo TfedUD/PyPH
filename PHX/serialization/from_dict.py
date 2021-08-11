@@ -187,6 +187,7 @@ def _HVAC_PH_Parameters(_cls, _input_dict):
 def _HVAC_Device(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj.id = _input_dict.get("id")
     new_obj.Name = _input_dict.get("Name")
     new_obj.SystemType = _input_dict.get("SystemType")
@@ -236,8 +237,8 @@ def _FloorSegment(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("ventilation", {})
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
+        _input_dict.get("_ventilation", {})
     )
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
@@ -255,8 +256,8 @@ def _Floor(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("ventilation", {})
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
+        _input_dict.get("_ventilation", {})
     )
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
@@ -288,6 +289,10 @@ def _Volume(_cls, _input_dict):
         for __ in _.values():
             new_geom_list.append(LBT_Utils.geometry.LBT_geometry_dict_util(__))
         new_obj.volume_geometry.append(new_geom_list)
+
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
+        _input_dict.get("_ventilation", {})
+    )
 
     return new_obj
 

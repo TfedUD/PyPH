@@ -112,6 +112,7 @@ def _HVAC_Device(_obj):
     d = {}
 
     d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"Name": _obj.Name})
     d.update({"SystemType": _obj.SystemType})
     d.update({"TypeDevice": _obj.TypeDevice})
@@ -195,7 +196,7 @@ def _FloorSegment(_obj):
     d.update({"non_res_lighting": _obj.non_res_lighting})
     d.update({"non_res_motion": _obj.non_res_motion})
     d.update({"non_res_usage": _obj.non_res_usage})
-    d.update({"ventilation": _obj.ventilation.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     geometry_dict = {}
@@ -214,7 +215,7 @@ def _Floor(_obj):
     d.update({"non_res_lighting": _obj.non_res_lighting})
     d.update({"non_res_motion": _obj.non_res_motion})
     d.update({"non_res_usage": _obj.non_res_usage})
-    d.update({"ventilation": _obj.ventilation.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     floor_segments_dict = {}
@@ -235,6 +236,8 @@ def _Volume(_obj):
     d.update({"_volume": _obj._volume})
 
     d.update({"floor": _obj.floor.to_dict()})
+
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     volume_geometry_dict = {}
     for list_of_geom in _obj.volume_geometry:

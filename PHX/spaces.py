@@ -48,7 +48,15 @@ class FloorSegment(PHX._base._Base):
         self.non_res_motion = None
         self.non_res_usage = None
 
-        self.ventilation = PropertiesVentilation()
+        self._ventilation = PropertiesVentilation()
+
+    @property
+    def ventilation(self):
+        return self._ventilation
+
+    @ventilation.setter
+    def ventilation(self, _in):
+        self._ventilation = _in
 
     @property
     def floor_area_weighted(self):
@@ -105,7 +113,17 @@ class Floor(PHX._base._Base):
         self.non_res_motion = None
         self.non_res_usage = None
 
-        self.ventilation = PropertiesVentilation()
+        self._ventilation = PropertiesVentilation()
+
+    @property
+    def ventilation(self):
+        return self._ventilation
+
+    @ventilation.setter
+    def ventilation(self, _in):
+        self._ventilation = _in
+        for floor_segment in self.floor_segments:
+            floor_segment.ventilation = _in  # -- Keep everything aligned
 
     @property
     def floor_area_gross(self):
@@ -217,7 +235,22 @@ class Volume(PHX._base._Base):
         self._volume = 0.0
         self.volume_geometry = []
 
-        self.ventilation = PropertiesVentilation()
+        self._ventilation = PropertiesVentilation()
+
+    @property
+    def ventilation(self):
+        return self._ventilation
+
+    @ventilation.setter
+    def ventilation(self, _in):
+        self._ventilation = _in
+        if not self.floor:
+            raise Exception(
+                'Error: Cannot set ventilation for Volume: "{}". No Floor?'.format(
+                    self.display_name
+                )
+            )
+        self.floor.ventilation = _in  # -- Keep everything aligned
 
     @property
     def floor_area_gross(self):
@@ -357,6 +390,7 @@ class Space(PHX._base._Base):
             * None
         """
 
+        # -- Make sure the new volume can be added to the Space
         if not self.space_name:
             self.space_name = _new_volume.space_name
         else:
@@ -390,12 +424,19 @@ class Space(PHX._base._Base):
                     )
                 )
 
+        # -- Set the Space's Ventilation Properties
+        # -- This will also ripple down to the FloorSegment level
+        # -- resetting all the 'ventilation' objects for all the Objects
         self.ventilation = self.ventilation + _new_volume.ventilation
-        _new_volume.ventilation = (
-            self.ventilation
-        )  # Ensure all Space / Vol / Floor / Seg point to the same Object
 
+        # -- Set the Volume's Ventilation Properties
+        # -- to ensure that everything matches
+        _new_volume.ventilation = self.ventilation
+
+        # -- Update the total numeric Volume (m3)
         self.volume += _new_volume.volume
+
+        # -- Add the new Volume to Space's list
         self.volumes.append(_new_volume)
 
     def __str__(self):
