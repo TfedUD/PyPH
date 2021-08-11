@@ -470,7 +470,7 @@ def _Zone(_obj):
             "SummerNaturalVentilationNight",
             _obj.summer_ventilation.night_window_ach,
             "unit",
-            '1/h',
+            "1/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "MechanicalAutomaticControlledVentilation",
@@ -525,6 +525,7 @@ def _Building(_obj):
     ]
 
 
+# -- HVAC
 def _HVAC_PH_Parameters(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node(
@@ -653,6 +654,7 @@ def _HVAC(_obj):
     ]
 
 
+# -- Variant, Project
 def _Variant(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),

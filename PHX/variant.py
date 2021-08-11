@@ -258,10 +258,6 @@ class Zone(PHX._base._Base):
         self.appliances = []
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
 
-    @property
-    def wp_display_name(self):
-        return "Zone {}: {}".format(self.id, self.n)
-
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
@@ -278,9 +274,62 @@ class Zone(PHX._base._Base):
 
     def add_new_appliance(self, _appliance):
         # type (Appliance) -> None
-        """Adds an Appliance to the Variant"""
+        """Adds a new PHX-Appliance to the PHX-Variant"""
 
         self.appliances.append(_appliance)
+
+    @staticmethod
+    def _clean_join(_a, _b):
+        if not _a and not _b:
+            return None
+        elif not _a and _b:
+            return _b
+        elif _a and not _b:
+            return _a
+        else:
+            return _a + _b
+
+    def __add__(self, other):
+        # type: (Zone, Zone) -> Zone
+        new_obj = self.__class__()
+
+        # -- Combine weighted paramaters first
+        new_obj.clearance_height = (
+            (self.clearance_height * self.floor_area)
+            + (other.clearance_height * other.floor_area)
+        ) / (self.floor_area + other.floor_area)
+
+        new_obj.spec_heat_cap = (
+            (self.spec_heat_cap * self.floor_area)
+            + (other.spec_heat_cap * other.floor_area)
+        ) / (self.floor_area + other.floor_area)
+
+        # -- Combine Summer Ventilation, weighted by Zone volume
+        new_obj.summer_ventilation = PHX.summer_ventilation.SummerVent.weighted_join(
+            self.summer_ventilation,
+            self.volume_gross,
+            other.summer_ventilation,
+            other.volume_gross,
+        )
+
+        # -- Add basic parameters
+        new_obj.n = "Merged Zone"
+        new_obj.volume_gross = self.volume_gross + other.volume_gross
+        new_obj.volume_net = self._clean_join(self.volume_net, other.volume_net)
+        new_obj.floor_area = self.floor_area + other.floor_area
+
+        # -- Extend rooms, appliances
+        new_obj.rooms_ventilation.extend(self.rooms_ventilation)
+        new_obj.rooms_ventilation.extend(other.rooms_ventilation)
+        new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
+        new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
+        new_obj.appliances.extend(self.appliances)
+        new_obj.appliances.extend(other.appliances)
+
+        return new_obj
+
+    def __radd__(self, other):
+        return self.__add__(other)
 
 
 class Building(PHX._base._Base):
@@ -341,6 +390,25 @@ class Building(PHX._base._Base):
                 # -- If the zone has been joined previously
                 return zone
         else:
+            return None
+
+    def merge_zones(self):
+        # type: (None) -> None
+        """Merges all of the Building's Zones together into a single Zone"""
+
+        if len(self.lZone) <= 1:
+            return None
+        else:
+            zones_joined = reduce(lambda a, b: a + b, self.lZone)
+            zones_joined.id = 1
+            self.lZone = [zones_joined]
+
+            # -- Merge all the Components
+            # -- Update all the exposure names,
+            # -- Remove interior surfaces (?!)
+            for compo in self.lComponent:
+                compo.set_host_zone_name(self.lZone[0])
+
             return None
 
 
@@ -495,3 +563,6 @@ class Variant(PHX._base._Base):
 
             # -- Replace the Bilding's Compo List with the new one
             self.building.lComponent = new_compo_list
+
+    def merge_zones(self):
+        self.building.merge_zones()

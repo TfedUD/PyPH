@@ -86,27 +86,6 @@ def create_new_opaque_component_from_hb_face(
     return compo
 
 
-def set_compo_interior_exposure_from_hb_face(
-    _compo: PHX.component.Component, _zone: PHX.variant.Zone
-) -> PHX.component.Component:
-    """Sets a Component's Inner-Exposire Value based on the Honeyebee Face
-
-    Arguments:
-    ----------
-        * _compo (PHX.component.Component): The Component to set the Inner-Exposure values for
-        * _zone (PHX.variant.Zone): The Component's host Zone
-
-    Returns:
-    --------
-        * (PHX.component.Component): The input Component, with modified Inner-Exposure Value
-    """
-
-    _compo.idIC = _zone.id
-    _compo.nmIC = _zone.wp_display_name
-
-    return _compo
-
-
 def set_compo_exterior_exposure_from_hb_face(
     _compo: PHX.component.Component,
     _hb_face: honeybee.face.Face,
@@ -258,8 +237,7 @@ def create_new_window_component_from_hb_aperture(
     window_compo.id_color_ext = 4
 
     # -- Set Exposures / Host Zone
-    window_compo.idIC = _zone.id
-    window_compo.nmIC = _zone.wp_display_name
+    window_compo.set_host_zone_name(_zone)
     window_compo.idEC = -1
 
     # -- Pack window Polygons onto the new Component

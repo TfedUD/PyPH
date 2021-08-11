@@ -69,6 +69,10 @@ class Component(PHX._base._Base):
 
         return [poly.id for poly in self.polygons]
 
+    def set_host_zone_name(self, _zone):
+        self.idIC = _zone.id
+        self.nmIC = "Zone {}: {}".format(_zone.id, _zone.n)
+
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1

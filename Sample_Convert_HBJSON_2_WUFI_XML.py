@@ -17,7 +17,6 @@ from PyPH_HBJSON.read_HBJSON_file import read_hb_json
 import PyPH_HBJSON.create_PHX_Zones
 from PyPH_HBJSON.create_PHX_components import (
     create_new_opaque_component_from_hb_face,
-    set_compo_interior_exposure_from_hb_face,
     set_compo_exterior_exposure_from_hb_face,
     set_compo_colors_by_hb_face,
     set_compo_assembly_from_hb_face,
@@ -90,7 +89,8 @@ for room in hb_model.rooms:
     for face in room.faces:
         # -- Build the opaque Components
         opaque_compo = create_new_opaque_component_from_hb_face(face)
-        opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
+        opaque_compo.set_host_zone_name(zone)
+        # opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
         opaque_compo = set_compo_exterior_exposure_from_hb_face(
             opaque_compo, face, host_variant.zones
         )
@@ -117,7 +117,12 @@ for room in hb_model.rooms:
 # # --- Clean up the Variants
 # # ----------------------------------------------------------------------------
 for var in project_1.lVariant:
+    # -- This is (required?) for PHIUS Certification.
+    # -- Sometimes might not want this though, so needs to be user-setting
+    var.merge_zones()
+
     var.merge_components(by="assembly")
+
 
 # # ----------------------------------------------------------------------------
 project_1.add_assemblies_from_collection(assmbly_collection)
