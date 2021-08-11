@@ -15,5 +15,6 @@ The PyPH_GH Grasshopper components are pre-made components which allow users to 
 1. Copy these files to your system's **UserObjects** folder.
     * On most systems, this folder can be found at:
     > C:\Users\\ {*your-user-name*} \AppData\Roaming\Grasshopper\UserObjects
-1. If you like, in order to keep the folder tidy, you can put these files inside a subfolder. For instance:
-1. Once installed, reboot Rhino and Grasshopper and you should have a new tab ('PH-Tools') within Grasshopper.
+1. If you like, in order to keep the folder tidy, you can put these files inside a subfolder. For instance, within a 'PyPH' folder, or similar:
+Example:<img width="1010" alt="image" src="https://user-images.githubusercontent.com/69652712/129106884-4eaae2e8-e429-4a62-9967-a2dd64b937e8.png">
+3. Once installed, reboot Rhino and Grasshopper and you should have a new tab ('PH-Tools') within Grasshopper.
