@@ -20,14 +20,15 @@
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
-Assign Honeybee Rooms to a 'Variant' within the PHX Model. In WUFI, this is used
+Assign Honeybee Rooms to a specific 'Buildiing Segment' within the PHX Model. In WUFI, this is used
 as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM August 11, 2021
+EM August 12, 2021
     Args:
-        _variant_name: 
+        segment_name_:
+        ----------
         _HB_rooms: 
     Returns:
         HB_rooms_: 
@@ -35,23 +36,23 @@ EM August 11, 2021
 
 import LBT_Utils
 import PyPH_Rhino
-import PyPH_Rhino.variants
+import PyPH_Rhino.bldg_segments
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Create Variant"
+ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
 
 if DEV:
     reload(LBT_Utils)
     reload(PyPH_Rhino)
-    reload(PyPH_Rhino.variants)
+    reload(PyPH_Rhino.bldg_segments)
 
 #-- Build the new Variant Identifier
-new_variant = PyPH_Rhino.variants.Variant_Identifier()
-new_variant.name = _variant_name or 'default_variant'
+new_variant = PyPH_Rhino.bldg_segments.BldgSegment_Identifier()
+new_variant.name = segment_name_ or '_default_bldg_segment_'
 
 #-- Add the Ventilation Pattern to all the input HB Rooms
 HB_rooms_ = []
@@ -61,6 +62,6 @@ for room in _HB_rooms:
     d = new_variant.to_dict()
     
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                    d, 'variant_id', _write_mode='overwrite')
+                                    d, 'bldg_segment', _write_mode='overwrite')
     
     HB_rooms_.append(new_hb_room)

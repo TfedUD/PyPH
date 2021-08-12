@@ -1,8 +1,8 @@
 import uuid
 
 
-class Variant_Identifier(object):
-    """Simle ID class for keeping track of Variant names in Rhino"""
+class BldgSegment_Identifier(object):
+    """Simle ID class for keeping track of BldgSegment names in Rhino"""
 
     _count = 0
 
@@ -14,7 +14,7 @@ class Variant_Identifier(object):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(Variant_Identifier, cls).__new__(cls, *args, **kwargs)
+        return super(BldgSegment_Identifier, cls).__new__(cls, *args, **kwargs)
 
     def __eq__(self, other):
         if (

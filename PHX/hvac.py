@@ -9,7 +9,7 @@ from collections import defaultdict
 
 import PHX._base
 import PHX.serialization.from_dict
-import PHX.variant
+import PHX.bldg_segment
 
 
 class HVAC_Ventilation_Airflows(PHX._base._Base):
@@ -288,12 +288,12 @@ class HVAC_System(PHX._base._Base):
         self.lZoneCover.append(new_coverage)
 
     def add_zone_ventilators_to_system(self, _zones):
-        # type: (list[PHX.variant.Zone]) -> None
+        # type: (list[PHX.bldg_segment.Zone]) -> None
         """Adds Ventilators and Distribution from a PHX-Zone to the HVAC-System Device list
 
         Arguments:
         ----------
-            * _zones (list[PHX.variant.Zone]): The Zone/Zones to get ventilators from.
+            * _zones (list[PHX.bldg_segment.Zone]): The Zone/Zones to get ventilators from.
         """
 
         if not isinstance(_zones, list):

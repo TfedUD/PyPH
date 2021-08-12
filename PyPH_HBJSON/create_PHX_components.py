@@ -6,7 +6,7 @@
 import honeybee.face
 import honeybee.aperture
 import PHX.geometry
-import PHX.variant
+import PHX.bldg_segment
 import PHX.component
 
 # --- Opaque Components
@@ -89,7 +89,7 @@ def create_new_opaque_component_from_hb_face(
 def set_compo_exterior_exposure_from_hb_face(
     _compo: PHX.component.Component,
     _hb_face: honeybee.face.Face,
-    _zones: list[PHX.variant.Zone],
+    _zones: list[PHX.bldg_segment.Zone],
 ) -> PHX.component.Component:
     """Sets a Component's Exterior-Exposure Value based on a Honeyebee Face
 
@@ -97,7 +97,7 @@ def set_compo_exterior_exposure_from_hb_face(
     ----------
         * _compo (PHX.component.Component): The Component to set the Exterior-Exposure values for
         * _hb_face (honeybee.face.Face): The Honeybee Face to base the Component's Exterior-Exposure type on
-        * _zones (list[PHX.variant.Zone]): A list of all the Zones in the Variant.Building. This is
+        * _zones (list[PHX.bldg_segment.Zone]): A list of all the Zones in the bldg_segment.Building. This is
             needed in order to properly solve 'interior' faces with 'Surface' adjacency.
 
     Returns:
@@ -114,7 +114,7 @@ def set_compo_exterior_exposure_from_hb_face(
     if _hb_face.boundary_condition.name == "Surface":
         # -- Apply defaults in case can't find the matching surface
         # -- This happens with inter-zone surfaces that are exposed to another
-        # -- 'Case' (Variant)
+        # -- 'Case' (bldg_segment)
 
         ec_value = -3  # Adiabatic
         ec_attr = None
@@ -214,14 +214,14 @@ def set_compo_assembly_from_hb_face(
 # --- Window Components
 # -------------------------------------------------------------------------------
 def create_new_window_component_from_hb_aperture(
-    _hb_Aperture: honeybee.aperture.Aperture, _zone: PHX.variant.Zone
+    _hb_Aperture: honeybee.aperture.Aperture, _zone: PHX.bldg_segment.Zone
 ) -> PHX.component.Component:
     """Creates a new Window Component from a Honeybee 'Aperture'
 
     Arguments:
     ----------
         * _hb_Aperture (honeybee.aperture.Aperture): The Honeybee Aperture to use as the source for the new Component's Poly.
-        * _zone (PHX.variant.Zone): The Host Zone which the new Winow Component is associate with.
+        * _zone (PHX.bldg_segment.Zone): The Host Zone which the new Winow Component is associate with.
 
     Returns:
     --------

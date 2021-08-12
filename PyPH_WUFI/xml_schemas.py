@@ -655,7 +655,10 @@ def _HVAC(_obj):
 
 
 # -- Variant, Project
-def _Variant(_obj):
+def _BldgSegment(_obj):
+    # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
+    # This is done for PHIUS modeling and allows for Non-Res and Res. sections
+    # of a building to be modeled in the same WUFI file, in different 'Cases'
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
@@ -710,6 +713,7 @@ def _ProjectData(_obj):
 
 
 def _Project(_obj):
+
     _obj.collect_utilization_patterns_from_zones()
 
     return [
@@ -741,11 +745,14 @@ def _Project(_obj):
                 for i, _ in enumerate(_obj.lUtilVentPH.items)
             ],
         ),
+        # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
+        # This is done for PHIUS modeling and allows for Non-Res and Res. sections
+        # of a building to be modeled in the same WUFI file, in different 'Cases'
         PyPH_WUFI.xml_node.XML_List(
             "Variants",
             [
                 PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i)
-                for i, _ in enumerate(_obj.lVariant)
+                for i, _ in enumerate(_obj.lBldgSegments)
             ],
         ),
     ]

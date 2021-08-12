@@ -16,8 +16,8 @@ sub_catagories = {
 }
 
 component_params = {
-    "PyPH - Create Variant": {
-        "NickName": "PHX Variant",
+    "PyPH - Create Bldg Segment": {
+        "NickName": "PHX Bldg Segment",
         "Message": RELEASE_VERSION,
         "Category": CATEGORY,
         "SubCategory": 4,

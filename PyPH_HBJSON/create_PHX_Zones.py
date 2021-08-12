@@ -4,7 +4,7 @@
 """Functions used to build WUFI Zones and WUFI Rooms based on HB-Model inputs"""
 
 import honeybee.room
-import PHX.variant
+import PHX.bldg_segment
 import PHX.spaces
 import PHX.summer_ventilation
 import PHX.utilization_patterns
@@ -12,7 +12,7 @@ import LBT_Utils.program
 
 # -- Zones
 # -------------------------------------------------------------------------------
-def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zone:
+def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segment.Zone:
     """Creates a new PHX-Zone from a single Honeybee 'Room'.
 
     Note: This function does not create the 'PHX-Spaces' within the PHX-Zone. Use
@@ -24,10 +24,10 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.variant.Zo
 
     Returns:
     --------
-        * (PHX.variant.Zone): The new PHX-Zone object with Attributes based on the Honeybee Room
+        * (PHX.bldg_segment.Zone): The new PHX-Zone object with Attributes based on the Honeybee Room
     """
 
-    zone = PHX.variant.Zone()
+    zone = PHX.bldg_segment.Zone()
     zone.n = _hb_room.display_name
     zone.identifier = _hb_room.identifier
     zone.source_zone_identifiers.append(_hb_room.identifier)
@@ -89,7 +89,9 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
     return spaces
 
 
-def add_default_res_appliance_to_zone(_wp_zone: PHX.variant.Zone) -> PHX.variant.Zone:
+def add_default_res_appliance_to_zone(
+    _wp_zone: PHX.bldg_segment.Zone,
+) -> PHX.bldg_segment.Zone:
     return None
     dw = Appliance_KitchenDishwasher()
     _wp_zone.add_new_appliance(dw)

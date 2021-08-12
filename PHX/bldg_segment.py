@@ -2,7 +2,7 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Variant Classes
+PHX Building-Segment Classes. A part of a full structure with all the related attributes
 """
 
 from collections import defaultdict
@@ -17,10 +17,8 @@ import PHX.summer_ventilation
 
 class ZoneTypeError(Exception):
     def __init__(self, _in):
-        self.message = (
-            'Error: Expected input of type: "PHX.variant.Zone" Got: "{}"::"{}"?'.format(
-                _in, type(_in)
-            )
+        self.message = 'Error: Expected input of type: "PHX.bldg_segment.Zone" Got: "{}"::"{}"?'.format(
+            _in, type(_in)
         )
         super(ZoneTypeError, self).__init__(self.message)
 
@@ -265,7 +263,7 @@ class Zone(PHX._base._Base):
 
     def add_spaces(self, _new_spaces):
         # type (list[PHX.spaces.Space]): -> None
-        """Adds new Spaces (Rooms) to the Variant"""
+        """Adds new Spaces (Rooms) to the BldgSegment"""
 
         if not isinstance(_new_spaces, list):
             _new_spaces = [_new_spaces]
@@ -274,7 +272,7 @@ class Zone(PHX._base._Base):
 
     def add_new_appliance(self, _appliance):
         # type (Appliance) -> None
-        """Adds a new PHX-Appliance to the PHX-Variant"""
+        """Adds a new PHX-Appliance to the PHX-BldgSegment"""
 
         self.appliances.append(_appliance)
 
@@ -363,7 +361,7 @@ class Building(PHX._base._Base):
 
     def add_components(self, _compos):
         # type: (PHX.component.Component) -> None
-        """Adds new component to the variant.building.lComponent
+        """Adds new component to the bldg_segment.building.lComponent
 
         Arguments:
         ----------
@@ -412,15 +410,15 @@ class Building(PHX._base._Base):
             return None
 
 
-class Variant(PHX._base._Base):
+class BldgSegment(PHX._base._Base):
     _count = 0
     _default = None
 
     def __init__(self):
-        super(Variant, self).__init__()
+        super(BldgSegment, self).__init__()
         self.id = self._count
         self.target_room_names = []
-        self.relative_variant = True
+        self.relative_variant = True  # WUFI shit
         self.n = ""
         self.remarks = ""
         self.geom = Geom()
@@ -437,7 +435,7 @@ class Variant(PHX._base._Base):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(Variant, cls).__new__(cls, *args, **kwargs)
+        return super(BldgSegment, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
     def default(cls):
@@ -445,14 +443,14 @@ class Variant(PHX._base._Base):
             return cls._default
 
         new_obj = cls()
-        new_obj.n = "Default Variant"
+        new_obj.n = "Default BldgSegment"
 
         cls._default = new_obj
         return new_obj
 
     def add_zones(self, _zones):
         # type: (list[PHX.spaces.Zone]) -> None
-        """Adds new Zones to the Variant."""
+        """Adds new Zones to the BldgSegment."""
 
         if not isinstance(_zones, list):
             _zones = [_zones]
@@ -460,11 +458,11 @@ class Variant(PHX._base._Base):
 
     def add_components(self, _components):
         # type: (list[PHX.component.Component]) -> None
-        """Adds new Components to the Variant
+        """Adds new Components to the BldgSegment
 
         Arguments:
         ----------
-            * _components ( list[Component] ): The Components to add to the Variant
+            * _components ( list[Component] ): The Components to add to the BldgSegment
 
         Returns:
         --------
@@ -476,7 +474,7 @@ class Variant(PHX._base._Base):
 
     def get_component_groups(self, group_by=None):
         # type: (str) -> dict[PHX.component.Component]
-        """Gets the Variant's components, grouped by some category
+        """Gets the BldgSegment's components, grouped by some category
 
         Arguments:
         ----------
@@ -507,7 +505,7 @@ class Variant(PHX._base._Base):
 
     def get_zone_by_identifier(self, _zone_identifier_lookup):
         # type: (str) -> Zone | None
-        """Returns a Zone from the Variant's Zone list if it matches the specified Identifier
+        """Returns a Zone from the BldgSegment's Zone list if it matches the specified Identifier
 
         Arguments:
         ----------
@@ -525,7 +523,7 @@ class Variant(PHX._base._Base):
         # type: (str) -> None
         """Groups (joins) Components by the desginated characteristic.
 
-        Note: this function will edit/change the variant.building.lComponent list and
+        Note: this function will edit/change the BldgSegment.building.lComponent list and
         will join Components together.
 
         Arguments:
@@ -561,7 +559,7 @@ class Variant(PHX._base._Base):
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
                     new_compo_list.append(compo_joined)
 
-            # -- Replace the Bilding's Compo List with the new one
+            # -- Replace the Building's Compo List with the new one
             self.building.lComponent = new_compo_list
 
     def merge_zones(self):
