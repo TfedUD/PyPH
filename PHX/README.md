@@ -32,31 +32,30 @@ Project
 └── BuildingSegments (WUFI='Variant/Case')
    ├── Segment_01  
    :    ├── Climate / Location
+        ├── Components
+        │     ├── Component_1
+        │     │   ├── Polygon_1 (ref) 
+        │     │   ├── Polygon_2 (ref)
+        │     │   :
+        │     ├── Component_2
+        │     :   ├── Polygon_3 (ref)
+        │         ├── Polygon_4 (ref)
+        │         :
         │
-        ├── Building
-        │   ├── Components
-        │   │   ├── Component_1
-        │   │   │   ├── Polygon_1 (ref)
-        │   │   │   ├── Polygon_2 (ref)
-        │   │   │   :
-        │   │   ├── Component_2
-        │   │   :   ├── Polygon_3 (ref)
-        │   │       ├── Polygon_4 (ref)
-        │   │       :
-        │   └── Zones (WUFI='Zone')
-        │       └── Zone_1
-        │           ├── Spaces (WUFI='Room')
-        │           │   ├── Space_1
-        │           :   :   ├── Volume_1
-        │                   │   └── Floor
-        │                   │       ├── FloorSegment_1 
-        │                   │       ├── FloorSegment_2
-        │                   │       :
-        │                   └── Volume_2
-        │                      └── Floor
-        │                           ├── FloorSegment_1
-        │                           ├── FloorSegment_2
-        │                           :
+        ├── Zones (WUFI='Zone')
+        │     └── Zone_1
+        │         ├── Spaces (WUFI='Room')
+        │         │   ├── Space_1
+        │         :   :   ├── Volume_1
+        │                 │   └── Floor
+        │                 │       ├── FloorSegment_1 
+        │                 │       ├── FloorSegment_2
+        │                 │       :
+        │                 └── Volume_2
+        │                    └── Floor
+        │                         ├── FloorSegment_1
+        │                         ├── FloorSegment_2
+        │                         :
         ├── Geometry
         │    ├── Polygons
         │    │   ├── Polygon_1
