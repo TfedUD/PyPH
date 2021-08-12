@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>8</Month>
 			<Day>12</Day>
-			<Hour>12</Hour>
-			<Minutes>41</Minutes>
+			<Hour>14</Hour>
+			<Minutes>44</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -5416,165 +5416,6 @@
 					</Polygon>
 				</Polygons>
 			</Graphics_3D>
-			<ClimateLocation>
-				<Selection>1</Selection>
-				<PH_ClimateLocation>
-					<Selection>6</Selection>
-					<Latitude>40.6</Latitude>
-					<HeightNNWeatherStation>5</HeightNNWeatherStation>
-					<Longitude>-73.8</Longitude>
-					<dUTC>-4</dUTC>
-					<DailyTemperatureSwingSummer>8</DailyTemperatureSwingSummer>
-					<AverageWindSpeed>4</AverageWindSpeed>
-					<ClimateZone>1</ClimateZone>
-					<GroundThermalConductivity>2</GroundThermalConductivity>
-					<GroundHeatCapacitiy>1000</GroundHeatCapacitiy>
-					<GroundDensity>2000</GroundDensity>
-					<DepthGroundwater>3</DepthGroundwater>
-					<FlowRateGroundwater>0.05</FlowRateGroundwater>
-					<SelectionPECO2Factor>1</SelectionPECO2Factor>
-					<TemperatureMonthly count="12">
-						<Item index="0">1.2</Item>
-						<Item index="1">-0.2</Item>
-						<Item index="2">5.6</Item>
-						<Item index="3">10.9</Item>
-						<Item index="4">16.1</Item>
-						<Item index="5">21.7</Item>
-						<Item index="6">25.0</Item>
-						<Item index="7">24.8</Item>
-						<Item index="8">19.9</Item>
-						<Item index="9">14.0</Item>
-						<Item index="10">7.3</Item>
-						<Item index="11">3.3</Item>
-					</TemperatureMonthly>
-					<DewPointTemperatureMonthly count="12">
-						<Item index="0">-4.3</Item>
-						<Item index="1">-7.4</Item>
-						<Item index="2">0.3</Item>
-						<Item index="3">4.7</Item>
-						<Item index="4">9.1</Item>
-						<Item index="5">15.8</Item>
-						<Item index="6">20.3</Item>
-						<Item index="7">17.1</Item>
-						<Item index="8">13.2</Item>
-						<Item index="9">7.9</Item>
-						<Item index="10">2.1</Item>
-						<Item index="11">-2.8</Item>
-					</DewPointTemperatureMonthly>
-					<SkyTemperatureMonthly count="12">
-						<Item index="0">-17.4</Item>
-						<Item index="1">-20.0</Item>
-						<Item index="2">-10.9</Item>
-						<Item index="3">-4.8</Item>
-						<Item index="4">1.0</Item>
-						<Item index="5">9.8</Item>
-						<Item index="6">14.5</Item>
-						<Item index="7">8.4</Item>
-						<Item index="8">5.8</Item>
-						<Item index="9">-2.8</Item>
-						<Item index="10">-8.6</Item>
-						<Item index="11">-11.4</Item>
-					</SkyTemperatureMonthly>
-					<GroundTemperatureMonthly count="0"/>
-					<NorthSolarRadiationMonthly count="12">
-						<Item index="0">21</Item>
-						<Item index="1">29</Item>
-						<Item index="2">34</Item>
-						<Item index="3">39</Item>
-						<Item index="4">56</Item>
-						<Item index="5">60</Item>
-						<Item index="6">59</Item>
-						<Item index="7">50</Item>
-						<Item index="8">34</Item>
-						<Item index="9">30</Item>
-						<Item index="10">20</Item>
-						<Item index="11">16</Item>
-					</NorthSolarRadiationMonthly>
-					<EastSolarRadiationMonthly count="12">
-						<Item index="0">32</Item>
-						<Item index="1">46</Item>
-						<Item index="2">57</Item>
-						<Item index="3">65</Item>
-						<Item index="4">82</Item>
-						<Item index="5">76</Item>
-						<Item index="6">78</Item>
-						<Item index="7">84</Item>
-						<Item index="8">60</Item>
-						<Item index="9">54</Item>
-						<Item index="10">33</Item>
-						<Item index="11">28</Item>
-					</EastSolarRadiationMonthly>
-					<SouthSolarRadiationMonthly count="12">
-						<Item index="0">83</Item>
-						<Item index="1">106</Item>
-						<Item index="2">103</Item>
-						<Item index="3">86</Item>
-						<Item index="4">80</Item>
-						<Item index="5">73</Item>
-						<Item index="6">78</Item>
-						<Item index="7">104</Item>
-						<Item index="8">97</Item>
-						<Item index="9">129</Item>
-						<Item index="10">87</Item>
-						<Item index="11">87</Item>
-					</SouthSolarRadiationMonthly>
-					<WestSolarRadiationMonthly count="12">
-						<Item index="0">48</Item>
-						<Item index="1">70</Item>
-						<Item index="2">92</Item>
-						<Item index="3">95</Item>
-						<Item index="4">114</Item>
-						<Item index="5">121</Item>
-						<Item index="6">120</Item>
-						<Item index="7">130</Item>
-						<Item index="8">91</Item>
-						<Item index="9">94</Item>
-						<Item index="10">47</Item>
-						<Item index="11">45</Item>
-					</WestSolarRadiationMonthly>
-					<GlobalSolarRadiationMonthly count="12">
-						<Item index="0">50</Item>
-						<Item index="1">72</Item>
-						<Item index="2">111</Item>
-						<Item index="3">133</Item>
-						<Item index="4">170</Item>
-						<Item index="5">176</Item>
-						<Item index="6">177</Item>
-						<Item index="7">182</Item>
-						<Item index="8">124</Item>
-						<Item index="9">109</Item>
-						<Item index="10">62</Item>
-						<Item index="11">46</Item>
-					</GlobalSolarRadiationMonthly>
-					<TemperatureHeating1>-6.7</TemperatureHeating1>
-					<NorthSolarRadiationHeating1>46</NorthSolarRadiationHeating1>
-					<EastSolarRadiationHeating1>80</EastSolarRadiationHeating1>
-					<SouthSolarRadiationHeating1>200</SouthSolarRadiationHeating1>
-					<WestSolarRadiationHeating1>113</WestSolarRadiationHeating1>
-					<GlobalSolarRadiationHeating1>121</GlobalSolarRadiationHeating1>
-					<TemperatureHeating2>-4.2</TemperatureHeating2>
-					<NorthSolarRadiationHeating2>16</NorthSolarRadiationHeating2>
-					<EastSolarRadiationHeating2>22</EastSolarRadiationHeating2>
-					<SouthSolarRadiationHeating2>46</SouthSolarRadiationHeating2>
-					<WestSolarRadiationHeating2>26</WestSolarRadiationHeating2>
-					<GlobalSolarRadiationHeating2>38</GlobalSolarRadiationHeating2>
-					<TemperatureCooling>26.1</TemperatureCooling>
-					<NorthSolarRadiationCooling>64</NorthSolarRadiationCooling>
-					<EastSolarRadiationCooling>106</EastSolarRadiationCooling>
-					<SouthSolarRadiationCooling>132</SouthSolarRadiationCooling>
-					<WestSolarRadiationCooling>159</WestSolarRadiationCooling>
-					<GlobalSolarRadiationCooling>230</GlobalSolarRadiationCooling>
-				</PH_ClimateLocation>
-				<CatalogueNr_DB>0</CatalogueNr_DB>
-				<MapNr_DB>0</MapNr_DB>
-				<Albedo>-2</Albedo>
-				<GroundReflShort>0.2</GroundReflShort>
-				<GroundReflLong>0.1</GroundReflLong>
-				<GroundEmission>0.9</GroundEmission>
-				<CloudIndex>0.66</CloudIndex>
-				<CO2concenration>350</CO2concenration>
-				<Unit_CO2concentration>48</Unit_CO2concentration>
-			</ClimateLocation>
 			<Building>
 				<Numerics>None</Numerics>
 				<AirFlowModel>None</AirFlowModel>
@@ -6288,6 +6129,165 @@
 				<HasBeenGenerated>false</HasBeenGenerated>
 				<HasBeenChangedSinceLastGeneration>false</HasBeenChangedSinceLastGeneration>
 			</Building>
+			<ClimateLocation>
+				<Selection>1</Selection>
+				<PH_ClimateLocation>
+					<Selection>6</Selection>
+					<Latitude>40.6</Latitude>
+					<HeightNNWeatherStation>5</HeightNNWeatherStation>
+					<Longitude>-73.8</Longitude>
+					<dUTC>-4</dUTC>
+					<DailyTemperatureSwingSummer>8</DailyTemperatureSwingSummer>
+					<AverageWindSpeed>4</AverageWindSpeed>
+					<ClimateZone>1</ClimateZone>
+					<GroundThermalConductivity>2</GroundThermalConductivity>
+					<GroundHeatCapacitiy>1000</GroundHeatCapacitiy>
+					<GroundDensity>2000</GroundDensity>
+					<DepthGroundwater>3</DepthGroundwater>
+					<FlowRateGroundwater>0.05</FlowRateGroundwater>
+					<SelectionPECO2Factor>1</SelectionPECO2Factor>
+					<TemperatureMonthly count="12">
+						<Item index="0">1.2</Item>
+						<Item index="1">-0.2</Item>
+						<Item index="2">5.6</Item>
+						<Item index="3">10.9</Item>
+						<Item index="4">16.1</Item>
+						<Item index="5">21.7</Item>
+						<Item index="6">25.0</Item>
+						<Item index="7">24.8</Item>
+						<Item index="8">19.9</Item>
+						<Item index="9">14.0</Item>
+						<Item index="10">7.3</Item>
+						<Item index="11">3.3</Item>
+					</TemperatureMonthly>
+					<DewPointTemperatureMonthly count="12">
+						<Item index="0">-4.3</Item>
+						<Item index="1">-7.4</Item>
+						<Item index="2">0.3</Item>
+						<Item index="3">4.7</Item>
+						<Item index="4">9.1</Item>
+						<Item index="5">15.8</Item>
+						<Item index="6">20.3</Item>
+						<Item index="7">17.1</Item>
+						<Item index="8">13.2</Item>
+						<Item index="9">7.9</Item>
+						<Item index="10">2.1</Item>
+						<Item index="11">-2.8</Item>
+					</DewPointTemperatureMonthly>
+					<SkyTemperatureMonthly count="12">
+						<Item index="0">-17.4</Item>
+						<Item index="1">-20.0</Item>
+						<Item index="2">-10.9</Item>
+						<Item index="3">-4.8</Item>
+						<Item index="4">1.0</Item>
+						<Item index="5">9.8</Item>
+						<Item index="6">14.5</Item>
+						<Item index="7">8.4</Item>
+						<Item index="8">5.8</Item>
+						<Item index="9">-2.8</Item>
+						<Item index="10">-8.6</Item>
+						<Item index="11">-11.4</Item>
+					</SkyTemperatureMonthly>
+					<GroundTemperatureMonthly count="0"/>
+					<NorthSolarRadiationMonthly count="12">
+						<Item index="0">21</Item>
+						<Item index="1">29</Item>
+						<Item index="2">34</Item>
+						<Item index="3">39</Item>
+						<Item index="4">56</Item>
+						<Item index="5">60</Item>
+						<Item index="6">59</Item>
+						<Item index="7">50</Item>
+						<Item index="8">34</Item>
+						<Item index="9">30</Item>
+						<Item index="10">20</Item>
+						<Item index="11">16</Item>
+					</NorthSolarRadiationMonthly>
+					<EastSolarRadiationMonthly count="12">
+						<Item index="0">32</Item>
+						<Item index="1">46</Item>
+						<Item index="2">57</Item>
+						<Item index="3">65</Item>
+						<Item index="4">82</Item>
+						<Item index="5">76</Item>
+						<Item index="6">78</Item>
+						<Item index="7">84</Item>
+						<Item index="8">60</Item>
+						<Item index="9">54</Item>
+						<Item index="10">33</Item>
+						<Item index="11">28</Item>
+					</EastSolarRadiationMonthly>
+					<SouthSolarRadiationMonthly count="12">
+						<Item index="0">83</Item>
+						<Item index="1">106</Item>
+						<Item index="2">103</Item>
+						<Item index="3">86</Item>
+						<Item index="4">80</Item>
+						<Item index="5">73</Item>
+						<Item index="6">78</Item>
+						<Item index="7">104</Item>
+						<Item index="8">97</Item>
+						<Item index="9">129</Item>
+						<Item index="10">87</Item>
+						<Item index="11">87</Item>
+					</SouthSolarRadiationMonthly>
+					<WestSolarRadiationMonthly count="12">
+						<Item index="0">48</Item>
+						<Item index="1">70</Item>
+						<Item index="2">92</Item>
+						<Item index="3">95</Item>
+						<Item index="4">114</Item>
+						<Item index="5">121</Item>
+						<Item index="6">120</Item>
+						<Item index="7">130</Item>
+						<Item index="8">91</Item>
+						<Item index="9">94</Item>
+						<Item index="10">47</Item>
+						<Item index="11">45</Item>
+					</WestSolarRadiationMonthly>
+					<GlobalSolarRadiationMonthly count="12">
+						<Item index="0">50</Item>
+						<Item index="1">72</Item>
+						<Item index="2">111</Item>
+						<Item index="3">133</Item>
+						<Item index="4">170</Item>
+						<Item index="5">176</Item>
+						<Item index="6">177</Item>
+						<Item index="7">182</Item>
+						<Item index="8">124</Item>
+						<Item index="9">109</Item>
+						<Item index="10">62</Item>
+						<Item index="11">46</Item>
+					</GlobalSolarRadiationMonthly>
+					<TemperatureHeating1>-6.7</TemperatureHeating1>
+					<NorthSolarRadiationHeating1>46</NorthSolarRadiationHeating1>
+					<EastSolarRadiationHeating1>80</EastSolarRadiationHeating1>
+					<SouthSolarRadiationHeating1>200</SouthSolarRadiationHeating1>
+					<WestSolarRadiationHeating1>113</WestSolarRadiationHeating1>
+					<GlobalSolarRadiationHeating1>121</GlobalSolarRadiationHeating1>
+					<TemperatureHeating2>-4.2</TemperatureHeating2>
+					<NorthSolarRadiationHeating2>16</NorthSolarRadiationHeating2>
+					<EastSolarRadiationHeating2>22</EastSolarRadiationHeating2>
+					<SouthSolarRadiationHeating2>46</SouthSolarRadiationHeating2>
+					<WestSolarRadiationHeating2>26</WestSolarRadiationHeating2>
+					<GlobalSolarRadiationHeating2>38</GlobalSolarRadiationHeating2>
+					<TemperatureCooling>26.1</TemperatureCooling>
+					<NorthSolarRadiationCooling>64</NorthSolarRadiationCooling>
+					<EastSolarRadiationCooling>106</EastSolarRadiationCooling>
+					<SouthSolarRadiationCooling>132</SouthSolarRadiationCooling>
+					<WestSolarRadiationCooling>159</WestSolarRadiationCooling>
+					<GlobalSolarRadiationCooling>230</GlobalSolarRadiationCooling>
+				</PH_ClimateLocation>
+				<CatalogueNr_DB>0</CatalogueNr_DB>
+				<MapNr_DB>0</MapNr_DB>
+				<Albedo>-2</Albedo>
+				<GroundReflShort>0.2</GroundReflShort>
+				<GroundReflLong>0.1</GroundReflLong>
+				<GroundEmission>0.9</GroundEmission>
+				<CloudIndex>0.66</CloudIndex>
+				<CO2concenration>350</CO2concenration>
+				<Unit_CO2concentration>48</Unit_CO2concentration>
+			</ClimateLocation>
 			<PassivehouseData/>
 			<PlugIn>None</PlugIn>
 			<HVAC>
@@ -9685,165 +9685,6 @@
 					</Polygon>
 				</Polygons>
 			</Graphics_3D>
-			<ClimateLocation>
-				<Selection>1</Selection>
-				<PH_ClimateLocation>
-					<Selection>6</Selection>
-					<Latitude>40.6</Latitude>
-					<HeightNNWeatherStation>5</HeightNNWeatherStation>
-					<Longitude>-73.8</Longitude>
-					<dUTC>-4</dUTC>
-					<DailyTemperatureSwingSummer>8</DailyTemperatureSwingSummer>
-					<AverageWindSpeed>4</AverageWindSpeed>
-					<ClimateZone>1</ClimateZone>
-					<GroundThermalConductivity>2</GroundThermalConductivity>
-					<GroundHeatCapacitiy>1000</GroundHeatCapacitiy>
-					<GroundDensity>2000</GroundDensity>
-					<DepthGroundwater>3</DepthGroundwater>
-					<FlowRateGroundwater>0.05</FlowRateGroundwater>
-					<SelectionPECO2Factor>1</SelectionPECO2Factor>
-					<TemperatureMonthly count="12">
-						<Item index="0">1.2</Item>
-						<Item index="1">-0.2</Item>
-						<Item index="2">5.6</Item>
-						<Item index="3">10.9</Item>
-						<Item index="4">16.1</Item>
-						<Item index="5">21.7</Item>
-						<Item index="6">25.0</Item>
-						<Item index="7">24.8</Item>
-						<Item index="8">19.9</Item>
-						<Item index="9">14.0</Item>
-						<Item index="10">7.3</Item>
-						<Item index="11">3.3</Item>
-					</TemperatureMonthly>
-					<DewPointTemperatureMonthly count="12">
-						<Item index="0">-4.3</Item>
-						<Item index="1">-7.4</Item>
-						<Item index="2">0.3</Item>
-						<Item index="3">4.7</Item>
-						<Item index="4">9.1</Item>
-						<Item index="5">15.8</Item>
-						<Item index="6">20.3</Item>
-						<Item index="7">17.1</Item>
-						<Item index="8">13.2</Item>
-						<Item index="9">7.9</Item>
-						<Item index="10">2.1</Item>
-						<Item index="11">-2.8</Item>
-					</DewPointTemperatureMonthly>
-					<SkyTemperatureMonthly count="12">
-						<Item index="0">-17.4</Item>
-						<Item index="1">-20.0</Item>
-						<Item index="2">-10.9</Item>
-						<Item index="3">-4.8</Item>
-						<Item index="4">1.0</Item>
-						<Item index="5">9.8</Item>
-						<Item index="6">14.5</Item>
-						<Item index="7">8.4</Item>
-						<Item index="8">5.8</Item>
-						<Item index="9">-2.8</Item>
-						<Item index="10">-8.6</Item>
-						<Item index="11">-11.4</Item>
-					</SkyTemperatureMonthly>
-					<GroundTemperatureMonthly count="0"/>
-					<NorthSolarRadiationMonthly count="12">
-						<Item index="0">21</Item>
-						<Item index="1">29</Item>
-						<Item index="2">34</Item>
-						<Item index="3">39</Item>
-						<Item index="4">56</Item>
-						<Item index="5">60</Item>
-						<Item index="6">59</Item>
-						<Item index="7">50</Item>
-						<Item index="8">34</Item>
-						<Item index="9">30</Item>
-						<Item index="10">20</Item>
-						<Item index="11">16</Item>
-					</NorthSolarRadiationMonthly>
-					<EastSolarRadiationMonthly count="12">
-						<Item index="0">32</Item>
-						<Item index="1">46</Item>
-						<Item index="2">57</Item>
-						<Item index="3">65</Item>
-						<Item index="4">82</Item>
-						<Item index="5">76</Item>
-						<Item index="6">78</Item>
-						<Item index="7">84</Item>
-						<Item index="8">60</Item>
-						<Item index="9">54</Item>
-						<Item index="10">33</Item>
-						<Item index="11">28</Item>
-					</EastSolarRadiationMonthly>
-					<SouthSolarRadiationMonthly count="12">
-						<Item index="0">83</Item>
-						<Item index="1">106</Item>
-						<Item index="2">103</Item>
-						<Item index="3">86</Item>
-						<Item index="4">80</Item>
-						<Item index="5">73</Item>
-						<Item index="6">78</Item>
-						<Item index="7">104</Item>
-						<Item index="8">97</Item>
-						<Item index="9">129</Item>
-						<Item index="10">87</Item>
-						<Item index="11">87</Item>
-					</SouthSolarRadiationMonthly>
-					<WestSolarRadiationMonthly count="12">
-						<Item index="0">48</Item>
-						<Item index="1">70</Item>
-						<Item index="2">92</Item>
-						<Item index="3">95</Item>
-						<Item index="4">114</Item>
-						<Item index="5">121</Item>
-						<Item index="6">120</Item>
-						<Item index="7">130</Item>
-						<Item index="8">91</Item>
-						<Item index="9">94</Item>
-						<Item index="10">47</Item>
-						<Item index="11">45</Item>
-					</WestSolarRadiationMonthly>
-					<GlobalSolarRadiationMonthly count="12">
-						<Item index="0">50</Item>
-						<Item index="1">72</Item>
-						<Item index="2">111</Item>
-						<Item index="3">133</Item>
-						<Item index="4">170</Item>
-						<Item index="5">176</Item>
-						<Item index="6">177</Item>
-						<Item index="7">182</Item>
-						<Item index="8">124</Item>
-						<Item index="9">109</Item>
-						<Item index="10">62</Item>
-						<Item index="11">46</Item>
-					</GlobalSolarRadiationMonthly>
-					<TemperatureHeating1>-6.7</TemperatureHeating1>
-					<NorthSolarRadiationHeating1>46</NorthSolarRadiationHeating1>
-					<EastSolarRadiationHeating1>80</EastSolarRadiationHeating1>
-					<SouthSolarRadiationHeating1>200</SouthSolarRadiationHeating1>
-					<WestSolarRadiationHeating1>113</WestSolarRadiationHeating1>
-					<GlobalSolarRadiationHeating1>121</GlobalSolarRadiationHeating1>
-					<TemperatureHeating2>-4.2</TemperatureHeating2>
-					<NorthSolarRadiationHeating2>16</NorthSolarRadiationHeating2>
-					<EastSolarRadiationHeating2>22</EastSolarRadiationHeating2>
-					<SouthSolarRadiationHeating2>46</SouthSolarRadiationHeating2>
-					<WestSolarRadiationHeating2>26</WestSolarRadiationHeating2>
-					<GlobalSolarRadiationHeating2>38</GlobalSolarRadiationHeating2>
-					<TemperatureCooling>26.1</TemperatureCooling>
-					<NorthSolarRadiationCooling>64</NorthSolarRadiationCooling>
-					<EastSolarRadiationCooling>106</EastSolarRadiationCooling>
-					<SouthSolarRadiationCooling>132</SouthSolarRadiationCooling>
-					<WestSolarRadiationCooling>159</WestSolarRadiationCooling>
-					<GlobalSolarRadiationCooling>230</GlobalSolarRadiationCooling>
-				</PH_ClimateLocation>
-				<CatalogueNr_DB>0</CatalogueNr_DB>
-				<MapNr_DB>0</MapNr_DB>
-				<Albedo>-2</Albedo>
-				<GroundReflShort>0.2</GroundReflShort>
-				<GroundReflLong>0.1</GroundReflLong>
-				<GroundEmission>0.9</GroundEmission>
-				<CloudIndex>0.66</CloudIndex>
-				<CO2concenration>350</CO2concenration>
-				<Unit_CO2concentration>48</Unit_CO2concentration>
-			</ClimateLocation>
 			<Building>
 				<Numerics>None</Numerics>
 				<AirFlowModel>None</AirFlowModel>
@@ -10429,6 +10270,165 @@
 				<HasBeenGenerated>false</HasBeenGenerated>
 				<HasBeenChangedSinceLastGeneration>false</HasBeenChangedSinceLastGeneration>
 			</Building>
+			<ClimateLocation>
+				<Selection>1</Selection>
+				<PH_ClimateLocation>
+					<Selection>6</Selection>
+					<Latitude>40.6</Latitude>
+					<HeightNNWeatherStation>5</HeightNNWeatherStation>
+					<Longitude>-73.8</Longitude>
+					<dUTC>-4</dUTC>
+					<DailyTemperatureSwingSummer>8</DailyTemperatureSwingSummer>
+					<AverageWindSpeed>4</AverageWindSpeed>
+					<ClimateZone>1</ClimateZone>
+					<GroundThermalConductivity>2</GroundThermalConductivity>
+					<GroundHeatCapacitiy>1000</GroundHeatCapacitiy>
+					<GroundDensity>2000</GroundDensity>
+					<DepthGroundwater>3</DepthGroundwater>
+					<FlowRateGroundwater>0.05</FlowRateGroundwater>
+					<SelectionPECO2Factor>1</SelectionPECO2Factor>
+					<TemperatureMonthly count="12">
+						<Item index="0">1.2</Item>
+						<Item index="1">-0.2</Item>
+						<Item index="2">5.6</Item>
+						<Item index="3">10.9</Item>
+						<Item index="4">16.1</Item>
+						<Item index="5">21.7</Item>
+						<Item index="6">25.0</Item>
+						<Item index="7">24.8</Item>
+						<Item index="8">19.9</Item>
+						<Item index="9">14.0</Item>
+						<Item index="10">7.3</Item>
+						<Item index="11">3.3</Item>
+					</TemperatureMonthly>
+					<DewPointTemperatureMonthly count="12">
+						<Item index="0">-4.3</Item>
+						<Item index="1">-7.4</Item>
+						<Item index="2">0.3</Item>
+						<Item index="3">4.7</Item>
+						<Item index="4">9.1</Item>
+						<Item index="5">15.8</Item>
+						<Item index="6">20.3</Item>
+						<Item index="7">17.1</Item>
+						<Item index="8">13.2</Item>
+						<Item index="9">7.9</Item>
+						<Item index="10">2.1</Item>
+						<Item index="11">-2.8</Item>
+					</DewPointTemperatureMonthly>
+					<SkyTemperatureMonthly count="12">
+						<Item index="0">-17.4</Item>
+						<Item index="1">-20.0</Item>
+						<Item index="2">-10.9</Item>
+						<Item index="3">-4.8</Item>
+						<Item index="4">1.0</Item>
+						<Item index="5">9.8</Item>
+						<Item index="6">14.5</Item>
+						<Item index="7">8.4</Item>
+						<Item index="8">5.8</Item>
+						<Item index="9">-2.8</Item>
+						<Item index="10">-8.6</Item>
+						<Item index="11">-11.4</Item>
+					</SkyTemperatureMonthly>
+					<GroundTemperatureMonthly count="0"/>
+					<NorthSolarRadiationMonthly count="12">
+						<Item index="0">21</Item>
+						<Item index="1">29</Item>
+						<Item index="2">34</Item>
+						<Item index="3">39</Item>
+						<Item index="4">56</Item>
+						<Item index="5">60</Item>
+						<Item index="6">59</Item>
+						<Item index="7">50</Item>
+						<Item index="8">34</Item>
+						<Item index="9">30</Item>
+						<Item index="10">20</Item>
+						<Item index="11">16</Item>
+					</NorthSolarRadiationMonthly>
+					<EastSolarRadiationMonthly count="12">
+						<Item index="0">32</Item>
+						<Item index="1">46</Item>
+						<Item index="2">57</Item>
+						<Item index="3">65</Item>
+						<Item index="4">82</Item>
+						<Item index="5">76</Item>
+						<Item index="6">78</Item>
+						<Item index="7">84</Item>
+						<Item index="8">60</Item>
+						<Item index="9">54</Item>
+						<Item index="10">33</Item>
+						<Item index="11">28</Item>
+					</EastSolarRadiationMonthly>
+					<SouthSolarRadiationMonthly count="12">
+						<Item index="0">83</Item>
+						<Item index="1">106</Item>
+						<Item index="2">103</Item>
+						<Item index="3">86</Item>
+						<Item index="4">80</Item>
+						<Item index="5">73</Item>
+						<Item index="6">78</Item>
+						<Item index="7">104</Item>
+						<Item index="8">97</Item>
+						<Item index="9">129</Item>
+						<Item index="10">87</Item>
+						<Item index="11">87</Item>
+					</SouthSolarRadiationMonthly>
+					<WestSolarRadiationMonthly count="12">
+						<Item index="0">48</Item>
+						<Item index="1">70</Item>
+						<Item index="2">92</Item>
+						<Item index="3">95</Item>
+						<Item index="4">114</Item>
+						<Item index="5">121</Item>
+						<Item index="6">120</Item>
+						<Item index="7">130</Item>
+						<Item index="8">91</Item>
+						<Item index="9">94</Item>
+						<Item index="10">47</Item>
+						<Item index="11">45</Item>
+					</WestSolarRadiationMonthly>
+					<GlobalSolarRadiationMonthly count="12">
+						<Item index="0">50</Item>
+						<Item index="1">72</Item>
+						<Item index="2">111</Item>
+						<Item index="3">133</Item>
+						<Item index="4">170</Item>
+						<Item index="5">176</Item>
+						<Item index="6">177</Item>
+						<Item index="7">182</Item>
+						<Item index="8">124</Item>
+						<Item index="9">109</Item>
+						<Item index="10">62</Item>
+						<Item index="11">46</Item>
+					</GlobalSolarRadiationMonthly>
+					<TemperatureHeating1>-6.7</TemperatureHeating1>
+					<NorthSolarRadiationHeating1>46</NorthSolarRadiationHeating1>
+					<EastSolarRadiationHeating1>80</EastSolarRadiationHeating1>
+					<SouthSolarRadiationHeating1>200</SouthSolarRadiationHeating1>
+					<WestSolarRadiationHeating1>113</WestSolarRadiationHeating1>
+					<GlobalSolarRadiationHeating1>121</GlobalSolarRadiationHeating1>
+					<TemperatureHeating2>-4.2</TemperatureHeating2>
+					<NorthSolarRadiationHeating2>16</NorthSolarRadiationHeating2>
+					<EastSolarRadiationHeating2>22</EastSolarRadiationHeating2>
+					<SouthSolarRadiationHeating2>46</SouthSolarRadiationHeating2>
+					<WestSolarRadiationHeating2>26</WestSolarRadiationHeating2>
+					<GlobalSolarRadiationHeating2>38</GlobalSolarRadiationHeating2>
+					<TemperatureCooling>26.1</TemperatureCooling>
+					<NorthSolarRadiationCooling>64</NorthSolarRadiationCooling>
+					<EastSolarRadiationCooling>106</EastSolarRadiationCooling>
+					<SouthSolarRadiationCooling>132</SouthSolarRadiationCooling>
+					<WestSolarRadiationCooling>159</WestSolarRadiationCooling>
+					<GlobalSolarRadiationCooling>230</GlobalSolarRadiationCooling>
+				</PH_ClimateLocation>
+				<CatalogueNr_DB>0</CatalogueNr_DB>
+				<MapNr_DB>0</MapNr_DB>
+				<Albedo>-2</Albedo>
+				<GroundReflShort>0.2</GroundReflShort>
+				<GroundReflLong>0.1</GroundReflLong>
+				<GroundEmission>0.9</GroundEmission>
+				<CloudIndex>0.66</CloudIndex>
+				<CO2concenration>350</CO2concenration>
+				<Unit_CO2concentration>48</Unit_CO2concentration>
+			</ClimateLocation>
 			<PassivehouseData/>
 			<PlugIn>None</PlugIn>
 			<HVAC>

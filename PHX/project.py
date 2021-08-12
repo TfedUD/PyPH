@@ -132,11 +132,11 @@ class Project(PHX._base._Base):
 
     def collect_utilization_patterns_from_zones(self):
         """Set the Project Utilization Patterns based on the values in the
-        BldgSegment / Building / Zones / Rooms
+        BldgSegment / Zones / Rooms
         """
 
         for v in self.lBldgSegments:
-            for z in v.building.lZone:
+            for z in v.zones:
                 for r in z.rooms_ventilation:
                     self.lUtilVentPH.add_to_collection(
                         r.ventilation.utilization_pattern

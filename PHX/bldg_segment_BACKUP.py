@@ -330,6 +330,88 @@ class Zone(PHX._base._Base):
         return self.__add__(other)
 
 
+class Building(PHX._base._Base):
+    """The Zones and Components that make up the Geometric elements of a Structure"""
+
+    def __init__(self):
+        super(Building, self).__init__()
+        self.lComponent = []
+        self.lZone = []
+        self.numerics = None
+        self.airflow_model = None
+        self.count_generator = 0
+        self.has_been_generated = False
+        self.has_been_changed_since_last_gen = False
+
+    def add_zones(self, _zones):
+        # type: (Zone) -> None
+        """Adds a new Zone to the Building
+
+        Arguments:
+        ----------
+            * _zone (list[Zone]): The new Zones to add to the Building
+        """
+        if not isinstance(_zones, list):
+            _zones = [_zones]
+
+        for z in _zones:
+            if z in self.lZone:
+                continue
+            if not isinstance(z, Zone):
+                raise ZoneTypeError(z)
+            self.lZone.append(z)
+
+    def add_components(self, _compos):
+        # type: (PHX.component.Component) -> None
+        """Adds new component to the bldg_segment.building.lComponent
+
+        Arguments:
+        ----------
+            * _compos (list[Component]): The Components to add to the Building
+                lComponent list
+        """
+
+        if not isinstance(_compos, list):
+            _compos = [_compos]
+
+        for c in _compos:
+            if c in self.lComponent:
+                continue
+            if not isinstance(c, PHX.component.Component):
+                raise PHX.component.ComponentTypeError(c)
+            self.lComponent.append(c)
+
+    def get_zone_by_identifier(self, _zone_identifier_lookup):
+        # type: (str) -> Zone | None
+        for zone in self.lZone:
+            if zone.identifier == _zone_identifier_lookup:
+                return zone
+            elif _zone_identifier_lookup in zone.source_zone_identifiers:
+                # -- If the zone has been joined previously
+                return zone
+        else:
+            return None
+
+    def merge_zones(self):
+        # type: (None) -> None
+        """Merges all of the Building's Zones together into a single Zone"""
+
+        if len(self.lZone) <= 1:
+            return None
+        else:
+            zones_joined = reduce(lambda a, b: a + b, self.lZone)
+            zones_joined.id = 1
+            self.lZone = [zones_joined]
+
+            # -- Merge all the Components
+            # -- Update all the exposure names,
+            # -- Remove interior surfaces (?!)
+            for compo in self.lComponent:
+                compo.set_host_zone_name(self.lZone[0])
+
+            return None
+
+
 class BldgSegment(PHX._base._Base):
     """A Segment/Zone/Wing of a Project with one or more PHX-Zones inside.
 
@@ -353,22 +435,10 @@ class BldgSegment(PHX._base._Base):
         self.PHIUS = PassivehouseData()
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
+        self.building = Building()
         self.HVAC = PHX.hvac.HVAC()
         self.res = None
         self.plugin = None
-
-        self.components = []
-        self.zones = []
-
-        self.numerics = None
-        self.airflow_model = None
-        self.count_generator = 0
-        self.has_been_generated = False
-        self.has_been_changed_since_last_gen = False
-
-        # self.building = Building()
-        # self.building.lComponent = self.components
-        # self.building.lZone = self.zones
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -392,14 +462,7 @@ class BldgSegment(PHX._base._Base):
 
         if not isinstance(_zones, list):
             _zones = [_zones]
-
-        for z in _zones:
-            if z in self.zones:
-                continue
-            if not isinstance(z, Zone):
-                raise ZoneTypeError(z)
-
-            self.zones.append(z)
+        self.building.add_zones(_zones)
 
     def add_components(self, _components):
         # type: (list[PHX.component.Component]) -> None
@@ -414,17 +477,8 @@ class BldgSegment(PHX._base._Base):
             * None
         """
 
+        self.building.add_components(_components)
         self.geom.add_component_polygons(_components)
-
-        if not isinstance(_components, list):
-            _compos = [_components]
-
-        for c in _compos:
-            if c in self.components:
-                continue
-            if not isinstance(c, PHX.component.Component):
-                raise PHX.component.ComponentTypeError(c)
-            self.components.append(c)
 
     def get_component_groups(self, group_by=None):
         # type: (str) -> dict[PHX.component.Component]
@@ -442,16 +496,20 @@ class BldgSegment(PHX._base._Base):
         compo_groups = defaultdict(list)
 
         if not group_by:
-            compo_groups[self.id] = self.components
+            compo_groups[self.building.id] = self.building.lComponent
 
         elif str(group_by).upper() == "ZONE":
             # Group compos that are in the same zone, (and the same exposures)
 
-            for compo in self.components:
+            for compo in self.building.lComponent:
                 key = "IC_{}_EC_{}_TYP_{}".format(compo.idIC, compo.idEC, compo.type)
                 compo_groups[key].append(compo)
 
         return compo_groups
+
+    @property
+    def zones(self):
+        return self.building.lZone
 
     def get_zone_by_identifier(self, _zone_identifier_lookup):
         # type: (str) -> Zone | None
@@ -467,20 +525,13 @@ class BldgSegment(PHX._base._Base):
             * (Zone | None): The Zone, if found, or None if no matches are found
         """
 
-        for zone in self.zones:
-            if zone.identifier == _zone_identifier_lookup:
-                return zone
-            elif _zone_identifier_lookup in zone.source_zone_identifiers:
-                # -- If the zone has been joined previously
-                return zone
-        else:
-            return None
+        return self.building.get_zone_by_identifier(_zone_identifier_lookup)
 
     def merge_components(self, by="assembly"):
         # type: (str) -> None
         """Groups (joins) Components by the desginated characteristic.
 
-        Note: this function will edit/change the BldgSegment.components list and
+        Note: this function will edit/change the BldgSegment.building.lComponent list and
         will join Components together.
 
         Arguments:
@@ -516,24 +567,8 @@ class BldgSegment(PHX._base._Base):
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
                     new_compo_list.append(compo_joined)
 
-            # -- Replace the Component List with the new one
-            self.components = new_compo_list
+            # -- Replace the Building's Compo List with the new one
+            self.building.lComponent = new_compo_list
 
     def merge_zones(self):
-        # type: (None) -> None
-        """Merges all of the Zones together into a single Zone"""
-
-        if len(self.zones) <= 1:
-            return None
-        else:
-            zones_joined = reduce(lambda a, b: a + b, self.zones)
-            zones_joined.id = 1
-            self.zones = [zones_joined]
-
-            # -- Merge all the Components
-            # -- Update all the exposure names,
-            # -- Remove interior surfaces (?!)
-            for compo in self.components:
-                compo.set_host_zone_name(self.zones[0])
-
-            return None
+        self.building.merge_zones()

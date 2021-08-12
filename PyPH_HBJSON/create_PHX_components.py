@@ -97,7 +97,7 @@ def set_compo_exterior_exposure_from_hb_face(
     ----------
         * _compo (PHX.component.Component): The Component to set the Exterior-Exposure values for
         * _hb_face (honeybee.face.Face): The Honeybee Face to base the Component's Exterior-Exposure type on
-        * _zones (list[PHX.bldg_segment.Zone]): A list of all the Zones in the bldg_segment.Building. This is
+        * _zones (list[PHX.bldg_segment.Zone]): A list of all the Zones in the bldg_segment.zones. This is
             needed in order to properly solve 'interior' faces with 'Surface' adjacency.
 
     Returns:

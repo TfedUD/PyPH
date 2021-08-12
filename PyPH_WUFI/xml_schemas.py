@@ -11,6 +11,7 @@ Note: each function here should have the exact same name as its 'parent' but
 with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
+from collections import namedtuple
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
 
@@ -507,14 +508,14 @@ def _Building(_obj):
             "Components",
             [
                 PyPH_WUFI.xml_node.XML_Object("Component", _, "index", i)
-                for i, _ in enumerate(_obj.lComponent)
+                for i, _ in enumerate(_obj.components)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "Zones",
             [
                 PyPH_WUFI.xml_node.XML_Object("Zone", _, "index", i)
-                for i, _ in enumerate(_obj.lZone)
+                for i, _ in enumerate(_obj.zones)
             ],
         ),
         PyPH_WUFI.xml_node.XML_Node("CountGenerated", _obj.count_generator),
@@ -659,13 +660,39 @@ def _BldgSegment(_obj):
     # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
     # This is done for PHIUS modeling and allows for Non-Res and Res. sections
     # of a building to be modeled in the same WUFI file, in different 'Cases'
+
+    # Build the temporary 'Building' container class
+    # For WUFI, there is an extra 'Building' layer for some reason?
+    Building = namedtuple(
+        "Building",
+        [
+            "numerics",
+            "airflow_model",
+            "count_generator",
+            "has_been_generated",
+            "has_been_changed_since_last_gen",
+            "components",
+            "zones",
+        ],
+    )
+
+    temp_building_container = Building(
+        _obj.numerics,
+        _obj.airflow_model,
+        _obj.count_generator,
+        _obj.has_been_generated,
+        _obj.has_been_changed_since_last_gen,
+        _obj.components,
+        _obj.zones,
+    )
+
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("Remarks", _obj.remarks),
         PyPH_WUFI.xml_node.XML_Object("Graphics_3D", _obj.geom),
+        PyPH_WUFI.xml_node.XML_Object("Building", temp_building_container),
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
-        PyPH_WUFI.xml_node.XML_Object("Building", _obj.building),
         PyPH_WUFI.xml_node.XML_Object("PassivehouseData", _obj.PHIUS),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
         PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.HVAC),

@@ -118,13 +118,12 @@ for room in hb_model.rooms:
         host_blg_segment.add_components(opaque_compo)
 
 
-# # --- Clean up the BuildingSegments
-# # ----------------------------------------------------------------------------
+# --- Clean up the BuildingSegments
+# ----------------------------------------------------------------------------
 for seg in project_1.lBldgSegments:
     # -- This is (required?) for PHIUS Certification.
     # -- Sometimes might not want this though, so needs to be user-setting
     seg.merge_zones()
-
     seg.merge_components(by="assembly")
 
 
