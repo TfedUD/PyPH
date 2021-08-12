@@ -3,6 +3,7 @@
 
 """Selection Options. Make sure that the dict name here matches the XML Node Name"""
 
+# -- HVAC
 __HVAC_System = {
     "Type": {
         "attr_name": "choice",
@@ -37,6 +38,7 @@ __HVAC_Device = {
 }
 
 
+# --- Geometry
 __Assembly = {
     "Order_Layers": {
         "attr_name": "choice",
@@ -113,5 +115,54 @@ __WP_Room = {
     "Type": {
         "attr_name": "choice",
         "enum": {1: "Kitchen", 2: "Bathroom", 3: "Shower", 4: "WC", 99: "User defined"},
+    },
+}
+
+
+# -- PHIUS Certification settings
+__PHIUS = {
+    "PH_CertificateCriteria": {
+        "attr_name": "choice",
+        "enum": {3: "PHIUS+ 2018"},
+    },
+    "PH_SelectionTargetData": {
+        "attr_name": "choice",
+        "enum": {2: "User defined"},
+    },
+    "BuildingStatus": {
+        "attr_name": "choice",
+        "enum": {1: "In planning", 2: "Under construction", 3: "Completed"},
+    },
+    "BuildingType": {
+        "attr_name": "choice",
+        "enum": {
+            1: "New construction",
+            2: "Retrofit",
+            3: "Mixed - new construction/retrofit",
+        },
+    },
+    "OccupancySettingMethod": {
+        "attr_name": "choice",
+        "enum": {2: "Design"},
+    },
+}
+
+__Occupancy = {
+    "BuildingCategory": {
+        "attr_name": "choice",
+        "enum": {1: "Residential", 2: "Non-residential"},
+    },
+    "OccupancyTypeResidential": {
+        "attr_name": "choice",
+        "enum": {1: "Residential"},
+    },
+    "OccupancyTypeNonResidential": {
+        "attr_name": "choice",
+        "enum": {
+            4: "Office/Administrative building",
+            5: "School",
+            6: "Other",
+            7: "Undefined/unfinished",
+        },
     },
 }

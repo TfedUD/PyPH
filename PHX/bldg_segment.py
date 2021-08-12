@@ -2,7 +2,10 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Building-Segment Classes. A part of a full structure with all the related attributes
+PHX Building-Segment Classes. A complete Building/Project has one or more BldgSegment(s).
+
+These can be thought of as 'wings' or 'sections' of a full building structure. Each
+Segment can have its own occupancy types / top-level attributes and has one or more Zones within it.
 """
 
 from collections import defaultdict
@@ -13,6 +16,7 @@ import PHX.hvac
 import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
+import PHX.occupancy
 
 
 class ZoneTypeError(Exception):
@@ -54,9 +58,19 @@ class Geom(PHX._base._Base):
                 self.polygons.append(poly)
 
 
-class PassivehouseData(PHX._base._Base):
+class PHIUSCertification(PHX._base._Base):
     def __init__(self):
-        super(PassivehouseData, self).__init__()
+        super(PHIUSCertification, self).__init__()
+        self.certification_criteria = 3
+        self.localization_selection_type = 2
+
+        self.PHIUS2021_heating_demand = 20
+        self.PHIUS2021_cooling_demand = 21
+        self.PHIUS2021_heating_load = 22
+        self.PHIUS2021_cooling_load = 23
+
+        self.building_status = 1  # In Planning
+        self.building_type = 1  # New Construction
 
 
 class Weather_PeakLoad:
@@ -350,7 +364,8 @@ class BldgSegment(PHX._base._Base):
         self.geom = Geom()
         self.calcScope = 4
         self.HaMT = {}
-        self.PHIUS = PassivehouseData()
+        self.PHIUS_certification = PHIUSCertification()
+        self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
         self.HVAC = PHX.hvac.HVAC()
@@ -365,10 +380,6 @@ class BldgSegment(PHX._base._Base):
         self.count_generator = 0
         self.has_been_generated = False
         self.has_been_changed_since_last_gen = False
-
-        # self.building = Building()
-        # self.building.lComponent = self.components
-        # self.building.lZone = self.zones
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -445,8 +456,8 @@ class BldgSegment(PHX._base._Base):
             compo_groups[self.id] = self.components
 
         elif str(group_by).upper() == "ZONE":
-            # Group compos that are in the same zone, (and the same exposures)
 
+            # Group compos that are in the same zone, (and the same exposures)
             for compo in self.components:
                 key = "IC_{}_EC_{}_TYP_{}".format(compo.idIC, compo.idEC, compo.type)
                 compo_groups[key].append(compo)

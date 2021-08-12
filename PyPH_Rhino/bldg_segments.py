@@ -1,9 +1,7 @@
 import uuid
 
 
-class BldgSegment_Identifier(object):
-    """Simle ID class for keeping track of BldgSegment names in Rhino"""
-
+class BldgSegment(object):
     _count = 0
 
     def __init__(self):
@@ -14,7 +12,7 @@ class BldgSegment_Identifier(object):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(BldgSegment_Identifier, cls).__new__(cls, *args, **kwargs)
+        return super(BldgSegment, cls).__new__(cls, *args, **kwargs)
 
     def __eq__(self, other):
         if (

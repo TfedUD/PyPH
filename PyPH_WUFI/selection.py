@@ -40,7 +40,7 @@ class Selection:
 
         if not d:
             raise Exception(
-                'Error: Cannot find data for Node: "{}"?'.format(self._node_name)
+                'Error: Cannot find data for Node: "{}"?'.format(_node_name)
             )
         else:
             return d

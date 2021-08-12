@@ -166,8 +166,75 @@ def _Geom(_obj):
     ]
 
 
+def _PH_Building(_obj):
+    if _obj.occupancy_type == 1:
+        type_category = "Occupancy::OccupancyTypeResidential"
+    else:
+        type_category = "Occupancy::OccupancyTypeNonResidential"
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "Occupancy::BuildingCategory", _obj.occupancy_category
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(type_category, _obj.occupancy_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "PHIUS::BuildingStatus", _obj.building_status
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "PHIUS::BuildingType", _obj.building_type
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "PHIUS::OccupancySettingMethod", _obj.occupancy_setting_method
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("NumberUnits", _obj.num_units, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("CountStories", _obj.num_stories),
+        # PyPH_WUFI.xml_node.XML_Node("InternalGainsSetting", _obj.id),
+    ]
+
+
 def _PassivehouseData(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "PHIUS::PH_CertificateCriteria", _obj.certification_criteria
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "PHIUS::PH_SelectionTargetData", _obj.localization_selection_type
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "AnnualHeatingDemand", _obj.PHIUS2021_heating_demand, "unit", "kWh/m²a"
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "AnnualCoolingDemand", _obj.PHIUS2021_cooling_demand, "unit", "kWh/m²a"
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "PeakHeatingLoad", _obj.PHIUS2021_heating_load, "unit", "W/m²"
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "PeakCoolingLoad", _obj.PHIUS2021_cooling_load, "unit", "W/m²"
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "PH_Buildings",
+            [
+                PyPH_WUFI.xml_node.XML_Object("PH_Building", _, "index", i)
+                for i, _ in enumerate(_obj.PH_Buildings)
+            ],
+        ),
+    ]
 
 
 def _PH_ClimateLocation(_obj):
@@ -661,9 +728,9 @@ def _BldgSegment(_obj):
     # This is done for PHIUS modeling and allows for Non-Res and Res. sections
     # of a building to be modeled in the same WUFI file, in different 'Cases'
 
-    # Build the temporary 'Building' container class
-    # For WUFI, there is an extra 'Building' layer for some reason?
-    Building = namedtuple(
+    # Create temporary objects / layers to collect the data in the right format
+    # --- Building Object
+    tBuilding = namedtuple(
         "Building",
         [
             "numerics",
@@ -676,7 +743,7 @@ def _BldgSegment(_obj):
         ],
     )
 
-    temp_building_container = Building(
+    tbuilding_container = tBuilding(
         _obj.numerics,
         _obj.airflow_model,
         _obj.count_generator,
@@ -686,16 +753,67 @@ def _BldgSegment(_obj):
         _obj.zones,
     )
 
+    # --- PH_Building Object
+    tPH_Building = namedtuple(
+        "PH_Building",
+        [
+            "id",
+            "occupancy_category",
+            "occupancy_type",
+            "building_status",
+            "building_type",
+            "occupancy_setting_method",
+            "num_units",
+            "num_stories",
+        ],
+    )
+
+    tPH_Building = tPH_Building(
+        _obj.id,
+        _obj.occupancy.category,
+        _obj.occupancy.type,
+        _obj.PHIUS_certification.building_status,
+        _obj.PHIUS_certification.building_type,
+        2,
+        _obj.occupancy.num_units,
+        _obj.occupancy.num_stories,
+    )
+
+    # ---- PassivehouseData Object
+    tPassivehouseData = namedtuple(
+        "PassivehouseData",
+        [
+            "certification_criteria",
+            "localization_selection_type",
+            "PHIUS2021_heating_demand",
+            "PHIUS2021_cooling_demand",
+            "PHIUS2021_heating_load",
+            "PHIUS2021_cooling_load",
+            "PH_Buildings",
+        ],
+    )
+
+    tPH_Data = tPassivehouseData(
+        _obj.PHIUS_certification.certification_criteria,
+        _obj.PHIUS_certification.localization_selection_type,
+        _obj.PHIUS_certification.PHIUS2021_heating_demand,
+        _obj.PHIUS_certification.PHIUS2021_cooling_demand,
+        _obj.PHIUS_certification.PHIUS2021_heating_load,
+        _obj.PHIUS_certification.PHIUS2021_cooling_load,
+        [tPH_Building],
+    )
+
+    # --- Build the final output list
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("Remarks", _obj.remarks),
         PyPH_WUFI.xml_node.XML_Object("Graphics_3D", _obj.geom),
-        PyPH_WUFI.xml_node.XML_Object("Building", temp_building_container),
+        PyPH_WUFI.xml_node.XML_Object("Building", tbuilding_container),
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
-        PyPH_WUFI.xml_node.XML_Object("PassivehouseData", _obj.PHIUS),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
         PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.HVAC),
+        PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
     ]
 
 
