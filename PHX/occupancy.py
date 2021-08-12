@@ -14,7 +14,7 @@ class BldgSegmentOccupancy(PHX._base._Base):
         self.id = self._count
         super(BldgSegmentOccupancy, self).__init__()
         self.category = 1
-        self.type = 1
+        self.usage_type = 1
         self.num_units = 1
         self.num_stories = 1
 
@@ -22,3 +22,7 @@ class BldgSegmentOccupancy(PHX._base._Base):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(BldgSegmentOccupancy, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._BldgSegmentOccupancy(cls, _dict)

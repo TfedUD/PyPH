@@ -314,3 +314,33 @@ def _Space(_cls, _input_dict):
         new_obj.volumes.append(PHX.spaces.Volume.from_dict(volume_dict))
 
     return new_obj
+
+
+# -- Occupany
+def _BldgSegmentOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.category = _input_dict.get("category")
+    new_obj.usage_type = _input_dict.get("usage_type")
+    new_obj.num_units = _input_dict.get("num_units")
+    new_obj.num_stories = _input_dict.get("num_stories")
+
+    return new_obj
+
+
+# -- Passive House Certification
+def _PHIUSCertification(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.certification_criteria = _input_dict.get("certification_criteria")
+    new_obj.localization_selection_type = _input_dict.get("localization_selection_type")
+    new_obj.PHIUS2021_heating_demand = _input_dict.get("PHIUS2021_heating_demand")
+    new_obj.PHIUS2021_cooling_demand = _input_dict.get("PHIUS2021_cooling_demand")
+    new_obj.PHIUS2021_heating_load = _input_dict.get("PHIUS2021_heating_load")
+    new_obj.PHIUS2021_cooling_load = _input_dict.get("PHIUS2021_cooling_load")
+    new_obj.building_status = _input_dict.get("building_status")
+    new_obj.building_type = _input_dict.get("building_type")
+
+    return new_obj

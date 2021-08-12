@@ -72,6 +72,10 @@ class PHIUSCertification(PHX._base._Base):
         self.building_status = 1  # In Planning
         self.building_type = 1  # New Construction
 
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._PHIUSCertification(cls, _dict)
+
 
 class Weather_PeakLoad:
     def __init__(self, _t, _rN, _rE, _rS, _rW, _rG):
@@ -548,3 +552,7 @@ class BldgSegment(PHX._base._Base):
                 compo.set_host_zone_name(self.zones[0])
 
             return None
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._BldgSegment(cls, _dict)

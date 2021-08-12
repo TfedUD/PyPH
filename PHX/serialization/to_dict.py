@@ -269,3 +269,33 @@ def _Space(_obj):
     d.update({"volumes": volumes_dict})
 
     return d
+
+
+# -- Occupany
+def _BldgSegmentOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"category": _obj.category})
+    d.update({"usage_type": _obj.usage_type})
+    d.update({"num_units": _obj.num_units})
+    d.update({"num_stories": _obj.num_stories})
+
+    return d
+
+
+# -- Passive House Certification
+def _PHIUSCertification(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"certification_criteria": _obj.certification_criteria})
+    d.update({"localization_selection_type": _obj.localization_selection_type})
+    d.update({"PHIUS2021_heating_demand": _obj.PHIUS2021_heating_demand})
+    d.update({"PHIUS2021_cooling_demand": _obj.PHIUS2021_cooling_demand})
+    d.update({"PHIUS2021_heating_load": _obj.PHIUS2021_heating_load})
+    d.update({"PHIUS2021_cooling_load": _obj.PHIUS2021_cooling_load})
+    d.update({"building_status": _obj.building_status})
+    d.update({"building_type": _obj.building_type})
+
+    return d
