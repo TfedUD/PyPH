@@ -26,3 +26,14 @@ class BldgSegmentOccupancy(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._BldgSegmentOccupancy(cls, _dict)
+
+    def __eq__(self, other):
+        if (
+            self.category != other.category
+            or self.usage_type != other.usage_type
+            or self.num_units != other.num_units
+            or self.num_stories != other.num_stories
+        ):
+            return False
+        else:
+            return True

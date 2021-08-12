@@ -771,7 +771,7 @@ def _BldgSegment(_obj):
     tPH_Building = tPH_Building(
         _obj.id,
         _obj.occupancy.category,
-        _obj.occupancy.type,
+        _obj.occupancy.usage_type,
         _obj.PHIUS_certification.building_status,
         _obj.PHIUS_certification.building_type,
         2,

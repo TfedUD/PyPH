@@ -6,6 +6,7 @@
 import honeybee.room
 import PHX.bldg_segment
 import PHX.project
+import PHX.occupancy
 
 
 def get_host_PHX_BldgSegment(
@@ -30,22 +31,36 @@ def get_host_PHX_BldgSegment(
         * (PHX.bldg_segment.BldgSegment): The Honeybee Room's host PHX-BldgSegment.
     """
 
-    var_ident = (
-        _hb_room.user_data.get("phx", {}).get("bldg_segment", {}).get("identifier")
-    )
-    var_id = _hb_room.user_data.get("phx", {}).get("bldg_segment", {}).get("id")
-    var_name = _hb_room.user_data.get("phx", {}).get("bldg_segment", {}).get("name")
-
-    if not var_ident:
+    seg_dict = _hb_room.user_data.get("phx", {}).get("bldg_segment_id", {})
+    if not seg_dict:
+        # -- Use the default Segment if none is provided
         host_bldg_segment = PHX.bldg_segment.BldgSegment.default()
     else:
-        host_bldg_segment = _project.get_segment_by_identifier(var_ident)
+        # -- Build a new Segment if there is data for one.
+        var_ident = seg_dict.get("identifier")
+        var_id = seg_dict.get("id")
+        var_name = seg_dict.get("name")
 
+        # -- Check if the Segment already exists on the Project.
+        # -- If it does not exist, build a new one
+        host_bldg_segment = _project.get_segment_by_identifier(var_ident)
         if not host_bldg_segment:
             host_bldg_segment = PHX.bldg_segment.BldgSegment()
             host_bldg_segment.identifier = var_ident
             host_bldg_segment.id = var_id
             host_bldg_segment.n = var_name
+
+            # -- Occupancy
+            occupancy_dict = _hb_room.user_data.get("phx", {}).get("occupancy", {})
+            if occupancy_dict:
+                occ_obj = PHX.occupancy.BldgSegmentOccupancy.from_dict(occupancy_dict)
+                host_bldg_segment.occupancy = occ_obj
+
+            # -- Passive House Params
+            ph_cert_dict = _hb_room.user_data.get("phx", {}).get("ph_certification", {})
+            if ph_cert_dict:
+                cert_obj = PHX.bldg_segment.PHIUSCertification.from_dict(ph_cert_dict)
+                host_bldg_segment.PHIUS_certification = cert_obj
 
     _project.add_segment(host_bldg_segment)
 

@@ -396,7 +396,7 @@ class BldgSegment(PHX._base._Base):
             return cls._default
 
         new_obj = cls()
-        new_obj.n = "Default BldgSegment"
+        new_obj.n = "Default Building Segment"
 
         cls._default = new_obj
         return new_obj
