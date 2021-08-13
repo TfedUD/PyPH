@@ -79,6 +79,8 @@ for room in hb_model.rooms:
 
     # new_zone = add_default_res_appliance_to_zone( new_zone )
 
+    # -- Figure out the Infiltration airflow / n50, q50
+    room_infiltration = PyPH_HBJSON.create_PHX_Zones.calc_HB_room_infiltration(room)
     host_blg_segment.add_zones(new_zone)
 
 

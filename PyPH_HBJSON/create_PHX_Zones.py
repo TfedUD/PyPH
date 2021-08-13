@@ -89,6 +89,19 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
     return spaces
 
 
+def calc_HB_room_infiltration(_hb_room: honeybee.room.Room) -> float:
+    """Return the Infiltration airlow (m3/h) of the Honeybee Room"""
+
+    room_airflow_m3_s_m2 = (
+        _hb_room.properties.energy.infiltration.flow_per_exterior_area
+    )
+    room_exterior_m2 = _hb_room.exposed_area
+    room_airflow_m3_s = room_airflow_m3_s_m2 * room_exterior_m2
+    room_airflow_m3_h = room_airflow_m3_s * 3600
+
+    return room_airflow_m3_h
+
+
 def add_default_res_appliance_to_zone(
     _wp_zone: PHX.bldg_segment.Zone,
 ) -> PHX.bldg_segment.Zone:

@@ -24,6 +24,16 @@ from ladybug_rhino.fromgeometry import (
 )
 
 
+class SelectionInputError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            'Input Error: Cannot use input "{}" [{}].\n'
+            "Please check the allowable input options.".format(_in, type(_in))
+        )
+
+        super(SelectionInputError, self).__init__(self.message)
+
+
 class LBTGeometryConversionError(Exception):
     def __init__(self, _in):
         self.message = 'Input Error: Cannot convert "{}" to LBT Geometry.'.format(
@@ -78,6 +88,9 @@ class IGH:
         raise Exception(
             'Error: The input node "{}" cannot be founnd?'.format(_input_name)
         )
+
+    def gh_compo_get_input_for_node_number(self, _node_number):
+        return self.ghenv.Component.Params.Input[_node_number].VolatileData
 
     def gh_compo_get_input_guids(self, _input_index_number):
         # type: (int) -> list[System.Guid]
@@ -370,6 +383,14 @@ class IGH:
 
         return new_LBT_face3ds
 
+    def warning(self, _in):
+        """Raise a runtime Warning message on the GH Component"""
+        if not _in:
+            return None
+        else:
+            level = self.Grasshopper.Kernel.GH_RuntimeMessageLevel.Warning
+            self.ghenv.Component.AddRuntimeMessage(level, _in)
+
 
 def handle_inputs(IGH, _input_objects, _input_name):
     # type: (IGH, list, str) -> list[dict]
@@ -401,3 +422,27 @@ def handle_inputs(IGH, _input_objects, _input_name):
         d.update({"Geometry": g})
 
     return inputs
+
+
+def input_to_int(IGH, _input_value, _default=None):
+    """For 'selection' type inputs, clean and convert input to int.
+
+    ie: if the Grasshopper input allows:
+        "1-A First Type"
+        "2-A Second Type"
+
+    will strip the string part and return just the integer value, or error.
+
+    """
+
+    if not _input_value:
+        return _default
+
+    try:
+        return int(_input_value)
+    except ValueError as e:
+        try:
+            r = str(_input_value).split("-")
+            return int(r[0])
+        except ValueError as e2:
+            raise SelectionInputError(_input_value)

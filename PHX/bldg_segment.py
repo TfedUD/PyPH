@@ -17,6 +17,7 @@ import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
 import PHX.occupancy
+import PHX.infiltration
 
 
 class ZoneTypeError(Exception):
@@ -370,6 +371,7 @@ class BldgSegment(PHX._base._Base):
         self.HaMT = {}
         self.PHIUS_certification = PHIUSCertification()
         self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
+        self.infiltration = PHX.infiltration.Infiltration()
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
         self.HVAC = PHX.hvac.HVAC()
