@@ -200,6 +200,9 @@ def _PH_Building(_obj):
         PyPH_WUFI.xml_node.XML_Node("NumberUnits", _obj.num_units, "unit", "-"),
         PyPH_WUFI.xml_node.XML_Node("CountStories", _obj.num_stories),
         # PyPH_WUFI.xml_node.XML_Node("InternalGainsSetting", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            "EnvelopeAirtightnessCoefficient", _obj.q50, "unit", "m³/m²h"
+        ),
     ]
 
 
@@ -765,6 +768,8 @@ def _BldgSegment(_obj):
             "occupancy_setting_method",
             "num_units",
             "num_stories",
+            "q50",
+            "n50",
         ],
     )
 
@@ -777,6 +782,8 @@ def _BldgSegment(_obj):
         2,
         _obj.occupancy.num_units,
         _obj.occupancy.num_stories,
+        _obj.infiltration.q50,
+        _obj.infiltration.n50,
     )
 
     # ---- PassivehouseData Object

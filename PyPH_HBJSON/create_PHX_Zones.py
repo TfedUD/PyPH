@@ -3,6 +3,8 @@
 
 """Functions used to build WUFI Zones and WUFI Rooms based on HB-Model inputs"""
 
+import statistics
+
 import honeybee.room
 import PHX.bldg_segment
 import PHX.spaces
@@ -89,17 +91,47 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
     return spaces
 
 
-def calc_HB_room_infiltration(_hb_room: honeybee.room.Room) -> float:
-    """Return the Infiltration airlow (m3/h) of the Honeybee Room"""
+# -- Schedules
+# ----
+"""This is included only to cache the  schedules, so don't have to recompute 8760 hourly values each time."""
+schedules_infiltration = {}
 
-    room_airflow_m3_s_m2 = (
+
+def get_infiltration_schdedule_annual_avg(_hb_room: honeybee.room.Room):
+    """Returns the Honeybee room's infiltration average annual reduction rate, as per the Honeybee Schedule"""
+
+    sched_identifier = _hb_room.properties.energy.infiltration.schedule.identifier
+    if sched_identifier in schedules_infiltration.keys():
+        # -- If the schedules has already been computed, just use that one
+        # -- This is just done to speed up the overall calculation.
+        return schedules_infiltration[sched_identifier]
+    else:
+        # -- Otherwise, computer the annual average value
+        schedule = _hb_room.properties.energy.infiltration.schedule
+        sched_avg_value = statistics.mean(schedule.data_collection().values)
+
+        # -- And add it to the colletion
+        schedules_infiltration[sched_identifier] = sched_avg_value
+        return sched_avg_value
+
+
+def calc_HB_room_infiltration(_hb_room: honeybee.room.Room) -> float:
+    """Return the annual average infiltration airlow rate (m3/h) of the Honeybee Room
+
+    Note: This value takes into account the Infiltration rate and the Schedule
+    """
+
+    avg_reduction_factor = get_infiltration_schdedule_annual_avg(_hb_room)
+
+    room_peak_airflow_m3_s_m2 = (
         _hb_room.properties.energy.infiltration.flow_per_exterior_area
     )
     room_exterior_m2 = _hb_room.exposed_area
-    room_airflow_m3_s = room_airflow_m3_s_m2 * room_exterior_m2
-    room_airflow_m3_h = room_airflow_m3_s * 3600
+    room_peak_airflow_m3_s = room_peak_airflow_m3_s_m2 * room_exterior_m2
+    room_peak_airflow_m3_h = room_peak_airflow_m3_s * 3600
+    room_annual_avg_airflow_m3_h = room_peak_airflow_m3_h * avg_reduction_factor
 
-    return room_airflow_m3_h
+    return room_annual_avg_airflow_m3_h
 
 
 def add_default_res_appliance_to_zone(

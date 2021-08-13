@@ -31,12 +31,13 @@ def preview_infiltration_calc(_hb_room, PHX_space_vn50, room_infil_airflow, _pre
     print("RESULT:")
     print(
         "  > HB-Room New Total Infiltration Flowrate: {:.2f} m3/hr ({:.4f} m3/s) @ {}Pa".format(
-            room_infil_airflow * 60 * 60, room_infil_airflow, _pressure
+            room_infil_airflow * 3600, room_infil_airflow, _pressure
         )
     )
 
 
 def calc_hb_room_infiltration_rate(_hb_room, _n50, _q50, _pressure, _preview=False):
+    """Retursn the Infiltration flow rate (m3/h) at the specified pressure differential"""
 
     # - Probably can just get this info from the flat dict? No need to rebuild the object?
     spaces_dict = _hb_room.user_data.get("phx", {}).get("spaces")
@@ -64,15 +65,16 @@ def calc_hb_room_infiltration_rate(_hb_room, _n50, _q50, _pressure, _preview=Fal
     return room_infil_airflow
 
 
-def calc_standard_flow_rate(_hb_room_infilt_rate, _pressure=50.0):
-    """Flow Rate incorporating Blower Pressure
-    This equation comes from Honeybee. The HB Component uses a standard pressure
-    at rest of 4 Pascals.
+# ??? We don't use this any more????
+# def calc_standard_flow_rate(_hb_room_infilt_rate, _pressure=50.0):
+#     """Flow Rate incorporating Blower Pressure
+#     This equation comes from Honeybee. The HB Component uses a standard pressure
+#     at rest of 4 Pascals.
 
-    """
+#     """
 
-    normal_avg_pressure = 4.0  # Pa
-    factor = math.pow((_pressure / normal_avg_pressure), 0.63)
-    standardFlowRate = _hb_room_infilt_rate / factor  # m3/s
+#     normal_avg_pressure = 4.0  # Pa
+#     factor = math.pow((_pressure / normal_avg_pressure), 0.63)
+#     standardFlowRate = _hb_room_infilt_rate / factor  # m3/s
 
-    return standardFlowRate
+#     return standardFlowRate

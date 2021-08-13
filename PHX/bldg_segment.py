@@ -260,11 +260,11 @@ class Zone(PHX._base._Base):
         self.id = self._count
         self.n = None
         self.typeZ = 1
-        self.volume_gross = None
+        self.volume_gross = 0.0
         self.volume_gross_selection = 7
-        self.volume_net = None
+        self.volume_net = 0.0
         self.volume_net_selection = 4
-        self.floor_area = None
+        self.floor_area = 0.0
         self.floor_area_selection = 4
         self.clearance_height_selection = 2
         self.clearance_height = 2.5
@@ -282,12 +282,19 @@ class Zone(PHX._base._Base):
 
     def add_spaces(self, _new_spaces):
         # type (list[PHX.spaces.Space]): -> None
-        """Adds new Spaces (Rooms) to the BldgSegment"""
+        """Adds new Spaces to the Zone"""
 
         if not isinstance(_new_spaces, list):
             _new_spaces = [_new_spaces]
+
         for space in _new_spaces:
             self.rooms_ventilation.append(space)
+
+            # -- Add to the zone totals
+            self.volume_net += space.volume
+            self.volume_net_selection = 6  # user-defined
+            self.floor_area += space.floor_area_weighted
+            self.floor_area_selection = 6  # user-defined
 
     def add_new_appliance(self, _appliance):
         # type (Appliance) -> None
@@ -297,11 +304,11 @@ class Zone(PHX._base._Base):
 
     @staticmethod
     def _clean_join(_a, _b):
-        if not _a and not _b:
+        if _a is None and _b is None:
             return None
-        elif not _a and _b:
+        elif _a is None and _b is not None:
             return _b
-        elif _a and not _b:
+        elif _a is not None and _b is None:
             return _a
         else:
             return _a + _b
@@ -371,7 +378,7 @@ class BldgSegment(PHX._base._Base):
         self.HaMT = {}
         self.PHIUS_certification = PHIUSCertification()
         self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
-        self.infiltration = PHX.infiltration.Infiltration()
+        self.infiltration = PHX.infiltration.Infiltration(self)
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
         self.HVAC = PHX.hvac.HVAC()
@@ -402,6 +409,27 @@ class BldgSegment(PHX._base._Base):
 
         cls._default = new_obj
         return new_obj
+
+    @property
+    def total_envelope_area(self):
+        try:
+            return sum(_.volume_gross for _ in self.zones)
+        except ZeroDivisionError:
+            return 0
+
+    @property
+    def total_volume_net(self):
+        try:
+            return sum(_.volume_net for _ in self.zones)
+        except ZeroDivisionError:
+            return 0
+
+    @property
+    def total_volume_gross(self):
+        try:
+            return sum(_.volume_gross for _ in self.zones)
+        except ZeroDivisionError:
+            return 0
 
     def add_zones(self, _zones):
         # type: (list[PHX.spaces.Zone]) -> None

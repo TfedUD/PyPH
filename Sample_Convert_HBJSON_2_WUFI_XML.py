@@ -72,17 +72,23 @@ for room in hb_model.rooms:
     new_spaces = PyPH_HBJSON.create_PHX_Zones.create_PHX_Spaces_from_HB_room(room)
     new_zone.add_spaces(new_spaces)
 
+    # -- Add to the zone's totals
+    new_zone.volume_gross += room.volume
+    new_zone.volume_gross_selection = 6  # user-defined
+
+    host_blg_segment.add_zones(new_zone)
+
+    # --
     # Note: for now, all Honeybee Rooms get a single 'System'. Might need to
     # change this in the future? Not sure when/if you would need more than 1 system?
     host_blg_segment.HVAC.default_system.add_zone_to_system_coverage(new_zone)
     host_blg_segment.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
 
-    # new_zone = add_default_res_appliance_to_zone( new_zone )
-
     # -- Figure out the Infiltration airflow / n50, q50
     room_infiltration = PyPH_HBJSON.create_PHX_Zones.calc_HB_room_infiltration(room)
-    host_blg_segment.add_zones(new_zone)
+    host_blg_segment.infiltration.annual_avg_airflow += room_infiltration
 
+    # new_zone = add_default_res_appliance_to_zone( new_zone )
 
 # # --- Bulild all the Components (Surfaces, Windows)
 # # ----------------------------------------------------------------------------
