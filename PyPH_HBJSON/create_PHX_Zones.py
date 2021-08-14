@@ -3,7 +3,11 @@
 
 """Functions used to build WUFI Zones and WUFI Rooms based on HB-Model inputs"""
 
+from PyPH_HBJSON.create_PHX_components import (
+    create_new_window_component_from_hb_aperture,
+)
 import statistics
+import math
 
 import honeybee.room
 import PHX.bldg_segment
@@ -115,23 +119,66 @@ def get_infiltration_schdedule_annual_avg(_hb_room: honeybee.room.Room):
         return sched_avg_value
 
 
-def calc_HB_room_infiltration(_hb_room: honeybee.room.Room) -> float:
-    """Return the annual average infiltration airlow rate (m3/h) of the Honeybee Room
+# def calc_HB_room_infiltration_at_standard_pressure(
+#     _hb_room: honeybee.room.Room,
+# ) -> float:
+#     """Return the annual average infiltration airlow rate (m3/s) of the Honeybee
+#         Room at normal pressure (~4Pa).
 
-    Note: This value takes into account the Infiltration rate and the Schedule
+#     Note: This value takes into account the Infiltration rate and the Schedule
+#     """
+
+#     avg_reduction_factor = get_infiltration_schdedule_annual_avg(_hb_room)
+
+
+#     room_exterior_m2 = _hb_room.exposed_area
+#     room_peak_airflow_m3s = room_peak_airflow_m3s_m2 * room_exterior_m2
+#     room_annual_avg_airflow_m3s = room_peak_airflow_m3s * avg_reduction_factor
+
+#     return room_annual_avg_airflow_m3s
+
+
+def calc_airflow_at_test_pressure(_infilt_at_standard_p: float) -> float:
+    """Returns the infiltration airflow (m3/s) at test pressure.
+
+    Reverses the Honeybee 'Blower Pressure Converter' calcualtion.
+    Convert infiltration airflow at 'normal' pressure back to airflow at test pressure
+
+    HB Equation:
+          _infilt_at_standard_p = C_qa * (test_pressure ** flow_expoent)
+          C_qa = (flow_per_exterior * air_density) / (test_pressure ** flow_exponent)
+
+    Rearrange to solve for flow_per_exterior
+        C_qa = _infilt_at_standard_p / (test_pressure ** flow_expoent)
+        infilt_at_test_p = (C_qa * (test_pressure ** flow_exponent))/air_density
     """
 
-    avg_reduction_factor = get_infiltration_schdedule_annual_avg(_hb_room)
+    air_density = 1.0
+    flow_exponent = 0.65
+    test_pressure = 50  # Pa
+    bldg_pressure = 4  # Pa
 
-    room_peak_airflow_m3_s_m2 = (
+    C_qa = _infilt_at_standard_p / (bldg_pressure ** flow_exponent)
+    infilt_at_test_p = (C_qa * (test_pressure ** flow_exponent)) / air_density
+
+    return infilt_at_test_p
+
+
+def calc_HB_room_infiltration(_hb_room: honeybee.room.Room) -> float:
+    """Returns the annual average infiltration airflow (m3/s) at blower-door test pressure"""
+
+    # -- Calc the peak airflow at test pressure
+    peak_airflow_per_exterior_at_test_p = calc_airflow_at_test_pressure(
         _hb_room.properties.energy.infiltration.flow_per_exterior_area
     )
-    room_exterior_m2 = _hb_room.exposed_area
-    room_peak_airflow_m3_s = room_peak_airflow_m3_s_m2 * room_exterior_m2
-    room_peak_airflow_m3_h = room_peak_airflow_m3_s * 3600
-    room_annual_avg_airflow_m3_h = room_peak_airflow_m3_h * avg_reduction_factor
 
-    return room_annual_avg_airflow_m3_h
+    # -- Calc the annual average airflow at test pressure
+    avg_annual_reduction_factor = get_infiltration_schdedule_annual_avg(_hb_room)
+    room_exterior_m2 = _hb_room.exposed_area
+    room_peak_airflow_m3s = peak_airflow_per_exterior_at_test_p * room_exterior_m2
+    room_annual_avg_airflow_m3s = room_peak_airflow_m3s * avg_annual_reduction_factor
+
+    return room_annual_avg_airflow_m3s
 
 
 def add_default_res_appliance_to_zone(

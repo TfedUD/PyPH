@@ -412,24 +412,15 @@ class BldgSegment(PHX._base._Base):
 
     @property
     def total_envelope_area(self):
-        try:
-            return sum(_.volume_gross for _ in self.zones)
-        except ZeroDivisionError:
-            return 0
+        return sum(_.exposed_area for _ in self.components)
 
     @property
     def total_volume_net(self):
-        try:
-            return sum(_.volume_net for _ in self.zones)
-        except ZeroDivisionError:
-            return 0
+        return sum(_.volume_net for _ in self.zones)
 
     @property
     def total_volume_gross(self):
-        try:
-            return sum(_.volume_gross for _ in self.zones)
-        except ZeroDivisionError:
-            return 0
+        return sum(_.volume_gross for _ in self.zones)
 
     def add_zones(self, _zones):
         # type: (list[PHX.spaces.Zone]) -> None
