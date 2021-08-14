@@ -18,6 +18,25 @@ class BldgSegmentOccupancy(PHX._base._Base):
         self.num_units = 1
         self.num_stories = 1
 
+    def validate(self):
+        """Ensure all values are allowed / compatible"""
+        if self.category == 1:
+            if self.usage_type == 1:
+                return None
+            else:
+                return 'Error: Usage-Type of "{}" not allowed with Occupancy-Category "{}".'.format(
+                    self.usage_type, self.category
+                )
+        elif self.category == 2:
+            if self.usage_type in [4, 5, 6, 7]:
+                return None
+            else:
+                return 'Error: Usage-Type of "{}" not allowed with Occupancy-Category "{}".'.format(
+                    self.usage_type, self.category
+                )
+        else:
+            return 'Error: Category of "{}" not allowed.'.format(self.category)
+
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1

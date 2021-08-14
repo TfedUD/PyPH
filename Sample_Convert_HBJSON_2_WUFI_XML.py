@@ -72,15 +72,24 @@ for room in hb_model.rooms:
     new_spaces = PyPH_HBJSON.create_PHX_Zones.create_PHX_Spaces_from_HB_room(room)
     new_zone.add_spaces(new_spaces)
 
+    # -- Add to the zone's totals
+    new_zone.volume_gross += room.volume
+    new_zone.volume_gross_selection = 6  # user-defined
+
+    host_blg_segment.add_zones(new_zone)
+
+    # --
     # Note: for now, all Honeybee Rooms get a single 'System'. Might need to
     # change this in the future? Not sure when/if you would need more than 1 system?
     host_blg_segment.HVAC.default_system.add_zone_to_system_coverage(new_zone)
     host_blg_segment.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
 
+    # -- Figure out the Infiltration airflow / n50, q50
+    room_infiltration_m3s = PyPH_HBJSON.create_PHX_Zones.calc_HB_room_infiltration(room)
+    room_infiltration_m3h = room_infiltration_m3s * 3600
+    host_blg_segment.infiltration.annual_avg_airflow += room_infiltration_m3h
+
     # new_zone = add_default_res_appliance_to_zone( new_zone )
-
-    host_blg_segment.add_zones(new_zone)
-
 
 # # --- Bulild all the Components (Surfaces, Windows)
 # # ----------------------------------------------------------------------------
@@ -117,6 +126,18 @@ for room in hb_model.rooms:
         # -- Pack the new Polygons & Components onto the BldgSegment.
         host_blg_segment.add_components(opaque_compo)
 
+#
+#
+x = 0
+for seg in project_1.lBldgSegments:
+    for compo in seg.components:
+        x += 1
+        print(x, compo.n, compo.exposed_area)
+#
+#
+#
+#
+
 
 # --- Clean up the BuildingSegments
 # ----------------------------------------------------------------------------
@@ -125,7 +146,6 @@ for seg in project_1.lBldgSegments:
     # -- Sometimes might not want this though, so needs to be user-setting
     seg.merge_zones()
     seg.merge_components(by="assembly")
-
 
 # # ----------------------------------------------------------------------------
 project_1.add_assemblies_from_collection(assmbly_collection)

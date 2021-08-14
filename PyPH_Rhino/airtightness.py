@@ -31,12 +31,13 @@ def preview_infiltration_calc(_hb_room, PHX_space_vn50, room_infil_airflow, _pre
     print("RESULT:")
     print(
         "  > HB-Room New Total Infiltration Flowrate: {:.2f} m3/hr ({:.4f} m3/s) @ {}Pa".format(
-            room_infil_airflow * 60 * 60, room_infil_airflow, _pressure
+            room_infil_airflow * 3600, room_infil_airflow, _pressure
         )
     )
 
 
-def calc_hb_room_infiltration_rate(_hb_room, _n50, _q50, _pressure, _preview=False):
+def calc_hb_room_infiltration_m3s(_hb_room, _n50, _q50, _pressure, _preview=False):
+    """Returns the Infiltration flow rate (m3/s) at the specified pressure differential"""
 
     # - Probably can just get this info from the flat dict? No need to rebuild the object?
     spaces_dict = _hb_room.user_data.get("phx", {}).get("spaces")
@@ -46,14 +47,13 @@ def calc_hb_room_infiltration_rate(_hb_room, _n50, _q50, _pressure, _preview=Fal
     PHX_space_vn50 = sum(float(_.get("volume")) for _ in spaces_dict.values())
 
     if _n50:
-        room_infil_airflow = (PHX_space_vn50 * _n50) / 3600  # m3/s
+        room_infil_airflow = (PHX_space_vn50 * _n50) / 3600
     elif _q50:
-        room_infil_airflow = _hb_room.exposed_area * _q50 / 3600
+        room_infil_airflow = _hb_room.exposed_area * _q50
     else:
         room_infil_airflow = (
             _hb_room.exposed_area
             * _hb_room.properties.energy.infiltration.flow_per_exterior_area
-            / 3600
         )
 
     if _preview:
@@ -62,17 +62,3 @@ def calc_hb_room_infiltration_rate(_hb_room, _n50, _q50, _pressure, _preview=Fal
         )
 
     return room_infil_airflow
-
-
-def calc_standard_flow_rate(_hb_room_infilt_rate, _pressure=50.0):
-    """Flow Rate incorporating Blower Pressure
-    This equation comes from Honeybee. The HB Component uses a standard pressure
-    at rest of 4 Pascals.
-
-    """
-
-    normal_avg_pressure = 4.0  # Pa
-    factor = math.pow((_pressure / normal_avg_pressure), 0.63)
-    standardFlowRate = _hb_room_infilt_rate / factor  # m3/s
-
-    return standardFlowRate

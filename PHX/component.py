@@ -59,6 +59,13 @@ class Component(PHX._base._Base):
         self.idWtC = -1
 
     @property
+    def exposed_area(self):
+        if self.idEC in [-1, -2]:
+            return sum(_.area for _ in self.polygons)
+        else:
+            return 0
+
+    @property
     def polygon_id_list(self):
         """Get the list of the Component's Poly id numbers
 
