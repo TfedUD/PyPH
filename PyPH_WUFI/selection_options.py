@@ -166,3 +166,24 @@ __Occupancy = {
         },
     },
 }
+
+# -- Foundations
+__Foundation = {
+    "FloorSlabType": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Heated basement, or underground floor slab",
+            2: "Unheated basement",
+            3: "Slab on grade",
+            4: "Suspended floor",
+            5: "None",
+        },
+    },
+    "SettingFloorSlabType": {
+        "attr_name": "choice",
+        "enum": {
+            2: "Detect automatically",
+            6: "User defined",
+        },
+    },
+}

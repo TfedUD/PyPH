@@ -126,8 +126,6 @@ def _HVAC_Device(_obj):
     d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
     d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
     d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
-    d.update({"HeatRecovery": _obj.HeatRecovery})
-    d.update({"MoistureRecovery": _obj.MoistureRecovery})
 
     return d
 
@@ -297,5 +295,12 @@ def _PHIUSCertification(_obj):
     d.update({"PHIUS2021_cooling_load": _obj.PHIUS2021_cooling_load})
     d.update({"building_status": _obj.building_status})
     d.update({"building_type": _obj.building_type})
+
+    return d
+
+
+# -- Ground
+def _Foundation(_obj):
+    d = {}
 
     return d

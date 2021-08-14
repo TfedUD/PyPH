@@ -50,11 +50,12 @@ class HVAC_PH_Parameters(PHX._base._Base):
         self.Quantity = 1
         self.SubsoilHeatExchangeEfficiency = 0.0
         self.HumidityRecoveryEfficiency = 0.0
-        self.VolumeFlowRateFrom = None
-        self.VolumeFlowRateTo = None
-        self.TemperatureBelowDefrostUsed = None
-        self.DefrostRequired = False
-        self.NoSummerBypass = True
+        self.HeatRecoveryEfficiency = 0.75
+        self.VolumeFlowRateFrom = 0.0
+        self.VolumeFlowRateTo = 0.0
+        self.TemperatureBelowDefrostUsed = -5  # C
+        self.DefrostRequired = True
+        self.NoSummerBypass = False
         self.HRVCalculatorData = None
         self.Maximum_VOS = 0
         self.Maximum_PP = 100
@@ -64,8 +65,8 @@ class HVAC_PH_Parameters(PHX._base._Base):
         self.Basic_PP = 0
         self.Minimum_VOS = 0
         self.Minimum_PP = 0
-        self.AuxiliaryEnergy = None
-        self.AuxiliaryEnergyDHW = None
+        self.AuxiliaryEnergy = 0.0
+        self.AuxiliaryEnergyDHW = 0.0
         self.InConditionedSpace = True
 
     @classmethod
@@ -94,8 +95,6 @@ class HVAC_Device(PHX._base._Base):
         self.UseOptionalClimate = False
         self.IdentNr_OptionalClimate = -1
         self.PH_Parameters = HVAC_PH_Parameters()
-        self.HeatRecovery = 0.75
-        self.MoistureRecovery = 0.0
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""

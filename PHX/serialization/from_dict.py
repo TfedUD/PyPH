@@ -29,18 +29,10 @@ def _VentilationUtilization(_cls, _input_dict):
 def _VentilationUtilizations(_cls, _input_dict):  # Collection
     new_obj = _cls()
 
-    new_obj.maximum = PHX.utilization_patterns.VentilationUtilization.from_dict(
-        _input_dict.get("maximum", {})
-    )
-    new_obj.standard = PHX.utilization_patterns.VentilationUtilization.from_dict(
-        _input_dict.get("standard", {})
-    )
-    new_obj.basic = PHX.utilization_patterns.VentilationUtilization.from_dict(
-        _input_dict.get("basic", {})
-    )
-    new_obj.minimum = PHX.utilization_patterns.VentilationUtilization.from_dict(
-        _input_dict.get("minimum", {})
-    )
+    new_obj.maximum = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("maximum", {}))
+    new_obj.standard = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("standard", {}))
+    new_obj.basic = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("basic", {}))
+    new_obj.minimum = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("minimum", {}))
 
     return new_obj
 
@@ -71,9 +63,7 @@ def _SummerVent(_cls, _input_dict):
     new_obj.additional_mech_spec_power = _input_dict.get("additional_mech_spec_power")
     new_obj.exhaust_ach = _input_dict.get("exhaust_ach")
     new_obj.exhaust_spec_power = _input_dict.get("exhaust_spec_power")
-    new_obj.additional_mech_control_mode = _input_dict.get(
-        "additional_mech_control_mode"
-    )
+    new_obj.additional_mech_control_mode = _input_dict.get("additional_mech_control_mode")
     new_obj.avg_mech_control_mode = _input_dict.get("avg_mech_control_mode")
 
     return new_obj
@@ -112,12 +102,8 @@ def _HVAC_Ventilation_System(_cls, _input_dict):
     new_obj.type = _input_dict.get("type")
 
     new_obj.duct_01 = PHX.hvac.HVAC_Device.from_dict(_input_dict.get("ventilator", {}))
-    new_obj.duct_01 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(
-        _input_dict.get("duct_01", {})
-    )
-    new_obj.duct_02 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(
-        _input_dict.get("duct_02", {})
-    )
+    new_obj.duct_01 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(_input_dict.get("duct_01", {}))
+    new_obj.duct_02 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(_input_dict.get("duct_02", {}))
 
     return new_obj
 
@@ -127,16 +113,10 @@ def _PropertiesVentilation(_cls, _input_dict):
     new_obj = _cls()
 
     if _input_dict:
-        new_obj.airflows = PHX.hvac.HVAC_Ventilation_Airflows.from_dict(
-            _input_dict.get("airflows", {})
-        )
-        new_obj.ventilator = PHX.hvac.HVAC_Device.from_dict(
-            _input_dict.get("ventilator", {})
-        )
-        new_obj.utilization_pattern = (
-            PHX.utilization_patterns.UtilizationPattern_Ventilation.from_dict(
-                _input_dict.get("utilization_pattern", {})
-            )
+        new_obj.airflows = PHX.hvac.HVAC_Ventilation_Airflows.from_dict(_input_dict.get("airflows", {}))
+        new_obj.ventilator = PHX.hvac.HVAC_Device.from_dict(_input_dict.get("ventilator", {}))
+        new_obj.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.from_dict(
+            _input_dict.get("utilization_pattern", {})
         )
 
     return new_obj
@@ -159,9 +139,7 @@ def _HVAC_PH_Parameters(_cls, _input_dict):
     new_obj.ElectricEfficiency = _input_dict.get("ElectricEfficiency")
     new_obj.FrostProtection = _input_dict.get("FrostProtection")
     new_obj.Quantity = _input_dict.get("Quantity")
-    new_obj.SubsoilHeatExchangeEfficiency = _input_dict.get(
-        "SubsoilHeatExchangeEfficiency"
-    )
+    new_obj.SubsoilHeatExchangeEfficiency = _input_dict.get("SubsoilHeatExchangeEfficiency")
     new_obj.HumidityRecoveryEfficiency = _input_dict.get("HumidityRecoveryEfficiency")
     new_obj.VolumeFlowRateFrom = _input_dict.get("VolumeFlowRateFrom")
     new_obj.VolumeFlowRateTo = _input_dict.get("VolumeFlowRateTo")
@@ -201,11 +179,7 @@ def _HVAC_Device(_cls, _input_dict):
     new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
     new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
     new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
-    new_obj.PH_Parameters = PHX.hvac.HVAC_PH_Parameters.from_dict(
-        _input_dict.get("PH_Parameters.to_dict()", {})
-    )
-    new_obj.HeatRecovery = _input_dict.get("HeatRecovery")
-    new_obj.MoistureRecovery = _input_dict.get("MoistureRecovery")
+    new_obj.PH_Parameters = PHX.hvac.HVAC_PH_Parameters.from_dict(_input_dict.get("PH_Parameters", {}))
 
     return new_obj
 
@@ -237,9 +211,7 @@ def _FloorSegment(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("_ventilation", {})
-    )
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     for _ in _input_dict.get("geometry", {}).values():
@@ -256,9 +228,7 @@ def _Floor(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("_ventilation", {})
-    )
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     new_obj.floor_segments = []
@@ -290,9 +260,7 @@ def _Volume(_cls, _input_dict):
             new_geom_list.append(LBT_Utils.geometry.LBT_geometry_dict_util(__))
         new_obj.volume_geometry.append(new_geom_list)
 
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("_ventilation", {})
-    )
+    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
 
     return new_obj
 
@@ -305,9 +273,7 @@ def _Space(_cls, _input_dict):
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
     new_obj.occupancy = _input_dict.get("occupancy")
     new_obj.equipment = _input_dict.get("equipment")
-    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(
-        _input_dict.get("ventilation", {})
-    )
+    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("ventilation", {}))
     new_obj.volume = _input_dict.get("volume")  # Number
     new_obj.volumes = []  # Volume Objects
     for volume_dict in _input_dict.get("volumes", {}).values():
@@ -342,5 +308,12 @@ def _PHIUSCertification(_cls, _input_dict):
     new_obj.PHIUS2021_cooling_load = _input_dict.get("PHIUS2021_cooling_load")
     new_obj.building_status = _input_dict.get("building_status")
     new_obj.building_type = _input_dict.get("building_type")
+
+    return new_obj
+
+
+# -- Ground
+def _Foundation(_cls, _input_dict):
+    new_obj = _cls()
 
     return new_obj

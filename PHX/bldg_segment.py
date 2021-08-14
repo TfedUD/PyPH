@@ -18,13 +18,12 @@ import PHX.spaces
 import PHX.summer_ventilation
 import PHX.occupancy
 import PHX.infiltration
+import PHX.ground
 
 
 class ZoneTypeError(Exception):
     def __init__(self, _in):
-        self.message = 'Error: Expected input of type: "PHX.bldg_segment.Zone" Got: "{}"::"{}"?'.format(
-            _in, type(_in)
-        )
+        self.message = 'Error: Expected input of type: "PHX.bldg_segment.Zone" Got: "{}"::"{}"?'.format(_in, type(_in))
         super(ZoneTypeError, self).__init__(self.message)
 
 
@@ -319,14 +318,12 @@ class Zone(PHX._base._Base):
 
         # -- Combine weighted paramaters first
         new_obj.clearance_height = (
-            (self.clearance_height * self.floor_area)
-            + (other.clearance_height * other.floor_area)
+            (self.clearance_height * self.floor_area) + (other.clearance_height * other.floor_area)
         ) / (self.floor_area + other.floor_area)
 
-        new_obj.spec_heat_cap = (
-            (self.spec_heat_cap * self.floor_area)
-            + (other.spec_heat_cap * other.floor_area)
-        ) / (self.floor_area + other.floor_area)
+        new_obj.spec_heat_cap = ((self.spec_heat_cap * self.floor_area) + (other.spec_heat_cap * other.floor_area)) / (
+            self.floor_area + other.floor_area
+        )
 
         # -- Combine Summer Ventilation, weighted by Zone volume
         new_obj.summer_ventilation = PHX.summer_ventilation.SummerVent.weighted_join(
@@ -379,6 +376,7 @@ class BldgSegment(PHX._base._Base):
         self.PHIUS_certification = PHIUSCertification()
         self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
         self.infiltration = PHX.infiltration.Infiltration(self)
+        self.foundations = [PHX.ground.Foundation()]
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
         self.HVAC = PHX.hvac.HVAC()
