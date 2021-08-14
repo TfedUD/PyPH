@@ -109,22 +109,18 @@ def set_compo_exterior_exposure_from_hb_face(
     exterior_exposure_types = {
         "Outdoors": -1,
         "Ground": -2,
+        "Adiabatic": -3,
+        "Surface": -3,
     }
 
-    if _hb_face.boundary_condition.name == "Surface":
+    if "SURFACE" in str(_hb_face.boundary_condition.name).upper():
         # -- Apply defaults in case can't find the matching surface
         # -- This happens with inter-zone surfaces that are exposed to another
-        # -- 'Case' (bldg_segment)
-
         ec_value = -3  # Adiabatic
         ec_attr = None
-
-        # -- Try and set a real exposure by finding the opposing surface
-        # -- Not Working yet......
-        # for zone in _zones:
-        #     if zone.identifier == _hb_face.boundary_condition.boundary_condition_objects[-1]:
-        #         ec_value = zone.id
-        #         ec_attr = zone.wp_display_name
+    elif "ADIABATIC" in str(_hb_face.boundary_condition.name).upper():
+        ec_value = -3  # Adiabatic
+        ec_attr = None
     else:
         ec_value = exterior_exposure_types.get(_hb_face.boundary_condition.name, -1)
         ec_attr = None

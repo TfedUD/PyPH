@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""Utility functions for handling Loads, pulled from Honeybee 'ApplyLoadVals' Grasshopper component"""
+
 from honeybee.typing import clean_and_id_ep_string
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.lib.scheduletypelimits import schedule_type_limit_by_identifier
