@@ -281,7 +281,7 @@ class Zone(PHX._base._Base):
         return super(Zone, cls).__new__(cls, *args, **kwargs)
 
     def add_spaces(self, _new_spaces):
-        # type (list[PHX.spaces.Space]): -> None
+        # type; (list[PHX.spaces.Space]): -> None
         """Adds new Spaces to the Zone"""
 
         if not isinstance(_new_spaces, list):
