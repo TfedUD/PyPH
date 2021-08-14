@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""PHX Summer Ventilation Class"""
+
 import PHX._base
 import PHX.serialization.from_dict
 

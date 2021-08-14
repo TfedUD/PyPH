@@ -30,11 +30,26 @@ standard component because for PH Cert we are supposed to use the Net Internal V
 NOT the gross volume. E+ / HB use the gross volume and so given the same ACH, they will
 arrive at different infiltration flow rates (flow = ACH * Volume). For PH work, use this component.
 -
-EM August 11, 2021
+EM August 14, 2021
     Args:
-        _n50: (ACH) The target ACH leakage rate
-        _q50: (m3/hr-m2-surface) The target leakage rate per m2 of exposed surface area
-        _pressure: (Pascal) Blower Door pressure for the airtightness measurement. Default is 50Pa
+        _n50: (ACH) The target ACH leakage rate.
+            
+            For PHI Certification (@50Pa):
+                * New Construction: < 0.6 ACH
+                * Retrofit: < 1.0 ACH
+                * Low-Energy Building < 1.0 ACH
+        _q50: (m3/s per m2-surface) The target leakage rate per m2 of exposed surface area.
+            Gross envelope is measured at the exterior of the thermal boundary, the 
+            same as for the energy model, and includes surfaces in contact with the ground.
+            
+            For PHIUS 2021 Certification (@5OPa):
+                * Buildings 5-stories or above and non-combustible: _____ m3/s-m2 [0.080 CFM/ft2]
+                * All others: < ______ m3/s-m2 [0.060 CFM/ft2]
+            
+            For PHI Certification (@50Pa):
+                * Recommendation < 0.00017 m3/s-m2 [ _____ CFM/ft2]
+        
+        _blower_pressure: (Pascal) Blower Door pressure for the airtightness measurement. Default is 50Pa
         _HBZones: Honeybee Zones to apply this leakage rate to. Note, this should 
             be the set of all the zones which were tested together as part of a
             Blower Door test. IE: if the blower door test included Zones A, B,
@@ -44,8 +59,10 @@ EM August 11, 2021
         HB_rooms_: The Honeybee Room(s) with their Infiltration values modified.
 """
 
+from honeybee_energy.properties.room import RoomEnergyProperties
 from honeybee_energy.load.infiltration import Infiltration
 import LBT_Utils
+import LBT_Utils.boundary_conditions
 import PyPH_Rhino.airtightness
 
 # --- 
@@ -53,44 +70,55 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Airtightness"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 14, 2021')
 
 if DEV:
     reload(PyPH_Rhino.airtightness)
     reload(LBT_Utils)
+    reload(LBT_Utils.boundary_conditions)
 
 # ---
+infiltration_sch_ = LBT_Utils.create_hb_constant_schedule( 'Infilt_Const_Sched' )
 HB_rooms_ = []
 for room in _HB_rooms:
     if not room: continue
     
     # Calc the Zone's Infiltration Airflow based on the PHX Space's Volume
     # --------------------------------------------------------------------------
-    room_infil_airflow = PyPH_Rhino.airtightness.calc_hb_room_infiltration_rate(
-                                                                        room,
-                                                                        _n50,
-                                                                        _q50, 
-                                                                        _pressure, 
-                                                                        _preview=True)
-    standard_flow_rate = PyPH_Rhino.airtightness.calc_standard_flow_rate(room_infil_airflow,
-                                                                        _pressure)
-    
+    room_infil_m3s_at_test_pressure = PyPH_Rhino.airtightness.calc_hb_room_infiltration_m3s(
+                                                room, _n50, _q50, 
+                                                _blower_pressure, _preview=True)
     
     # --------------------------------------------------------------------------
-    # Calc the Zone's Infiltration Rate in m3/hr-2 of floor area (zone gross)
-    infilt_per_floor_area = standard_flow_rate /  room.floor_area  #m3/hr ---> m3/hr-m2-floor
-    infilt_per_exterior_area = standard_flow_rate /  room.exposed_area  #m3/hr ---> m3/hr-m2-facade
+    # -- Covert down to 4Pa which is what Honeybee uses for inputs
+    # -- Compute coeffiecient and airflow@ 4Pa
+    bldg_pressure = 4 #Pa
     
+    #-- Get the infiltration airflow at test pressure
+    room_exposed_area = LBT_Utils.boundary_conditions.hb_room_PHX_exposed_area(room)
+    room_infil_m3sm2_at_test_pressure = room_infil_m3s_at_test_pressure / room_exposed_area
+    
+    #-- Convert to resting pressure
+    C_qa = RoomEnergyProperties.solve_norm_area_flow_coefficient(
+        room_infil_m3sm2_at_test_pressure, air_density=1, delta_pressure=_blower_pressure)
+    room_infil_m3sm2_at_rest_pressure = C_qa * (bldg_pressure ** 0.65)
+    
+    # -- More preview.... so many values!!
+    print '>   HB-Room: Specific infiltration rate at normal pressure:'
+    print '>       {:.04f} m3/h-m2 ({:.06f} m3/s-m2) @4Pa'.format(room_infil_m3sm2_at_rest_pressure*3600, room_infil_m3sm2_at_rest_pressure)
+    print '>   HB-Room: Absolute infiltration rate at normal pressure:'
+    print '>       {:.01f} m3/h @4Pa ({:.06f} m3/s)'.format(
+        room_infil_m3sm2_at_rest_pressure*3600*room_exposed_area,
+        room_infil_m3sm2_at_rest_pressure*room_exposed_area)
     
     # --------------------------------------------------------------------------
     # Set the Load and Schedule for the HB-Room
     new_hb_room = room.duplicate()
     
     infilt_load = LBT_Utils.hb_loads.dup_load(new_hb_room, 'infiltration', Infiltration)
-    infilt_load.flow_per_exterior_area = infilt_per_exterior_area
+    infilt_load.flow_per_exterior_area = room_infil_m3sm2_at_rest_pressure
     LBT_Utils.hb_loads.assign_load(new_hb_room, infilt_load, 'infiltration')
     
-    infiltration_sch_ = LBT_Utils.create_hb_constant_schedule( 'Infilt_Const_Sched' )
     infilt_sched = LBT_Utils.hb_loads.dup_load(new_hb_room, 'infiltration', 'infiltration_sch_')
     infilt_sched.schedule = infiltration_sch_
     LBT_Utils.hb_loads.assign_load(new_hb_room, infilt_sched, 'infiltration')

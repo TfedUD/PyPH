@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""Rhino/Grasshopper functions for building PHX Envelope Surfaces"""
+
 import random
 import math
 import ladybug_geometry.geometry3d

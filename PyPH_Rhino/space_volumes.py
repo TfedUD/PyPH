@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Functions to create new Space-Volumes and set attributes based on Rhino Geometry inputs"""
 
 import PHX.spaces

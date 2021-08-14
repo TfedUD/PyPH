@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Utility functions pulled from Honeybee 'ApplyLoadVals' Grasshopper component"""
 
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 3.x -*-
+# -*- Python Version: 3.9 -*-
 
 """WUFI XML Output fields for all Objects
 

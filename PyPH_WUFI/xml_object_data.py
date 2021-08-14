@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 3.x -*-
+# -*- Python Version: 3.9 -*-
 
 """Function to locate the appropriate XML output Schema for the object """
 

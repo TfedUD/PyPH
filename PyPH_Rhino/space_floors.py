@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Functions to create new FloorSegments and Floors based on Rhino Geometry input"""
 
 from collections import defaultdict

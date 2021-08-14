@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Utility functions for working with Ladybug-Tools objects"""
 
 import ladybug_geometry.geometry3d.face

@@ -87,6 +87,7 @@ for room in hb_model.rooms:
     # -- Figure out the Infiltration airflow / n50, q50
     room_infiltration_m3s = PyPH_HBJSON.create_PHX_Zones.calc_HB_room_infiltration(room)
     room_infiltration_m3h = room_infiltration_m3s * 3600
+
     host_blg_segment.infiltration.annual_avg_airflow += room_infiltration_m3h
 
     # new_zone = add_default_res_appliance_to_zone( new_zone )
@@ -125,19 +126,6 @@ for room in hb_model.rooms:
 
         # -- Pack the new Polygons & Components onto the BldgSegment.
         host_blg_segment.add_components(opaque_compo)
-
-#
-#
-x = 0
-for seg in project_1.lBldgSegments:
-    for compo in seg.components:
-        x += 1
-        print(x, compo.n, compo.exposed_area)
-#
-#
-#
-#
-
 
 # --- Clean up the BuildingSegments
 # ----------------------------------------------------------------------------

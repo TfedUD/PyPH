@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""Rhino/Grasshopper functions for buiding PHX Ventilation Systems, Ducts."""
+
 import PHX.hvac
 import PyPH_Rhino.gh_io
 

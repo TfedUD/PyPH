@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """IO handler for Rhino user-input Floor-Surface geometry objects"""
 
 import gh_io
