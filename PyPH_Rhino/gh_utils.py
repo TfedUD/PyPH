@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Utility classes for working in Rhino / Grasshopper"""
+
 import uuid
 
 

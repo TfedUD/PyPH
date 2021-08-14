@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
 """Grasshopper Interface Class. Used to pass Rhino, GH side dependancies to all other classes.
 
 This is done so that other classes can be tested by mocking out this Interface. If I 

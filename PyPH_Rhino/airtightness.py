@@ -3,7 +3,6 @@
 
 """Rhino/Grasshopper Envelope Airtightness functions for calculating airtightness using Vn50"""
 
-
 import honeybee.face
 import LBT_Utils.boundary_conditions
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Functions to create Floors, Volumes and Spaces from Rhino inputs"""
+# -*- Python Version: 2.7 -*-
+
+"""Functions to create PHX-Floors, PHX-Volumes and PHX-Spaces from Rhino inputs"""
 
 from collections import defaultdict
 

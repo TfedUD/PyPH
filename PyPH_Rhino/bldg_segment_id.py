@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""Rhino/Grasshopper functions for manaing BuildingSegment information"""
+
 import uuid
 
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 3.x -*-
+# -*- Python Version: 3.9 -*-
 
 """Selection Options. Make sure that the dict name here matches the XML Node Name"""
 

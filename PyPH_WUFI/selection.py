@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 3.x -*-
+# -*- Python Version: 3.9 -*-
 
 """For XML Objects with constrained Attributes, used to organize and validate names/values
 
