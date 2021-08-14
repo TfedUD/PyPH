@@ -5,7 +5,6 @@
 PHX Geometry Classes
 """
 
-from ladybug_geometry.geometry3d.pointvector import Vector3D
 import PHX._base
 
 
