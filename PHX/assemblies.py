@@ -6,6 +6,7 @@ PHX Material and Assembly / Construction Classes.
 """
 
 import PHX._base
+import PHX.serialization.from_dict
 
 
 class Material(PHX._base._Base):
@@ -17,16 +18,16 @@ class Material(PHX._base._Base):
         self.id = self._count
         self.idDB = None
         self.n = "default_material"
-        self.tConD = 1      
-        self.densB = 50     
-        self.poros = 0.95
-        self.hCapS = 1000   
-        self.difRes = 1     
+        self.tConD = 1                # In HB
+        self.densB = 50               # In HB
+        self.poros = 0.95              
+        self.hCapS = 1000             # In HB
+        self.difRes = 1                 
         self.refWC = 0
         self.freeWSat = None
         self.wACoef = None
         self.tConSupM = None
-        self.tConSupT = None
+        self.tConSupT = None    
         self.typMC = None
         self.typeSA = None
         self.color = None
