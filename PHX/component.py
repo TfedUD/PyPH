@@ -60,10 +60,14 @@ class Component(PHX._base._Base):
 
     @property
     def exposed_area(self):
-        if self.idEC in [-1, -2]:
-            return sum(_.area for _ in self.polygons)
-        else:
-            return 0
+        # Note: Excludes windows and door area, since that would double count
+        # Opaque areas are not 'punched' areas (yet).
+        if self.type != 1:
+            return 0  # Only include Opaque surfaces
+        if self.idEC not in [-1, -2]:
+            return 0  # Exclude Adiabatic / Surface Expsure
+
+        return sum(_.area for _ in self.polygons)
 
     @property
     def polygon_id_list(self):

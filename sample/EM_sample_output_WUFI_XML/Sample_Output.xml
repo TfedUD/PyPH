@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>8</Month>
 			<Day>14</Day>
-			<Hour>14</Hour>
-			<Minutes>16</Minutes>
+			<Hour>16</Hour>
+			<Minutes>12</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -6389,7 +6389,7 @@
 						<OccupancySettingMethod choice="Design">2</OccupancySettingMethod>
 						<NumberUnits unit="-">1</NumberUnits>
 						<CountStories>4</CountStories>
-						<EnvelopeAirtightnessCoefficient unit="m³/m²h">0.9736252389906753</EnvelopeAirtightnessCoefficient>
+						<EnvelopeAirtightnessCoefficient unit="m³/m²h">1.0972821945643891</EnvelopeAirtightnessCoefficient>
 					</PH_Building>
 				</PH_Buildings>
 			</PassivehouseData>
@@ -10542,7 +10542,7 @@
 						<OccupancySettingMethod choice="Design">2</OccupancySettingMethod>
 						<NumberUnits unit="-">1</NumberUnits>
 						<CountStories>2</CountStories>
-						<EnvelopeAirtightnessCoefficient unit="m³/m²h">0.9728841139455321</EnvelopeAirtightnessCoefficient>
+						<EnvelopeAirtightnessCoefficient unit="m³/m²h">1.0972821945643891</EnvelopeAirtightnessCoefficient>
 					</PH_Building>
 				</PH_Buildings>
 			</PassivehouseData>
