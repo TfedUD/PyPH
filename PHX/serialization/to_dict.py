@@ -320,6 +320,7 @@ def _Foundation(_obj):
 def _Appliance(_obj):
     d = {}
 
+    d.update({"type": _obj.type})
     d.update({"reference_quantity": _obj.reference_quantity})
     d.update({"quantity": _obj.quantity})
     d.update({"in_conditioned_space": _obj.in_conditioned_space})

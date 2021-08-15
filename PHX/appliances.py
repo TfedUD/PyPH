@@ -3,6 +3,7 @@ import PHX._base
 
 class Appliance(PHX._base._Base):
     def __init__(self):
+        self.type = 1
         self.reference_quantity = 2  # Zone Occupants
         self.quantity = 1
         self.in_conditioned_space = True
@@ -39,6 +40,7 @@ class Appliance(PHX._base._Base):
         app = cls()
 
         # -- Standard
+        app.type = 1  # dishwasher
         app.reference_quantity = 2  # Zone Occupants
         app.quantity = 1
         app.in_conditioned_space = True
@@ -51,5 +53,26 @@ class Appliance(PHX._base._Base):
         app.dishwasher_capacity_type = 1  # standard
         app.dishwasher_capacity = 12
         app.dishwasher_water_connection = 2  # Cold Water
+
+        return app
+
+    @classmethod
+    def PHIUS_clothes_washer(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 1  # dishwasher
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 116  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        # -- Specific
+        app.washer_capacity = 0.0814  # m3
+        app.washer_modified_energy_factor = 2.38
+        app.washer_connection = 1  # DHW Connection
 
         return app

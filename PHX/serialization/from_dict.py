@@ -351,6 +351,7 @@ def _Assemblies(_cls, _input_dict):
 def _Appliance(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.type = _input_dict.get("type")
     new_obj.reference_quantity = _input_dict.get("reference_quantity")
     new_obj.quantity = _input_dict.get("quantity")
     new_obj.in_conditioned_space = _input_dict.get("in_conditioned_space")

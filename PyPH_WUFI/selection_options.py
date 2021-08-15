@@ -190,7 +190,26 @@ __Foundation = {
 
 # -- Appliances
 __Appliances = {
-    "ref_quantity": {
+    "ReferenceEnergyDemandNorm": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Day",
+            2: "Year",
+        },
+    },
+    "Type": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Kitchen dishwasher",
+            2: "Zone occupants",
+            3: "Bedroooms",
+            4: "PH case Units",
+            5: "User defined",
+            6: "PH case floor area",
+            7: "Zone floor area",
+        },
+    },
+    "ReferenceQuantity": {
         "attr_name": "choice",
         "enum": {
             1: "PH cas occupants",
@@ -202,7 +221,7 @@ __Appliances = {
             7: "Zone floor area",
         },
     },
-    "dw_capacity": {
+    "DishwasherCapacityPreselection": {
         "attr_name": "choice",
         "enum": {
             1: "Standard",
@@ -210,7 +229,7 @@ __Appliances = {
             3: "User defined",
         },
     },
-    "dw_connection": {
+    "Connection": {
         "attr_name": "choice",
         "enum": {
             1: "DHW connection",
