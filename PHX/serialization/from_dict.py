@@ -298,8 +298,8 @@ def _ZoneOccupancy(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
-    new_obj.num_occupants = _input_dict.get("num_occupants")
-    new_obj.num_bedrooms = _input_dict.get("num_bedrooms")
+    new_obj.num_occupants = _input_dict.get("num_occupants", 0)
+    new_obj.num_bedrooms = _input_dict.get("num_bedrooms", 0)
 
     return new_obj
 
