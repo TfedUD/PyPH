@@ -327,7 +327,7 @@ def _Foundation(_cls, _input_dict):
 
     return new_obj
 
-
+"""
 def _Materials(_cls, _input_dict):
     new_obj = _cls()
 
@@ -345,7 +345,7 @@ def _Assemblies(_cls, _input_dict):
 
     new_obj.n = _input_dict.get("identifier")
     # new_obj.Layers = _input_dict.get()
-
+"""
 
 # -- Appliances
 def _Appliance(_cls, _input_dict):
