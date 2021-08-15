@@ -51,7 +51,7 @@ def get_host_PHX_BldgSegment(
             host_bldg_segment.n = var_name
 
             # -- Occupancy
-            occupancy_dict = _hb_room.user_data.get("phx", {}).get("occupancy", {})
+            occupancy_dict = _hb_room.user_data.get("phx", {}).get("segment_occupancy", {})
             if occupancy_dict:
                 occ_obj = PHX.occupancy.BldgSegmentOccupancy.from_dict(occupancy_dict)
                 host_bldg_segment.occupancy = occ_obj

@@ -28,9 +28,8 @@ from ladybug_rhino.fromgeometry import (
 
 class SelectionInputError(Exception):
     def __init__(self, _in):
-        self.message = (
-            'Input Error: Cannot use input "{}" [{}].\n'
-            "Please check the allowable input options.".format(_in, type(_in))
+        self.message = 'Input Error: Cannot use input "{}" [{}].\n' "Please check the allowable input options.".format(
+            _in, type(_in)
         )
 
         super(SelectionInputError, self).__init__(self.message)
@@ -38,9 +37,7 @@ class SelectionInputError(Exception):
 
 class LBTGeometryConversionError(Exception):
     def __init__(self, _in):
-        self.message = 'Input Error: Cannot convert "{}" to LBT Geometry.'.format(
-            type(_in)
-        )
+        self.message = 'Input Error: Cannot convert "{}" to LBT Geometry.'.format(type(_in))
 
         super(LBTGeometryConversionError, self).__init__(self.message)
 
@@ -87,9 +84,7 @@ class IGH:
             if _input_name.upper() in names:
                 return i
 
-        raise Exception(
-            'Error: The input node "{}" cannot be founnd?'.format(_input_name)
-        )
+        raise Exception('Error: The input node "{}" cannot be founnd?'.format(_input_name))
 
     def gh_compo_get_input_for_node_number(self, _node_number):
         return self.ghenv.Component.Params.Input[_node_number].VolatileData
@@ -113,9 +108,7 @@ class IGH:
 
         guids = []
         try:
-            for _ in self.ghenv.Component.Params.Input[
-                _input_index_number
-            ].VolatileData[0]:
+            for _ in self.ghenv.Component.Params.Input[_input_index_number].VolatileData[0]:
                 try:
                     guids.append(_.ReferenceID)
                 except AttributeError:
@@ -268,11 +261,7 @@ class IGH:
             elif isinstance(_, honeybee.face.Face3D):
                 rh_geom.append(from_face3d(_))
             else:
-                raise Exception(
-                    'Input Error: Cannot convert "{}" to Rhino Geometry.'.format(
-                        type(_)
-                    )
-                )
+                raise Exception('Input Error: Cannot convert "{}" to Rhino Geometry.'.format(type(_)))
 
         return rh_geom
 
@@ -302,38 +291,24 @@ class IGH:
 
         # Get the inset Curve
         # -----------------------------------------------------------------------
-        srfcCentroid = self.Rhino.Geometry.AreaMassProperties.Compute(
-            rh_floor_surface
-        ).Centroid
+        srfcCentroid = self.Rhino.Geometry.AreaMassProperties.Compute(rh_floor_surface).Centroid
         plane = self.grasshopper_components.XYPlane(srfcCentroid)
         plane = self.grasshopper_components.IsPlanar(rh_floor_surface, True).plane
-        srfcPerim_Inset_Pos = self.grasshopper_components.OffsetCurve(
-            srfcPerim, _inset_distance, plane, 1
-        )
-        srfcPerim_Inset_Neg = self.grasshopper_components.OffsetCurve(
-            srfcPerim, _inset_distance * -1, plane, 1
-        )
+        srfcPerim_Inset_Pos = self.grasshopper_components.OffsetCurve(srfcPerim, _inset_distance, plane, 1)
+        srfcPerim_Inset_Neg = self.grasshopper_components.OffsetCurve(srfcPerim, _inset_distance * -1, plane, 1)
 
         # Choose the right Offset Curve. The one with the smaller area
         # Check IsPlanar first to avoid self.grasshopper_components.BoundarySurfaces error
         # -----------------------------------------------------------------------
         if srfcPerim_Inset_Pos.IsPlanar:
-            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(
-                srfcPerim_Inset_Pos
-            )
+            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(srfcPerim_Inset_Pos)
         else:
-            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(
-                srfcPerim
-            )  # Use the normal perim
+            srfcInset_Pos = self.grasshopper_components.BoundarySurfaces(srfcPerim)  # Use the normal perim
 
         if srfcPerim_Inset_Neg.IsPlanar():
-            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(
-                srfcPerim_Inset_Neg
-            )
+            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(srfcPerim_Inset_Neg)
         else:
-            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(
-                srfcPerim
-            )  # Use the normal perim
+            srfcInset_Neg = self.grasshopper_components.BoundarySurfaces(srfcPerim)  # Use the normal perim
 
         # -----------------------------------------------------------------------
         area_Pos = self.grasshopper_components.Area(srfcInset_Pos).area
@@ -364,9 +339,7 @@ class IGH:
         perims = []
         for face3D in _face3Ds:
             rh_brep = self.convert_to_rhino_geom(face3D)
-            faces, edges, vertices = self.grasshopper_components.DeconstructBrep(
-                rh_brep
-            )
+            faces, edges, vertices = self.grasshopper_components.DeconstructBrep(rh_brep)
             perims.append(self.grasshopper_components.JoinCurves(edges, True))
 
         joined_curves = self.grasshopper_components.RegionUnion(perims)

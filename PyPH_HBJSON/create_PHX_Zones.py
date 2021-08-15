@@ -10,11 +10,12 @@ import PHX.bldg_segment
 import PHX.spaces
 import PHX.summer_ventilation
 import PHX.utilization_patterns
+import PHX.occupancy
 import LBT_Utils.program
 import LBT_Utils.boundary_conditions
 
 # -- Zones
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segment.Zone:
     """Creates a new PHX-Zone from a single Honeybee 'Room'.
 
@@ -49,6 +50,10 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
         _hb_room.user_data.get("phx", {}).get("summ_vent", {})
     )
 
+    # -- Occupany Parameters
+    occ_dict = _hb_room.user_data.get("phx", {}).get("zone_occupancy", {})
+    zone.occupancy = PHX.occupancy.ZoneOccupancy.from_dict(occ_dict)
+
     return zone
 
 
@@ -56,9 +61,7 @@ def set_Space_ventilation_from_HB_room(_hb_room, _phx_Space):
     """Calcs and sets PHX-Space's ventilation flow rates based on the host Honeyebee Room"""
 
     # - Ventilation Airflow
-    total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(
-        _hb_room
-    )
+    total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(_hb_room)
 
     _phx_Space.ventilation.supply = total_vent_airflow * 3600
     _phx_Space.ventilation.extract = total_vent_airflow * 3600
@@ -92,8 +95,8 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
     return spaces
 
 
-# -- Schedules
-# ----
+# -- Infiltration
+# ------------------------------------------------------------------------------
 """This is included only to cache the  schedules, so don't have to recompute 8760 hourly values each time."""
 schedules_infiltration = {}
 
@@ -146,9 +149,7 @@ def calc_airflow_at_test_pressure(_flow_at_standard_p: float) -> float:
     bldg_pressure = 4  # Pa
 
     C_qa = _flow_at_standard_p / (bldg_pressure ** flow_exponent)
-    flow_per_exterior_at_test_p = (
-        C_qa * (test_pressure ** flow_exponent)
-    ) / air_density
+    flow_per_exterior_at_test_p = (C_qa * (test_pressure ** flow_exponent)) / air_density
 
     return flow_per_exterior_at_test_p
 

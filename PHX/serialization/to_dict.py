@@ -282,6 +282,16 @@ def _BldgSegmentOccupancy(_obj):
     return d
 
 
+def _ZoneOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"num_occupants": _obj.num_occupants})
+    d.update({"num_bedrooms": _obj.num_bedrooms})
+
+    return d
+
+
 # -- Passive House Certification
 def _PHIUSCertification(_obj):
     d = {}

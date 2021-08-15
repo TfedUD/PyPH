@@ -44,7 +44,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Unit"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 14, 2021')
 
 if DEV:
     reload(PHX.hvac)
@@ -66,8 +66,8 @@ unit_.UsedFor_Ventilation = True
 
 # -- Custom Attributes
 unit_.Name = unit_name_ or 'Unnamed Vent. Unit'
-unit_.HeatRecovery = validate_efficiency(heat_recovery_eff_) or unit_.HeatRecovery
-unit_.MoistureRecovery = validate_efficiency(moisture_recovery_eff_) or unit_.MoistureRecovery
+unit_.PH_Parameters.HeatRecoveryEfficiency = validate_efficiency(heat_recovery_eff_) or unit_.PH_Parameters.HeatRecoveryEfficiency
+unit_.PH_Parameters.HumidityRecoveryEfficiency = validate_efficiency(moisture_recovery_eff_) or unit_.PH_Parameters.HumidityRecoveryEfficiency
 
 unit_.PH_Parameters.ElectricEfficiency = electrical_eff_ or unit_.PH_Parameters.ElectricEfficiency
 unit_.PH_Parameters.TemperatureBelowDefrostUsed = frost_temp_ or unit_.PH_Parameters.TemperatureBelowDefrostUsed
