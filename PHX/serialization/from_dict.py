@@ -291,6 +291,15 @@ def _BldgSegmentOccupancy(_cls, _input_dict):
     new_obj.usage_type = _input_dict.get("usage_type")
     new_obj.num_units = _input_dict.get("num_units")
     new_obj.num_stories = _input_dict.get("num_stories")
+    return new_obj
+
+
+def _ZoneOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.num_occupants = _input_dict.get("num_occupants")
+    new_obj.num_bedrooms = _input_dict.get("num_bedrooms")
 
     return new_obj
 

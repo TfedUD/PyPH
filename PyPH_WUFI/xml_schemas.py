@@ -240,7 +240,8 @@ def _Zone(_obj):
             "HomeDevice",
             [PyPH_WUFI.xml_node.XML_Node("Device", _, "index", i) for i, _ in enumerate(_obj.appliances)],
         ),
-        # -- Summer Ventilation Crap
+        # -- Summer Ventilation
+        # ----------------------------------------------------------------------
         PyPH_WUFI.xml_node.XML_Node(  # = same as winter
             "SummerMechanicalVentilationNight",
             _obj.summer_ventilation.avg_mech_ach,
@@ -282,6 +283,20 @@ def _Zone(_obj):
             _obj.summer_ventilation.exhaust_spec_power,
             "unit",
             "Wh/m³",
+        ),
+        # -- Zone Occupancy
+        # ----------------------------------------------------------------------
+        PyPH_WUFI.xml_node.XML_Node(
+            "NumberBedrooms",
+            _obj.occupancy.num_bedrooms,
+            "unit",
+            "-",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "OccupantQuantityUserDef",
+            _obj.occupancy.num_occupants,
+            "unit",
+            "-",
         ),
     ]
 

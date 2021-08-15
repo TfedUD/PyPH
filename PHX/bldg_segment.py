@@ -273,6 +273,7 @@ class Zone(PHX._base._Base):
         self.source_zone_identifiers = []
         self.appliances = []
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
+        self.occupancy = PHX.occupancy.ZoneOccupancy()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -346,6 +347,9 @@ class Zone(PHX._base._Base):
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
         new_obj.appliances.extend(self.appliances)
         new_obj.appliances.extend(other.appliances)
+
+        # -- Combine Occupancies
+        new_obj.occupancy = self.occupancy + other.occupancy
 
         return new_obj
 

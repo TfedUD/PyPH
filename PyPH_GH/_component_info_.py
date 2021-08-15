@@ -22,6 +22,12 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
+    "PyPH - Zone Occupancy": {
+        "NickName": "PHX Zone Occupancy",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
     # ---------------------------------------------------------------------------
     # Section 01.1 | Geometry
     "PyPH - Get Surface Params": {
