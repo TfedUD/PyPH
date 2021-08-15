@@ -330,22 +330,23 @@ def _Foundation(_cls, _input_dict):
 
 def _Materials(_cls, _input_dict):
     new_obj = _cls()
-    
+
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.n = _input_dict.get("n")
     new_obj.tConD = _input_dict.get("tConD")
     new_obj.densB = _input_dict.get("densB")
     new_obj.hCapS = _input_dict.get("hCapS")
-    
+
     return new_obj
+
 
 def _Assemblies(_cls, _input_dict):
     new_obj = _cls()
-    
+
     new_obj.n = _input_dict.get("identifier")
-    #new_obj.Layers = _input_dict.get()
-    
-    
+    # new_obj.Layers = _input_dict.get()
+
+
 # -- Appliances
 def _Appliance(_cls, _input_dict):
     new_obj = _cls()
@@ -379,6 +380,6 @@ def _Appliance(_cls, _input_dict):
     new_obj.cooktop_type = _input_dict.get("cooktop_type")
 
     # -- PHIUS Lighting
-    new_obj.lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
+    new_obj.lighting_frac_high_efficiency = _input_dict.get("lighting_frac_high_efficiency")
 
     return new_obj
