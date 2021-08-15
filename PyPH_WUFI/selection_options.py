@@ -239,4 +239,29 @@ __Appliances = {
             2: "Cold water connection",
         },
     },
+    "Dryer_Choice": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Clothesline",
+            2: "Drying closet (cold)",
+            3: "Drying closet (cold) at exhaust",
+            4: "Condensation dryer",
+            5: "Electric exhaust air dryer",
+            6: "Gas exhaust air dryer",
+        },
+    },
+    "FieldUtilizationFactorPreselection": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Timer controls",
+            2: "Moisture sensing",
+        },
+    },
+    "CookingWith": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Cooking with electricity",
+            2: "Cooking with gas",
+        },
+    },
 }

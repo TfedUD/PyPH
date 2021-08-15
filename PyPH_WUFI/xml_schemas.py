@@ -781,8 +781,95 @@ def _Project(_obj):
     ]
 
 
-def _Appliance(_obj):
+def _Appliance_dishwasher(_obj):
     return [
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "Appliances::DishwasherCapacityPreselection", _obj.dishwasher_capacity_type
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("CapacityClothesWasher", _obj.dishwasher_capacity, "unit", "m³"),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
+        ),
+    ]
+
+
+def _Appliance_clothes_washer(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("UtilizationFactor", _obj.washer_utilization_factor, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("MEF_ModifiedEnergyFactor", _obj.washer_modified_energy_factor, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.washer_connection).xml_data
+        ),
+    ]
+
+
+def _Appliance_clothes_dryer(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::Dryer_Choice", _obj.dryer_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("GasConsumption", _obj.dryer_gas_consumption, "unit", "kWh"),
+        PyPH_WUFI.xml_node.XML_Node("EfficiencyFactorGas", _obj.dryer_gas_consumption, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "Appliances::FieldUtilizationFactorPreselection", _obj.dryer_field_utilization_factor_type
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("FieldUtilizationFactor", _obj.dryer_field_utilization_factor, "unit", "-"),
+    ]
+
+
+def _Appliance_fridge(_obj):
+    return []
+
+
+def _Appliance_freezer(_obj):
+    return []
+
+
+def _Appliance_fridge_freezer(_obj):
+    return []
+
+
+def _Appliance_cooking(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::CookingWith", _obj.cooktop_type).xml_data
+        ),
+    ]
+
+
+def _Appliance_PHIUS_MEL(_obj):
+    return []
+
+
+def _Appliance_PHIUS_Lighting_Int(_obj):
+    return []
+
+
+def _Appliance_PHIUS_Lighting_Ext(_obj):
+    return []
+
+
+def _Appliance(_obj):
+    """Appliances have some basic shared params, then a bunch of custom params"""
+
+    appliances = {
+        1: _Appliance_dishwasher,
+        2: _Appliance_clothes_washer,
+        3: _Appliance_clothes_dryer,
+        4: _Appliance_fridge,
+        5: _Appliance_freezer,
+        6: _Appliance_fridge_freezer,
+        7: _Appliance_cooking,
+        13: _Appliance_PHIUS_MEL,
+        14: _Appliance_PHIUS_Lighting_Int,
+        15: _Appliance_PHIUS_Lighting_Ext,
+    }
+
+    basic_params = [
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Appliances::Type", _obj.type).xml_data),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::ReferenceQuantity", _obj.reference_quantity).xml_data
@@ -797,16 +884,7 @@ def _Appliance(_obj):
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", _obj.energy_demand, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", _obj.energy_demand_per_use, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
-        # -- Dishwasher
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection(
-                "Appliances::DishwasherCapacityPreselection", _obj.dishwasher_capacity_type
-            ).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("CapacityClothesWasher", _obj.dishwasher_capacity, "unit", "m³"),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
-        ),
-        # -- Laundry Washer
         PyPH_WUFI.xml_node.XML_Node("UtilizationFactor", _obj.washer_utilization_factor, "unit", "-"),
     ]
+
+    return basic_params + appliances.get(_obj.type)(_obj)

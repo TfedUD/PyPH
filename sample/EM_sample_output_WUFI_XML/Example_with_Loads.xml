@@ -13297,12 +13297,12 @@
                 <ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
-                <ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
-                <EnergyDemandNorm unit="kWh" />
+                <ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
+                <EnergyDemandNorm unit="kWh">1676</EnergyDemandNorm>
                 <EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
-                <CEF_CombinedEnergyFactor unit="-" />
+                <CEF_CombinedEnergyFactor unit="-">1</CEF_CombinedEnergyFactor>
                 <Connection choice="DHW connection">1</Connection>
-                <Dryer_Choice choice="Drying closet (cold)">2</Dryer_Choice>
+                <Dryer_Choice choice="Clothesline">1</Dryer_Choice>
                 <GasConsumption unit="kWh" />
                 <EfficiencyFactorGas unit="-">2.67</EfficiencyFactorGas>
                 <FieldUtilizationFactorPreselection choice="Timer controls">1</FieldUtilizationFactorPreselection>
@@ -13335,7 +13335,7 @@
               <Device index="5">
                 <Type choice="Kitchen fridge/freeze combo">6</Type>
                 <Comment />
-                <ReferenceQuantity choice="PH case Units">4</ReferenceQuantity>
+                <ReferenceQuantity choice="User defined">5</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
                 <ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
@@ -13355,7 +13355,7 @@
                 <EnergyDemandNormUse unit="kWh" />
                 <CEF_CombinedEnergyFactor unit="-" />
                 <Connection choice="DHW connection">1</Connection>
-                <CookingWith choice="Cooking with electricity">1</CookingWith>
+                <CookingWith choice="Cooking with gas">2</CookingWith>
               </Device>
               <Device index="7">
                 <Type choice="PHIUS+ MELS">13</Type>

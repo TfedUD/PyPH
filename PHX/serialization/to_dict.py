@@ -320,8 +320,12 @@ def _Foundation(_obj):
 def _ApplianceSet(_obj):
     d = {}
 
-    d.update({"dishwasher": _obj.dishwasher.to_dict()})
-    d.update({"clothes_washer": _obj.clothes_washer.to_dict()})
+    for appliance in _obj.appliances:
+        if not appliance:
+            continue
+
+        appliance_name = _obj.known_types.get(appliance.type)
+        d.update({appliance_name: appliance.to_dict()})
 
     return d
 

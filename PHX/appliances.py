@@ -14,17 +14,39 @@ class UnknownApplianceError(Exception):
 class ApplianceSet(PHX._base._Base):
     """A Collection of Appliances"""
 
-    known_types = {1: "dishwasher", 2: "clothes_washer", 3: "clothes_dryer"}
+    known_types = {
+        1: "dishwasher",
+        2: "clothes_washer",
+        3: "clothes_dryer",
+        4: "fridge",
+        5: "freezer",
+        6: "fridge_freezer",
+        7: "cooking",
+        13: "PHIUS_MEL",
+        14: "PHIUS_Lighting_Int",
+        15: "PHIUS_Lighting_Ext",
+    }
 
     def __init__(self):
         super(ApplianceSet, self).__init__()
         self.dishwasher = None
         self.clothes_washer = None
         self.clothes_dryer = None
+        self.fridge = None
+        self.freezer = None
+        self.fridge_freezer = None
+        self.cooking = None
+        self.PHIUS_MEL = None
+        self.PHIUS_Lighting_Int = None
+        self.PHIUS_Lighting_Ext = None
 
     def add_appliance(self, _appliance):
-        app_type = self.known_types.get(_appliance.type)
+        """Adds a (known type of) Appliance to the set"""
 
+        if not _appliance:
+            return
+
+        app_type = self.known_types.get(_appliance.type)
         if app_type:
             setattr(self, app_type, _appliance)
         else:
@@ -32,7 +54,18 @@ class ApplianceSet(PHX._base._Base):
 
     @property
     def appliances(self):
-        return [self.dishwasher, self.clothes_washer, self.clothes_dryer]
+        return [
+            self.dishwasher,
+            self.clothes_washer,
+            self.clothes_dryer,
+            self.fridge,
+            self.freezer,
+            self.fridge_freezer,
+            self.cooking,
+            self.PHIUS_MEL,
+            self.PHIUS_Lighting_Int,
+            self.PHIUS_Lighting_Ext,
+        ]
 
     def __iter__(self):
         for _ in self.appliances:
@@ -134,5 +167,95 @@ class Appliance(PHX._base._Base):
         app.washer_modified_energy_factor = 2.38
         app.washer_connection = 1  # DHW Connection
         app.washer_utilization_factor = 1
+
+        return app
+
+    @classmethod
+    def PHIUS_clothes_dryer(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 3  # Laundry - dryer
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 3.5  # kwh/use
+        app.combined_energy_facor = 1  # CEF
+
+        # -- Specific
+        app.dryer_type = 1
+        app.dryer_gas_consumption = 0  # kWh
+        app.dryer_gas_efficiency_factor = 2.67
+        app.dryer_field_utilization_factor_type = 1  # Timer
+        app.dryer_field_utilization_factor = 1.18
+
+        return app
+
+    @classmethod
+    def PHIUS_cooktop(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 7  # Kitchen cooking
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0.2  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        # -- Specific
+        app.cooktop_type = 1  # Electric
+
+        return app
+
+    @classmethod
+    def PHIUS_fridge(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 4  # Kitchen refrigerator
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 1  # Day
+        app.energy_demand = 0.28  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        return app
+
+    @classmethod
+    def PHIUS_freezer(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 5  # Kitchen freezer
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 1  # Day
+        app.energy_demand = 1.08  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        return app
+
+    @classmethod
+    def PHIUS_combo_fridge(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 6  # Kitchen fridge/freeze combo
+        app.reference_quantity = 2  # Zone Occupants
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 1  # Day
+        app.energy_demand = 0.99  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
 
         return app

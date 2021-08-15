@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>8</Month>
 			<Day>15</Day>
-			<Hour>15</Hour>
-			<Minutes>49</Minutes>
+			<Hour>17</Hour>
+			<Minutes>51</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -5905,7 +5905,7 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
-						<HomeDevice count="6">
+						<HomeDevice count="5">
 							<Device index="0">
 								<Type choice="Kitchen dishwasher">1</Type>
 								<ReferenceQuantity choice="Zone occupants">2</ReferenceQuantity>
@@ -5915,6 +5915,10 @@
 								<EnergyDemandNorm unit="kWh">260</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<DishwasherCapacityPreselection choice="Standard">1</DishwasherCapacityPreselection>
+								<CapacityClothesWasher unit="m³">12</CapacityClothesWasher>
+								<Connection choice="Cold water connection">2</Connection>
 							</Device>
 							<Device index="1">
 								<Type choice="Laundry - washer">2</Type>
@@ -5925,46 +5929,49 @@
 								<EnergyDemandNorm unit="kWh">116</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<MEF_ModifiedEnergyFactor unit="-">2.38</MEF_ModifiedEnergyFactor>
+								<Connection choice="DHW connection">1</Connection>
 							</Device>
 							<Device index="2">
-								<Type choice="Kitchen dishwasher">1</Type>
+								<Type choice="Laundry - dryer">3</Type>
 								<ReferenceQuantity choice="Zone occupants">2</ReferenceQuantity>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">260</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
-								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<EnergyDemandNorm unit="kWh">0</EnergyDemandNorm>
+								<EnergyDemandNormUse unit="kWh">3.5</EnergyDemandNormUse>
+								<CEF_CombinedEnergyFactor unit="-">1</CEF_CombinedEnergyFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<Dryer_Choice choice="Clothesline">1</Dryer_Choice>
+								<GasConsumption unit="kWh">0</GasConsumption>
+								<EfficiencyFactorGas unit="-">0</EfficiencyFactorGas>
+								<FieldUtilizationFactorPreselection choice="Timer controls">1</FieldUtilizationFactorPreselection>
+								<FieldUtilizationFactor unit="-">1.18</FieldUtilizationFactor>
 							</Device>
 							<Device index="3">
-								<Type choice="Laundry - washer">2</Type>
+								<Type choice="Kitchen fridge/freeze combo">6</Type>
 								<ReferenceQuantity choice="Zone occupants">2</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
+								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">116</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">0.99</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
 							</Device>
 							<Device index="4">
-								<Type choice="Kitchen dishwasher">1</Type>
+								<Type choice="Kitchen cooking">7</Type>
 								<ReferenceQuantity choice="Zone occupants">2</ReferenceQuantity>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">260</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
+								<EnergyDemandNorm unit="kWh">0</EnergyDemandNorm>
+								<EnergyDemandNormUse unit="kWh">0.2</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
-							</Device>
-							<Device index="5">
-								<Type choice="Laundry - washer">2</Type>
-								<ReferenceQuantity choice="Zone occupants">2</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<Quantity>1</Quantity>
-								<InConditionedSpace>true</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">116</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
-								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<CookingWith choice="Cooking with electricity">1</CookingWith>
 							</Device>
 						</HomeDevice>
 						<SummerMechanicalVentilationNight unit="1/h">0.0</SummerMechanicalVentilationNight>

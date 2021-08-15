@@ -328,6 +328,7 @@ def _Foundation(_cls, _input_dict):
 
     return new_obj
 
+
 """
 def _Materials(_cls, _input_dict):
     new_obj = _cls()
@@ -352,12 +353,24 @@ def _Assemblies(_cls, _input_dict):
 def _ApplianceSet(_cls, _input_dict):
     new_obj = _cls()
 
-    new_obj.dishwasher = PHX.appliances.Appliance.from_dict(_input_dict.get("dishwasher", {}))
-    new_obj.clothes_washer = PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_washer", {}))
-    
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("dishwasher", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_washer", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_dryer", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("fridge", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("freezer", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("fridge_freezer", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("cooking", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_MEL", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_Lighting_Int", {})))
+    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_Lighting_Ext", {})))
+
     return new_obj
 
+
 def _Appliance(_cls, _input_dict):
+    if not _input_dict:
+        return None
+
     new_obj = _cls()
 
     new_obj.type = _input_dict.get("type")
