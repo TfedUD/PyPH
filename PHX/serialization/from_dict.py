@@ -346,3 +346,39 @@ def _Assemblies(_cls, _input_dict):
     #new_obj.Layers = _input_dict.get()
     
     
+# -- Appliances
+def _Appliance(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.reference_quantity = _input_dict.get("reference_quantity")
+    new_obj.quantity = _input_dict.get("quantity")
+    new_obj.in_conditioned_space = _input_dict.get("in_conditioned_space")
+    new_obj.reference_energy_norm = _input_dict.get("reference_energy_norm")
+    new_obj.energy_demand = _input_dict.get("energy_demand")
+    new_obj.energy_demand_per_use = _input_dict.get("energy_demand_per_use")
+    new_obj.combined_energy_facor = _input_dict.get("combined_energy_facor")
+
+    # -- Dishwasher
+    new_obj.dishwasher_capacity_type = _input_dict.get("dishwasher_capacity_type")
+    new_obj.dishwasher_capacity = _input_dict.get("dishwasher_capacity")
+    new_obj.dishwasher_water_connection = _input_dict.get("dishwasher_water_connection")
+
+    # -- Laundry Washer
+    new_obj.washer_capacity = _input_dict.get("washer_capacity")
+    new_obj.washer_modified_energy_factor = _input_dict.get("washer_modified_energy_factor")
+    new_obj.washer_connection = _input_dict.get("washer_connection")
+
+    # -- Laundry Dryer
+    new_obj.dryer_type = _input_dict.get("dryer_type")
+    new_obj.dryer_gas_consumption = _input_dict.get("dryer_gas_consumption")
+    new_obj.dryer_gas_efficiency_factor = _input_dict.get("dryer_gas_efficiency_factor")
+    new_obj.dryer_field_utilization_factor_type = _input_dict.get("dryer_field_utilization_factor_type")
+    new_obj.dryer_field_utilization_factor = _input_dict.get("dryer_field_utilization_factor")
+
+    # -- Cooktop
+    new_obj.cooktop_type = _input_dict.get("cooktop_type")
+
+    # -- PHIUS Lighting
+    new_obj.lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
+
+    return new_obj

@@ -65,9 +65,7 @@ project_1 = PHX.project.Project()
 # --- exposures for any adjacent-surfaces can be set with the proper ID number
 # --- when building Components.
 for room in hb_model.rooms:
-    host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(
-        project_1, room
-    )
+    host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     new_zone = PyPH_HBJSON.create_PHX_Zones.create_PHX_Zone_from_HB_room(room)
     new_spaces = PyPH_HBJSON.create_PHX_Zones.create_PHX_Spaces_from_HB_room(room)
     new_zone.add_spaces(new_spaces)
@@ -90,14 +88,10 @@ for room in hb_model.rooms:
 
     host_blg_segment.infiltration.annual_avg_airflow += room_infiltration_m3h
 
-    # new_zone = add_default_res_appliance_to_zone( new_zone )
-
 # # --- Bulild all the Components (Surfaces, Windows)
 # # ----------------------------------------------------------------------------
 for room in hb_model.rooms:
-    host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(
-        project_1, room
-    )
+    host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     zone = host_blg_segment.get_zone_by_identifier(room.identifier)
 
     for face in room.faces:
@@ -105,21 +99,15 @@ for room in hb_model.rooms:
         opaque_compo = create_new_opaque_component_from_hb_face(face)
         opaque_compo.set_host_zone_name(zone)
         # opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
-        opaque_compo = set_compo_exterior_exposure_from_hb_face(
-            opaque_compo, face, host_blg_segment.zones
-        )
+        opaque_compo = set_compo_exterior_exposure_from_hb_face(opaque_compo, face, host_blg_segment.zones)
         opaque_compo = set_compo_colors_by_hb_face(opaque_compo, face)
-        opaque_compo = set_compo_assembly_from_hb_face(
-            opaque_compo, face, assmbly_collection
-        )
+        opaque_compo = set_compo_assembly_from_hb_face(opaque_compo, face, assmbly_collection)
 
         # -- Add any Apertures found on the face
         for aperture in face.apertures:
             host_polygon_identifier = opaque_compo.polygons[0].identifier
             window_compo = create_new_window_component_from_hb_aperture(aperture, zone)
-            window_compo = set_compo_window_type_from_hb_aperture(
-                window_compo, aperture, window_type_collection
-            )
+            window_compo = set_compo_window_type_from_hb_aperture(window_compo, aperture, window_type_collection)
             opaque_compo.add_window_as_child(window_compo, host_polygon_identifier)
 
             host_blg_segment.add_components(window_compo)
