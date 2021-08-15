@@ -56,10 +56,8 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
     zone.occupancy = PHX.occupancy.ZoneOccupancy.from_dict(occ_dict)
 
     # -- Add in any Appliances
-    appliances = _hb_room.user_data.get("phx", {}).get("zone_appliances", {})
-    for app_dict in appliances:
-        appliance = PHX.appliances.Appliance.from_dict(app_dict)
-        zone.appliances.append(appliance)
+    appliance_set_dict = _hb_room.user_data.get("phx", {}).get("zone_appliances", {})
+    zone.appliances = PHX.appliances.ApplianceSet.from_dict(appliance_set_dict)
 
     return zone
 

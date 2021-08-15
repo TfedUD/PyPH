@@ -14,6 +14,7 @@ import PHX.geometry
 import PHX.hvac
 import PHX.spaces
 import PHX.utilization_patterns
+import PHX.appliances
 import LBT_Utils.geometry
 
 # -- Utilization Patterns
@@ -348,6 +349,14 @@ def _Assemblies(_cls, _input_dict):
 """
 
 # -- Appliances
+def _ApplianceSet(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.dishwasher = PHX.appliances.Appliance.from_dict(_input_dict.get("dishwasher", {}))
+    new_obj.clothes_washer = PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_washer", {}))
+    
+    return new_obj
+
 def _Appliance(_cls, _input_dict):
     new_obj = _cls()
 

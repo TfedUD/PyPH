@@ -19,6 +19,7 @@ import PHX.summer_ventilation
 import PHX.occupancy
 import PHX.infiltration
 import PHX.ground
+import PHX.appliances
 
 
 class ZoneTypeError(Exception):
@@ -271,7 +272,7 @@ class Zone(PHX._base._Base):
         self.spec_heat_cap = 132
         self.rooms_ventilation = []
         self.source_zone_identifiers = []
-        self.appliances = []
+        self.appliances = PHX.appliances.ApplianceSet()
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
         self.occupancy = PHX.occupancy.ZoneOccupancy()
 
@@ -340,13 +341,14 @@ class Zone(PHX._base._Base):
         new_obj.volume_net = self._clean_join(self.volume_net, other.volume_net)
         new_obj.floor_area = self.floor_area + other.floor_area
 
-        # -- Extend rooms, appliances
+        # -- Extend rooms ventilation
         new_obj.rooms_ventilation.extend(self.rooms_ventilation)
         new_obj.rooms_ventilation.extend(other.rooms_ventilation)
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
-        new_obj.appliances.extend(self.appliances)
-        new_obj.appliances.extend(other.appliances)
+
+        # -- Combine Appliances
+        new_obj.appliances = self.appliances + other.appliances
 
         # -- Combine Occupancies
         new_obj.occupancy = self.occupancy + other.occupancy

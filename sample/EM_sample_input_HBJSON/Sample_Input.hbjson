@@ -10746,7 +10746,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "79db63f0-b452-4c52-b47d-a72c7c88ae3e"
+                        "identifier": "c7f462ba-5def-4d2e-8738-444f60a09e11"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -10756,11 +10756,34 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "85e80c41-ded8-4fb4-93e2-2391103eb126", 
+                        "identifier": "2b7ada94-3426-4d63-89db-862ee79694ef", 
                         "PHIUS2021_cooling_load": 23
                     }, 
-                    "zone_appliances": [
-                        {
+                    "zone_appliances": {
+                        "clothes_washer": {
+                            "energy_demand_per_use": 0, 
+                            "type": 2, 
+                            "dryer_gas_consumption": 0, 
+                            "cooktop_type": 1, 
+                            "washer_capacity": 0.0814, 
+                            "dryer_field_utilization_factor_type": 1, 
+                            "reference_energy_norm": 2, 
+                            "lighting_frac_high_efficiency": 1, 
+                            "combined_energy_facor": 0, 
+                            "reference_quantity": 2, 
+                            "quantity": 1, 
+                            "washer_connection": 1, 
+                            "in_conditioned_space": true, 
+                            "dryer_field_utilization_factor": 1.1799999999999999, 
+                            "energy_demand": 116, 
+                            "dishwasher_capacity_type": 1, 
+                            "washer_modified_energy_factor": 2.3799999999999999, 
+                            "dishwasher_water_connection": 2, 
+                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
+                            "dishwasher_capacity": 12, 
+                            "dryer_type": 1
+                        }, 
+                        "dishwasher": {
                             "energy_demand_per_use": 0, 
                             "type": 1, 
                             "dryer_gas_consumption": 0, 
@@ -10782,31 +10805,8 @@
                             "dryer_gas_efficiency_factor": 2.6699999999999999, 
                             "dishwasher_capacity": 12, 
                             "dryer_type": 1
-                        }, 
-                        {
-                            "energy_demand_per_use": 0, 
-                            "type": 1, 
-                            "dryer_gas_consumption": 0, 
-                            "cooktop_type": 1, 
-                            "washer_capacity": 0.0814, 
-                            "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
-                            "lighting_frac_high_efficiency": 1, 
-                            "combined_energy_facor": 0, 
-                            "reference_quantity": 2, 
-                            "quantity": 1, 
-                            "washer_connection": 1, 
-                            "in_conditioned_space": true, 
-                            "dryer_field_utilization_factor": 1.1799999999999999, 
-                            "energy_demand": 116, 
-                            "dishwasher_capacity_type": 1, 
-                            "washer_modified_energy_factor": 2.3799999999999999, 
-                            "dishwasher_water_connection": 2, 
-                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
-                            "dishwasher_capacity": 12, 
-                            "dryer_type": 1
                         }
-                    ], 
+                    }, 
                     "hvac_sys_vent": {
                         "identifier": "6b2a81cf-26ba-4b13-a5d4-102401bbdf57", 
                         "duct_01": {
@@ -10880,7 +10880,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "442d984a-218a-4642-a264-04fd0b69dded", 
+                        "identifier": "bb3783d6-a40b-471c-b389-7a89af986062", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -21715,7 +21715,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "79db63f0-b452-4c52-b47d-a72c7c88ae3e"
+                        "identifier": "c7f462ba-5def-4d2e-8738-444f60a09e11"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -21725,11 +21725,34 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "85e80c41-ded8-4fb4-93e2-2391103eb126", 
+                        "identifier": "2b7ada94-3426-4d63-89db-862ee79694ef", 
                         "PHIUS2021_cooling_load": 23
                     }, 
-                    "zone_appliances": [
-                        {
+                    "zone_appliances": {
+                        "clothes_washer": {
+                            "energy_demand_per_use": 0, 
+                            "type": 2, 
+                            "dryer_gas_consumption": 0, 
+                            "cooktop_type": 1, 
+                            "washer_capacity": 0.0814, 
+                            "dryer_field_utilization_factor_type": 1, 
+                            "reference_energy_norm": 2, 
+                            "lighting_frac_high_efficiency": 1, 
+                            "combined_energy_facor": 0, 
+                            "reference_quantity": 2, 
+                            "quantity": 1, 
+                            "washer_connection": 1, 
+                            "in_conditioned_space": true, 
+                            "dryer_field_utilization_factor": 1.1799999999999999, 
+                            "energy_demand": 116, 
+                            "dishwasher_capacity_type": 1, 
+                            "washer_modified_energy_factor": 2.3799999999999999, 
+                            "dishwasher_water_connection": 2, 
+                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
+                            "dishwasher_capacity": 12, 
+                            "dryer_type": 1
+                        }, 
+                        "dishwasher": {
                             "energy_demand_per_use": 0, 
                             "type": 1, 
                             "dryer_gas_consumption": 0, 
@@ -21751,31 +21774,8 @@
                             "dryer_gas_efficiency_factor": 2.6699999999999999, 
                             "dishwasher_capacity": 12, 
                             "dryer_type": 1
-                        }, 
-                        {
-                            "energy_demand_per_use": 0, 
-                            "type": 1, 
-                            "dryer_gas_consumption": 0, 
-                            "cooktop_type": 1, 
-                            "washer_capacity": 0.0814, 
-                            "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
-                            "lighting_frac_high_efficiency": 1, 
-                            "combined_energy_facor": 0, 
-                            "reference_quantity": 2, 
-                            "quantity": 1, 
-                            "washer_connection": 1, 
-                            "in_conditioned_space": true, 
-                            "dryer_field_utilization_factor": 1.1799999999999999, 
-                            "energy_demand": 116, 
-                            "dishwasher_capacity_type": 1, 
-                            "washer_modified_energy_factor": 2.3799999999999999, 
-                            "dishwasher_water_connection": 2, 
-                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
-                            "dishwasher_capacity": 12, 
-                            "dryer_type": 1
                         }
-                    ], 
+                    }, 
                     "hvac_sys_vent": {
                         "identifier": "6b2a81cf-26ba-4b13-a5d4-102401bbdf57", 
                         "duct_01": {
@@ -21849,7 +21849,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "442d984a-218a-4642-a264-04fd0b69dded", 
+                        "identifier": "bb3783d6-a40b-471c-b389-7a89af986062", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -32765,7 +32765,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "79db63f0-b452-4c52-b47d-a72c7c88ae3e"
+                        "identifier": "c7f462ba-5def-4d2e-8738-444f60a09e11"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -32775,11 +32775,34 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "85e80c41-ded8-4fb4-93e2-2391103eb126", 
+                        "identifier": "2b7ada94-3426-4d63-89db-862ee79694ef", 
                         "PHIUS2021_cooling_load": 23
                     }, 
-                    "zone_appliances": [
-                        {
+                    "zone_appliances": {
+                        "clothes_washer": {
+                            "energy_demand_per_use": 0, 
+                            "type": 2, 
+                            "dryer_gas_consumption": 0, 
+                            "cooktop_type": 1, 
+                            "washer_capacity": 0.0814, 
+                            "dryer_field_utilization_factor_type": 1, 
+                            "reference_energy_norm": 2, 
+                            "lighting_frac_high_efficiency": 1, 
+                            "combined_energy_facor": 0, 
+                            "reference_quantity": 2, 
+                            "quantity": 1, 
+                            "washer_connection": 1, 
+                            "in_conditioned_space": true, 
+                            "dryer_field_utilization_factor": 1.1799999999999999, 
+                            "energy_demand": 116, 
+                            "dishwasher_capacity_type": 1, 
+                            "washer_modified_energy_factor": 2.3799999999999999, 
+                            "dishwasher_water_connection": 2, 
+                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
+                            "dishwasher_capacity": 12, 
+                            "dryer_type": 1
+                        }, 
+                        "dishwasher": {
                             "energy_demand_per_use": 0, 
                             "type": 1, 
                             "dryer_gas_consumption": 0, 
@@ -32801,31 +32824,8 @@
                             "dryer_gas_efficiency_factor": 2.6699999999999999, 
                             "dishwasher_capacity": 12, 
                             "dryer_type": 1
-                        }, 
-                        {
-                            "energy_demand_per_use": 0, 
-                            "type": 1, 
-                            "dryer_gas_consumption": 0, 
-                            "cooktop_type": 1, 
-                            "washer_capacity": 0.0814, 
-                            "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
-                            "lighting_frac_high_efficiency": 1, 
-                            "combined_energy_facor": 0, 
-                            "reference_quantity": 2, 
-                            "quantity": 1, 
-                            "washer_connection": 1, 
-                            "in_conditioned_space": true, 
-                            "dryer_field_utilization_factor": 1.1799999999999999, 
-                            "energy_demand": 116, 
-                            "dishwasher_capacity_type": 1, 
-                            "washer_modified_energy_factor": 2.3799999999999999, 
-                            "dishwasher_water_connection": 2, 
-                            "dryer_gas_efficiency_factor": 2.6699999999999999, 
-                            "dishwasher_capacity": 12, 
-                            "dryer_type": 1
                         }
-                    ], 
+                    }, 
                     "hvac_sys_vent": {
                         "identifier": "6b2a81cf-26ba-4b13-a5d4-102401bbdf57", 
                         "duct_01": {
@@ -32899,7 +32899,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "442d984a-218a-4642-a264-04fd0b69dded", 
+                        "identifier": "bb3783d6-a40b-471c-b389-7a89af986062", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
