@@ -187,3 +187,34 @@ __Foundation = {
         },
     },
 }
+
+# -- Appliances
+__Appliances = {
+    "ref_quantity": {
+        "attr_name": "choice",
+        "enum": {
+            1: "PH cas occupants",
+            2: "Zone occupants",
+            3: "Bedroooms",
+            4: "PH case Units",
+            5: "User defined",
+            6: "PH case floor area",
+            7: "Zone floor area",
+        },
+    },
+    "dw_capacity": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Standard",
+            2: "Compact",
+            3: "User defined",
+        },
+    },
+    "dw_connection": {
+        "attr_name": "choice",
+        "enum": {
+            1: "DHW connection",
+            2: "Cold water connection",
+        },
+    },
+}

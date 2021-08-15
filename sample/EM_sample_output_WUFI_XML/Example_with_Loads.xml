@@ -13265,16 +13265,16 @@
               <Device index="0">
                 <Type choice="Kitchen dishwasher">1</Type>
                 <Comment />
-                <ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
+                <ReferenceQuantity choice="User defined">5</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
                 <ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
                 <EnergyDemandNorm unit="kWh">100</EnergyDemandNorm>
                 <EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
                 <CEF_CombinedEnergyFactor unit="-" />
-                <Connection choice="DHW connection">1</Connection>
-                <DishwasherCapacityPreselection choice="Standard">1</DishwasherCapacityPreselection>
-                <DishwasherCapacityInPlace unit="-">12</DishwasherCapacityInPlace>
+                <Connection choice="Cold water connection">2</Connection>
+                <DishwasherCapacityPreselection choice="User defined">3</DishwasherCapacityPreselection>
+                <DishwasherCapacityInPlace unit="-">8</DishwasherCapacityInPlace>
               </Device>
               <Device index="1">
                 <Type choice="Laundry - washer">2</Type>
@@ -13360,7 +13360,7 @@
               <Device index="7">
                 <Type choice="PHIUS+ MELS">13</Type>
                 <Comment />
-                <ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+                <ReferenceQuantity choice="Bedroooms">3</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
                 <ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
@@ -13373,7 +13373,7 @@
               <Device index="8">
                 <Type choice="PHIUS+ Interior lighting">14</Type>
                 <Comment />
-                <ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+                <ReferenceQuantity choice="Zone floor area">7</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
                 <ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
@@ -13386,7 +13386,7 @@
               <Device index="9">
                 <Type choice="PHIUS+ Exterior lighting">15</Type>
                 <Comment />
-                <ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+                <ReferenceQuantity choice="PH case floor area">6</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>false</InConditionedSpace>
                 <ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
@@ -13397,6 +13397,46 @@
                 <FractionHightEfficiency unit="-">1</FractionHightEfficiency>
               </Device>
             </HomeDevice>
+            <Calculator_ACHSummerVentDay count="1">
+              <Item index="0">
+                <FractionOpeningDuration unit="-" />
+                <TemperatureDifference unit="K" />
+                <WindVelocity unit="m/s" />
+                <TiltingWindows1>false</TiltingWindows1>
+                <CountWindows1>1</CountWindows1>
+                <ClearWidth1 unit="m" />
+                <ClearHeight1 unit="m" />
+                <OpeningWidth1 unit="m" />
+                <TiltingWindows2>false</TiltingWindows2>
+                <CountWindows2>1</CountWindows2>
+                <ClearWidth2 unit="m" />
+                <ClearHeight2 unit="m" />
+                <OpeningWidth2 unit="m" />
+                <DifferenceHeightToWindowGroup unit="m" />
+                <Result Error="">----</Result>
+                <RelevantForCalc>false</RelevantForCalc>
+              </Item>
+            </Calculator_ACHSummerVentDay>
+            <Calculator_ACHSummerVentNight count="1">
+              <Item index="0">
+                <FractionOpeningDuration unit="-" />
+                <TemperatureDifference unit="K" />
+                <WindVelocity unit="m/s" />
+                <TiltingWindows1>false</TiltingWindows1>
+                <CountWindows1>1</CountWindows1>
+                <ClearWidth1 unit="m" />
+                <ClearHeight1 unit="m" />
+                <OpeningWidth1 unit="m" />
+                <TiltingWindows2>false</TiltingWindows2>
+                <CountWindows2>1</CountWindows2>
+                <ClearWidth2 unit="m" />
+                <ClearHeight2 unit="m" />
+                <OpeningWidth2 unit="m" />
+                <DifferenceHeightToWindowGroup unit="m" />
+                <Result Error="">----</Result>
+                <RelevantForCalc>false</RelevantForCalc>
+              </Item>
+            </Calculator_ACHSummerVentNight>
             <DIN4108_2>
               <BuildingType_DIN4108 choice="Residential">1</BuildingType_DIN4108>
               <DayVentilation_DIN4108 choice="No increased day ventilation">1</DayVentilation_DIN4108>

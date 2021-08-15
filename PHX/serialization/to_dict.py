@@ -314,3 +314,41 @@ def _Foundation(_obj):
     d = {}
 
     return d
+
+
+# -- Appliances
+def _Appliance(_obj):
+    d = {}
+
+    d.update({"reference_quantity": _obj.reference_quantity})
+    d.update({"quantity": _obj.quantity})
+    d.update({"in_conditioned_space": _obj.in_conditioned_space})
+    d.update({"reference_energy_norm": _obj.reference_energy_norm})
+    d.update({"energy_demand": _obj.energy_demand})
+    d.update({"energy_demand_per_use": _obj.energy_demand_per_use})
+    d.update({"combined_energy_facor": _obj.combined_energy_facor})
+
+    # -- Dishwasher
+    d.update({"dishwasher_capacity_type": _obj.dishwasher_capacity_type})
+    d.update({"dishwasher_capacity": _obj.dishwasher_capacity})
+    d.update({"dishwasher_water_connection": _obj.dishwasher_water_connection})
+
+    # -- Laundry Washer
+    d.update({"washer_capacity": _obj.washer_capacity})
+    d.update({"washer_modified_energy_factor": _obj.washer_modified_energy_factor})
+    d.update({"washer_connection": _obj.washer_connection})
+
+    # -- Laundry Dryer
+    d.update({"dryer_type": _obj.dryer_type})
+    d.update({"dryer_gas_consumption": _obj.dryer_gas_consumption})
+    d.update({"dryer_gas_efficiency_factor": _obj.dryer_gas_efficiency_factor})
+    d.update({"dryer_field_utilization_factor_type": _obj.dryer_field_utilization_factor_type})
+    d.update({"dryer_field_utilization_factor": _obj.dryer_field_utilization_factor})
+
+    # -- Cooktop
+    d.update({"cooktop_type": _obj.cooktop_type})
+
+    # -- PHIUS Lighting
+    d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
+
+    return d
