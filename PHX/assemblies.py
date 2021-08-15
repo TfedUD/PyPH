@@ -16,12 +16,12 @@ class Material(PHX._base._Base):
     def __init__(self):
         super(Material, self).__init__()
         self.id = self._count
-        self.idDB = None
-        self.n = "default_material"
-        self.tConD = 1                # In HB
-        self.densB = 50               # In HB
+        self.idDB = None                 #ask Ed
+        self.n = None
+        self.tConD = None                # In HB
+        self.densB = None                # In HB
         self.poros = 0.95              
-        self.hCapS = 1000             # In HB
+        self.hCapS = None                # In HB
         self.difRes = 1                 
         self.refWC = 0
         self.freeWSat = None
@@ -42,13 +42,19 @@ class Material(PHX._base._Base):
         self.nWCSucGen = None
         self.nWCRedGen = None
         self.nWCtCondGen = None
-        self.TtCondGen = None
+        self.TtCondGen = None      # Ask Ed
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Material, cls).__new__(cls, *args, **kwargs)
 
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Materials(cls, _dict)
+
+            
 
 class Layer(PHX._base._Base):
 
@@ -80,17 +86,20 @@ class Assembly(PHX._base._Base):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Assembly, cls).__new__(cls, *args, **kwargs)
+    
+    def add_layer(self, _layer):
+        pass
 
-    def add_layer(self, _layer: Layer) -> None:
-        """Add a new Layer to the Assembly
+    #def add_layer(self, _layer: Layer) -> None:
+        #"""Add a new Layer to the Assembly
 
-        Arguments:
-        ----------
-            * _layer (Layer): The new Layer object to add to the Assembly
+        #Arguments:
+        #----------
+        #    * _layer (Layer): The new Layer object to add to the Assembly
 
-        Returns:
-        --------
-            * None
+        #Returns:
+        #--------
+        #    * None
         """
         if not _layer:
             return
@@ -101,3 +110,4 @@ class Assembly(PHX._base._Base):
             )
 
         self.Layers.append(_layer)
+        """
