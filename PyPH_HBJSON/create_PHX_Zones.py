@@ -11,6 +11,7 @@ import PHX.spaces
 import PHX.summer_ventilation
 import PHX.utilization_patterns
 import PHX.occupancy
+import PHX.appliances
 import LBT_Utils.program
 import LBT_Utils.boundary_conditions
 
@@ -53,6 +54,12 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
     # -- Occupany Parameters
     occ_dict = _hb_room.user_data.get("phx", {}).get("zone_occupancy", {})
     zone.occupancy = PHX.occupancy.ZoneOccupancy.from_dict(occ_dict)
+
+    # -- Add in any Appliances
+    appliances = _hb_room.user_data.get("phx", {}).get("zone_appliances", {})
+    for app_dict in appliances:
+        appliance = PHX.appliances.Appliance.from_dict(app_dict)
+        zone.appliances.append(appliance)
 
     return zone
 

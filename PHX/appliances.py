@@ -3,6 +3,7 @@ import PHX._base
 
 class Appliance(PHX._base._Base):
     def __init__(self):
+        super(Appliance, self).__init__()
         self.type = 1
         self.reference_quantity = 2  # Zone Occupants
         self.quantity = 1
@@ -34,6 +35,10 @@ class Appliance(PHX._base._Base):
 
         # -- PHIUS Lighting
         self.lighting_frac_high_efficiency = 1
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Appliance(cls, _dict)
 
     @classmethod
     def PHIUS_dishwasher(cls):

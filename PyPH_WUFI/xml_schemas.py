@@ -238,7 +238,7 @@ def _Zone(_obj):
         ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",
-            [PyPH_WUFI.xml_node.XML_Node("Device", _, "index", i) for i, _ in enumerate(_obj.appliances)],
+            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.appliances)],
         ),
         # -- Summer Ventilation
         # ----------------------------------------------------------------------
@@ -778,4 +778,11 @@ def _Project(_obj):
             "Variants",
             [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.lBldgSegments)],
         ),
+    ]
+
+
+def _Appliance(_obj):
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Type", _obj.type),
     ]
