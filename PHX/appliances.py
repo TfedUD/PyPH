@@ -179,7 +179,7 @@ class Appliance(PHX._base._Base):
         app.reference_quantity = 2  # Zone Occupants
         app.quantity = 1
         app.in_conditioned_space = True
-        app.reference_energy_norm = 2  # Year
+        app.reference_energy_norm = 1  # Day/Use
         app.energy_demand = 0  # kwh
         app.energy_demand_per_use = 3.5  # kwh/use
         app.combined_energy_facor = 1  # CEF

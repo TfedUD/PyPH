@@ -13297,7 +13297,7 @@
                 <ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
                 <Quantity>1</Quantity>
                 <InConditionedSpace>true</InConditionedSpace>
-                <ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
+                <ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
                 <EnergyDemandNorm unit="kWh">1676</EnergyDemandNorm>
                 <EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
                 <CEF_CombinedEnergyFactor unit="-">1</CEF_CombinedEnergyFactor>

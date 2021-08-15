@@ -10746,7 +10746,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "ddb8796d-c4c6-41de-8c2a-a11e92c37c6e"
+                        "identifier": "89560c8d-ade2-4b48-b47b-ee97194e9f7f"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -10756,7 +10756,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "8249b90e-10c8-49b7-9aa4-389eec1b8f10", 
+                        "identifier": "cfdd79f9-cead-4bb2-947e-9166478e876d", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -10767,7 +10767,7 @@
                             "cooktop_type": 1, 
                             "washer_capacity": 0.0814, 
                             "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
+                            "reference_energy_norm": 1, 
                             "lighting_frac_high_efficiency": 1, 
                             "combined_energy_facor": 1, 
                             "reference_quantity": 2, 
@@ -10949,7 +10949,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "06694de5-4694-468a-907c-249d28bdece9", 
+                        "identifier": "9c617f66-7372-4c7e-b5de-c09e097582b7", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -21784,7 +21784,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "ddb8796d-c4c6-41de-8c2a-a11e92c37c6e"
+                        "identifier": "89560c8d-ade2-4b48-b47b-ee97194e9f7f"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -21794,7 +21794,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "8249b90e-10c8-49b7-9aa4-389eec1b8f10", 
+                        "identifier": "cfdd79f9-cead-4bb2-947e-9166478e876d", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -21805,7 +21805,7 @@
                             "cooktop_type": 1, 
                             "washer_capacity": 0.0814, 
                             "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
+                            "reference_energy_norm": 1, 
                             "lighting_frac_high_efficiency": 1, 
                             "combined_energy_facor": 1, 
                             "reference_quantity": 2, 
@@ -21987,7 +21987,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "06694de5-4694-468a-907c-249d28bdece9", 
+                        "identifier": "9c617f66-7372-4c7e-b5de-c09e097582b7", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -32903,7 +32903,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "ddb8796d-c4c6-41de-8c2a-a11e92c37c6e"
+                        "identifier": "89560c8d-ade2-4b48-b47b-ee97194e9f7f"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -32913,7 +32913,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "8249b90e-10c8-49b7-9aa4-389eec1b8f10", 
+                        "identifier": "cfdd79f9-cead-4bb2-947e-9166478e876d", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -32924,7 +32924,7 @@
                             "cooktop_type": 1, 
                             "washer_capacity": 0.0814, 
                             "dryer_field_utilization_factor_type": 1, 
-                            "reference_energy_norm": 2, 
+                            "reference_energy_norm": 1, 
                             "lighting_frac_high_efficiency": 1, 
                             "combined_energy_facor": 1, 
                             "reference_quantity": 2, 
@@ -33106,7 +33106,7 @@
                         "type": 2
                     }, 
                     "segment_occupancy": {
-                        "identifier": "06694de5-4694-468a-907c-249d28bdece9", 
+                        "identifier": "9c617f66-7372-4c7e-b5de-c09e097582b7", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
