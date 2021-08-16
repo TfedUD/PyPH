@@ -9,9 +9,8 @@ import PyPH_Rhino.gh_io
 
 class DuctInputError(Exception):
     def __init__(self, _in):
-        self.message = (
-            'Error: Cannot use input value: "{}" {} as the length '
-            "for Ventilation Duct?".format(_in, type(_in))
+        self.message = 'Error: Cannot use input value: "{}" {} as the length ' "for Ventilation Duct?".format(
+            _in, type(_in)
         )
         super(DuctInputError, self).__init__(self.message)
 
@@ -60,9 +59,13 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
                 new_duct_seg.length = float(_in.get("Geometry"))
             except:
                 try:
-                    new_duct_seg.length = _in.get("Geometry").length
-                except AttributeError:
-                    raise DuctInputError(_in.get("Geometry"))
+                    new_duct_seg.length = sum(float(geom) for geom in _in.get("Geometry"))
+                except:
+                    try:
+                        new_duct_seg.length = sum(geo.length for geo in _in.get("Geometry"))
+                        # new_duct_seg.length = _in.get("Geometry").length
+                    except AttributeError:
+                        raise DuctInputError(_in.get("Geometry"))
 
             new_duct.segments.append(new_duct_seg)
 

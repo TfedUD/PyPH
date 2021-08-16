@@ -400,6 +400,9 @@ def handle_inputs(IGH, _input_objects, _input_name):
 
     output_list = []
     for input_dict, geometry_list in zip(inputs, input_geometry_lists):
+        if not isinstance(geometry_list, list):
+            geometry_list = [geometry_list]
+
         for geometry in geometry_list:
             item = deepcopy(input_dict)
             item.update({"Geometry": [geometry]})
