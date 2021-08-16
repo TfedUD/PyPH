@@ -9,6 +9,9 @@ probably would not need something like this? I suppose it does help reduce coupl
 """
 
 from contextlib import contextmanager
+from itertools import izip_longest
+from copy import deepcopy
+
 import honeybee.face
 from ladybug_rhino.togeometry import (
     to_face3d,
@@ -204,35 +207,35 @@ class IGH:
         if not isinstance(_inputs, list):
             _inputs = [_inputs]
 
-        lbt_geomertry = []
+        lbt_geometry = []
         for _ in _inputs:
             if isinstance(_, list):
                 for __ in _:
                     result = self.convert_to_LBT_geom(__)
-                    lbt_geomertry.append(result)
+                    lbt_geometry.append(result)
             elif isinstance(_, (str, int, float)):
                 try:
-                    lbt_geomertry.append(float(str(_)))
+                    lbt_geometry.append(float(str(_)))
                 except ValueError:
-                    lbt_geomertry.append(str(_))
+                    lbt_geometry.append(str(_))
             elif isinstance(_, bool):
-                lbt_geomertry.append(_)
+                lbt_geometry.append(_)
             elif isinstance(_, self.Rhino.Geometry.Brep):
-                lbt_geomertry.append(to_face3d(_))
+                lbt_geometry.append(to_face3d(_))
             elif isinstance(_, self.Rhino.Geometry.PolylineCurve):
-                lbt_geomertry.append(to_polyline3d(_))
+                lbt_geometry.append(to_polyline3d(_))
             elif isinstance(_, self.Rhino.Geometry.LineCurve):
-                lbt_geomertry.append(to_linesegment3d(_))
+                lbt_geometry.append(to_linesegment3d(_))
             elif isinstance(_, self.Rhino.Geometry.Line):
-                lbt_geomertry.append(to_linesegment3d(self.Rhino.Geometry.LineCurve(_)))
+                lbt_geometry.append(to_linesegment3d(self.Rhino.Geometry.LineCurve(_)))
             elif isinstance(_, self.Rhino.Geometry.Mesh):
-                lbt_geomertry.append(to_mesh3d(_))
+                lbt_geometry.append(to_mesh3d(_))
             elif isinstance(_, self.Rhino.Geometry.Point3d):
-                lbt_geomertry.append(to_point3d(_))
+                lbt_geometry.append(to_point3d(_))
             else:
                 raise LBTGeometryConversionError(_)
 
-        return lbt_geomertry
+        return lbt_geometry
 
     def convert_to_rhino_geom(self, _inputs):
         # type: (list) -> list
@@ -392,11 +395,16 @@ def handle_inputs(IGH, _input_objects, _input_name):
     inputs = IGH.get_rh_obj_UserText_dict(input_guids)
 
     # -- Add the Input Geometry to the output dictionary
-    input_geometry = IGH.convert_to_LBT_geom(_input_objects)
-    for d, g in zip(inputs, input_geometry):
-        d.update({"Geometry": g})
+    input_geometry_lists = IGH.convert_to_LBT_geom(_input_objects)
 
-    return inputs
+    output_list = []
+    for input_dict, geometry_list in zip(inputs, input_geometry_lists):
+        for geometry in geometry_list:
+            item = deepcopy(input_dict)
+            item.update({"Geometry": [geometry]})
+            output_list.append(item)
+
+    return output_list
 
 
 def input_to_int(IGH, _input_value, _default=None):
