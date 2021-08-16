@@ -128,12 +128,12 @@ class Appliance(PHX._base._Base):
         return PHX.serialization.from_dict._Appliance(cls, _dict)
 
     @classmethod
-    def PHIUS_dishwasher(cls):
+    def PHIUS_Dishwasher(cls):
         app = cls()
 
         # -- Standard
         app.type = 1  # dishwasher
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -149,12 +149,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_clothes_washer(cls):
+    def PHIUS_Clothes_Washer(cls):
         app = cls()
 
         # -- Standard
         app.type = 2  # dishwasher
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -171,12 +171,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_clothes_dryer(cls):
+    def PHIUS_Clothes_Dryer(cls):
         app = cls()
 
         # -- Standard
         app.type = 3  # Laundry - dryer
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day/Use
@@ -194,12 +194,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_cooktop(cls):
+    def PHIUS_Cooktop(cls):
         app = cls()
 
         # -- Standard
         app.type = 7  # Kitchen cooking
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -213,12 +213,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_fridge(cls):
+    def PHIUS_Fridge(cls):
         app = cls()
 
         # -- Standard
         app.type = 4  # Kitchen refrigerator
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
@@ -229,12 +229,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_freezer(cls):
+    def PHIUS_Freezer(cls):
         app = cls()
 
         # -- Standard
         app.type = 5  # Kitchen freezer
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
@@ -245,17 +245,53 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_combo_fridge(cls):
+    def PHIUS_Combo_Fridge(cls):
         app = cls()
 
         # -- Standard
         app.type = 6  # Kitchen fridge/freeze combo
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
         app.energy_demand = 0.99  # kwh
         app.energy_demand_per_use = 0  # kwh/use
         app.combined_energy_facor = 0  # CEF
+
+        return app
+
+    @classmethod
+    def PHIUS_Lighting_Int(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 14  # PHIUS+ Interior lighting
+        app.reference_quantity = 6  # PH case floor area
+        app.quantity = 1
+        app.in_conditioned_space = False
+        app.reference_energy_norm = 1  # Use
+        app.energy_demand = None  # kwh
+        app.energy_demand_per_use = None  # kwh/use
+        app.combined_energy_facor = None  # CEF
+
+        app.lighting_frac_high_efficiency = 1  # CEF
+
+        return app
+
+    @classmethod
+    def PHIUS_Lighting_Ext(cls):
+        app = cls()
+
+        # -- Standard
+        app.type = 15  # PHIUS+ Exterior lighting
+        app.reference_quantity = 6  # PH case floor area
+        app.quantity = 1
+        app.in_conditioned_space = False
+        app.reference_energy_norm = 1  # Use
+        app.energy_demand = None  # kwh
+        app.energy_demand_per_use = None  # kwh/use
+        app.combined_energy_facor = None  # CEF
+
+        app.lighting_frac_high_efficiency = 1  # CEF
 
         return app

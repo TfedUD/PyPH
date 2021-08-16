@@ -846,11 +846,15 @@ def _Appliance_PHIUS_MEL(_obj):
 
 
 def _Appliance_PHIUS_Lighting_Int(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+    ]
 
 
 def _Appliance_PHIUS_Lighting_Ext(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+    ]
 
 
 def _Appliance(_obj):

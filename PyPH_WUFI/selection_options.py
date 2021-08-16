@@ -215,7 +215,7 @@ __Appliances = {
     "ReferenceQuantity": {
         "attr_name": "choice",
         "enum": {
-            1: "PH cas occupants",
+            1: "PH case occupants",
             2: "Zone occupants",
             3: "Bedroooms",
             4: "PH case Units",
