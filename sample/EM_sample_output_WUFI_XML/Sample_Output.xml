@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>8</Month>
 			<Day>16</Day>
-			<Hour>10</Hour>
-			<Minutes>26</Minutes>
+			<Hour>15</Hour>
+			<Minutes>18</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -5242,7 +5242,7 @@
 					</Component>
 					<Component index="1">
 						<IdentNr>8</IdentNr>
-						<Name>INT_FL_5_W_Partywall</Name>
+						<Name>INT_FL_5_Wall</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Space with the same inner conditions">-3</OuterAttachment>
@@ -5303,7 +5303,7 @@
 					</Component>
 					<Component index="3">
 						<IdentNr>2</IdentNr>
-						<Name>EXT_FL_5_N_Wall_2</Name>
+						<Name>EXT_FL_5_Wall</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -5351,7 +5351,7 @@
 					</Component>
 					<Component index="4">
 						<IdentNr>10</IdentNr>
-						<Name>EXT_FL_5_Roof_Upper</Name>
+						<Name>EXT_FL_5_Roof</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -5379,7 +5379,7 @@
 					</Component>
 					<Component index="5">
 						<IdentNr>4</IdentNr>
-						<Name>Aperture_7f25abe5</Name>
+						<Name>Aperture_eae34182</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -5502,7 +5502,7 @@
 					</Component>
 					<Component index="6">
 						<IdentNr>88</IdentNr>
-						<Name>EXT_FL_3_FLOOR_Cantilever</Name>
+						<Name>EXT_FL_3_FLOOR</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Ground">-2</OuterAttachment>
@@ -5585,7 +5585,7 @@
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<ClearRoomHeight unit="m">2.499999999999997</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
@@ -5905,46 +5905,46 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
-						<HomeDevice count="7">
+						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Kitchen dishwasher">1</Type>
+								<Comment>None</Comment>
 								<ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<EnergyDemandNorm unit="kWh">260</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
-								<DishwasherCapacityPreselection choice="Standard">1</DishwasherCapacityPreselection>
-								<CapacityClothesWasher unit="m³">12</CapacityClothesWasher>
 								<Connection choice="Cold water connection">2</Connection>
+								<DishwasherCapacityPreselection choice="Standard">1</DishwasherCapacityPreselection>
+								<DishwasherCapacityInPlace unit="-">12</DishwasherCapacityInPlace>
 							</Device>
 							<Device index="1">
 								<Type choice="Laundry - washer">2</Type>
+								<Comment>None</Comment>
 								<ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<EnergyDemandNorm unit="kWh">116</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
 								<UtilizationFactor unit="-">1</UtilizationFactor>
 								<MEF_ModifiedEnergyFactor unit="-">2.38</MEF_ModifiedEnergyFactor>
 								<Connection choice="DHW connection">1</Connection>
 							</Device>
 							<Device index="2">
 								<Type choice="Laundry - dryer">3</Type>
+								<Comment>None</Comment>
 								<ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">0</EnergyDemandNorm>
+								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">100</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">3.5</EnergyDemandNormUse>
-								<CEF_CombinedEnergyFactor unit="-">1</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
-								<Dryer_Choice choice="Clothesline">1</Dryer_Choice>
+								<CEF_CombinedEnergyFactor unit="-">3.93</CEF_CombinedEnergyFactor>
+								<Dryer_Choice choice="Condensation dryer">4</Dryer_Choice>
 								<GasConsumption unit="kWh">0</GasConsumption>
 								<EfficiencyFactorGas unit="-">0</EfficiencyFactorGas>
 								<FieldUtilizationFactorPreselection choice="Timer controls">1</FieldUtilizationFactorPreselection>
@@ -5952,49 +5952,60 @@
 							</Device>
 							<Device index="3">
 								<Type choice="Kitchen fridge/freeze combo">6</Type>
+								<Comment>None</Comment>
 								<ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
 								<EnergyDemandNorm unit="kWh">0.99</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
 							</Device>
 							<Device index="4">
 								<Type choice="Kitchen cooking">7</Type>
+								<Comment>None</Comment>
 								<ReferenceQuantity choice="PH case occupants">1</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<Quantity>1</Quantity>
 								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
 								<EnergyDemandNorm unit="kWh">0.2</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0.2</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
 								<CookingWith choice="Cooking with electricity">1</CookingWith>
 							</Device>
 							<Device index="5">
-								<Type choice="PHIUS+ Interior lighting">14</Type>
-								<ReferenceQuantity choice="PH case floor area">6</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
-								<Quantity>1</Quantity>
-								<InConditionedSpace>false</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">None</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">None</EnergyDemandNormUse>
-								<CEF_CombinedEnergyFactor unit="-">None</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
-								<FractionHightEfficiency unit="-">1</FractionHightEfficiency>
+								<Type choice="PHIUS+ MELS">13</Type>
+								<Comment>None</Comment>
+								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+								<Quantity>45</Quantity>
+								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">100</EnergyDemandNorm>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
+								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 							</Device>
 							<Device index="6">
+								<Type choice="PHIUS+ Interior lighting">14</Type>
+								<Comment>None</Comment>
+								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+								<Quantity>234</Quantity>
+								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">100</EnergyDemandNorm>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
+								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
+								<FractionHightEfficiency unit="-">1</FractionHightEfficiency>
+							</Device>
+							<Device index="7">
 								<Type choice="PHIUS+ Exterior lighting">15</Type>
-								<ReferenceQuantity choice="PH case floor area">6</ReferenceQuantity>
-								<ReferenceEnergyDemandNorm choice="Day">1</ReferenceEnergyDemandNorm>
-								<Quantity>1</Quantity>
-								<InConditionedSpace>false</InConditionedSpace>
-								<EnergyDemandNorm unit="kWh">None</EnergyDemandNorm>
-								<EnergyDemandNormUse unit="kWh">None</EnergyDemandNormUse>
-								<CEF_CombinedEnergyFactor unit="-">None</CEF_CombinedEnergyFactor>
-								<UtilizationFactor unit="-">1</UtilizationFactor>
+								<Comment>None</Comment>
+								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
+								<Quantity>12</Quantity>
+								<InConditionedSpace>true</InConditionedSpace>
+								<ReferenceEnergyDemandNorm choice="Use">1</ReferenceEnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">100</EnergyDemandNorm>
+								<EnergyDemandNormUse unit="kWh">100</EnergyDemandNormUse>
+								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<FractionHightEfficiency unit="-">1</FractionHightEfficiency>
 							</Device>
 						</HomeDevice>
@@ -6005,8 +6016,8 @@
 						<SpecificPowerConsumptionAdditionalVentCooling unit="Wh/m³">0.0</SpecificPowerConsumptionAdditionalVentCooling>
 						<ACHViaMechanicalVentilationExhaustAir unit="1/h">0.0</ACHViaMechanicalVentilationExhaustAir>
 						<SpecificPowerConsumption unit="Wh/m³">0.0</SpecificPowerConsumption>
-						<NumberBedrooms unit="-">18</NumberBedrooms>
-						<OccupantQuantityUserDef unit="-">18</OccupantQuantityUserDef>
+						<NumberBedrooms unit="-">3</NumberBedrooms>
+						<OccupantQuantityUserDef unit="-">21</OccupantQuantityUserDef>
 					</Zone>
 				</Zones>
 				<CountGenerated>0</CountGenerated>

@@ -91,6 +91,7 @@ class Appliance(PHX._base._Base):
     def __init__(self):
         super(Appliance, self).__init__()
         self.type = 1
+        self.comment = None
         self.reference_quantity = 2  # Zone Occupants
         self.quantity = 1
         self.in_conditioned_space = True
@@ -182,10 +183,10 @@ class Appliance(PHX._base._Base):
         app.reference_energy_norm = 1  # Day/Use
         app.energy_demand = 0  # kwh
         app.energy_demand_per_use = 3.5  # kwh/use
-        app.combined_energy_facor = 1  # CEF
+        app.combined_energy_facor = 3.93  # CEF
 
         # -- Specific
-        app.dryer_type = 1
+        app.dryer_type = 4  # Condensation dryer
         app.dryer_gas_consumption = 0  # kWh
         app.dryer_gas_efficiency_factor = 2.67
         app.dryer_field_utilization_factor_type = 1  # Timer
@@ -261,25 +262,28 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_Lighting_Int(cls):
+    def PHIUS_Lighting_Int(cls, **kwargs):
         app = cls()
 
         # -- Standard
         app.type = 14  # PHIUS+ Interior lighting
         app.reference_quantity = 6  # PH case floor area
         app.quantity = 1
-        app.in_conditioned_space = False
-        app.reference_energy_norm = 1  # Use
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 99  # Use
         app.energy_demand = None  # kwh
         app.energy_demand_per_use = None  # kwh/use
         app.combined_energy_facor = None  # CEF
 
         app.lighting_frac_high_efficiency = 1  # CEF
 
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
         return app
 
     @classmethod
-    def PHIUS_Lighting_Ext(cls):
+    def PHIUS_Lighting_Ext(cls, **kwargs):
         app = cls()
 
         # -- Standard
@@ -287,11 +291,33 @@ class Appliance(PHX._base._Base):
         app.reference_quantity = 6  # PH case floor area
         app.quantity = 1
         app.in_conditioned_space = False
-        app.reference_energy_norm = 1  # Use
+        app.reference_energy_norm = 99  # Use
         app.energy_demand = None  # kwh
         app.energy_demand_per_use = None  # kwh/use
         app.combined_energy_facor = None  # CEF
 
         app.lighting_frac_high_efficiency = 1  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
+    @classmethod
+    def PHIUS_MEL(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 13  # PHIUS+ MEL
+        app.reference_quantity = 3  # Bedrooms
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 99  # Use
+        app.energy_demand = None  # kwh
+        app.energy_demand_per_use = None  # kwh/use
+        app.combined_energy_facor = None  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
 
         return app

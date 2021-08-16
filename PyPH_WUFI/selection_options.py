@@ -195,6 +195,7 @@ __Appliances = {
         "enum": {
             1: "Day",
             2: "Year",
+            99: "Use",
         },
     },
     "Type": {

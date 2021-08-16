@@ -784,14 +784,14 @@ def _Project(_obj):
 def _Appliance_dishwasher(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection(
                 "Appliances::DishwasherCapacityPreselection", _obj.dishwasher_capacity_type
             ).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("CapacityClothesWasher", _obj.dishwasher_capacity, "unit", "m³"),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
-        ),
+        PyPH_WUFI.xml_node.XML_Node("DishwasherCapacityInPlace", _obj.dishwasher_capacity, "unit", "-"),
     ]
 
 
@@ -873,22 +873,27 @@ def _Appliance(_obj):
         15: _Appliance_PHIUS_Lighting_Ext,
     }
 
+    # Fix the energy Norm. Fucking WUFI....
+    # Uses '1' for both 'Use' and 'Day'
+    energy_norm = PyPH_WUFI.selection.Selection(
+        "Appliances::ReferenceEnergyDemandNorm", _obj.reference_energy_norm
+    ).xml_data
+    if energy_norm[1] == 99:
+        energy_norm = (energy_norm[0], 1, energy_norm[2], energy_norm[3])
+
+    # -- Build the basic params
     basic_params = [
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Appliances::Type", _obj.type).xml_data),
+        PyPH_WUFI.xml_node.XML_Node("Comment", _obj.comment),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::ReferenceQuantity", _obj.reference_quantity).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection(
-                "Appliances::ReferenceEnergyDemandNorm", _obj.reference_energy_norm
-            ).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
+        PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)),
         PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
+        PyPH_WUFI.xml_node.XML_Node(*energy_norm),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", _obj.energy_demand, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", _obj.energy_demand_per_use, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("UtilizationFactor", _obj.washer_utilization_factor, "unit", "-"),
     ]
 
     return basic_params + appliances.get(_obj.type)(_obj)

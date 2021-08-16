@@ -4,6 +4,8 @@
 """Functions used to create the full WUFI XML file"""
 
 from datetime import datetime
+import shutil
+import os
 
 import PHX.project
 import PyPH_WUFI.xml_node
@@ -48,9 +50,7 @@ def _add_text_node(_doc, _parent_node, _data) -> None:
     """
 
     txt = _doc.createTextNode(_xml_str(_data.node_value))  # 1) Create the new text-node
-    el = _doc.createElementNS(
-        None, _xml_str(_data.node_name)
-    )  # 2) Create a new Element
+    el = _doc.createElementNS(None, _xml_str(_data.node_name))  # 2) Create a new Element
     el.appendChild(txt)  # 3) Add the text-node to the Element
     _add_node_attributes(_data, el)  # 4) Add the Optional Node Attributes
     _parent_node.appendChild(el)  # 5) Add the Element to the parent
@@ -124,24 +124,34 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
         * _Project (PHX.project.Project): The Project Object to write to XML
     """
 
+    def clean_filename(_file_address):
+        old_file_name, old_file_extension = os.path.splitext(_file_address)
+        # old_file_name = _file_address.split(".xml")[0]
+        t = datetime.now()
+        return f"{old_file_name}_{t.hour}_{t.minute}_{t.second}{old_file_extension}"
+
+    save_dir = os.path.dirname(_file_address)
+    save_filename = os.path.basename(_file_address)
+    save_filename_clean = clean_filename(save_filename)
     xml_text = create_project_xml_text(_Project)
+
     try:
-        with open(_file_address, "w") as f:
+        save_address_1 = os.path.join(save_dir, save_filename)
+        save_address_2 = os.path.join(save_dir, save_filename_clean)
+        with open(save_address_1, "w") as f:
             f.writelines(xml_text)
+
+        #  Make a working copy
+        shutil.copyfile(save_address_1, save_address_2)
 
     except PermissionError:
         # - In case the file is being used by WUFI or something else, make a new copy.
-
-        old_file_name = _file_address.split(".xml")[0]
-        t = datetime.now()
-        new_file_address = f"{old_file_name}_{t.hour}_{t.minute}_{t.second}.xml"
-
         print(
-            f"Target file: {_file_address} is currently being used by another process and is protected.\n"
-            f"Writing to a new file: {new_file_address}"
+            f"Target file: {save_filename} is currently being used by another process and is protected.\n"
+            f"Writing to a new file: {save_address_2}"
         )
 
-        with open(new_file_address, "w") as f:
+        with open(save_address_2, "w") as f:
             f.writelines(xml_text)
 
     print("Done.")
