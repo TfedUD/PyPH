@@ -10,11 +10,8 @@ import gh_io
 
 class VentilationInputError(Exception):
     def __init__(self, _flr_name, _in):
-        self.message = (
-            '\nError: Ventilation input for FloorSegment: "{}" '
-            'should be a number. Got: "{}"\n'.format(
-                _flr_name, self.get_error_item(_in)
-            )
+        self.message = '\nError: Ventilation input for FloorSegment: "{}" ' 'should be a number. Got: "{}"\n'.format(
+            _flr_name, self.get_error_item(_in)
         )
         super(VentilationInputError, self).__init__(self.message)
 
@@ -54,6 +51,9 @@ def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms):
 
     rooms = {}
     for room in _hb_rooms:
+        if not room:
+            continue
+
         rooms[room.identifier] = {"hb_room": room, "floor_surfaces": {}}
         for k, v in _floor_surfaces_dict.items():
             for face in v["Geometry"]:
@@ -66,9 +66,7 @@ def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms):
         for _ in _floor_surfaces_dict.values():
             raise Exception(
                 "Error: Cannot find a host Honeybee room for floor"
-                'surface: "{}"?\nMake sure it is inside a HB Room.'.format(
-                    _["Object Name"]
-                )
+                'surface: "{}"?\nMake sure it is inside a HB Room.'.format(_["Object Name"])
             )
 
     return rooms
@@ -96,11 +94,7 @@ def add_default_floor_surfaces(IGH, _room_dicts):
                 floors.append(face)
 
         if not floors:
-            raise Exception(
-                'Error: No Floor found on Honeybee Room: ""'.format(
-                    _hb_room.display_name
-                )
-            )
+            raise Exception('Error: No Floor found on Honeybee Room: ""'.format(_hb_room.display_name))
 
         return floors
 
@@ -117,9 +111,7 @@ def add_default_floor_surfaces(IGH, _room_dicts):
                 except:
                     new_floors.extend(inset_rh_srfc)
 
-            room["floor_surfaces"] = {
-                id(new_floors): {"Object Name": None, "Geometry": new_floors}
-            }
+            room["floor_surfaces"] = {id(new_floors): {"Object Name": None, "Geometry": new_floors}}
 
     return _room_dicts
 
@@ -142,9 +134,7 @@ def convert_inputs_to_FloorSements(_room_dicts):
 
             new_floor_seg = PHX.spaces.FloorSegment()
 
-            new_floor_seg.weighting_factor = input_floor_surface_dict.get(
-                "TFA_Factor", 1.0
-            )
+            new_floor_seg.weighting_factor = input_floor_surface_dict.get("TFA_Factor", 1.0)
             new_floor_seg.space_name = input_floor_surface_dict.get("Object Name")
             new_floor_seg.space_number = input_floor_surface_dict.get("Room_Number")
 
@@ -153,24 +143,16 @@ def convert_inputs_to_FloorSements(_room_dicts):
             new_floor_seg.non_res_usage = input_floor_surface_dict.get("useType")
 
             try:
-                new_floor_seg.ventilation.airflows.supply = float(
-                    input_floor_surface_dict.get("V_sup", 0.0)
-                )
-                new_floor_seg.ventilation.airflows.extract = float(
-                    input_floor_surface_dict.get("V_eta", 0.0)
-                )
-                new_floor_seg.ventilation.airflows.transfer = float(
-                    input_floor_surface_dict.get("V_trans", 0.0)
-                )
+                new_floor_seg.ventilation.airflows.supply = float(input_floor_surface_dict.get("V_sup", 0.0))
+                new_floor_seg.ventilation.airflows.extract = float(input_floor_surface_dict.get("V_eta", 0.0))
+                new_floor_seg.ventilation.airflows.transfer = float(input_floor_surface_dict.get("V_trans", 0.0))
             except ValueError as e:
                 raise VentilationInputError(new_floor_seg.display_name, e)
 
             new_floor_seg.geometry = input_floor_surface_dict.get("Geometry")
             new_floor_seg.host_zone_identifier = room_identifier
 
-            new_floor_seg.floor_area_gross = sum(
-                float(geom.area) for geom in new_floor_seg.geometry
-            )
+            new_floor_seg.floor_area_gross = sum(float(geom.area) for geom in new_floor_seg.geometry)
 
             room_dict["floor_surfaces"][k] = new_floor_seg
 

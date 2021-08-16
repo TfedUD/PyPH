@@ -30,16 +30,17 @@ def set_orientation(IGH, _input_objects):
     MAX_ROOF_ANG = 30
 
     for obj in _input_objects:
+        print("obj", obj)
         # -- Find the input object's average surface normal
         normal = ladybug_geometry.geometry3d.Vector3D(0, 0, 0)
-        face_list = geom = obj.get("Geometry")
+        face_list = obj.get("Geometry")
+        print("face_list", face_list)
         for face in face_list:
             normal += face.normal
+            print("normal", normal)
 
         # -- Find the surface type based on the normal
-        angle2Z = math.degrees(
-            normal.angle(ladybug_geometry.geometry3d.Vector3D(0, 0, 1))
-        )
+        angle2Z = math.degrees(normal.angle(ladybug_geometry.geometry3d.Vector3D(0, 0, 1)))
 
         if angle2Z < MAX_ROOF_ANG or angle2Z > 360 - MAX_ROOF_ANG:
             # -- Must be a roof
@@ -51,6 +52,11 @@ def set_orientation(IGH, _input_objects):
             obj["srfType"] = "Floor"
             if "ADIABATIC" not in str(obj.get("EPBC")).upper():
                 obj["EPBC"] = "Ground"
+        else:
+            # -- Must be a Wall
+            obj["srfType"] = "Wall"
+            if "ADIABATIC" not in str(obj.get("EPBC")).upper():
+                obj["EPBC"] = "Outdoors"
 
     return _input_objects
 

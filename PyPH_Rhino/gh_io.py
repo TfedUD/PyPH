@@ -328,6 +328,7 @@ class IGH:
 
         This *should* work on surfaces that are touching, AND ones that overlap. Using
         GH MergeFaces() only works on 'touching' surfaces, but not overlapping ones.
+        Using 'RegionUnion' should work on both touching and overlapping srfcs.
 
         Arguments:
         ----------
