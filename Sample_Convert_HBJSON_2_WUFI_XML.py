@@ -115,6 +115,7 @@ for room in hb_model.rooms:
         # -- Pack the new Polygons & Components onto the BldgSegment.
         host_blg_segment.add_components(opaque_compo)
 
+
 # --- Clean up the BuildingSegments
 # ----------------------------------------------------------------------------
 for seg in project_1.lBldgSegments:

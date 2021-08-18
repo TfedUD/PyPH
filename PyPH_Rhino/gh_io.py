@@ -422,7 +422,7 @@ def input_to_int(IGH, _input_value, _default=None):
 
     """
 
-    if not _input_value:
+    if _input_value is None:
         return _default
 
     try:

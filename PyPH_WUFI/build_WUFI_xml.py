@@ -128,7 +128,7 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
         old_file_name, old_file_extension = os.path.splitext(_file_address)
         # old_file_name = _file_address.split(".xml")[0]
         t = datetime.now()
-        return f"{old_file_name}_{t.hour}_{t.minute}_{t.second}{old_file_extension}"
+        return f"{old_file_name}_{t.month}_{t.day}_{t.hour}_{t.minute}_{t.second}{old_file_extension}"
 
     save_dir = os.path.dirname(_file_address)
     save_filename = os.path.basename(_file_address)
@@ -138,7 +138,7 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
     try:
         save_address_1 = os.path.join(save_dir, save_filename)
         save_address_2 = os.path.join(save_dir, save_filename_clean)
-        with open(save_address_1, "w") as f:
+        with open(save_address_1, "w", encoding="utf8") as f:
             f.writelines(xml_text)
 
         #  Make a working copy
@@ -151,7 +151,7 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
             f"Writing to a new file: {save_address_2}"
         )
 
-        with open(save_address_2, "w") as f:
+        with open(save_address_2, "w", encoding="utf8") as f:
             f.writelines(xml_text)
 
     print("Done.")
