@@ -88,7 +88,7 @@ for room in hb_model.rooms:
 
     host_blg_segment.infiltration.annual_avg_airflow += room_infiltration_m3h
 
-# # --- Bulild all the Components (Surfaces, Windows)
+# # --- Build all the Components (Surfaces, Windows)
 # # ----------------------------------------------------------------------------
 for room in hb_model.rooms:
     host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
@@ -123,6 +123,13 @@ for seg in project_1.lBldgSegments:
     # -- Sometimes might not want this though, so needs to be user-setting
     seg.merge_zones()
     seg.merge_components(by="assembly")
+
+# for seg in project_1.lBldgSegments:
+#     print(seg, "- " * 50)
+#     for zone in seg.zones:
+#         print(zone, "- " * 50)
+#         for app in zone.appliances:
+#             print(app)
 
 # # ----------------------------------------------------------------------------
 project_1.add_assemblies_from_collection(assmbly_collection)

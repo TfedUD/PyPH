@@ -347,12 +347,13 @@ class Zone(PHX._base._Base):
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
 
-        # -- Combine Appliances
+        # -- Combine ApplianceSets
         new_obj.appliances = self.appliances + other.appliances
-
+        # print("Self:", self.appliances.appliances)
+        # print("Other:", other.appliances.appliances)
         # -- Combine Occupancies
         new_obj.occupancy = self.occupancy + other.occupancy
-
+        # print("New Zone: {}".format(new_obj.appliances.appliances))
         return new_obj
 
     def __radd__(self, other):
