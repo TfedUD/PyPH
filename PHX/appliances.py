@@ -1,6 +1,5 @@
 import PHX._base
 import PHX.serialization.from_dict
-from itertools import zip_longest
 
 
 class UnknownApplianceError(Exception):

@@ -11,7 +11,7 @@ ie: _Floor calls _FloorSegment.to_dict()
 
 import PHX
 import PHX.geometry
-import PHX.hvac
+import PHX.hvac;
 import PHX.spaces
 import PHX.utilization_patterns
 import PHX.appliances
@@ -312,6 +312,7 @@ def _ZoneOccupancy(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.num_occupants = _input_dict.get("num_occupants", 0)
     new_obj.num_bedrooms = _input_dict.get("num_bedrooms", 0)
+    new_obj.num_dwelling_units = _input_dict.get("num_dwelling_units", 0)
 
     return new_obj
 

@@ -124,13 +124,6 @@ for seg in project_1.lBldgSegments:
     seg.merge_zones()
     seg.merge_components(by="assembly")
 
-# for seg in project_1.lBldgSegments:
-#     print(seg, "- " * 50)
-#     for zone in seg.zones:
-#         print(zone, "- " * 50)
-#         for app in zone.appliances:
-#             print(app)
-
 # # ----------------------------------------------------------------------------
 project_1.add_assemblies_from_collection(assmbly_collection)
 project_1.add_window_types_from_collection(window_type_collection)

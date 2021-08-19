@@ -15,6 +15,7 @@ class ZoneOccupancy(PHX._base._Base):
         super(ZoneOccupancy, self).__init__()
         self.num_occupants = 0
         self.num_bedrooms = 0
+        self.num_dwelling_units = 0
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -27,7 +28,11 @@ class ZoneOccupancy(PHX._base._Base):
 
     def __eq__(self, other):
         # type: (ZoneOccupancy, ZoneOccupancy) -> bool
-        if self.num_occupants != other.num_occupants or self.num_bedrooms != other.num_bedrooms:
+        if (
+            self.num_occupants != other.num_occupants
+            or self.num_bedrooms != other.num_bedrooms
+            or self.num_dwelling_units != other.num_dwelling_units
+        ):
             return False
         else:
             return True
@@ -36,6 +41,7 @@ class ZoneOccupancy(PHX._base._Base):
         # type: (ZoneOccupancy, ZoneOccupancy) -> ZoneOccupancy
         self.num_occupants = int(self.num_occupants) + int(other.num_occupants)
         self.num_bedrooms = int(self.num_bedrooms) + int(other.num_bedrooms)
+        self.num_dwelling_units = int(self.num_dwelling_units) + int(other.num_dwelling_units)
 
         return self
 

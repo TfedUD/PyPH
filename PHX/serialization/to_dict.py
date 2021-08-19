@@ -288,6 +288,7 @@ def _ZoneOccupancy(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"num_occupants": _obj.num_occupants})
     d.update({"num_bedrooms": _obj.num_bedrooms})
+    d.update({"num_dwelling_units": _obj.num_dwelling_units})
 
     return d
 
