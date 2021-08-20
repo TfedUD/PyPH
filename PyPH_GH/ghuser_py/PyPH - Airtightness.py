@@ -30,7 +30,7 @@ standard component because for PH Cert we are supposed to use the Net Internal V
 NOT the gross volume. E+ / HB use the gross volume and so given the same ACH, they will
 arrive at different infiltration flow rates (flow = ACH * Volume). For PH work, use this component.
 -
-EM August 14, 2021
+EM August 20, 2021
     Args:
         _n50: (ACH) The target ACH leakage rate.
             
@@ -70,7 +70,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Airtightness"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 14, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 20, 2021')
 
 if DEV:
     reload(PyPH_Rhino.airtightness)
@@ -79,37 +79,45 @@ if DEV:
 
 # ---
 infiltration_sch_ = LBT_Utils.create_hb_constant_schedule( 'Infilt_Const_Sched' )
+
 HB_rooms_ = []
 for room in _HB_rooms:
     if not room: continue
     
-    # Calc the Zone's Infiltration Airflow based on the PHX Space's Volume
-    # --------------------------------------------------------------------------
-    room_infil_m3s_at_test_pressure = PyPH_Rhino.airtightness.calc_hb_room_infiltration_m3s(
-                                                room, _n50, _q50, 
-                                                _blower_pressure, _preview=True)
+    print("{} HB-Room: {}{}".format("- " * 15, room.display_name, "- " * 15))
     
-    # --------------------------------------------------------------------------
-    # -- Covert down to 4Pa which is what Honeybee uses for inputs
-    # -- Compute coeffiecient and airflow@ 4Pa
-    bldg_pressure = 4 #Pa
-    
-    #-- Get the infiltration airflow at test pressure
     room_exposed_area = LBT_Utils.boundary_conditions.hb_room_PHX_exposed_area(room)
-    room_infil_m3sm2_at_test_pressure = room_infil_m3s_at_test_pressure / room_exposed_area
-    
-    #-- Convert to resting pressure
-    C_qa = RoomEnergyProperties.solve_norm_area_flow_coefficient(
-        room_infil_m3sm2_at_test_pressure, air_density=1, delta_pressure=_blower_pressure)
-    room_infil_m3sm2_at_rest_pressure = C_qa * (bldg_pressure ** 0.65)
-    
-    # -- More preview.... so many values!!
-    print '>   HB-Room: Specific infiltration rate at normal pressure:'
-    print '>       {:.04f} m3/h-m2 ({:.06f} m3/s-m2) @4Pa'.format(room_infil_m3sm2_at_rest_pressure*3600, room_infil_m3sm2_at_rest_pressure)
-    print '>   HB-Room: Absolute infiltration rate at normal pressure:'
-    print '>       {:.01f} m3/h @4Pa ({:.06f} m3/s)'.format(
-        room_infil_m3sm2_at_rest_pressure*3600*room_exposed_area,
-        room_infil_m3sm2_at_rest_pressure*room_exposed_area)
+    if room_exposed_area:
+        
+        # Calc the Zone's Infiltration Airflow based on the PHX Space's Volume
+        # --------------------------------------------------------------------------
+        room_infil_m3s_at_test_pressure = PyPH_Rhino.airtightness.calc_hb_room_infiltration_m3s(
+                                                    room, _n50, _q50, 
+                                                    _blower_pressure, _preview=True)
+        
+        # --------------------------------------------------------------------------
+        # -- Covert down to 4Pa which is what Honeybee uses for inputs
+        # -- Compute coeffiecient and airflow@ 4Pa
+        bldg_pressure = 4 #Pa
+        
+        #-- Get the infiltration airflow at test pressure
+        room_infil_m3sm2_at_test_pressure = room_infil_m3s_at_test_pressure / room_exposed_area
+        
+        #-- Convert to resting pressure
+        C_qa = RoomEnergyProperties.solve_norm_area_flow_coefficient(
+            room_infil_m3sm2_at_test_pressure, air_density=1, delta_pressure=_blower_pressure)
+        room_infil_m3sm2_at_rest_pressure = C_qa * (bldg_pressure ** 0.65)
+        
+        # -- More preview.... so many values!!
+        print '  > HB-Room: Specific infiltration rate at normal pressure:'
+        print '  >     {:.04f} m3/h-m2 ({:.06f} m3/s-m2) @4Pa'.format(room_infil_m3sm2_at_rest_pressure*3600, room_infil_m3sm2_at_rest_pressure)
+        print '  > HB-Room: Absolute infiltration rate at normal pressure:'
+        print '  >     {:.01f} m3/h @4Pa ({:.06f} m3/s)'.format(
+            room_infil_m3sm2_at_rest_pressure*3600*room_exposed_area,
+            room_infil_m3sm2_at_rest_pressure*room_exposed_area)
+    else:
+        print("NOTE: No Exposed Area. No Infiltration.")
+        room_infil_m3sm2_at_rest_pressure = 0
     
     # --------------------------------------------------------------------------
     # Set the Load and Schedule for the HB-Room

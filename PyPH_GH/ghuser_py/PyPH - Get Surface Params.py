@@ -24,7 +24,7 @@ Use this component BEFORE a Honeybee 'Face' component. This will pull data from
 the Rhino scene (names, constructions, etc) where relevant. Simply connect the  
 outputs from this compone to the inputs on the 'Face' for this to run.
 -
-EM August 11, 2021
+EM August 20, 2021
     Args:
         _surfaces: (list) Rhino Surface geometry.
     Returns:
@@ -46,6 +46,10 @@ import rhinoscriptsyntax as rs
 import ghpythonlib.components as ghc
 import Grasshopper as gh
 
+from System import Object
+from Grasshopper.Kernel.Data import GH_Path
+from Grasshopper import DataTree
+
 import PyPH_Rhino
 import PyPH_Rhino.surfaces
 import PyPH_Rhino.gh_io
@@ -56,7 +60,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Get Surface Params"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 20, 2021')
 
 if DEV:
     reload( PyPH_Rhino)
@@ -65,28 +69,32 @@ if DEV:
 
 #--- Handle all the inputs, get list of input object dicts
 IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
-input_objects = PyPH_Rhino.gh_io.handle_inputs(IGH, _surfaces, '_surfaces')
 
-#--- Clean and organize the inputs
-input_objects = PyPH_Rhino.surfaces.set_orientation(IGH, input_objects)
-input_objects = PyPH_Rhino.surfaces.set_names(input_objects)
-input_objects = PyPH_Rhino.surfaces.set_type(input_objects)
-input_objects = PyPH_Rhino.surfaces.set_EPConstruction(input_objects)
-input_objects = PyPH_Rhino.surfaces.convert_geom_to_rh(IGH, input_objects)
+geo_ = DataTree[Object]()
+name_ = DataTree[Object]()
+type_ = DataTree[Object]()
+bc_ = DataTree[Object]()
+ep_const_ = DataTree[Object]()
+rad_mod_ = DataTree[Object]()
 
-#-------------------------------------------------------------------------------
-# Package up the Outputs
-geo_ = []
-name_ = []
-type_ = []
-bc_ = []
-ep_const_ = []
-rad_mod_ = []
-
-for input_object in input_objects:
-    geo_.append( input_object.get('Geometry') )
-    name_.append( input_object.get('Object Name') )
-    type_.append( input_object.get('srfType'))
-    bc_.append( input_object.get('EPBC'))
-    ep_const_.append( input_object.get('EPConstruction'))
-    rad_mod_.append( input_object.get('RadMod'))
+# --
+for i, b in enumerate(_surfaces.Branches):
+    b = list(b)
+    input_objects = PyPH_Rhino.gh_io.handle_inputs(IGH, b, '_surfaces', i)
+    
+    #--- Clean and organize the inputs
+    input_objects = PyPH_Rhino.surfaces.set_orientation(IGH, input_objects)
+    input_objects = PyPH_Rhino.surfaces.set_names(input_objects)
+    input_objects = PyPH_Rhino.surfaces.set_type(input_objects)
+    input_objects = PyPH_Rhino.surfaces.set_EPConstruction(input_objects)
+    input_objects = PyPH_Rhino.surfaces.convert_geom_to_rh(IGH, input_objects)
+    
+    #-------------------------------------------------------------------------------
+    # Package up the Outputs
+    for input_object in input_objects:
+        geo_.Add( input_object.get('Geometry'), GH_Path(i) )
+        name_.Add( input_object.get('Object Name'), GH_Path(i) )
+        type_.Add( input_object.get('srfType'), GH_Path(i))
+        bc_.Add( input_object.get('EPBC'), GH_Path(i))
+        ep_const_.Add( input_object.get('EPConstruction'), GH_Path(i) )
+        rad_mod_.Add( input_object.get('RadMod'), GH_Path(i))

@@ -92,8 +92,8 @@ class IGH:
     def gh_compo_get_input_for_node_number(self, _node_number):
         return self.ghenv.Component.Params.Input[_node_number].VolatileData
 
-    def gh_compo_get_input_guids(self, _input_index_number):
-        # type: (int) -> list[System.Guid]
+    def gh_compo_get_input_guids(self, _input_index_number, _branch_num=0):
+        # type: (int, int) -> list[System.Guid]
         """
         Returns a list of all the GUIDs of the objects being passed to the
         component's specified input node.
@@ -111,7 +111,7 @@ class IGH:
 
         guids = []
         try:
-            for _ in self.ghenv.Component.Params.Input[_input_index_number].VolatileData[0]:
+            for _ in self.ghenv.Component.Params.Input[_input_index_number].VolatileData[_branch_num]:
                 try:
                     guids.append(_.ReferenceID)
                 except AttributeError:
@@ -371,8 +371,8 @@ class IGH:
             self.ghenv.Component.AddRuntimeMessage(level, _in)
 
 
-def handle_inputs(IGH, _input_objects, _input_name):
-    # type: (IGH, list, str) -> list[dict]
+def handle_inputs(IGH, _input_objects, _input_name, _branch_num=0):
+    # type: (IGH, list, str, int) -> list[dict]
     """
     Generic Rhino / GH Geometry input handler
 
@@ -392,7 +392,7 @@ def handle_inputs(IGH, _input_objects, _input_name):
 
     # -- Get the Input Object Attribute UserText values (if any)
     input_index_number = IGH.gh_compo_find_input_index_by_name(_input_name)
-    input_guids = IGH.gh_compo_get_input_guids(input_index_number)
+    input_guids = IGH.gh_compo_get_input_guids(input_index_number, _branch_num)
     inputs = IGH.get_rh_obj_UserText_dict(input_guids)
 
     # -- Add the Input Geometry to the output dictionary
