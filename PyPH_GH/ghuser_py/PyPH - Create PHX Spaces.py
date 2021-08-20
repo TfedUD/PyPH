@@ -22,7 +22,7 @@
 """
 Builds new PHX-Spaces within the Honyebee-Rooms/Zones.
 -
-EM August 11, 2021
+EM August 16, 2021
     Args:
         _floor_surfaces (list[Surface]) The individual space floor surfaces represting 
             each individual 'space' inside the Honeybee Room (zone).
@@ -69,7 +69,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create PHX Spaces"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 16, 2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -95,7 +95,7 @@ if DEV:
 IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
 
 # -- Main
-if _HB_rooms:
+if len(_HB_rooms) > 0:
     floors_dict, floor_surface_breps_ = PyPH_Rhino.spaces.build_floors(IGH,
                                     _floor_surfaces, '_floor_surfaces', _HB_rooms)
     volumes, volume_geometry_breps_ = PyPH_Rhino.spaces.build_volumes(IGH, 
@@ -117,6 +117,8 @@ if '1' in str(_ventilation_rates):
 # -- Pack up all the results onto the HB Rooms
 HB_rooms_ = []
 for hb_room in _HB_rooms:
+    if not hb_room: continue
+    
     new_hb_room = hb_room.duplicate()
     
     spaces_dict = {}

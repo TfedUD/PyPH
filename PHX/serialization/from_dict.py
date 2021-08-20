@@ -11,7 +11,7 @@ ie: _Floor calls _FloorSegment.to_dict()
 
 import PHX
 import PHX.geometry
-import PHX.hvac;
+import PHX.hvac
 import PHX.spaces
 import PHX.utilization_patterns
 import PHX.appliances
@@ -417,5 +417,6 @@ def _Appliance(_cls, _input_dict):
 
     # -- PHIUS Lighting
     _setattr_filter(new_obj, "lighting_frac_high_efficiency", _input_dict.get("lighting_frac_high_efficiency"))
+    _setattr_filter(new_obj, "user_defined_total", _input_dict.get("user_defined_total"))
 
     return new_obj

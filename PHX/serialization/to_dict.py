@@ -365,5 +365,6 @@ def _Appliance(_obj):
 
     # -- PHIUS Lighting
     d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
+    d.update({"user_defined_total": _obj.user_defined_total})
 
     return d

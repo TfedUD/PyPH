@@ -146,6 +146,7 @@ class Appliance(PHX._base._Base):
 
         # -- PHIUS Lighting
         self.lighting_frac_high_efficiency = 1
+        self.user_defined_total = 0
 
     def __add__(self, other):
         def _quantity_weighted_average(_new_obj, _obj_a, _obj_b, _attr):
@@ -206,21 +207,21 @@ class Appliance(PHX._base._Base):
             new_appliance = self.__class__.PHIUS_MEL()
             if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
                 new_appliance.reference_quantity = 5
-                new_appliance.quantity = self.quantity + other.quantity
+                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
                 new_appliance.energy_demand = 100
                 new_appliance.energy_demand_per_use = 100
         elif self.type == 14:
             new_appliance = self.__class__.PHIUS_Lighting_Int()
             if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
                 new_appliance.reference_quantity = 5
-                new_appliance.quantity = self.quantity + other.quantity
+                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
                 new_appliance.energy_demand = 100
                 new_appliance.energy_demand_per_use = 100
         elif self.type == 15:
             new_appliance = self.__class__.PHIUS_Lighting_Ext()
             if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
                 new_appliance.reference_quantity = 5
-                new_appliance.quantity = self.quantity + other.quantity
+                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
                 new_appliance.energy_demand = 100
                 new_appliance.energy_demand_per_use = 100
         else:

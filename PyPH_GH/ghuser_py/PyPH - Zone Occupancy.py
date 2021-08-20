@@ -26,21 +26,27 @@ HB-rooms. If a list is input, the values from the list will be applied to the HB
 in that same order. 
 -----
 -
-EM August 15, 2021
+EM August 19, 2021
     Args:
         
         num_bedrooms_: (int) For residential only: Enter the number of bedrooms in
-            each Honeybee Room. (Note: Studio apts = 1 Br) If a single 
-            value is input, this will be applied to all HB-rooms. If a list is input, the values 
+            each Honeybee Room. (Note: For PHIUS, Studio apts = 0 Br, 1 occupant)
+            If a single value is input, this will be applied to all HB-rooms. If a list is input, the values 
             from the list will be applied to the HB-rooms in order. If none are input, default=1
         
-        num_occupants_: (int) For non-residential, enter the annual average occpant quantity. If a single
+        num_occupants_: (int) For non-residential or multi-unit residential, enter 
+            the annual average occpant quantity for each Honeybee Room input. If a single
             value is input, this will be applied to all HB-rooms. If a list is input, the values 
             from the list will be applied to the HB-rooms in order. If none are input, default=None
+        
+        num_dwelling_units_: (int) For multi-unit residential ONLY. Enter the number of 
+            dwelling units in each Honeybee Room input. If a list is input, the values 
+            from the list will be applied to the HB-rooms in that order. For single-family
+            home, or for Non-Residential zones, leave this input empty.
         ----------
         _HB_rooms: The Honeybee rooms to apply the occupancy parameters to.
     Returns:
-        HB_rooms_: The Honeybee rooms with their occupancies parameters applied.
+        HB_rooms_: The Honeybee rooms with a new Zone-Occupancy applied applied.
 """
 
 import scriptcontext as sc
@@ -59,7 +65,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Zone Occupancy"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 15, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 19, 2021')
 
 if DEV:
     reload(PyPH_Rhino.gh_io)
@@ -94,6 +100,8 @@ IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
 
 HB_rooms_ = []
 for i, room in enumerate(_HB_rooms):
+    if not room: continue
+    
     new_hb_room = room.duplicate()
     
     # -- Build a new occupancy object
@@ -102,6 +110,7 @@ for i, room in enumerate(_HB_rooms):
     # -- Get the input data
     occupancy.num_bedrooms = clean_get(IGH, num_bedrooms_, i, 1)
     occupancy.num_occupants = clean_get(IGH, num_occupants_, i, 0)
+    occupancy.num_dwelling_units = clean_get(IGH, num_dwelling_units_, i, 0)
     
     # -- Add the occupancy dict to the HB-Room
     occ_dict = occupancy.to_dict()

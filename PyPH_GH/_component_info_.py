@@ -28,6 +28,18 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
+    "PyPH - PHIUS MF Calculator": {
+        "NickName": "PHIUS MF Calculator",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - Res Appliances": {
+        "NickName": "PHX Appliances",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
     # ---------------------------------------------------------------------------
     # Section 01.1 | Geometry
     "PyPH - Get Surface Params": {

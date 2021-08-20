@@ -888,12 +888,17 @@ def _Appliance(_obj):
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::ReferenceQuantity", _obj.reference_quantity).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)),
         PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
         PyPH_WUFI.xml_node.XML_Node(*energy_norm),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", _obj.energy_demand, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", _obj.energy_demand_per_use, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
     ]
+
+    # -- cus' of the bullshit with PHIUS that they pulled. Lazy fuckers
+    if _obj.type in [13, 14, 15] and _obj.reference_quantity == 5:
+        basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.user_defined_total)))
+    else:
+        basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)))
 
     return basic_params + appliances.get(_obj.type)(_obj)
