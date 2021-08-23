@@ -5,6 +5,7 @@
 
 
 import PHX._base
+import PHX.utilization_patterns
 
 
 class ZoneOccupancy(PHX._base._Base):
@@ -104,16 +105,20 @@ class BldgSegmentOccupancy(PHX._base._Base):
 
 class SpaceOccupancy(PHX._base._Base):
 
+    _count = 0
     _default = None
 
     def __init__(self):
+        self.id = self._count
         super(SpaceOccupancy, self).__init__()
         self.name = ""
-        self.start_hour = 1
-        self.end_hour = 24
-        self.annual_utilization_days = 0
-        self.relative_absence = 0.0
+        self.utilization = PHX.utilization_patterns.UtilPat_Occupancy()
         self.people_per_area = 0.0  # ppl/m2
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(SpaceOccupancy, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
     def default(cls):
@@ -123,10 +128,7 @@ class SpaceOccupancy(PHX._base._Base):
         new_obj = cls()
 
         new_obj.name = "_default_occupancy_"
-        new_obj.start_hour = 1
-        new_obj.end_hour = 24
-        new_obj.annual_utilization_days = 365
-        new_obj.relative_absence = 0.0
+        new_obj.utilization = PHX.utilization_patterns.UtilPat_Occupancy.default()
         new_obj.people_per_area = 0.0565  # ppl/m2 (HB Generic Office) = ~1 per/200ft2
 
         cls._default = new_obj

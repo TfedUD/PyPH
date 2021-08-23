@@ -8,8 +8,9 @@ PHX Occupant Utilization Pattern Classes
 import PHX._base
 import PHX.serialization.from_dict
 import PHX.occupancy
+import PHX.lighting
 
-
+# -- Ventilation wrappers
 class VentilationUtilization(PHX._base._Base):
     def __init__(self, _dos=0, _pdf=0):
         super(VentilationUtilization, self).__init__()
@@ -72,6 +73,7 @@ class VentilationUtilizations(PHX._base._Base):
         return PHX.serialization.from_dict._VentilationUtilizations(cls, _dict)
 
 
+# -- Primary Utilization Pattern Objects
 class UtilizationPattern_Ventilation(PHX._base._Base):
 
     _count = 0
@@ -134,16 +136,69 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
         return PHX.serialization.from_dict._UtilizationPattern_Ventilation(cls, _dict)
 
 
-class UtilizationPattern_NonRes(PHX._base._Base):
+class UtilPat_Occupancy(PHX._base._Base):
 
     _count = 0
+    _default = None
 
     def __init__(self):
-        self.id = self._count
-        self.occupancy = [PHX.occupancy.SpaceOccupancy.default()]
-        self.lighting = []
+        super(UtilPat_Occupancy, self).__init__()
+        self.start_hour = 1
+        self.end_hour = 24
+        self.annual_utilization_days = 365
+        self.annual_utilization_factor = 1.0
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._UtilPat_Occupancy(cls, _dict)
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(UtilizationPattern_NonRes, cls).__new__(cls, *args, **kwargs)
+        return super(UtilPat_Occupancy, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls):
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.start_hour = 1
+        new_obj.end_hour = 24
+        new_obj.annual_utilization_days = 365
+        new_obj.annual_utilization_factor = 1.0
+
+        cls._default = new_obj
+        return new_obj
+
+
+class UtilPat_Lighting(PHX._base._Base):
+
+    _count = 0
+    _default = None
+
+    def __init__(self):
+        super(UtilPat_Lighting, self).__init__()
+        self.annual_utilization_factor = 1.0
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._UtilPat_Lighting(cls, _dict)
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(UtilPat_Lighting, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls):
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.annual_utilization_factor = 1.0
+
+        cls._default = new_obj
+        return new_obj

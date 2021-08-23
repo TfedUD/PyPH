@@ -10,6 +10,7 @@ import PHX.serialization.from_dict
 import PHX.hvac
 import PHX.utilization_patterns
 import PHX.occupancy
+import PHX.lighting
 
 
 class PropertiesVentilation(PHX._base._Base):
@@ -333,10 +334,10 @@ class Space(PHX._base._Base):
         self.volume = 0.0
         self.volumes = []
 
-        self.occupancy = None
         self.equipment = None
         self.ventilation = PropertiesVentilation()
         self.occupancy = PHX.occupancy.SpaceOccupancy.default()
+        self.lighting = PHX.lighting.SpaceLighting.default()
 
     @property
     def clear_height(self):

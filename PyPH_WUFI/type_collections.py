@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-# -*- Python Version: 2.7 -*-
+# -*- Python Version: 3.9 -*-
 
-"""PHX Type Collection Classes for organizing Assembly, Window and Ventilization-Utilization Patterns"""
+"""PyPH_WUFI classes to organize 'Type' Collections up at the Project level"""
 
 import PHX.assemblies
 import PHX.window_types
-import PHX.utilization_patterns
-import PHX._base
+import PyPH_WUFI.utilization_patterns
 
 
 class AddToCollectionError(Exception):
@@ -17,7 +16,7 @@ class AddToCollectionError(Exception):
         super(AddToCollectionError, self).__init__(self.message)
 
 
-class Collection(PHX._base._Base):
+class Collection:
     def __init__(self):
         super(Collection, self).__init__()
         self._items = {}
@@ -49,22 +48,19 @@ class Collection(PHX._base._Base):
             self._items[id(_item)] = _item
 
 
-class Ventilation_Util_Pattern_Collection(Collection):
-    """Collection of Ventilation Utilization Patterns"""
-
+class UtilPat_Collection_Ventilation(Collection):
     def __init__(self):
-        super(Ventilation_Util_Pattern_Collection, self).__init__()
-        self._allowed_types = PHX.utilization_patterns.UtilizationPattern_Ventilation
-        self.add_to_collection(PHX.utilization_patterns.UtilizationPattern_Ventilation.default())
+        super(UtilPat_Collection_Ventilation, self).__init__()
+        self._allowed_types = PyPH_WUFI.utilization_patterns.UtilizationPattern_Vent
 
 
-class Occupancy_Util_Pattern_Collection(Collection):
+class UtilizationPatternCollection_PH_NonRes(Collection):
     def __init__(self):
-        super(Occupancy_Util_Pattern_Collection, self).__init__()
-        self._allowed_types = PHX.utilization_patterns.UtilizationPattern_NonRes
+        super(UtilizationPatternCollection_PH_NonRes, self).__init__()
+        self._allowed_types = PyPH_WUFI.utilization_patterns.UtilizationPattern_NonRes
 
 
-class WindowTypeCollection(PHX._base._Base):
+class WindowTypeCollection:
     def __init__(self):
         super(WindowTypeCollection, self).__init__()
         self._window_types = {}
@@ -100,7 +96,7 @@ class WindowTypeCollection(PHX._base._Base):
         return self._window_types.get(_window_type_identifier)
 
 
-class AssemblyCollection(PHX._base._Base):
+class AssemblyCollection:
     """Collection of all the Assemblies in the Project
 
     Attributes:

@@ -64,6 +64,13 @@ def _UtilizationPattern_Ventilation(_cls, _input_dict):
 
     return new_obj
 
+def _UtilPat_Occupancy(_cls, _input_dict):
+    new_obj = _cls()
+    return new_obj
+
+def UtilPat_Lighting(_cls, _input_dict):
+    new_obj = _cls()
+    return new_obj
 
 # -- Ventilation
 def _SummerVent(_cls, _input_dict):
@@ -436,5 +443,15 @@ def _Appliance(_cls, _input_dict):
     # -- PHIUS Lighting
     _setattr_filter(new_obj, "lighting_frac_high_efficiency", _input_dict.get("lighting_frac_high_efficiency"))
     _setattr_filter(new_obj, "user_defined_total", _input_dict.get("user_defined_total"))
+
+    return new_obj
+
+
+# -- Lighting
+def _SpaceLighting(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = str(_input_dict.get("identifier"))
+    new_obj.name = _input_dict.get("name")
 
     return new_obj

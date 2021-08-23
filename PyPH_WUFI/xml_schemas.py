@@ -14,6 +14,7 @@ with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 from collections import namedtuple
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
+import PyPH_WUFI.prepare_data
 
 
 def _WindowType(_obj):
@@ -37,20 +38,49 @@ def _WindowType(_obj):
 
 
 # - Utilization Patterns
-def _UtilizationPattern_Ventilation(_obj):
+def _UtilizationPattern_Vent(_obj):
     return [
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        # PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        # PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.OperatingDays),
-        PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.OperatingWeeks),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilizations.maximum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilizations.maximum.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilizations.standard.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilizations.standard.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilizations.basic.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilizations.basic.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilizations.minimum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilizations.minimum.frac_of_design_airflow),
+        # PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.OperatingWeeks),
+        # PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilizations.maximum.daily_op_sched),
+        # PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilizations.maximum.frac_of_design_airflow),
+        # PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilizations.standard.daily_op_sched),
+        # PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilizations.standard.frac_of_design_airflow),
+        # PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilizations.basic.daily_op_sched),
+        # PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilizations.basic.frac_of_design_airflow),
+        # PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilizations.minimum.daily_op_sched),
+        # PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilizations.minimum.frac_of_design_airflow),
+    ]
+
+
+def _UtilizationPattern_NonRes(_obj):
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.occupancy.id),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
+        # -- Occupancy
+        PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.utilization.start_hour),
+        PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.utilization.end_hour),
+        PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.utilization.annual_utilization_days),
+        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", _obj.occupancy.utilization.annual_utilization_factor),
+        # -- Lighting
+        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.space_illumination),
+        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.installed_power_density),
+        PyPH_WUFI.xml_node.XML_Node(
+            "PartUseFactorPeriodForLighting", _obj.lighting.utilization.annual_utilization_factor
+        ),
+        # PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("RoomSetpointTemperature", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("HeatingTemperatureReduction", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyUtilizationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHoursDaytime", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHoursNighttime", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyHeatingOperationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyVentilationOperatingHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("NumberOfMaxTabsPerDay", _obj._________),
     ]
 
 
@@ -745,8 +775,8 @@ def _ProjectData(_obj):
 
 
 def _Project(_obj):
-
-    _obj.collect_utilization_patterns_from_zones()
+    util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_vent_utilization_patterns_from_zones(_obj.zones)
+    util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_utilization_patterns_from_zones(_obj.zones)
 
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
@@ -768,7 +798,14 @@ def _Project(_obj):
             "UtilisationPatternsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPatternVent", _, "index", i)
-                for i, _ in enumerate(_obj.lUtilVentPH.items)
+                for i, _ in enumerate(util_patter_collection_ventilation)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "UtilizationPatternsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("UtilizationPattern", _, "index", i)
+                for i, _ in enumerate(util_pattern_collection_NonRes)
             ],
         ),
         # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
@@ -776,11 +813,12 @@ def _Project(_obj):
         # of a building to be modeled in the same WUFI file, in different 'Cases'
         PyPH_WUFI.xml_node.XML_List(
             "Variants",
-            [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.lBldgSegments)],
+            [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.building_segments)],
         ),
     ]
 
 
+# -- Appliances
 def _Appliance_dishwasher(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node(

@@ -8,9 +8,8 @@ model objects, and exporting the PHX_Project out to a WUFI XML file.
 
 import PHX.project
 import PHX.bldg_segment
-import PHX.type_collections
-import PHX.utilization_patterns
 import PHX.hvac
+import PyPH_WUFI.type_collections
 import PyPH_WUFI.build_WUFI_xml
 
 from PyPH_HBJSON.read_HBJSON_file import read_hb_json
@@ -42,8 +41,8 @@ hb_model = read_hb_json(SOURCE_FILE)
 
 # --- Build the Construction Assembly-Types, Window-Types
 # ------------------------------------------------------------------------------
-assmbly_collection = PHX.type_collections.AssemblyCollection()
-window_type_collection = PHX.type_collections.WindowTypeCollection()
+assmbly_collection = PyPH_WUFI.type_collections.AssemblyCollection()
+window_type_collection = PyPH_WUFI.type_collections.WindowTypeCollection()
 for room in hb_model.rooms:
     for face in room.faces:
         opaque_assembly = create_new_assembly_from_hb_face(face)
@@ -118,7 +117,7 @@ for room in hb_model.rooms:
 
 # --- Clean up the BuildingSegments
 # ----------------------------------------------------------------------------
-for seg in project_1.lBldgSegments:
+for seg in project_1.building_segments:
     # -- This is (required?) for PHIUS Certification.
     # -- Sometimes might not want this though, so needs to be user-setting
     seg.merge_zones()

@@ -27,6 +27,7 @@ def _VentilationUtilizations(_obj):  # Collection
     return d
 
 
+# -- Utilization Patterns
 def _UtilizationPattern_Ventilation(_obj):
     d = {}
 
@@ -37,6 +38,16 @@ def _UtilizationPattern_Ventilation(_obj):
 
     d.update({"utilizations": _obj.utilizations.to_dict()})
 
+    return d
+
+
+def _UtilPat_Occupancy(_obj):
+    d = {}
+    return d
+
+
+def UtilPat_Lighting(_obj):
+    d = {}
     return d
 
 
@@ -381,5 +392,15 @@ def _Appliance(_obj):
     # -- PHIUS Lighting
     d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
     d.update({"user_defined_total": _obj.user_defined_total})
+
+    return d
+
+
+# -- Lighting
+def _SpaceLighting(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"identifier": str(_obj.identifier)})
 
     return d
