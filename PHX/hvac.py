@@ -301,7 +301,7 @@ class HVAC_System(PHX._base._Base):
         # Pull the ventilator out of the space.
         # Annoying that its way down there?
         for zone in _zones:
-            for space in zone.rooms_ventilation:
+            for space in zone.spaces:
                 self.add_devices_to_system(space.ventilation.ventilator)
 
     def add_devices_to_system(self, _devices):

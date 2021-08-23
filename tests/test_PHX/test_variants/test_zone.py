@@ -26,7 +26,7 @@ def test_add_new_Space():
     z1 = PHX.variant.Zone()
     r1 = PHX.spaces.Space()
 
-    assert len(z1.rooms_ventilation) == 0
+    assert len(z1.spaces) == 0
     z1.add_spaces(r1)
-    assert r1 in z1.rooms_ventilation
-    assert len(z1.rooms_ventilation) == 1
+    assert r1 in z1.spaces
+    assert len(z1.spaces) == 1

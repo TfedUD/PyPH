@@ -9,11 +9,23 @@ import PHX.utilization_patterns
 import PHX._base
 
 
+class AddToCollectionError(Exception):
+    def __init__(self, _in, _class_nm, _allowed_types):
+        self.message = 'Error: Cannot add "{}" to Collection: "{}" only objects of type: "{}" allowed'.format(
+            type(_in), _class_nm, _allowed_types
+        )
+        super(AddToCollectionError, self).__init__(self.message)
+
+
 class Collection(PHX._base._Base):
     def __init__(self):
         super(Collection, self).__init__()
         self._items = {}
         self._allowed_types = object
+
+    def __iter__(self):
+        for _ in self.items:
+            yield _
 
     @property
     def items(self):
@@ -21,32 +33,35 @@ class Collection(PHX._base._Base):
         return self._items.values()
 
     def get_item_by_identifier(self, _identifier):
-        # type: (str) -> typing.Any
+        # type: (str) -> object
         return self._items[_identifier]
 
-    def add_to_collection(self, _item):
-        # type: (typing.Any) -> None
+    def add_to_collection(self, _item, _id=None):
+        # type: (object, str | None) -> None
         if not isinstance(_item, self._allowed_types):
-            msg = (
-                'Error: Cannot add "{}" to Collection: "{}" only'
-                'objects of type: "{}" allowed'.format(
-                    type(_item), self.__class__.__name__, self._allowed_types
-                )
-            )
-            raise TypeError(msg)
+            raise AddToCollectionError(_item, self.__class__.__name__, self._allowed_types)
 
-        self._items[_item.id] = _item
+        if _id:
+            self._items[str(_id)] = _item
+        elif hasattr(_item, "id"):
+            self._items[_item.id] = _item
+        else:
+            self._items[id(_item)] = _item
 
 
-class CVent_Util_Patterns(Collection):
+class Ventilation_Util_Pattern_Collection(Collection):
     """Collection of Ventilation Utilization Patterns"""
 
     def __init__(self):
-        super(CVent_Util_Patterns, self).__init__()
+        super(Ventilation_Util_Pattern_Collection, self).__init__()
         self._allowed_types = PHX.utilization_patterns.UtilizationPattern_Ventilation
-        self.add_to_collection(
-            PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
-        )
+        self.add_to_collection(PHX.utilization_patterns.UtilizationPattern_Ventilation.default())
+
+
+class Occupancy_Util_Pattern_Collection(Collection):
+    def __init__(self):
+        super(Occupancy_Util_Pattern_Collection, self).__init__()
+        self._allowed_types = PHX.utilization_patterns.UtilizationPattern_NonRes
 
 
 class WindowTypeCollection(PHX._base._Base):
@@ -58,9 +73,7 @@ class WindowTypeCollection(PHX._base._Base):
     def window_types(self):
         return self._window_types.values()
 
-    def add_new_window_type_to_collection(
-        self, _window_type: PHX.window_types.WindowType
-    ) -> None:
+    def add_new_window_type_to_collection(self, _window_type: PHX.window_types.WindowType) -> None:
         """Adds a WindowType to the collection dictionary
 
         Arguments:
@@ -72,9 +85,7 @@ class WindowTypeCollection(PHX._base._Base):
         """
         self._window_types[_window_type.identifier] = _window_type
 
-    def get_window_type_by_identifier(
-        self, _window_type_identifier: str
-    ) -> PHX.window_types.WindowType:
+    def get_window_type_by_identifier(self, _window_type_identifier: str) -> PHX.window_types.WindowType:
         """Searches the WindowTypeCollection for a WindowType with a specific Identiier Key
 
         Arguments:
@@ -120,9 +131,7 @@ class AssemblyCollection(PHX._base._Base):
 
         return self._project_assemblies.get(_assembly_name)
 
-    def add_new_assembly_to_collection(
-        self, _assembly: PHX.assemblies.Assembly
-    ) -> None:
+    def add_new_assembly_to_collection(self, _assembly: PHX.assemblies.Assembly) -> None:
         """Adds an Assembly to the collection dictionary
 
         Arguments:

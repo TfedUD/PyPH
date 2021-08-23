@@ -9,6 +9,7 @@ import PHX._base
 import PHX.serialization.from_dict
 import PHX.hvac
 import PHX.utilization_patterns
+import PHX.occupancy
 
 
 class PropertiesVentilation(PHX._base._Base):
@@ -16,9 +17,7 @@ class PropertiesVentilation(PHX._base._Base):
         super(PropertiesVentilation, self).__init__()
         self.airflows = PHX.hvac.HVAC_Ventilation_Airflows()
         self.ventilator = PHX.hvac.HVAC_Device.default_ventilator()
-        self.utilization_pattern = (
-            PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
-        )
+        self.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
 
     def __add__(self, _other):
         new_obj = self.__class__()
@@ -64,19 +63,13 @@ class FloorSegment(PHX._base._Base):
             weighting = float(self.weighting_factor)
         except TypeError:
             raise TypeError(
-                'Error: Cannot calculate with Floor Area Weighting Factor: "{}"'.format(
-                    self.weighting_factor
-                )
+                'Error: Cannot calculate with Floor Area Weighting Factor: "{}"'.format(self.weighting_factor)
             )
 
         try:
             fa_gross = float(self.floor_area_gross)
         except TypeError:
-            raise TypeError(
-                'Error: Cannot calculate with Gross Floor Area of: "{}"'.format(
-                    self.floor_area_gross
-                )
-            )
+            raise TypeError('Error: Cannot calculate with Gross Floor Area of: "{}"'.format(self.floor_area_gross))
 
         return float(fa_gross * weighting)
 
@@ -161,13 +154,9 @@ class Floor(PHX._base._Base):
             self.non_res_usage = self._join_string_values(seg, "non_res_usage")
 
             self.ventilation = self.ventilation + seg.ventilation
-            seg.ventilation = (
-                self.ventilation
-            )  # Ensure equality of all ventilation params
+            seg.ventilation = self.ventilation  # Ensure equality of all ventilation params
 
-            self.host_zone_identifier = self._join_string_values(
-                seg, "host_zone_identifier"
-            )
+            self.host_zone_identifier = self._join_string_values(seg, "host_zone_identifier")
 
     @property
     def geometry(self):
@@ -205,11 +194,14 @@ class Floor(PHX._base._Base):
             attr_values.add(exg_val)
 
         if len(attr_values) != 1:
-            msg = 'Error adding new FloorSegment to {}: Multiple values for "{}" found on the input FloorSegments' ' for Spaces: "{}" and ""'.format(
-                self.display_name,
-                _attr_name,
-                self.display_name,
-                _new_flr_seg.display_name,
+            msg = (
+                'Error adding new FloorSegment to {}: Multiple values for "{}" found on the input FloorSegments'
+                ' for Spaces: "{}" and ""'.format(
+                    self.display_name,
+                    _attr_name,
+                    self.display_name,
+                    _new_flr_seg.display_name,
+                )
             )
             raise Exception(msg)
 
@@ -245,11 +237,7 @@ class Volume(PHX._base._Base):
     def ventilation(self, _in):
         self._ventilation = _in
         if not self.floor:
-            raise Exception(
-                'Error: Cannot set ventilation for Volume: "{}". No Floor?'.format(
-                    self.display_name
-                )
-            )
+            raise Exception('Error: Cannot set ventilation for Volume: "{}". No Floor?'.format(self.display_name))
         self.floor.ventilation = _in  # -- Keep everything aligned
 
     @property
@@ -348,6 +336,7 @@ class Space(PHX._base._Base):
         self.occupancy = None
         self.equipment = None
         self.ventilation = PropertiesVentilation()
+        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
 
     @property
     def clear_height(self):
@@ -397,9 +386,7 @@ class Space(PHX._base._Base):
             if self.space_name != _new_volume.space_name:
                 raise Exception(
                     'Error: Cannot add Volume with name: "{}" to'
-                    'Volume with name: "{}"'.format(
-                        _new_volume.space_name, self.space_name
-                    )
+                    'Volume with name: "{}"'.format(_new_volume.space_name, self.space_name)
                 )
 
         if not self.space_number:
@@ -408,9 +395,7 @@ class Space(PHX._base._Base):
             if self.space_number != _new_volume.space_number:
                 raise Exception(
                     'Error: Cannot add Volume with number: "{}" to'
-                    'Volume with number: "{}"'.format(
-                        _new_volume.space_number, self.space_number
-                    )
+                    'Volume with number: "{}"'.format(_new_volume.space_number, self.space_number)
                 )
 
         if not self.host_zone_identifier:
@@ -419,9 +404,7 @@ class Space(PHX._base._Base):
             if self.host_zone_identifier != _new_volume.host_zone_identifier:
                 raise Exception(
                     'Error: Cannot add Volume with Host-Zone: "{}" to'
-                    'Volume with Host-Zone: "{}"'.format(
-                        _new_volume.host_zone_identifier, self.host_zone_identifier
-                    )
+                    'Volume with Host-Zone: "{}"'.format(_new_volume.host_zone_identifier, self.host_zone_identifier)
                 )
 
         # -- Set the Space's Ventilation Properties
@@ -440,6 +423,4 @@ class Space(PHX._base._Base):
         self.volumes.append(_new_volume)
 
     def __str__(self):
-        return "PHX_{}: {} ({} Volumes)".format(
-            self.__class__.__name__, self.display_name, len(self.volumes)
-        )
+        return "PHX_{}: {} ({} Volumes)".format(self.__class__.__name__, self.display_name, len(self.volumes))

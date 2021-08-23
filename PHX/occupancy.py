@@ -8,6 +8,8 @@ import PHX._base
 
 
 class ZoneOccupancy(PHX._base._Base):
+    """Zone-level Occupancy parameters"""
+
     _count = 0
 
     def __init__(self):
@@ -47,6 +49,8 @@ class ZoneOccupancy(PHX._base._Base):
 
 
 class BldgSegmentOccupancy(PHX._base._Base):
+    """Building Segmenmt-level Occupncy Parameters"""
+
     _count = 0
 
     def __init__(self):
@@ -96,3 +100,39 @@ class BldgSegmentOccupancy(PHX._base._Base):
             return False
         else:
             return True
+
+
+class SpaceOccupancy(PHX._base._Base):
+
+    _default = None
+
+    def __init__(self):
+        super(SpaceOccupancy, self).__init__()
+        self.name = ""
+        self.start_hour = 1
+        self.end_hour = 24
+        self.annual_utilization_days = 0
+        self.relative_absence = 0.0
+        self.people_per_area = 0.0  # ppl/m2
+
+    @classmethod
+    def default(cls):
+        if cls._default is not None:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "_default_occupancy_"
+        new_obj.start_hour = 1
+        new_obj.end_hour = 24
+        new_obj.annual_utilization_days = 365
+        new_obj.relative_absence = 0.0
+        new_obj.people_per_area = 0.0565  # ppl/m2 (HB Generic Office) = ~1 per/200ft2
+
+        cls._default = new_obj
+
+        return new_obj
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._SpaceOccupancy(cls, _dict)

@@ -7,6 +7,7 @@ PHX Occupant Utilization Pattern Classes
 
 import PHX._base
 import PHX.serialization.from_dict
+import PHX.occupancy
 
 
 class VentilationUtilization(PHX._base._Base):
@@ -27,18 +28,10 @@ class VentilationUtilization(PHX._base._Base):
         try:
             _in = float(_in)
         except ValueError:
-            raise ValueError(
-                'Error: Input must be a number. Got: "{}", type: "{}"'.format(
-                    _in, type(_in)
-                )
-            )
+            raise ValueError('Error: Input must be a number. Got: "{}", type: "{}"'.format(_in, type(_in)))
 
         if _in > 24.0:
-            raise ValueError(
-                'Error: Cannot set hours of operation higher than 24. Got: "{}"'.format(
-                    _in
-                )
-            )
+            raise ValueError('Error: Cannot set hours of operation higher than 24. Got: "{}"'.format(_in))
 
         self._daily_op_sched = _in
 
@@ -54,11 +47,7 @@ class VentilationUtilization(PHX._base._Base):
         try:
             _in = float(_in)
         except ValueError:
-            raise ValueError(
-                'Error: Input must be a number. Got: "{}", type: "{}"'.format(
-                    _in, type(_in)
-                )
-            )
+            raise ValueError('Error: Input must be a number. Got: "{}", type: "{}"'.format(_in, type(_in)))
 
         if _in > 1.0:
             _in = _in / 100
@@ -143,3 +132,18 @@ class UtilizationPattern_Ventilation(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._UtilizationPattern_Ventilation(cls, _dict)
+
+
+class UtilizationPattern_NonRes(PHX._base._Base):
+
+    _count = 0
+
+    def __init__(self):
+        self.id = self._count
+        self.occupancy = [PHX.occupancy.SpaceOccupancy.default()]
+        self.lighting = []
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(UtilizationPattern_NonRes, cls).__new__(cls, *args, **kwargs)

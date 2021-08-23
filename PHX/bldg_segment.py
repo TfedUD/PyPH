@@ -270,7 +270,7 @@ class Zone(PHX._base._Base):
         self.clearance_height = 2.5
         self.spec_heat_cap_selection = 2
         self.spec_heat_cap = 132
-        self.rooms_ventilation = []
+        self.spaces = []
         self.source_zone_identifiers = []
         self.appliances = PHX.appliances.ApplianceSet()
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
@@ -289,7 +289,7 @@ class Zone(PHX._base._Base):
             _new_spaces = [_new_spaces]
 
         for space in _new_spaces:
-            self.rooms_ventilation.append(space)
+            self.spaces.append(space)
 
             # -- Add to the zone totals
             self.volume_net += space.volume
@@ -342,8 +342,8 @@ class Zone(PHX._base._Base):
         new_obj.floor_area = self.floor_area + other.floor_area
 
         # -- Extend rooms ventilation
-        new_obj.rooms_ventilation.extend(self.rooms_ventilation)
-        new_obj.rooms_ventilation.extend(other.rooms_ventilation)
+        new_obj.spaces.extend(self.spaces)
+        new_obj.spaces.extend(other.spaces)
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
 

@@ -15,6 +15,7 @@ import PHX.hvac
 import PHX.spaces
 import PHX.utilization_patterns
 import PHX.appliances
+import PHX.occupancy
 import LBT_Utils.geometry
 
 
@@ -286,6 +287,8 @@ def _Space(_cls, _input_dict):
     new_obj.occupancy = _input_dict.get("occupancy")
     new_obj.equipment = _input_dict.get("equipment")
     new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+
     new_obj.volume = _input_dict.get("volume")  # Number
     new_obj.volumes = []  # Volume Objects
     for volume_dict in _input_dict.get("volumes", {}).values():
@@ -303,6 +306,7 @@ def _BldgSegmentOccupancy(_cls, _input_dict):
     new_obj.usage_type = _input_dict.get("usage_type")
     new_obj.num_units = _input_dict.get("num_units")
     new_obj.num_stories = _input_dict.get("num_stories")
+
     return new_obj
 
 
@@ -313,6 +317,20 @@ def _ZoneOccupancy(_cls, _input_dict):
     new_obj.num_occupants = _input_dict.get("num_occupants", 0)
     new_obj.num_bedrooms = _input_dict.get("num_bedrooms", 0)
     new_obj.num_dwelling_units = _input_dict.get("num_dwelling_units", 0)
+
+    return new_obj
+
+
+def _SpaceOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.start_hour = _input_dict.get("start_hour")
+    new_obj.end_hour = _input_dict.get("end_hour")
+    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
+    new_obj.relative_absence = _input_dict.get("relative_absence")
+    new_obj.people_per_area = _input_dict.get("people_per_area")
 
     return new_obj
 

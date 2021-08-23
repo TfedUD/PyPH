@@ -68,8 +68,9 @@ class Project(PHX._base._Base):
         self.lWindow = []
         self.lSolProt = []
         self.lOverhang = []
-        self.lUtilNResPH = []
-        self.lUtilVentPH = PHX.type_collections.CVent_Util_Patterns()
+        # self.lUtilNResPH = []
+        self.utilization_patterns = PHX.type_collections.Occupancy_Util_Pattern_Collection()
+        self.lUtilVentPH = PHX.type_collections.Ventilation_Util_Pattern_Collection()
         self.lFile = []
         self.timeProf = {}
         self._bldg_segments = {}
@@ -83,10 +84,7 @@ class Project(PHX._base._Base):
             if isinstance(seg, PHX.bldg_segment.BldgSegment):
                 self._bldg_segments[seg.identifier] = seg
             else:
-                msg = (
-                    "Error: Input must be type PHX.bldg_segment.BldgSegment."
-                    'Got: "{}"'.format(seg)
-                )
+                msg = "Error: Input must be type PHX.bldg_segment.BldgSegment." 'Got: "{}"'.format(seg)
                 raise TypeError(msg)
 
     def get_segment_by_identifier(self, _identifier):
@@ -96,9 +94,7 @@ class Project(PHX._base._Base):
         else:
             return None
 
-    def add_assemblies_from_collection(
-        self, _assmbly_c: PHX.type_collections.AssemblyCollection
-    ) -> None:
+    def add_assemblies_from_collection(self, _assmbly_c: PHX.type_collections.AssemblyCollection) -> None:
         """Extends the lAssembly list with all of the Assemblies from an
             AssemblyCollection Object
 
@@ -113,9 +109,7 @@ class Project(PHX._base._Base):
         """
         self.lAssembly.extend(_assmbly_c.project_assemblies)
 
-    def add_window_types_from_collection(
-        self, _win_type_c: PHX.type_collections.WindowTypeCollection
-    ) -> None:
+    def add_window_types_from_collection(self, _win_type_c: PHX.type_collections.WindowTypeCollection) -> None:
         """Extends the lWindow list with all of the window_types from an
             PHX.type_collections.AssemblyCollection Object
 
@@ -137,7 +131,5 @@ class Project(PHX._base._Base):
 
         for v in self.lBldgSegments:
             for z in v.zones:
-                for r in z.rooms_ventilation:
-                    self.lUtilVentPH.add_to_collection(
-                        r.ventilation.utilization_pattern
-                    )
+                for r in z.spaces:
+                    self.lUtilVentPH.add_to_collection(r.ventilation.utilization_pattern)

@@ -258,6 +258,7 @@ def _Space(_obj):
     d.update({"occupancy": _obj.occupancy})
     d.update({"equipment": _obj.equipment})
     d.update({"ventilation": _obj.ventilation.to_dict()})
+    d.update({"occupancy": _obj.occupancy.to_dict()})
 
     d.update({"volume": _obj.volume})
 
@@ -289,6 +290,20 @@ def _ZoneOccupancy(_obj):
     d.update({"num_occupants": _obj.num_occupants})
     d.update({"num_bedrooms": _obj.num_bedrooms})
     d.update({"num_dwelling_units": _obj.num_dwelling_units})
+
+    return d
+
+
+def _SpaceOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"start_hour": _obj.start_hour})
+    d.update({"end_hour": _obj.end_hour})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"relative_absence": _obj.relative_absence})
+    d.update({"people_per_area =": _obj.people_per_area})
 
     return d
 
