@@ -142,6 +142,7 @@ class UtilPat_Occupancy(PHX._base._Base):
     _default = None
 
     def __init__(self):
+        self.id = self._count
         super(UtilPat_Occupancy, self).__init__()
         self.start_hour = 1
         self.end_hour = 24
@@ -185,6 +186,7 @@ class UtilPat_Lighting(PHX._base._Base):
     _default = None
 
     def __init__(self):
+        self.id = self._count
         super(UtilPat_Lighting, self).__init__()
         self.annual_utilization_factor = 1.0
 

@@ -16,6 +16,7 @@ import PHX.spaces
 import PHX.utilization_patterns
 import PHX.appliances
 import PHX.occupancy
+import PHX.lighting
 import LBT_Utils.geometry
 
 
@@ -64,13 +65,17 @@ def _UtilizationPattern_Ventilation(_cls, _input_dict):
 
     return new_obj
 
+
 def _UtilPat_Occupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    return new_obj
+
+
+def _UtilPat_Lighting(_cls, _input_dict):
     new_obj = _cls()
     return new_obj
 
-def UtilPat_Lighting(_cls, _input_dict):
-    new_obj = _cls()
-    return new_obj
 
 # -- Ventilation
 def _SummerVent(_cls, _input_dict):
@@ -295,6 +300,7 @@ def _Space(_cls, _input_dict):
     new_obj.equipment = _input_dict.get("equipment")
     new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("ventilation", {}))
     new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     new_obj.volume = _input_dict.get("volume")  # Number
     new_obj.volumes = []  # Volume Objects
@@ -333,10 +339,9 @@ def _SpaceOccupancy(_cls, _input_dict):
 
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
-    new_obj.start_hour = _input_dict.get("start_hour")
-    new_obj.end_hour = _input_dict.get("end_hour")
-    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
-    new_obj.relative_absence = _input_dict.get("relative_absence")
+    new_obj.id = _input_dict.get("id")
+    util_dict = _input_dict.get("utilization", {})
+    new_obj.utilization = PHX.utilization_patterns.UtilPat_Occupancy.from_dict(util_dict)
     new_obj.people_per_area = _input_dict.get("people_per_area")
 
     return new_obj

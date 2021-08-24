@@ -43,6 +43,13 @@ def _UtilizationPattern_Ventilation(_obj):
 
 def _UtilPat_Occupancy(_obj):
     d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"start_hour": _obj.start_hour})
+    d.update({"end_hour": _obj.end_hour})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
     return d
 
 
@@ -270,6 +277,7 @@ def _Space(_obj):
     d.update({"equipment": _obj.equipment})
     d.update({"ventilation": _obj.ventilation.to_dict()})
     d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
 
     d.update({"volume": _obj.volume})
 
@@ -309,12 +317,10 @@ def _SpaceOccupancy(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
     d.update({"name": _obj.name})
-    d.update({"start_hour": _obj.start_hour})
-    d.update({"end_hour": _obj.end_hour})
-    d.update({"annual_utilization_days": _obj.annual_utilization_days})
-    d.update({"relative_absence": _obj.relative_absence})
-    d.update({"people_per_area =": _obj.people_per_area})
+    d.update({"utilization": _obj.utilization.to_dict()})
+    d.update({"people_per_area": _obj.people_per_area})
 
     return d
 

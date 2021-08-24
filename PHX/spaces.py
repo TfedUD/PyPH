@@ -359,6 +359,15 @@ class Space(PHX._base._Base):
 
         return total
 
+    @property
+    def peak_occupancy(self):
+        if not self.floor_area_weighted:
+            return 0
+        elif not self.occupancy.people_per_area:
+            return 0
+        else:
+            return self.floor_area_weighted * self.occupancy.people_per_area
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Space(cls, _dict)

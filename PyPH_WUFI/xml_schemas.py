@@ -237,7 +237,13 @@ def _RoomVentilation(_obj):
 
 
 def _RoomLoads_Occupancy(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _obj.occupancy.id),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
+        PyPH_WUFI.xml_node.XML_Node("NumberOccupants", _obj.peak_occupancy),
+        PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", _obj.floor_area_weighted),
+    ]
 
 
 def _Zone(_obj):
