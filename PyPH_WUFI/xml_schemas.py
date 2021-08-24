@@ -206,7 +206,7 @@ def _Component(_obj):
     ]
 
 
-def _Space(_obj):
+def _RoomVentilation(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
@@ -234,6 +234,10 @@ def _Space(_obj):
             "m³/h",
         ),
     ]
+
+
+def _RoomLoads_Occupancy(_obj):
+    return []
 
 
 def _Zone(_obj):
@@ -264,7 +268,17 @@ def _Zone(_obj):
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", _obj.spec_heat_cap, "unit", "Wh/m²K"),
         PyPH_WUFI.xml_node.XML_List(
             "RoomsVentilation",
-            [PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i) for i, _ in enumerate(_obj.spaces)],
+            [
+                PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i, "_RoomVentilation")
+                for i, _ in enumerate(_obj.spaces)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "LoadsPersonsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("LoadPerson", _, "index", i, "_RoomLoads_Occupancy")
+                for i, _ in enumerate(_obj.spaces)
+            ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",

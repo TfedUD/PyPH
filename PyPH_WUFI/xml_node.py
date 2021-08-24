@@ -38,8 +38,20 @@ class XML_List:
 class XML_Object:
     """XML Writable Object. Object fields will be writen out as child nodes"""
 
-    def __init__(self, _node_name, _node_object, _attr_name=None, _attr_value=None):
+    def __init__(self, _node_name, _node_object, _attr_name=None, _attr_value=None, _schema_name=None):
+        """
+        Arguments:
+        ----------
+            * _node_name (str): The XML name for the node
+            * _node_object (object): The PHX Object to write
+            * _attr_name (str): Optional XML node attribue name
+            * _attr_value (str): Optional XML node attribute value
+            * _schema_name (str): Optional explict name for xml_schema function.
+                If none is passed, uses the class name preceded by and underscore.
+        """
+
         self.node_name = _node_name
         self.node_object = _node_object
         self.attr_name = _attr_name
         self.attr_value = _attr_value
+        self.schema_name = _schema_name

@@ -79,7 +79,7 @@ def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
         _add_node_attributes(_item, _new_parent_node)
         _parent_node.appendChild(_new_parent_node)
 
-        for item in PyPH_WUFI.xml_object_data.xml_data(_item.node_object):
+        for item in PyPH_WUFI.xml_object_data.xml_data(_item.node_object, _item.schema_name):
             _add_children(_doc, _new_parent_node, item)
 
     elif isinstance(_item, PyPH_WUFI.xml_node.XML_List):

@@ -32,9 +32,9 @@
 		<Date_Project>
 			<Year>2021</Year>
 			<Month>8</Month>
-			<Day>23</Day>
-			<Hour>21</Hour>
-			<Minutes>29</Minutes>
+			<Day>24</Day>
+			<Hour>9</Hour>
+			<Minutes>8</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -12873,6 +12873,38 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
+						<LoadsPersonsPH count="30">
+							<LoadPerson index="0"/>
+							<LoadPerson index="1"/>
+							<LoadPerson index="2"/>
+							<LoadPerson index="3"/>
+							<LoadPerson index="4"/>
+							<LoadPerson index="5"/>
+							<LoadPerson index="6"/>
+							<LoadPerson index="7"/>
+							<LoadPerson index="8"/>
+							<LoadPerson index="9"/>
+							<LoadPerson index="10"/>
+							<LoadPerson index="11"/>
+							<LoadPerson index="12"/>
+							<LoadPerson index="13"/>
+							<LoadPerson index="14"/>
+							<LoadPerson index="15"/>
+							<LoadPerson index="16"/>
+							<LoadPerson index="17"/>
+							<LoadPerson index="18"/>
+							<LoadPerson index="19"/>
+							<LoadPerson index="20"/>
+							<LoadPerson index="21"/>
+							<LoadPerson index="22"/>
+							<LoadPerson index="23"/>
+							<LoadPerson index="24"/>
+							<LoadPerson index="25"/>
+							<LoadPerson index="26"/>
+							<LoadPerson index="27"/>
+							<LoadPerson index="28"/>
+							<LoadPerson index="29"/>
+						</LoadsPersonsPH>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Kitchen dishwasher">1</Type>
@@ -24666,6 +24698,32 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
+						<LoadsPersonsPH count="24">
+							<LoadPerson index="0"/>
+							<LoadPerson index="1"/>
+							<LoadPerson index="2"/>
+							<LoadPerson index="3"/>
+							<LoadPerson index="4"/>
+							<LoadPerson index="5"/>
+							<LoadPerson index="6"/>
+							<LoadPerson index="7"/>
+							<LoadPerson index="8"/>
+							<LoadPerson index="9"/>
+							<LoadPerson index="10"/>
+							<LoadPerson index="11"/>
+							<LoadPerson index="12"/>
+							<LoadPerson index="13"/>
+							<LoadPerson index="14"/>
+							<LoadPerson index="15"/>
+							<LoadPerson index="16"/>
+							<LoadPerson index="17"/>
+							<LoadPerson index="18"/>
+							<LoadPerson index="19"/>
+							<LoadPerson index="20"/>
+							<LoadPerson index="21"/>
+							<LoadPerson index="22"/>
+							<LoadPerson index="23"/>
+						</LoadsPersonsPH>
 						<HomeDevice count="0"/>
 						<SummerMechanicalVentilationNight unit="1/h">0.0</SummerMechanicalVentilationNight>
 						<SummerNaturalVentilationDay unit="1/h">0.2746547834359343</SummerNaturalVentilationDay>
