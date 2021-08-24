@@ -35,13 +35,17 @@ class Collection:
         # type: (str) -> object
         return self._items[_identifier]
 
-    def add_to_collection(self, _item, _id=None):
-        # type: (object, str | None) -> None
+    def add_to_collection(self, _item, _id=None, _reset_count=False):
+        # type: (object, str | None, bool) -> None
         if not isinstance(_item, self._allowed_types):
             raise AddToCollectionError(_item, self.__class__.__name__, self._allowed_types)
 
+        if _reset_count:
+            _item.id = len(self._items.keys()) + 1
+
         if _id:
-            self._items[str(_id)] = _item
+            if _id not in self._items.keys():
+                self._items[_id] = _item
         elif hasattr(_item, "id"):
             self._items[_item.id] = _item
         else:

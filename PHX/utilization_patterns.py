@@ -172,6 +172,12 @@ class UtilPat_Occupancy(PHX._base._Base):
         cls._default = new_obj
         return new_obj
 
+    @property
+    def unique_key(self):
+        return "{}_{}_{}_{}_".format(
+            self.start_hour, self.end_hour, self.annual_utilization_days, self.annual_utilization_factor
+        )
+
 
 class UtilPat_Lighting(PHX._base._Base):
 
@@ -202,3 +208,7 @@ class UtilPat_Lighting(PHX._base._Base):
 
         cls._default = new_obj
         return new_obj
+
+    @property
+    def unique_key(self):
+        return "{}_".format(self.annual_utilization_factor)

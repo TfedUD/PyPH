@@ -3,9 +3,10 @@
 
 import PyPH_WUFI.type_collections
 import PyPH_WUFI.utilization_patterns
+import PHX.bldg_segment
 
 
-def build_NonRes_utilization_patterns_from_zones(_zones: list):
+def build_NonRes_utilization_patterns_from_zones(_zones: list[PHX.bldg_segment.Zone]):
     """
 
     Returns:
@@ -19,7 +20,9 @@ def build_NonRes_utilization_patterns_from_zones(_zones: list):
             util_pattern = PyPH_WUFI.utilization_patterns.UtilizationPattern_NonRes()
             util_pattern.occupancy = space.occupancy
             util_pattern.lighting = space.lighting
-            util_collection.add_to_collection(util_pattern)
+            pattern_id = util_pattern.occupancy.unique_key + util_pattern.lighting.unique_key
+
+            util_collection.add_to_collection(util_pattern, _id=pattern_id, _reset_count=True)
 
     return util_collection
 

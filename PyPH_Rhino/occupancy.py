@@ -35,6 +35,7 @@ def phx_occupancy_from_hb(_hb_occupancy):
     occ.annual_utilization_days = 365
 
     if _hb_occupancy:
+        occ.identifier = _hb_occupancy.identifier
         occ.name = _clean_HB_program_name(_hb_occupancy.display_name)
         occ.relative_absence = _relative_absence_factor(_hb_occupancy.occupancy_schedule)
         occ.people_per_area = _hb_occupancy.people_per_area

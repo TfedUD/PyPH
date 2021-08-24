@@ -58,7 +58,7 @@ def _UtilizationPattern_Vent(_obj):
 def _UtilizationPattern_NonRes(_obj):
 
     return [
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.occupancy.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
         # -- Occupancy
         PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.utilization.start_hour),

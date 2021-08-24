@@ -138,3 +138,7 @@ class SpaceOccupancy(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._SpaceOccupancy(cls, _dict)
+
+    @property
+    def unique_key(self):
+        return "{}_{}_{}".format(self.name, self.people_per_area, self.utilization.unique_key)

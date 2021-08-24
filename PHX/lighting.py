@@ -32,3 +32,9 @@ class SpaceLighting(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._SpaceLighting(cls, _dict)
+
+    @property
+    def unique_key(self):
+        return "{}_{}_{}_{}_".format(
+            self.name, self.space_illumination, self.installed_power_density, self.utilization.unique_key
+        )
