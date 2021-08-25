@@ -7,6 +7,19 @@ import honeybee.room
 import statistics
 
 
+def clean_HB_program_name(_name):
+    # type: (str) -> str
+    """Cleans the HB program / Schedule name
+
+    ie: "2013::MutiFam::Corridor" --> "Corridor"
+    "Corrior_People" --> "Corridor"
+    """
+    clean = str(_name).split("::")[-1]
+    clean = str(clean).replace("_People", "")
+    clean = str(clean).replace("_Lighting", "")
+    return clean
+
+
 def calc_HB_Room_avg_occupancy(_hb_room):
     # type: (honeybee.room.Room ) -> float
     """Returns the 'average' HB Room occupancy"""

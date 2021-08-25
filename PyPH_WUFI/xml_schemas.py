@@ -12,6 +12,9 @@ with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
 from collections import namedtuple
+
+import PHX.spaces
+
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
 import PyPH_WUFI.prepare_data
@@ -56,6 +59,13 @@ def _UtilizationPattern_Vent(_obj):
 
 
 def _UtilizationPattern_NonRes(_obj):
+    # type: (PHX.spaces.Space) -> list
+    # cus' WUFI wants absent, not present...
+    absent_fac = 1.0 - float(_obj.occupancy.utilization.annual_utilization_factor)
+    if _obj.occupancy.people_per_area:
+        m2_per_person = 1 / _obj.occupancy.people_per_area
+    else:
+        m2_per_person = 0
 
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -64,14 +74,14 @@ def _UtilizationPattern_NonRes(_obj):
         PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.utilization.start_hour),
         PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.utilization.end_hour),
         PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.utilization.annual_utilization_days),
-        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", _obj.occupancy.utilization.annual_utilization_factor),
+        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", absent_fac),
         # -- Lighting
         PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.space_illumination),
         PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.installed_power_density),
         PyPH_WUFI.xml_node.XML_Node(
             "PartUseFactorPeriodForLighting", _obj.lighting.utilization.annual_utilization_factor
         ),
-        # PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", _obj._________),
+        PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", m2_per_person),
         # PyPH_WUFI.xml_node.XML_Node("RoomSetpointTemperature", _obj._________),
         # PyPH_WUFI.xml_node.XML_Node("HeatingTemperatureReduction", _obj._________),
         # PyPH_WUFI.xml_node.XML_Node("DailyUtilizationHours", _obj._________),

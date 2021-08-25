@@ -112,7 +112,7 @@ class SpaceOccupancy(PHX._base._Base):
         self.id = self._count
         super(SpaceOccupancy, self).__init__()
         self.name = ""
-        self.utilization = PHX.utilization_patterns.UtilPat_Occupancy()
+        self.utilization = PHX.utilization_patterns.UtilPat_Occupancy.default()
         self.people_per_area = 0.0  # ppl/m2
 
     def __new__(cls, *args, **kwargs):

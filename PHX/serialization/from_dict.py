@@ -69,11 +69,21 @@ def _UtilizationPattern_Ventilation(_cls, _input_dict):
 def _UtilPat_Occupancy(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.id = _input_dict.get("id")
+    new_obj.start_hour = _input_dict.get("start_hour")
+    new_obj.end_hour = _input_dict.get("end_hour")
+    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
+    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+
     return new_obj
 
 
 def _UtilPat_Lighting(_cls, _input_dict):
     new_obj = _cls()
+
+    new_obj.id = _input_dict.get("id")
+    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+
     return new_obj
 
 
@@ -458,5 +468,9 @@ def _SpaceLighting(_cls, _input_dict):
 
     new_obj.identifier = str(_input_dict.get("identifier"))
     new_obj.name = _input_dict.get("name")
+    util_dict = _input_dict.get("utilization", {})
+    new_obj.utilization = PHX.utilization_patterns.UtilPat_Lighting.from_dict(util_dict)
+    new_obj.space_illumination = _input_dict.get("space_illumination")
+    new_obj.installed_power_density = _input_dict.get("installed_power_density")
 
     return new_obj

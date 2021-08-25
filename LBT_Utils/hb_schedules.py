@@ -8,6 +8,19 @@ from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.lib.scheduletypelimits import schedule_type_limit_by_identifier
 
 
+def calc_utilization_factor(_HB_sched):
+    # type: (honeybee_energy.schedule.ruleset.ScheduleRuleset) -> float
+    """Return annual utilization factor based on HB annual schedule.
+    (0=always absent, 1=always present)
+
+    Argumemnts:
+    ----------
+        * _HB_sched (honeybee_energy.schedule.ruleset.ScheduleRuleset)
+    """
+
+    return sum(_ for _ in _HB_sched.values()) / len(_HB_sched.values())
+
+
 def create_hb_constant_schedule(_name, _type_limit="Fractional"):
     # type: (str, str) -> honeybee_energy.schedule.ruleset.ScheduleRuleset
     """Creates a new Honeybee 'Constant' Schedule
@@ -24,9 +37,7 @@ def create_hb_constant_schedule(_name, _type_limit="Fractional"):
 
     type_limit = schedule_type_limit_by_identifier(_type_limit)
 
-    schedule = ScheduleRuleset.from_constant_value(
-        clean_and_id_ep_string(_name), 1, type_limit
-    )
+    schedule = ScheduleRuleset.from_constant_value(clean_and_id_ep_string(_name), 1, type_limit)
 
     schedule.display_name = _name
 

@@ -144,10 +144,10 @@ class UtilPat_Occupancy(PHX._base._Base):
     def __init__(self):
         self.id = self._count
         super(UtilPat_Occupancy, self).__init__()
-        self.start_hour = 1
-        self.end_hour = 24
-        self.annual_utilization_days = 365
-        self.annual_utilization_factor = 1.0
+        self.start_hour = 0
+        self.end_hour = 1
+        self.annual_utilization_days = 0
+        self.annual_utilization_factor = 0.0
 
     @classmethod
     def from_dict(cls, _dict):

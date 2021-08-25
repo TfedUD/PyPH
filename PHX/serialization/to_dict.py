@@ -53,8 +53,12 @@ def _UtilPat_Occupancy(_obj):
     return d
 
 
-def UtilPat_Lighting(_obj):
+def _UtilPat_Lighting(_obj):
     d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
     return d
 
 
@@ -408,5 +412,8 @@ def _SpaceLighting(_obj):
 
     d.update({"name": _obj.name})
     d.update({"identifier": str(_obj.identifier)})
+    d.update({"utilization": _obj.utilization.to_dict()})
+    d.update({"space_illumination": _obj.space_illumination})
+    d.update({"installed_power_density": _obj.installed_power_density})
 
     return d
