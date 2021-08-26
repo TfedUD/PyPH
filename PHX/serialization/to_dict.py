@@ -7,7 +7,7 @@ should be able to be converted to fully text represenations.
 """
 
 # -- Utilization Patterns
-def _VentilationUtilization(_obj):
+def _Vent_UtilRate(_obj):
     d = {}
 
     d.update({"daily_op_sched": _obj.daily_op_sched})
@@ -16,7 +16,7 @@ def _VentilationUtilization(_obj):
     return d
 
 
-def _VentilationUtilizations(_obj):  # Collection
+def _Vent_UtilRates(_obj):  # Collection
     d = {}
 
     d.update({"maximum": _obj.maximum.to_dict()})
@@ -28,15 +28,16 @@ def _VentilationUtilizations(_obj):  # Collection
 
 
 # -- Utilization Patterns
-def _UtilizationPattern_Ventilation(_obj):
+def _UtilPat_Vent(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"id": _obj.id})
-    d.update({"n": _obj.n})
-    d.update({"OperatingDays": _obj.OperatingDays})
-    d.update({"OperatingWeeks": _obj.OperatingWeeks})
+    d.update({"name": _obj.name})
+    d.update({"operating_days": _obj.operating_days})
+    d.update({"operating_weeks": _obj.operating_weeks})
 
-    d.update({"utilizations": _obj.utilizations.to_dict()})
+    d.update({"utilization_rates": _obj.utilization_rates.to_dict()})
 
     return d
 
@@ -62,7 +63,7 @@ def _UtilPat_Lighting(_obj):
     return d
 
 
-# -- Ventilation
+# -- HVAC: Ventilation
 def _SummerVent(_obj):
     d = {}
 
@@ -79,18 +80,53 @@ def _SummerVent(_obj):
     return d
 
 
-# -- HVAC
-def _PropertiesVentilation(_obj):
+def _Ventilation_Duct_Segment(_obj):
     d = {}
 
-    d.update({"airflows": _obj.airflows.to_dict()})
-    d.update({"ventilator": _obj.ventilator.to_dict()})
-    d.update({"utilization_pattern": _obj.utilization_pattern.to_dict()})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"length": _obj.length})
+    d.update({"diameter": _obj.diameter})
+    d.update({"width": _obj.width})
+    d.update({"height": _obj.height})
+    d.update({"insulation_thickness": _obj.insulation_thickness})
+    d.update({"insulation_conductivity": _obj.insulation_conductivity})
 
     return d
 
 
-def _HVAC_Ventilation_Airflows(_obj):
+def _Ventilation_Duct(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
+
+    return d
+
+
+def _Ventilation_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"type": _obj.type})
+    d.update({"ventilator": _obj.ventilator.to_dict()})
+    d.update({"duct_01": _obj.duct_01.to_dict()})
+    d.update({"duct_02": _obj.duct_02.to_dict()})
+
+    return d
+
+
+def _SpaceVentilation(_obj):
+    d = {}
+
+    d.update({"airflow_rates": _obj.airflow_rates.to_dict()})
+    d.update({"system": _obj.system.to_dict()})
+    d.update({"utilization": _obj.utilization.to_dict()})
+
+    return d
+
+
+def _AirflowRates(_obj):
     d = {}
 
     d.update({"supply": _obj.supply})
@@ -100,7 +136,7 @@ def _HVAC_Ventilation_Airflows(_obj):
     return d
 
 
-def _HVAC_PH_Parameters(_obj):
+def _Ventilator_PH_Parameters(_obj):
     d = {}
 
     d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
@@ -130,6 +166,29 @@ def _HVAC_PH_Parameters(_obj):
     return d
 
 
+def _Ventilator(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"Name": _obj.Name})
+    d.update({"SystemType": _obj.SystemType})
+    d.update({"TypeDevice": _obj.TypeDevice})
+    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
+    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
+    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
+    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
+    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
+    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
+    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
+    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
+
+    return d
+
+
+# -- HVAC: System / General
 def _HVAC_Device(_obj):
     d = {}
 
@@ -144,10 +203,9 @@ def _HVAC_Device(_obj):
     d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
     d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
     d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
     d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
     d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
-    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
 
     return d
 
@@ -164,43 +222,6 @@ def _HVAC_System(_obj):
     d.update({"distrib": _obj.distrib})
     d.update({"suppDev": _obj.suppDev})
     d.update({"PHdistrib": _obj.PHdistrib})
-
-    return d
-
-
-# -- HVAC: Ventilation
-def _HVAC_Ventilation_Duct_Segment(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"length": _obj.length})
-    d.update({"diameter": _obj.diameter})
-    d.update({"width": _obj.width})
-    d.update({"height": _obj.height})
-    d.update({"insulation_thickness": _obj.insulation_thickness})
-    d.update({"insulation_conductivity": _obj.insulation_conductivity})
-
-    return d
-
-
-def _HVAC_Ventilation_Duct(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
-
-    return d
-
-
-def _HVAC_Ventilation_System(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"name": _obj.name})
-    d.update({"type": _obj.type})
-    d.update({"ventilator": _obj.ventilator.to_dict()})
-    d.update({"duct_01": _obj.duct_01.to_dict()})
-    d.update({"duct_02": _obj.duct_02.to_dict()})
 
     return d
 
@@ -279,7 +300,7 @@ def _Space(_obj):
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
     d.update({"occupancy": _obj.occupancy})
     d.update({"equipment": _obj.equipment})
-    d.update({"ventilation": _obj.ventilation.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
     d.update({"occupancy": _obj.occupancy.to_dict()})
     d.update({"lighting": _obj.lighting.to_dict()})
 

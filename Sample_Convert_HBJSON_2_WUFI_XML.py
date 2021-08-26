@@ -8,7 +8,6 @@ model objects, and exporting the PHX_Project out to a WUFI XML file.
 
 import PHX.project
 import PHX.bldg_segment
-import PHX.hvac
 import PyPH_WUFI.type_collections
 import PyPH_WUFI.build_WUFI_xml
 

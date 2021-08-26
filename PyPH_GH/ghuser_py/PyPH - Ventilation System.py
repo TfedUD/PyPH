@@ -23,7 +23,7 @@
 Collects and organizes data for a simple fresh-air ventilation system (HRV/ERV). 
 Outputs a 'ventilation' class object to apply to a HB Zone.
 -
-EM August 11, 2021
+EM August 25, 2021
     Args:
         system_name_: <Optional> A name for the overall system. ie: 'ERV-1', 
             etc.. Will show up in the 'Additional Ventilation' worksheet as the 
@@ -49,6 +49,7 @@ import Grasshopper as gh
 import PHX
 import PHX.spaces
 import PHX.hvac
+import PHX.ventilation_components
 
 import LBT_Utils
 
@@ -59,12 +60,13 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation System"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 25, 2021')
 
 if DEV:
     reload(PHX)
     reload(PHX.spaces)
     reload(PHX.hvac)
+    reload(PHX.ventilation_components)
     reload(LBT_Utils)
     reload(PHX.serialization)
     reload(PHX.serialization.to_dict)
@@ -79,10 +81,10 @@ IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
 
 #-- Build the new Vent System
 #-------------------------------------------------------------------------------
-new_system = PHX.hvac.HVAC_Ventilation_System.default()
+new_system = PHX.ventilation_components.Ventilation_System.default()
 new_system.name = system_name_ or 'Unnamed Ventilation System'
 
-new_system.ventilator = vent_unit_ or PHX.hvac.HVAC_Device.default_ventilator()
+new_system.ventilator = vent_unit_ or PHX.ventilation_components.Ventilator.default()
 new_system.duct_01 = PyPH_Rhino.ventilation_io.handle_duct_input(IGH, duct_01_, 'duct_01_')
 new_system.duct_02 = PyPH_Rhino.ventilation_io.handle_duct_input(IGH, duct_02_, 'duct_02_')
 
@@ -98,18 +100,18 @@ for hb_room in _HB_rooms:
     for space_dict in hb_room.user_data.get('phx', {}).get('spaces',{}).values():
         # -- Deserialize each space, modify the property
         space_obj = PHX.spaces.Space.from_dict(space_dict)
-        space_obj.ventilation.ventilator = new_system.ventilator
+        space_obj.ventilation.system = new_system
         
         # -- Reserialize each space
         spaces_dict.update( { id(space_obj):space_obj.to_dict() } )
-    
+        
     # -- Add the modified spaces nto the new room
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
                                     spaces_dict, 'spaces', _write_mode='overwrite')
     
     # -- Add the System level info as well
-    system_dict = new_system.to_dict()
-    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                    system_dict, 'hvac_sys_vent', _write_mode='overwrite')
+    #system_dict = new_system.to_dict()
+    #new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
+                                    #system_dict, 'hvac_sys_vent', _write_mode='overwrite')
     
     HB_rooms_.append( new_hb_room )

@@ -32,9 +32,9 @@
 		<Date_Project>
 			<Year>2021</Year>
 			<Month>8</Month>
-			<Day>25</Day>
-			<Hour>10</Hour>
-			<Minutes>27</Minutes>
+			<Day>26</Day>
+			<Hour>13</Hour>
+			<Minutes>47</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -102,173 +102,25 @@
 		</WindowType>
 	</WindowTypes>
 	<SolarProtectionTypes count="0"/>
-	<UtilisationPatternsVentilation count="54">
+	<UtilisationPatternsVentilation count="1">
 		<UtilizationPatternVent index="0">
+			<IdentNr>1</IdentNr>
+			<Name>Rhino_Ventilation_Schedule</Name>
 			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="1">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="2">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="3">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="4">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="5">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="6">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="7">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="8">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="9">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="10">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="11">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="12">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="13">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="14">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="15">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="16">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="17">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="18">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="19">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="20">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="21">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="22">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="23">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="24">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="25">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="26">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="27">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="28">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="29">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="30">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="31">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="32">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="33">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="34">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="35">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="36">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="37">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="38">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="39">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="40">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="41">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="42">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="43">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="44">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="45">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="46">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="47">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="48">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="49">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="50">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="51">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="52">
-			<OperatingDays>7</OperatingDays>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="53">
-			<OperatingDays>7</OperatingDays>
+			<OperatingWeeks>7</OperatingWeeks>
+			<Maximum_DOS>1.0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
+			<Standard_DOS>23.0</Standard_DOS>
+			<Standard_PDF>0.77</Standard_PDF>
+			<Basic_DOS>0.0</Basic_DOS>
+			<Basic_PDF>0.0</Basic_PDF>
+			<Minimum_DOS>0.0</Minimum_DOS>
+			<Minimum_PDF>0.0</Minimum_PDF>
 		</UtilizationPatternVent>
 	</UtilisationPatternsVentilation>
 	<UtilizationPatternsPH count="9">
 		<UtilizationPattern index="0">
-			<IdentNr>0</IdentNr>
+			<IdentNr>1</IdentNr>
 			<Name>_default_occupancy_</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -280,7 +132,7 @@
 			<AverageOccupancy>17.699115044247787</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="1">
-			<IdentNr>1</IdentNr>
+			<IdentNr>2</IdentNr>
 			<Name>PublicRestroom</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -292,7 +144,7 @@
 			<AverageOccupancy>32.59754385964912</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="2">
-			<IdentNr>2</IdentNr>
+			<IdentNr>3</IdentNr>
 			<Name>Zero_Occupancy</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -304,7 +156,7 @@
 			<AverageOccupancy>0</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="3">
-			<IdentNr>3</IdentNr>
+			<IdentNr>4</IdentNr>
 			<Name>Kitchen</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -316,7 +168,7 @@
 			<AverageOccupancy>4.64515</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="4">
-			<IdentNr>4</IdentNr>
+			<IdentNr>5</IdentNr>
 			<Name>Office</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -328,7 +180,7 @@
 			<AverageOccupancy>88.47904761904762</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="5">
-			<IdentNr>5</IdentNr>
+			<IdentNr>6</IdentNr>
 			<Name>GuestLounge</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -340,7 +192,7 @@
 			<AverageOccupancy>3.096766666666667</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="6">
-			<IdentNr>6</IdentNr>
+			<IdentNr>7</IdentNr>
 			<Name>Zero_Occupancy</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -352,7 +204,7 @@
 			<AverageOccupancy>0</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="7">
-			<IdentNr>7</IdentNr>
+			<IdentNr>8</IdentNr>
 			<Name>Zero_Occupancy</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -364,7 +216,7 @@
 			<AverageOccupancy>0</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="8">
-			<IdentNr>8</IdentNr>
+			<IdentNr>9</IdentNr>
 			<Name>Lobby</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
@@ -12375,7 +12227,7 @@
 					</Component>
 					<Component index="5">
 						<IdentNr>81</IdentNr>
-						<Name>Aperture_9732c337</Name>
+						<Name>Aperture_b16d5986</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -12544,27 +12396,27 @@
 						<SpecificHeatCapacity unit="Wh/m²K">131.99999999999997</SpecificHeatCapacity>
 						<RoomsVentilation count="30">
 							<Room index="0">
-								<Name>400-CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="1">
 								<Name>408-UTILITY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">3.55563117532821</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999964</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="1">
+								<Name>400-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="2">
@@ -12574,7 +12426,7 @@
 								<AreaRoom unit="m²">13.360745475230578</AreaRoom>
 								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12586,33 +12438,33 @@
 								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000067</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="4">
-								<Name>308-UTILITY</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">3.55563117532821</AreaRoom>
-								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="5">
 								<Name>300-CORRIDOR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="5">
+								<Name>308-UTILITY</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">3.55563117532821</AreaRoom>
+								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="6">
@@ -12622,7 +12474,7 @@
 								<AreaRoom unit="m²">13.360745475230578</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12634,7 +12486,7 @@
 								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000009</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12646,7 +12498,7 @@
 								<AreaRoom unit="m²">3.55563117532821</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999942</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12656,9 +12508,9 @@
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
 								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<ClearRoomHeight unit="m">2.499999999999997</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12670,7 +12522,7 @@
 								<AreaRoom unit="m²">13.360745475230578</AreaRoom>
 								<ClearRoomHeight unit="m">2.499999999999997</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12682,7 +12534,7 @@
 								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000007</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12694,7 +12546,7 @@
 								<AreaRoom unit="m²">41.379442252428305</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12706,7 +12558,7 @@
 								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12718,7 +12570,7 @@
 								<AreaRoom unit="m²">39.69618773044899</AreaRoom>
 								<ClearRoomHeight unit="m">2.499999999999992</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12730,7 +12582,7 @@
 								<AreaRoom unit="m²">60.842297504855736</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12742,7 +12594,7 @@
 								<AreaRoom unit="m²">42.402256110713964</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12754,7 +12606,7 @@
 								<AreaRoom unit="m²">43.95391422936315</AreaRoom>
 								<ClearRoomHeight unit="m">2.499999999999999</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12766,7 +12618,7 @@
 								<AreaRoom unit="m²">41.379442252428305</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12778,7 +12630,7 @@
 								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12790,7 +12642,7 @@
 								<AreaRoom unit="m²">39.69618773044899</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999933</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12802,7 +12654,7 @@
 								<AreaRoom unit="m²">60.842297504855736</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12814,7 +12666,7 @@
 								<AreaRoom unit="m²">42.402256110713964</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12826,7 +12678,7 @@
 								<AreaRoom unit="m²">43.95391422936315</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12838,7 +12690,7 @@
 								<AreaRoom unit="m²">41.379442252428305</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12850,7 +12702,7 @@
 								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12862,7 +12714,7 @@
 								<AreaRoom unit="m²">39.69618773044899</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999902</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12874,7 +12726,7 @@
 								<AreaRoom unit="m²">60.842297504855736</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12886,7 +12738,7 @@
 								<AreaRoom unit="m²">42.402256110713964</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12898,7 +12750,7 @@
 								<AreaRoom unit="m²">43.95391422936315</AreaRoom>
 								<ClearRoomHeight unit="m">2.499999999999998</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -12906,213 +12758,183 @@
 						</RoomsVentilation>
 						<LoadsPersonsPH count="30">
 							<LoadPerson index="0">
-								<Name>400-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<Name>408-UTILITY</Name>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>1.996380378493765</NumberOccupants>
-								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
+								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="1">
-								<Name>408-UTILITY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<Name>400-CORRIDOR</Name>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.20089316140604388</NumberOccupants>
-								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
+								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="2">
 								<Name>ES-4-EGRESS STAIR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.7548821193505277</NumberOccupants>
 								<FloorAreaUtilizationZone>13.360745475230578</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="3">
 								<Name>407-LAUNDRY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.4183677090840773</NumberOccupants>
 								<FloorAreaUtilizationZone>7.404738213877474</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="4">
-								<Name>308-UTILITY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<Name>300-CORRIDOR</Name>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.20089316140604388</NumberOccupants>
-								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
+								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="5">
-								<Name>300-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<Name>308-UTILITY</Name>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>1.996380378493765</NumberOccupants>
-								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
+								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="6">
 								<Name>ES-3-EGRESS STAIR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.7548821193505277</NumberOccupants>
 								<FloorAreaUtilizationZone>13.360745475230578</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="7">
 								<Name>307-LAUNDRY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.4183677090840773</NumberOccupants>
 								<FloorAreaUtilizationZone>7.404738213877474</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="8">
 								<Name>508-UTILITY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.20089316140604388</NumberOccupants>
 								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="9">
 								<Name>500-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>1.996380378493765</NumberOccupants>
 								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="10">
 								<Name>ES-5-EGRESS STAIR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.7548821193505277</NumberOccupants>
 								<FloorAreaUtilizationZone>13.360745475230578</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="11">
 								<Name>507-LAUNDRY</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.4183677090840773</NumberOccupants>
 								<FloorAreaUtilizationZone>7.404738213877474</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="12">
 								<Name>401-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.3379384872621993</NumberOccupants>
 								<FloorAreaUtilizationZone>41.379442252428305</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="13">
 								<Name>402-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.2279308332120653</NumberOccupants>
 								<FloorAreaUtilizationZone>39.432404127647175</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="14">
 								<Name>403-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.242834606770368</NumberOccupants>
 								<FloorAreaUtilizationZone>39.69618773044899</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="15">
 								<Name>404-1BR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>3.4375898090243493</NumberOccupants>
 								<FloorAreaUtilizationZone>60.842297504855736</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="16">
 								<Name>405-STUDIO C</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.395727470255339</NumberOccupants>
 								<FloorAreaUtilizationZone>42.402256110713964</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="17">
 								<Name>406-STUDIO B</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.483396153959018</NumberOccupants>
 								<FloorAreaUtilizationZone>43.95391422936315</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="18">
 								<Name>301-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.3379384872621993</NumberOccupants>
 								<FloorAreaUtilizationZone>41.379442252428305</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="19">
 								<Name>302-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.2279308332120653</NumberOccupants>
 								<FloorAreaUtilizationZone>39.432404127647175</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="20">
 								<Name>303-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.242834606770368</NumberOccupants>
 								<FloorAreaUtilizationZone>39.69618773044899</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="21">
 								<Name>304-1BR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>3.4375898090243493</NumberOccupants>
 								<FloorAreaUtilizationZone>60.842297504855736</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="22">
 								<Name>305-STUDIO C</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.395727470255339</NumberOccupants>
 								<FloorAreaUtilizationZone>42.402256110713964</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="23">
 								<Name>306-STUDIO B</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.483396153959018</NumberOccupants>
 								<FloorAreaUtilizationZone>43.95391422936315</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="24">
 								<Name>501-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.3379384872621993</NumberOccupants>
 								<FloorAreaUtilizationZone>41.379442252428305</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="25">
 								<Name>502-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.2279308332120653</NumberOccupants>
 								<FloorAreaUtilizationZone>39.432404127647175</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="26">
 								<Name>503-STUDIO A</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.242834606770368</NumberOccupants>
 								<FloorAreaUtilizationZone>39.69618773044899</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="27">
 								<Name>504-1BR</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>3.4375898090243493</NumberOccupants>
 								<FloorAreaUtilizationZone>60.842297504855736</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="28">
 								<Name>505-STUDIO C</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.395727470255339</NumberOccupants>
 								<FloorAreaUtilizationZone>42.402256110713964</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="29">
 								<Name>506-STUDIO B</Name>
-								<IdentNrUtilizationPattern>0</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.483396153959018</NumberOccupants>
 								<FloorAreaUtilizationZone>43.95391422936315</FloorAreaUtilizationZone>
 							</LoadPerson>
 						</LoadsPersonsPH>
@@ -13622,7 +13444,7 @@
 						<Devices count="1">
 							<Device index="0">
 								<Name>A First test unit</Name>
-								<IdentNr>1</IdentNr>
+								<IdentNr>2</IdentNr>
 								<SystemType choice="Mechanical ventilation">1</SystemType>
 								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
 								<UsedFor_Heating>false</UsedFor_Heating>
@@ -13631,7 +13453,6 @@
 								<UsedFor_Ventilation>true</UsedFor_Ventilation>
 								<UsedFor_Humidification>false</UsedFor_Humidification>
 								<UsedFor_Dehumidification>false</UsedFor_Dehumidification>
-								<Ventilation_Parameters>{}</Ventilation_Parameters>
 								<UseOptionalClimate>false</UseOptionalClimate>
 								<IdentNr_OptionalClimate>-1</IdentNr_OptionalClimate>
 								<PH_Parameters>
@@ -13692,6 +13513,14 @@
 								<SettingFloorSlabType choice="User defined">6</SettingFloorSlabType>
 							</FoundationInterface>
 						</FoundationInterfaces>
+						<InternalGainsAdditionalData>
+							<EvaporationHeatPerPerson unit="W">15</EvaporationHeatPerPerson>
+							<HeatLossFluschingWC>true</HeatLossFluschingWC>
+							<QuantityWCs unit="-">1</QuantityWCs>
+							<RoomCategory>1</RoomCategory>
+							<UseDefaultValuesSchool>false</UseDefaultValuesSchool>
+							<MarginalPerformanceRatioDHW unit="-">None</MarginalPerformanceRatioDHW>
+						</InternalGainsAdditionalData>
 					</PH_Building>
 				</PH_Buildings>
 			</PassivehouseData>
@@ -24475,7 +24304,7 @@
 					</Component>
 					<Component index="5">
 						<IdentNr>363</IdentNr>
-						<Name>Aperture_018140fe</Name>
+						<Name>Aperture_df60b141</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -24627,7 +24456,7 @@
 								<AreaRoom unit="m²">10.637818497629064</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000053</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24639,7 +24468,7 @@
 								<AreaRoom unit="m²">13.718987178018631</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24651,7 +24480,7 @@
 								<AreaRoom unit="m²">13.368695944784466</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24663,7 +24492,7 @@
 								<AreaRoom unit="m²">9.446009419062777</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24675,7 +24504,7 @@
 								<AreaRoom unit="m²">38.7595885141939</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000003</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">375.064935151</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">375.064935151</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24687,7 +24516,7 @@
 								<AreaRoom unit="m²">9.504097583044366</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24699,7 +24528,7 @@
 								<AreaRoom unit="m²">36.988139625734675</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">308.961039032</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">308.961039032</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24711,7 +24540,7 @@
 								<AreaRoom unit="m²">12.502643978879972</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">33.1168831245</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">33.1168831245</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24723,7 +24552,7 @@
 								<AreaRoom unit="m²">50.59097036246326</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999982</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24735,7 +24564,7 @@
 								<AreaRoom unit="m²">9.636811346981457</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999956</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">110.389610415</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24747,7 +24576,7 @@
 								<AreaRoom unit="m²">72.43462222679153</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999982</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">1246.62337691</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">1246.62337691</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24759,7 +24588,7 @@
 								<AreaRoom unit="m²">16.367608412584808</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">1246.62337691</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">1246.62337691</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24771,7 +24600,7 @@
 								<AreaRoom unit="m²">6.032954859687396</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24783,7 +24612,7 @@
 								<AreaRoom unit="m²">13.545720757660327</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">165.454545493</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24795,7 +24624,7 @@
 								<AreaRoom unit="m²">13.178560685693391</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">275.844155908</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">331.038961115</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24807,7 +24636,7 @@
 								<AreaRoom unit="m²">13.628517186449525</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24819,7 +24648,7 @@
 								<AreaRoom unit="m²">8.594091961905358</AreaRoom>
 								<ClearRoomHeight unit="m">2.500000000000003</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24831,7 +24660,7 @@
 								<AreaRoom unit="m²">17.632069138350296</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000036</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">143.37662341</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">143.37662341</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24843,7 +24672,7 @@
 								<AreaRoom unit="m²">10.683585908954793</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24855,7 +24684,7 @@
 								<AreaRoom unit="m²">204.57181691040668</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">1698.96103935</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">1698.96103935</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24867,7 +24696,7 @@
 								<AreaRoom unit="m²">28.7544675961937</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">496.493506608</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">551.688311815</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24879,7 +24708,7 @@
 								<AreaRoom unit="m²">7.54780050286968</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24891,7 +24720,7 @@
 								<AreaRoom unit="m²">9.470285247927126</AreaRoom>
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24903,7 +24732,7 @@
 								<AreaRoom unit="m²">11.849854672234061</AreaRoom>
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
 								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
 								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
@@ -24912,170 +24741,146 @@
 						<LoadsPersonsPH count="24">
 							<LoadPerson index="0">
 								<Name>207-RESTROOM</Name>
-								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.3263380377193722</NumberOccupants>
 								<FloorAreaUtilizationZone>10.637818497629064</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="1">
 								<Name>206-RESTROOM</Name>
-								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.420859535831492</NumberOccupants>
 								<FloorAreaUtilizationZone>13.718987178018631</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="2">
 								<Name>ES-2-EGRESS STAIR</Name>
-								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>13.368695944784466</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="3">
 								<Name>SERVICE STAIR-SS-2</Name>
-								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>9.446009419062777</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="4">
 								<Name>205-KITCHEN</Name>
-								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>8.344098363711376</NumberOccupants>
 								<FloorAreaUtilizationZone>38.7595885141939</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="5">
 								<Name>208-PANTRY</Name>
-								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.0460259804407532</NumberOccupants>
 								<FloorAreaUtilizationZone>9.504097583044366</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="6">
 								<Name>204-MEETING ROOM</Name>
-								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.41804405247431636</NumberOccupants>
 								<FloorAreaUtilizationZone>36.988139625734675</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="7">
 								<Name>205-OFFICE</Name>
-								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.14130626758903342</NumberOccupants>
 								<FloorAreaUtilizationZone>12.502643978879972</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="8">
 								<Name>200-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.5717847527053639</NumberOccupants>
 								<FloorAreaUtilizationZone>50.59097036246326</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="9">
 								<Name>202-CONFERENCE ROOM</Name>
-								<IdentNrUtilizationPattern>4</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.10891630963833816</NumberOccupants>
 								<FloorAreaUtilizationZone>9.636811346981457</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="10">
 								<Name>201-GAME ROOM</Name>
-								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>23.39040361241021</NumberOccupants>
 								<FloorAreaUtilizationZone>72.43462222679153</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="11">
 								<Name>201-GAME ROOM</Name>
-								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>5.285386396322446</NumberOccupants>
 								<FloorAreaUtilizationZone>16.367608412584808</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="12">
 								<Name>200-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>6.032954859687396</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="13">
 								<Name>107-RESTROOM</Name>
-								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.4155442144961081</NumberOccupants>
 								<FloorAreaUtilizationZone>13.545720757660327</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="14">
 								<Name>106-RESTROOM</Name>
-								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0.40428078699531944</NumberOccupants>
 								<FloorAreaUtilizationZone>13.178560685693391</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="15">
 								<Name>ES-1-EGRESS STAIR</Name>
-								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>13.628517186449525</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="16">
 								<Name>SERVICE STAIR-SS-1</Name>
-								<IdentNrUtilizationPattern>2</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>3</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>8.594091961905358</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="17">
 								<Name>103-PREP. SPACE</Name>
-								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>8</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>17.632069138350296</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="18">
 								<Name>102-COATS</Name>
-								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>8</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>10.683585908954793</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="19">
 								<Name>101-LEGION HALL</Name>
-								<IdentNrUtilizationPattern>5</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>66.0598097726898</NumberOccupants>
 								<FloorAreaUtilizationZone>204.57181691040668</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="20">
 								<Name>105-TRASH STORAGE</Name>
-								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>8</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>28.7544675961937</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="21">
 								<Name>100-VESTIBULE</Name>
-								<IdentNrUtilizationPattern>8</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>9</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>2.4373165030848347</NumberOccupants>
 								<FloorAreaUtilizationZone>7.54780050286968</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="22">
 								<Name>109-EXIT CORRIDOR</Name>
-								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>9.470285247927126</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="23">
 								<Name>108-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>6</IdentNrUtilizationPattern>
+								<IdentNrUtilizationPattern>7</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<NumberOccupants>0</NumberOccupants>
 								<FloorAreaUtilizationZone>11.849854672234061</FloorAreaUtilizationZone>
 							</LoadPerson>
 						</LoadsPersonsPH>
@@ -25449,8 +25254,8 @@
 						</ZonesCoverage>
 						<Devices count="1">
 							<Device index="0">
-								<Name>__default_ventilation__</Name>
-								<IdentNr>1</IdentNr>
+								<Name>__default_ventilator__</Name>
+								<IdentNr>4</IdentNr>
 								<SystemType choice="Mechanical ventilation">1</SystemType>
 								<TypeDevice choice="Mechanical ventilation unit">1</TypeDevice>
 								<UsedFor_Heating>false</UsedFor_Heating>
@@ -25459,7 +25264,6 @@
 								<UsedFor_Ventilation>true</UsedFor_Ventilation>
 								<UsedFor_Humidification>false</UsedFor_Humidification>
 								<UsedFor_Dehumidification>false</UsedFor_Dehumidification>
-								<Ventilation_Parameters>{}</Ventilation_Parameters>
 								<UseOptionalClimate>false</UseOptionalClimate>
 								<IdentNr_OptionalClimate>-1</IdentNr_OptionalClimate>
 								<PH_Parameters>
@@ -25520,6 +25324,14 @@
 								<SettingFloorSlabType choice="User defined">6</SettingFloorSlabType>
 							</FoundationInterface>
 						</FoundationInterfaces>
+						<InternalGainsAdditionalData>
+							<EvaporationHeatPerPerson unit="W">15</EvaporationHeatPerPerson>
+							<HeatLossFluschingWC>true</HeatLossFluschingWC>
+							<QuantityWCs unit="-">1</QuantityWCs>
+							<RoomCategory>1</RoomCategory>
+							<UseDefaultValuesSchool>false</UseDefaultValuesSchool>
+							<MarginalPerformanceRatioDHW unit="-">None</MarginalPerformanceRatioDHW>
+						</InternalGainsAdditionalData>
 					</PH_Building>
 				</PH_Buildings>
 			</PassivehouseData>

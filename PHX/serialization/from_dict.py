@@ -17,6 +17,8 @@ import PHX.utilization_patterns
 import PHX.appliances
 import PHX.occupancy
 import PHX.lighting
+import PHX.ventilation
+import PHX.ventilation_components
 import LBT_Utils.geometry
 
 
@@ -31,7 +33,7 @@ def _setattr_filter(_obj, _attr_name, _attr_val, _filter=True):
 
 
 # -- Utilization Patterns
-def _VentilationUtilization(_cls, _input_dict):
+def _Vent_UtilRate(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.daily_op_sched = _input_dict.get("daily_op_sched")
@@ -40,29 +42,29 @@ def _VentilationUtilization(_cls, _input_dict):
     return new_obj
 
 
-def _VentilationUtilizations(_cls, _input_dict):  # Collection
+def _Vent_UtilRates(_cls, _input_dict):  # Collection
     new_obj = _cls()
 
-    new_obj.maximum = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("maximum", {}))
-    new_obj.standard = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("standard", {}))
-    new_obj.basic = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("basic", {}))
-    new_obj.minimum = PHX.utilization_patterns.VentilationUtilization.from_dict(_input_dict.get("minimum", {}))
+    new_obj.maximum = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("maximum", {}))
+    new_obj.standard = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("standard", {}))
+    new_obj.basic = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("basic", {}))
+    new_obj.minimum = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("minimum", {}))
 
     return new_obj
 
 
-def _UtilizationPattern_Ventilation(_cls, _input_dict):
+def _UtilPat_Vent(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj.id = _input_dict.get("id")
-    new_obj.n = _input_dict.get("n")
-    new_obj.OperatingDays = _input_dict.get("OperatingDays")
-    new_obj.OperatingWeeks = _input_dict.get("OperatingWeeks")
+    new_obj.name = _input_dict.get("name")
+    new_obj.operating_days = _input_dict.get("operating_days")
+    new_obj.operating_weeks = _input_dict.get("operating_weeks")
 
-    new_obj.utilizations = PHX.utilization_patterns.VentilationUtilizations.from_dict(
-        _input_dict.get("utilizations", {})
+    new_obj.utilization_rates = PHX.utilization_patterns.Vent_UtilRates.from_dict(
+        _input_dict.get("utilization_rates", {})
     )
-
     return new_obj
 
 
@@ -87,7 +89,7 @@ def _UtilPat_Lighting(_cls, _input_dict):
     return new_obj
 
 
-# -- Ventilation
+# -- HVAC: Ventilation
 def _SummerVent(_cls, _input_dict):
     new_obj = _cls()
 
@@ -104,8 +106,7 @@ def _SummerVent(_cls, _input_dict):
     return new_obj
 
 
-# -- HVAC: Ventilation
-def _HVAC_Ventilation_Duct_Segment(_cls, _input_dict):
+def _Ventilation_Duct_Segment(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
@@ -119,45 +120,41 @@ def _HVAC_Ventilation_Duct_Segment(_cls, _input_dict):
     return new_obj
 
 
-def _HVAC_Ventilation_Duct(_cls, _input_dict):
+def _Ventilation_Duct(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
     for d in _input_dict.get("segments"):
-        new_obj.segments.append(PHX.hvac.HVAC_Ventilation_Duct_Segment.from_dict(d))
+        new_obj.segments.append(PHX.ventilation_components.Ventilation_Duct_Segment.from_dict(d))
 
     return new_obj
 
 
-def _HVAC_Ventilation_System(_cls, _input_dict):
+def _Ventilation_System(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
     new_obj.type = _input_dict.get("type")
 
-    new_obj.duct_01 = PHX.hvac.HVAC_Device.from_dict(_input_dict.get("ventilator", {}))
-    new_obj.duct_01 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(_input_dict.get("duct_01", {}))
-    new_obj.duct_02 = PHX.hvac.HVAC_Ventilation_Duct.from_dict(_input_dict.get("duct_02", {}))
+    new_obj.ventilator = PHX.ventilation_components.Ventilator.from_dict(_input_dict.get("ventilator", {}))
+    new_obj.duct_01 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_01", {}))
+    new_obj.duct_02 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_02", {}))
 
     return new_obj
 
 
-# -- HVAC
-def _PropertiesVentilation(_cls, _input_dict):
+def _SpaceVentilation(_cls, _input_dict):
     new_obj = _cls()
 
-    if _input_dict:
-        new_obj.airflows = PHX.hvac.HVAC_Ventilation_Airflows.from_dict(_input_dict.get("airflows", {}))
-        new_obj.ventilator = PHX.hvac.HVAC_Device.from_dict(_input_dict.get("ventilator", {}))
-        new_obj.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.from_dict(
-            _input_dict.get("utilization_pattern", {})
-        )
+    new_obj.airflow_rates = PHX.ventilation.AirflowRates.from_dict(_input_dict.get("airflow_rates", {}))
+    new_obj.system = PHX.ventilation_components.Ventilation_System.from_dict(_input_dict.get("system", {}))
+    new_obj.utilization = PHX.utilization_patterns.UtilPat_Vent.from_dict(_input_dict.get("utilization", {}))
 
     return new_obj
 
 
-def _HVAC_Ventilation_Airflows(_cls, _input_dict):
+def _AirflowRates(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.supply = _input_dict.get("supply")
@@ -167,7 +164,7 @@ def _HVAC_Ventilation_Airflows(_cls, _input_dict):
     return new_obj
 
 
-def _HVAC_PH_Parameters(_cls, _input_dict):
+def _Ventilator_PH_Parameters(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.HumidityRecoveryEfficiency = _input_dict.get("HumidityRecoveryEfficiency")
@@ -197,6 +194,31 @@ def _HVAC_PH_Parameters(_cls, _input_dict):
     return new_obj
 
 
+def _Ventilator(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.Name = _input_dict.get("Name")
+    new_obj.SystemType = _input_dict.get("SystemType")
+    new_obj.TypeDevice = _input_dict.get("TypeDevice")
+    new_obj.UsedFor_Heating = _input_dict.get("UsedFor_Heating")
+    new_obj.UsedFor_DHW = _input_dict.get("UsedFor_DHW")
+    new_obj.UsedFor_Cooling = _input_dict.get("UsedFor_Cooling")
+    new_obj.UsedFor_Ventilation = _input_dict.get("UsedFor_Ventilation")
+    new_obj.UsedFor_Humidification = _input_dict.get("UsedFor_Humidification")
+    new_obj.UsedFor_Dehumidification = _input_dict.get("UsedFor_Dehumidification")
+    # new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
+    new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
+    new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
+    new_obj.PH_Parameters = PHX.ventilation_components.Ventilator_PH_Parameters.from_dict(
+        _input_dict.get("PH_Parameters", {})
+    )
+
+    return new_obj
+
+
+# -- HVAC: System / General
 def _HVAC_Device(_cls, _input_dict):
     new_obj = _cls()
 
@@ -211,10 +233,9 @@ def _HVAC_Device(_cls, _input_dict):
     new_obj.UsedFor_Ventilation = _input_dict.get("UsedFor_Ventilation")
     new_obj.UsedFor_Humidification = _input_dict.get("UsedFor_Humidification")
     new_obj.UsedFor_Dehumidification = _input_dict.get("UsedFor_Dehumidification")
-    new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
+    # new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
     new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
     new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
-    new_obj.PH_Parameters = PHX.hvac.HVAC_PH_Parameters.from_dict(_input_dict.get("PH_Parameters", {}))
 
     return new_obj
 
@@ -246,11 +267,12 @@ def _FloorSegment(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     for _ in _input_dict.get("geometry", {}).values():
         new_obj.geometry.append(LBT_Utils.geometry.LBT_geometry_dict_util(_))
+
+    new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
 
     return new_obj
 
@@ -263,7 +285,6 @@ def _Floor(_cls, _input_dict):
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
     new_obj.non_res_motion = _input_dict.get("non_res_motion")
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     new_obj.floor_segments = []
@@ -271,6 +292,8 @@ def _Floor(_cls, _input_dict):
         if flr_seg_dict:
             new_flr_seg = PHX.spaces.FloorSegment.from_dict(flr_seg_dict)
             new_obj.floor_segments.append(new_flr_seg)
+
+    new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
 
     return new_obj
 
@@ -295,7 +318,7 @@ def _Volume(_cls, _input_dict):
             new_geom_list.append(LBT_Utils.geometry.LBT_geometry_dict_util(__))
         new_obj.volume_geometry.append(new_geom_list)
 
-    new_obj._ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
 
     return new_obj
 
@@ -303,19 +326,19 @@ def _Volume(_cls, _input_dict):
 def _Space(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.volume = _input_dict.get("volume")  # Number
+    new_obj.volumes = []  # Volume Objects
+    for volume_dict in _input_dict.get("volumes", {}).values():
+        new_obj.volumes.append(PHX.spaces.Volume.from_dict(volume_dict))
+
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
     new_obj.occupancy = _input_dict.get("occupancy")
     new_obj.equipment = _input_dict.get("equipment")
-    new_obj.ventilation = PHX.spaces.PropertiesVentilation.from_dict(_input_dict.get("ventilation", {}))
+    new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
     new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
-
-    new_obj.volume = _input_dict.get("volume")  # Number
-    new_obj.volumes = []  # Volume Objects
-    for volume_dict in _input_dict.get("volumes", {}).values():
-        new_obj.volumes.append(PHX.spaces.Volume.from_dict(volume_dict))
 
     return new_obj
 

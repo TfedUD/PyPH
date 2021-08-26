@@ -4,6 +4,7 @@
 """Rhino/Grasshopper functions for buiding PHX Ventilation Systems, Ducts."""
 
 import PHX.hvac
+import PHX.ventilation_components
 import PyPH_Rhino.gh_io
 
 
@@ -16,8 +17,8 @@ class DuctInputError(Exception):
 
 
 def handle_duct_input(IGH, _inputs, _input_node_name):
-    # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.hvac.HVAC_Ventilation_Duct
-    """Handle user-input of HVAC ducts at the System level.
+    # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.ventilation_components.Ventilation_Duct
+    """Handle user-input of Ventilation ducts at the Ventilation-System level.
 
     Input could be:
         * Duct Object
@@ -35,17 +36,17 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
 
     Returns:
     --------
-        * (PHX.hvac.HVAC_Ventilation_Duct): The new HVAC Ventilation Duct Object.
+        * (PHX.ventilation_components.Ventilation_Duct): The new Ventilation Duct Object.
     """
 
     try:
         # -- If its RH/GH-Geom, Str, Float - handle all that
         clean_inputs = PyPH_Rhino.gh_io.handle_inputs(IGH, _inputs, _input_node_name)
-        new_duct = PHX.hvac.HVAC_Ventilation_Duct()
+        new_duct = PHX.ventilation_components.Ventilation_Duct()
 
         for _in in clean_inputs:
             # -- Build new Duct Segments
-            new_duct_seg = PHX.hvac.HVAC_Ventilation_Duct_Segment()
+            new_duct_seg = PHX.ventilation_components.Ventilation_Duct_Segment()
 
             # -- Basic Duct Segment Params
             new_duct_seg.diameter = _in.get("ductDiameter", 0.0)
@@ -63,7 +64,6 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
                 except:
                     try:
                         new_duct_seg.length = sum(geo.length for geo in _in.get("Geometry"))
-                        # new_duct_seg.length = _in.get("Geometry").length
                     except AttributeError:
                         raise DuctInputError(_in.get("Geometry"))
 
@@ -76,11 +76,11 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
         new_ducts = []
         for _in in _inputs:
             if hasattr(_in, "segments"):
-                # -- Is an HVAC Duct already, so use that
+                # -- Is an Ventilation Duct already, so use that
                 new_ducts.append(_in)
             else:
                 raise DuctInputError(_in)
 
-        new_duct = sum(new_ducts, start=PHX.hvac.HVAC_Ventilation_Duct())
+        new_duct = sum(new_ducts, start=PHX.ventilation_components.Ventilation_Duct())
 
         return new_duct

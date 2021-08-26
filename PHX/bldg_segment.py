@@ -73,6 +73,13 @@ class PHIUSCertification(PHX._base._Base):
         self.building_status = 1  # In Planning
         self.building_type = 1  # New Construction
 
+        self.int_gains_evap_per_person = 15
+        self.int_gains_flush_heat_loss = True
+        self.int_gains_num_toilets = 1
+        self.int_gains_toilet_room_util_pat = None
+        self.int_gains_use_school_defaults = False
+        self.int_gains_dhw_marginal_perf_ratio = None
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._PHIUSCertification(cls, _dict)

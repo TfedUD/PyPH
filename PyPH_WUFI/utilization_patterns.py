@@ -1,4 +1,5 @@
 """Collections / Organizations of data in WUFI-specific format"""
+import PHX.utilization_patterns
 
 
 class UtilizationPattern_NonRes:
@@ -22,6 +23,10 @@ class UtilizationPattern_Vent:
 
     def __init__(self):
         self.id = self._count
+        self.name = None
+        self.operating_days = None
+        self.operating_weeks = None
+        self.utilization_rates = PHX.utilization_patterns.Vent_UtilRates()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""

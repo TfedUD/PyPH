@@ -22,7 +22,7 @@
 """
 Builds new PHX-Spaces within the Honyebee-Rooms/Zones.
 -
-EM August 16, 2021
+EM August 25, 2021
     Args:
         _floor_surfaces (list[Surface]) The individual space floor surfaces represting 
             each individual 'space' inside the Honeybee Room (zone).
@@ -50,12 +50,15 @@ import LBT_Utils
 
 import PHX
 import PHX._base
-import PHX.utilization_patterns
 import PHX.hvac
+import PHX.utilization_patterns
+import PHX.ventilation
+import PHX.ventilation_components
 import PHX.geometry
 import PHX.spaces
 import PHX.serialization.to_dict
 import PHX.serialization.from_dict
+import PHX.lighting
 
 import PyPH_Rhino
 import PyPH_Rhino.gh_io
@@ -69,7 +72,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create PHX Spaces"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 16, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 25 2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -78,10 +81,13 @@ if DEV:
     reload(PHX._base)
     reload(PHX.utilization_patterns)
     reload(PHX.hvac)
+    reload(PHX.ventilation)
+    reload(PHX.ventilation_components)
     reload(PHX.geometry)
     reload(PHX.spaces)
     reload(PHX.serialization.to_dict)
     reload(PHX.serialization.from_dict)
+    reload(PHX.lighting)
     
     reload(PyPH_Rhino)
     reload(PyPH_Rhino.gh_io)
@@ -89,6 +95,7 @@ if DEV:
     reload(PyPH_Rhino.space_floors)
     reload(PyPH_Rhino.space_volumes)
     reload(PyPH_Rhino.space_io)
+    reload(PHX.occupancy)
 
 
 # -- GH Interface

@@ -22,7 +22,7 @@
 """
 Collects and organizes data for a duct for a Ventilation System.
 -
-EM August 11, 2021
+EM August 25, 2021
     Args:
         _duct_length: List<Float | Curve> Input either a number for the length of 
             the duct from the Ventilation Unit to the building enclusure, or geometry 
@@ -54,7 +54,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Duct"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 25, 2021')
 
 if DEV:
     reload( PyPH_Rhino.ventilation_io )
@@ -84,5 +84,3 @@ for i, segment in enumerate(duct_.segments):
     segment.diameter = clean(duct_diameter_, i) or segment.diameter
     segment.insulation_thickness = clean(insulation_thickness_, i) or segment.insulation_thickness
     segment.insulation_conductivity = clean(insulation_conductivity_, i) or segment.insulation_conductivity
-
-

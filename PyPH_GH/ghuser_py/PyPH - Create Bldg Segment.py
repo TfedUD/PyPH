@@ -25,7 +25,7 @@ as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM August 15, 2021
+EM August 26, 2021
     Args:
         segment_name_: Name for the building-segment
         
@@ -85,7 +85,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 15, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 26, 2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -119,6 +119,8 @@ new_PH_params.building_type = PyPH_Rhino.gh_io.input_to_int(IGH, bldg_type_, 1)
 #-- Add the data to all the input HB Rooms
 HB_rooms_ = []
 for room in _HB_rooms:
+    if not room: continue
+    
     new_hb_room = room.duplicate()
     
     #-- Pack everything back into the HB Room user-data

@@ -43,7 +43,7 @@ class Collection:
         if _key:
             if _key not in self._items.keys():
                 if _reset_count:
-                    _item.id = len(self._items.keys())
+                    _item.id = len(self._items.keys()) + 1
                 self._items[_key] = _item
             else:
                 if _reset_count:

@@ -46,14 +46,20 @@ def build_vent_utilization_patterns_from_zones(_zones: list[PHX.bldg_segment.Zon
         * (PyPH_WUFI.type_collections.UtilizationPatternCollection_PH_NonRes)
     """
 
+    # Create the new Util Pattern Collection
     util_collection = PyPH_WUFI.type_collections.UtilPat_Collection_Ventilation()
 
     for zone in _zones:
         for space in zone.spaces:
+            # Get the Utilization from the Space, add it to the collection
             util_pattern = PyPH_WUFI.utilization_patterns.UtilizationPattern_Vent()
 
-            util_pattern.OperatingDays = space.ventilation.utilization_pattern.OperatingDays
+            util_pattern.name = space.ventilation.utilization.name
+            util_pattern.operating_days = space.ventilation.utilization.operating_days
+            util_pattern.operating_weeks = space.ventilation.utilization.operating_days
+            util_pattern.utilization_rates = space.ventilation.utilization.utilization_rates
 
-            util_collection.add_to_collection(util_pattern)
+            key = space.ventilation.utilization.identifier
+            util_collection.add_to_collection(util_pattern, _key=key, _reset_count=True)
 
     return util_collection

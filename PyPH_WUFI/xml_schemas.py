@@ -43,18 +43,18 @@ def _WindowType(_obj):
 # - Utilization Patterns
 def _UtilizationPattern_Vent(_obj):
     return [
-        # PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        # PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
-        PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.OperatingDays),
-        # PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.OperatingWeeks),
-        # PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilizations.maximum.daily_op_sched),
-        # PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilizations.maximum.frac_of_design_airflow),
-        # PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilizations.standard.daily_op_sched),
-        # PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilizations.standard.frac_of_design_airflow),
-        # PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilizations.basic.daily_op_sched),
-        # PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilizations.basic.frac_of_design_airflow),
-        # PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilizations.minimum.daily_op_sched),
-        # PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilizations.minimum.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
+        PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.operating_days),
+        PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.operating_weeks),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilization_rates.maximum.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilization_rates.maximum.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilization_rates.standard.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilization_rates.standard.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilization_rates.basic.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilization_rates.basic.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilization_rates.minimum.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilization_rates.minimum.frac_of_design_airflow),
     ]
 
 
@@ -223,23 +223,23 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _obj.type).xml_data),
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", _obj.floor_area_weighted, "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", _obj.clear_height, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.utilization_pattern.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.ventilator.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.utilization.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
-            _obj.ventilation.airflows.supply,
+            _obj.ventilation.airflow_rates.supply,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateExhaust",
-            _obj.ventilation.airflows.extract,
+            _obj.ventilation.airflow_rates.extract,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignFlowInterzonalUserDef",
-            _obj.ventilation.airflows.transfer,
+            _obj.ventilation.airflow_rates.transfer,
             "unit",
             "m³/h",
         ),
@@ -251,7 +251,7 @@ def _RoomLoads_Occupancy(_obj):
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _obj.occupancy.id),
         PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
-        PyPH_WUFI.xml_node.XML_Node("NumberOccupants", _obj.peak_occupancy),
+        # PyPH_WUFI.xml_node.XML_Node("NumberOccupants", _obj.peak_occupancy),
         PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", _obj.floor_area_weighted),
     ]
 
@@ -380,6 +380,17 @@ def _Building(_obj):
 
 
 # -- PHIUS Data
+def _IntGainsData(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("EvaporationHeatPerPerson", _obj.int_gains_evap_per_person, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("HeatLossFluschingWC", _obj.int_gains_flush_heat_loss),
+        PyPH_WUFI.xml_node.XML_Node("QuantityWCs", _obj.int_gains_num_toilets, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", 1, _obj.int_gains_toilet_room_util_pat),
+        PyPH_WUFI.xml_node.XML_Node("UseDefaultValuesSchool", _obj.int_gains_use_school_defaults),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MarginalPerformanceRatioDHW", _obj.int_gains_dhw_marginal_perf_ratio, "unit", "-"
+        ),
+    ]
 
 
 def _PH_Building(_obj):
@@ -414,6 +425,7 @@ def _PH_Building(_obj):
                 for i, _ in enumerate(_obj.foundations)
             ],
         ),
+        PyPH_WUFI.xml_node.XML_Object("InternalGainsAdditionalData", _obj.int_gains_data),
     ]
 
 
@@ -535,7 +547,7 @@ def _Foundation(_obj):
 
 
 # -- HVAC
-def _HVAC_PH_Parameters(_obj):
+def _Ventilator_PH_Parameters(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.Quantity),
         PyPH_WUFI.xml_node.XML_Node(
@@ -582,6 +594,35 @@ def _HVAC_PH_Parameters(_obj):
     ]
 
 
+def _Ventilator(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.SystemType).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.TypeDevice).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.UsedFor_Heating),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.UsedFor_DHW),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.UsedFor_Cooling),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
+        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
+        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.PH_Parameters),
+        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MoistureRecovery",
+            _obj.PH_Parameters.HumidityRecoveryEfficiency,
+            "unit",
+            "-",
+        ),
+    ]
+
+
 def _HVAC_Device(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
@@ -598,17 +639,8 @@ def _HVAC_Device(_obj):
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
-        PyPH_WUFI.xml_node.XML_Node("Ventilation_Parameters", _obj.Ventilation_Parameters),
         PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
         PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
-        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.PH_Parameters),
-        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "MoistureRecovery",
-            _obj.PH_Parameters.HumidityRecoveryEfficiency,
-            "unit",
-            "-",
-        ),
     ]
 
 
@@ -695,6 +727,18 @@ def _BldgSegment(_obj):
     )
 
     # --- PH_Building Object
+    tIntGainsData = namedtuple(
+        "IntGainsData",
+        [
+            "int_gains_evap_per_person",
+            "int_gains_flush_heat_loss",
+            "int_gains_num_toilets",
+            "int_gains_toilet_room_util_pat",
+            "int_gains_use_school_defaults",
+            "int_gains_dhw_marginal_perf_ratio",
+        ],
+    )
+
     tPH_Building = namedtuple(
         "PH_Building",
         [
@@ -709,6 +753,7 @@ def _BldgSegment(_obj):
             "q50",
             "n50",
             "foundations",
+            "int_gains_data",
         ],
     )
 
@@ -724,6 +769,14 @@ def _BldgSegment(_obj):
         _obj.infiltration.q50,
         _obj.infiltration.n50,
         _obj.foundations,
+        tIntGainsData(
+            _obj.PHIUS_certification.int_gains_evap_per_person,
+            _obj.PHIUS_certification.int_gains_flush_heat_loss,
+            _obj.PHIUS_certification.int_gains_num_toilets,
+            _obj.PHIUS_certification.int_gains_toilet_room_util_pat,
+            _obj.PHIUS_certification.int_gains_use_school_defaults,
+            _obj.PHIUS_certification.int_gains_dhw_marginal_perf_ratio,
+        ),
     )
 
     # ---- PassivehouseData Object

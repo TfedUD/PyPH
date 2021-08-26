@@ -68,9 +68,9 @@ def set_Space_ventilation_from_HB_room(_hb_room, _phx_Space):
     # - Ventilation Airflow
     total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(_hb_room)
 
-    _phx_Space.ventilation.supply = total_vent_airflow * 3600
-    _phx_Space.ventilation.extract = total_vent_airflow * 3600
-    _phx_Space.ventilation.transfer = 0.0
+    _phx_Space.ventilation.airflow_rates.supply = total_vent_airflow * 3600
+    _phx_Space.ventilation.airflow_rates.extract = total_vent_airflow * 3600
+    _phx_Space.ventilation.airflow_rates.transfer = 0.0
 
 
 def create_PHX_Spaces_from_HB_room(_hb_room):
@@ -82,14 +82,14 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
 
     spaces = []
     if user_determined_space_dict:
-        # --- Build new Spaces based on the User-determiend detailed inputs
+        # --- Build new Spaces based on the User-determined detailed inputs
         for space_dict in user_determined_space_dict.values():
 
             new_phx_space = PHX.spaces.Space.from_dict(space_dict)
 
             spaces.append(new_phx_space)
     else:
-        # --- Build a default space if no detailed ones provided
+        # --- Build a default space for the zone, if no detailed spaces are provided
         new_phx_space = PHX.spaces.Space()
         new_phx_space.space_number = None
         new_phx_space.space_name = f"{_hb_room.display_name}_room"

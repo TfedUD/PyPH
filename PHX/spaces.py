@@ -7,29 +7,9 @@ PHX Space (Room) and Floor Area (iCFA / TFA) Classes
 
 import PHX._base
 import PHX.serialization.from_dict
-import PHX.hvac
-import PHX.utilization_patterns
 import PHX.occupancy
 import PHX.lighting
-
-
-class PropertiesVentilation(PHX._base._Base):
-    def __init__(self):
-        super(PropertiesVentilation, self).__init__()
-        self.airflows = PHX.hvac.HVAC_Ventilation_Airflows()
-        self.ventilator = PHX.hvac.HVAC_Device.default_ventilator()
-        self.utilization_pattern = PHX.utilization_patterns.UtilizationPattern_Ventilation.default()
-
-    def __add__(self, _other):
-        new_obj = self.__class__()
-
-        new_obj.airflows = self.airflows.join(_other.airflows)
-
-        return new_obj
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._PropertiesVentilation(cls, _dict)
+import PHX.ventilation
 
 
 class FloorSegment(PHX._base._Base):
@@ -48,7 +28,7 @@ class FloorSegment(PHX._base._Base):
         self.non_res_motion = None
         self.non_res_usage = None
 
-        self._ventilation = PropertiesVentilation()
+        self._ventilation = PHX.ventilation.SpaceVentilation()
 
     @property
     def ventilation(self):
@@ -107,7 +87,7 @@ class Floor(PHX._base._Base):
         self.non_res_motion = None
         self.non_res_usage = None
 
-        self._ventilation = PropertiesVentilation()
+        self._ventilation = PHX.ventilation.SpaceVentilation()
 
     @property
     def ventilation(self):
@@ -228,7 +208,7 @@ class Volume(PHX._base._Base):
         self._volume = 0.0
         self.volume_geometry = []
 
-        self._ventilation = PropertiesVentilation()
+        self._ventilation = PHX.ventilation.SpaceVentilation()
 
     @property
     def ventilation(self):
@@ -335,9 +315,24 @@ class Space(PHX._base._Base):
         self.volumes = []
 
         self.equipment = None
-        self.ventilation = PropertiesVentilation()
+        self.ventilation = PHX.ventilation.SpaceVentilation()
         self.occupancy = PHX.occupancy.SpaceOccupancy.default()
         self.lighting = PHX.lighting.SpaceLighting.default()
+
+    @property
+    def ventilation(self):
+        return self._ventilation
+
+    @ventilation.setter
+    def ventilation(self, _in):
+        if not _in:
+            return
+
+        self._ventilation = _in
+
+        # -- Reset all the Volume Ventilations as well
+        for volume in self.volumes:
+            volume.ventilation = _in
 
     @property
     def clear_height(self):
@@ -377,7 +372,7 @@ class Space(PHX._base._Base):
         return "{}-{}".format(self.space_number, self.space_name)
 
     def add_new_volume(self, _new_volume):
-        # type: (PHX.spaces.Volume) -> None
+        # type : (PHX.spaces.Space, PHX.spaces.Volume) -> None
         """Adds a new Volume onto the Space. Verifies that the names/numbers/hosts match
 
         Arguments:
