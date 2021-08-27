@@ -19,9 +19,9 @@ def test_Floor_add_FloorSegment(floor_segments):
     assert new_flr.non_res_motion == None
     assert new_flr.non_res_usage == None
 
-    assert new_flr.ventilation.airflows.supply == 0.0
-    assert new_flr.ventilation.airflows.extract == 0.0
-    assert new_flr.ventilation.airflows.transfer == 0.0
+    assert new_flr.ventilation.airflow_rates.supply == 0.0
+    assert new_flr.ventilation.airflow_rates.extract == 0.0
+    assert new_flr.ventilation.airflow_rates.transfer == 0.0
 
     assert new_flr.host_zone_identifier == "GHI-789"
 

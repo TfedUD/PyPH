@@ -465,9 +465,9 @@ class BldgSegment(PHX._base._Base):
         self.geom.add_component_polygons(_components)
 
         if not isinstance(_components, list):
-            _compos = [_components]
+            _components = [_components]
 
-        for c in _compos:
+        for c in _components:
             if c in self.components:
                 continue
             if not isinstance(c, PHX.component.Component):

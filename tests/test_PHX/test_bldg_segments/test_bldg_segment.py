@@ -1,30 +1,30 @@
-import PHX.variant
+import PHX.bldg_segment
 import PHX.component
 import PHX.geometry
 
 
-def test_variant_identifier(reset_variant_count):
-    v1 = PHX.variant.Variant()
-    v2 = PHX.variant.Variant()
+def test_segment_identifier(reset_bldg_segment_count):
+    v1 = PHX.bldg_segment.BldgSegment()
+    v2 = PHX.bldg_segment.BldgSegment()
 
     assert v1.identifier != v2.identifier
 
 
-def test_variant_id(reset_variant_count):
-    assert PHX.variant.Variant._count == 0
+def test_segment_id(reset_bldg_segment_count):
+    assert PHX.bldg_segment.BldgSegment._count == 0
 
-    v1 = PHX.variant.Variant()
-    assert PHX.variant.Variant._count == 1
+    v1 = PHX.bldg_segment.BldgSegment()
+    assert PHX.bldg_segment.BldgSegment._count == 1
 
-    v2 = PHX.variant.Variant()
-    assert PHX.variant.Variant._count == 2
+    v2 = PHX.bldg_segment.BldgSegment()
+    assert PHX.bldg_segment.BldgSegment._count == 2
 
 
 def test_add_zones():
-    var1 = PHX.variant.Variant()
-    z1 = PHX.variant.Zone()
-    z2 = PHX.variant.Zone()
-    z3 = PHX.variant.Zone()
+    var1 = PHX.bldg_segment.BldgSegment()
+    z1 = PHX.bldg_segment.Zone()
+    z2 = PHX.bldg_segment.Zone()
+    z3 = PHX.bldg_segment.Zone()
 
     var1.add_zones(z1)
     assert z1 in var1.zones
@@ -38,7 +38,7 @@ def test_add_zones():
 
 
 def test_add_components():
-    var1 = PHX.variant.Variant()
+    var1 = PHX.bldg_segment.BldgSegment()
 
     c1 = PHX.component.Component()
     p1 = PHX.geometry.Polygon()
@@ -59,8 +59,8 @@ def test_add_components():
     var1.add_components(c1)
 
     # Check that the Building updated properly
-    assert c1 in var1.building.lComponent
-    assert len(var1.building.lComponent) == 1
+    assert c1 in var1.components
+    assert len(var1.components) == 1
 
     # Check that the Geom updated properly
     assert p1 in var1.geom.polygons
@@ -74,9 +74,9 @@ def test_add_components():
     var1.add_components([c2, c3])
 
     # Check that the Building updated properly
-    assert c1 in var1.building.lComponent
-    assert c2 in var1.building.lComponent
-    assert len(var1.building.lComponent) == 3
+    assert c1 in var1.components
+    assert c2 in var1.components
+    assert len(var1.components) == 3
 
     # Check that the Geom updated properly
     assert p1 in var1.geom.polygons
@@ -88,12 +88,12 @@ def test_add_components():
 
 
 def test_get_zone_by_identifier():
-    var1 = PHX.variant.Variant()
-    z1 = PHX.variant.Zone()
-    z2 = PHX.variant.Zone()
-    z3 = PHX.variant.Zone()
-    z4 = PHX.variant.Zone()
-    z5 = PHX.variant.Zone()
+    var1 = PHX.bldg_segment.BldgSegment()
+    z1 = PHX.bldg_segment.Zone()
+    z2 = PHX.bldg_segment.Zone()
+    z3 = PHX.bldg_segment.Zone()
+    z4 = PHX.bldg_segment.Zone()
+    z5 = PHX.bldg_segment.Zone()
 
     var1.add_zones([z1, z2, z3, z4])
 

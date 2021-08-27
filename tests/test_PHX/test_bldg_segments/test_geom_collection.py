@@ -1,10 +1,10 @@
 import PHX.component
 import PHX.geometry
-import PHX.variant
+import PHX.bldg_segment
 
 
 def test_Geom_add_components():
-    g1 = PHX.variant.Geom()
+    g1 = PHX.bldg_segment.Geom()
     c1 = PHX.component.Component()
     c2 = PHX.component.Component()
     p1 = PHX.geometry.Polygon()
@@ -38,7 +38,7 @@ def test_Geom_add_components():
 def test_Geom_get_vertices():
     """Test that all vertices are gotten correctly from the Geom collection"""
 
-    g1 = PHX.variant.Geom()
+    g1 = PHX.bldg_segment.Geom()
     c1 = PHX.component.Component()
     p1 = PHX.geometry.Polygon()
     v11 = PHX.geometry.Vertex(0, 0, 0)
