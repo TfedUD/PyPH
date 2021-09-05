@@ -304,11 +304,11 @@ class Zone(PHX._base._Base):
             self.floor_area += space.floor_area_weighted
             self.floor_area_selection = 6  # user-defined
 
-    def add_new_appliance(self, _appliance):
-        # type (Appliance) -> None
-        """Adds a new PHX-Appliance to the PHX-BldgSegment"""
+    # def add_new_appliance(self, _appliance):
+    #     # type (Appliance) -> None
+    #     """Adds a new PHX-Appliance to the PHX-BldgSegment"""
 
-        self.appliances.append(_appliance)
+    #     self.appliances.append(_appliance)
 
     @staticmethod
     def _clean_join(_a, _b):

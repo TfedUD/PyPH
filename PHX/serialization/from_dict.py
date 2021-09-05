@@ -25,7 +25,7 @@ import LBT_Utils.geometry
 def _setattr_filter(_obj, _attr_name, _attr_val, _filter=True):
     """Normal setattr() but with a filter in front to catch null values"""
 
-    if not _attr_val and _filter:
+    if _attr_val is None and _filter:
         return None
     else:
         setattr(_obj, _attr_name, _attr_val)
