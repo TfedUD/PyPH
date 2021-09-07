@@ -480,7 +480,7 @@ def _Appliance(_cls, _input_dict):
 
     # -- PHIUS Lighting
     _setattr_filter(new_obj, "lighting_frac_high_efficiency", _input_dict.get("lighting_frac_high_efficiency"))
-    _setattr_filter(new_obj, "user_defined_total", _input_dict.get("user_defined_total"))
+    _setattr_filter(new_obj, "_user_defined_total", _input_dict.get("_user_defined_total"))
 
     return new_obj
 

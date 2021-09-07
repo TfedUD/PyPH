@@ -19,6 +19,17 @@ class ApplianceAdditionError(Exception):
         super(ApplianceAdditionError, self).__init__(self.message)
 
 
+class ApplianceTypeMismatchError(Exception):
+    def __init__(self, _a, _b, _attr_name):
+        self.message = (
+            'Error: Cannot add Appliance "{}" with attribute: "{}:{}" to Appliance {}'
+            'with attribute: "{}:{}"'.format(
+                _a, _attr_name, getattr(_a, _attr_name), _b, _attr_name, getattr(_b, _attr_name)
+            )
+        )
+        super(ApplianceTypeMismatchError, self).__init__(self.message)
+
+
 class ApplianceSet(PHX._base._Base):
     """A Collection of Appliances"""
 
@@ -61,7 +72,7 @@ class ApplianceSet(PHX._base._Base):
 
     @property
     def appliances(self):
-        return [
+        return (
             self.dishwasher,
             self.clothes_washer,
             self.clothes_dryer,
@@ -72,13 +83,16 @@ class ApplianceSet(PHX._base._Base):
             self.PHIUS_MEL,
             self.PHIUS_Lighting_Int,
             self.PHIUS_Lighting_Ext,
-        ]
+        )
 
     def __iter__(self):
         for _ in self.appliances:
             if not _:
                 continue
             yield _
+
+    def __len__(self):
+        return len([_ for _ in self.appliances if _])
 
     @classmethod
     def from_dict(cls, _dict):
@@ -90,14 +104,10 @@ class ApplianceSet(PHX._base._Base):
         # -- Handle None cases
         if self and not other:
             return self
-        elif other and not self:
-            return other
-        elif not self and not other:
-            return None
 
         # -- Merge together Appliances
         new_set = self.__class__()
-        for app_type_num, app_type_name in self.known_types.items():
+        for app_type_name in self.known_types.values():
             self_appliance = getattr(self, app_type_name)
             other_appliance = getattr(other, app_type_name)
 
@@ -114,6 +124,8 @@ class ApplianceSet(PHX._base._Base):
             new_set.add_appliance(new_appliance)
 
         return new_set
+
+    __radd__ = __add__
 
 
 class Appliance(PHX._base._Base):
@@ -154,7 +166,18 @@ class Appliance(PHX._base._Base):
 
         # -- PHIUS Lighting
         self.lighting_frac_high_efficiency = 1
-        self.user_defined_total = 0
+        self._user_defined_total = 0
+
+    @property
+    def user_defined_total(self):
+        return self._user_defined_total
+
+    @user_defined_total.setter
+    def user_defined_total(self, _in):
+        if not _in:
+            return None
+        self._user_defined_total = _in
+        self.reference_quantity = 5  # User Defined
 
     def __eq__(self, other):
         # type: (Appliance, Appliance) -> Appliance
@@ -194,94 +217,86 @@ class Appliance(PHX._base._Base):
 
         return True
 
-    def __add__(self, other):
-        # type: (Appliance, Appliance) -> Appliance
-        def _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, _attr):
-            # type: (Appliance, Appliance, Appliance, str) -> None
-            """Utility function, sets appliance energy demand on a unit-weighted average basis"""
-
-            a = getattr(_obj_a, _attr) * _obj_a.quantity
-            b = getattr(_obj_b, _attr) * _obj_b.quantity
-            weighted_avg = (a + b) / (_obj_a.quantity + _obj_b.quantity)
-            setattr(_new_obj, _attr, weighted_avg)
-
-            return None
-
-        def _set_average_energy(_new_obj, _obj_a, _obj_b):
-            # type: (Appliance, Appliance, Appliance) -> None
-            """Utility function sets the averaged basic energy attributes for all appliances"""
-
-            _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, "energy_demand")
-            _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, "energy_demand_per_use")
-            _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, "combined_energy_facor")
-
-            return None
-
-        # -- Handle None case
-        if self and not other:
-            return self
-
-        # -- Join appliances
-        # -- Mostly just averaging the values
-        if self.type == 1 and other.type == 1:
-            new_appliance = self.__class__.PHIUS_Dishwasher()
-            new_appliance.quantity = self.quantity + other.quantity
-            _set_average_energy(new_appliance, self, other)
-            _set_quantity_weighted_average(new_appliance, self, other, "dishwasher_capacity")
-        elif self.type == 2 and other.type == 2:
-            new_appliance = self.__class__.PHIUS_Clothes_Washer()
-            new_appliance.quantity += other.quantity
-            _set_average_energy(new_appliance, self, other)
-            _set_quantity_weighted_average(new_appliance, self, other, "washer_modified_energy_factor")
-        elif self.type == 3 and other.type == 3:
-            new_appliance = self.__class__.PHIUS_Clothes_Dryer()
-            new_appliance.quantity += other.quantity
-            _set_average_energy(new_appliance, self, other)
-            _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_consumption")
-            _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_efficiency_factor")
-            _set_quantity_weighted_average(new_appliance, self, other, "dryer_field_utilization_factor")
-        elif self.type == 4 and other.type == 4:
-            new_appliance = self.__class__.PHIUS_Fridge()
-            _set_average_energy(new_appliance, self, other)
-        elif self.type == 5 and other.type == 5:
-            new_appliance = self.__class__.PHIUS_Freezer()
-            _set_average_energy(new_appliance, self, other)
-        elif self.type == 6 and other.type == 6:
-            new_appliance = self.__class__.PHIUS_Combo_Fridge()
-            _set_average_energy(new_appliance, self, other)
-        elif self.type == 7 and other.type == 7:
-            new_appliance = self.__class__.PHIUS_Cooktop()
-            new_appliance.quantity += other.quantity
-            _set_average_energy(new_appliance, self, other)
-        elif self.type == 13 and other.type == 13:
-            new_appliance = self.__class__.PHIUS_MEL()
-            if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
-                new_appliance.reference_quantity = 5
-                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
-                new_appliance.energy_demand = 100
-                new_appliance.energy_demand_per_use = 100
-        elif self.type == 14 and other.type == 14:
-            new_appliance = self.__class__.PHIUS_Lighting_Int()
-            if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
-                new_appliance.reference_quantity = 5
-                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
-                new_appliance.energy_demand = 100
-                new_appliance.energy_demand_per_use = 100
-        elif self.type == 15 and other.type == 15:
-            new_appliance = self.__class__.PHIUS_Lighting_Ext()
-            if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
-                new_appliance.reference_quantity = 5
-                new_appliance.user_defined_total = self.user_defined_total + other.user_defined_total
-                new_appliance.energy_demand = 100
-                new_appliance.energy_demand_per_use = 100
-        else:
-            raise ApplianceAdditionError(self, other)
-
-        return new_appliance
-
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Appliance(cls, _dict)
+
+    def __add__(self, other):
+        # type: (Appliance, Appliance) -> Appliance
+
+        def _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, _attr_name):
+            # type: (Appliance, Appliance, Appliance, str) -> None
+            """Utility function used by __add__: Sets appliance energy demand on a unit-weighted average basis"""
+
+            a = getattr(_obj_a, _attr_name) * _obj_a.quantity
+            b = getattr(_obj_b, _attr_name) * _obj_b.quantity
+            weighted_avg = (float(a) + float(b)) / (_obj_a.quantity + _obj_b.quantity)
+            setattr(_new_obj, _attr_name, weighted_avg)
+
+            return None
+
+        def _set_type_value(_new_obj, _obj_a, _obj_b, _attr_name):
+            # type (Appliance, Appliance, Appliance, str) -> None
+            """Utility function used by __add__: Checks Appliance 'type' values are the same when adding"""
+
+            a = getattr(_obj_a, _attr_name)
+            b = getattr(_obj_b, _attr_name)
+            if a != b:
+                raise ApplianceTypeMismatchError(_obj_a, _obj_b, _attr_name)
+            else:
+                setattr(_new_obj, _attr_name, a)
+
+        if self and not other:
+            return self
+        elif self.type != other.type:
+            raise ApplianceAdditionError(self, other)
+        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 13, 14, 15}:
+            raise ApplianceAdditionError(self, other)
+
+        new_appliance = self.__class__()
+        new_appliance.type = self.type
+        new_appliance.quantity = self.quantity + other.quantity
+
+        # -- General Appliance Values
+        _set_type_value(new_appliance, self, other, "reference_energy_norm")
+        _set_quantity_weighted_average(new_appliance, self, other, "energy_demand")
+        _set_quantity_weighted_average(new_appliance, self, other, "energy_demand_per_use")
+        _set_quantity_weighted_average(new_appliance, self, other, "combined_energy_facor")
+
+        # -- Dishwasher
+        _set_type_value(new_appliance, self, other, "dishwasher_capacity_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dishwasher_capacity")
+        _set_type_value(new_appliance, self, other, "dishwasher_water_connection")
+
+        # -- Laundry Washer
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_capacity")
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_modified_energy_factor")
+        _set_type_value(new_appliance, self, other, "washer_connection")
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_utilization_factor")
+
+        # -- Laundry Dryer
+        _set_type_value(new_appliance, self, other, "dryer_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_consumption")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_efficiency_factor")
+        _set_type_value(new_appliance, self, other, "dryer_field_utilization_factor_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_field_utilization_factor")
+
+        # -- Cooktop
+        _set_type_value(new_appliance, self, other, "cooktop_type")
+
+        # -- PHIUS Lighting and MEL
+        _set_quantity_weighted_average(new_appliance, self, other, "lighting_frac_high_efficiency")
+        if self.type in {13, 14, 15}:
+            if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
+                new_appliance.quantity = 1
+                new_appliance.reference_quantity = 5
+                new_appliance.user_defined_total = float(self.user_defined_total) + float(other.user_defined_total)
+                new_appliance.energy_demand = 100
+                new_appliance.energy_demand_per_use = 100
+
+        return new_appliance
+
+    __radd__ = __add__
 
     @classmethod
     def PHIUS_Dishwasher(cls):

@@ -115,3 +115,13 @@ def test_PHIUS_Lighting_Ext():
     assert a_3.energy_demand == 123
     assert a_3.energy_demand_per_use == 456
     assert a_3.combined_energy_facor == 0
+
+
+def test_app_equal():
+    app_1 = PHX.appliances.Appliance()
+    app_2 = PHX.appliances.Appliance()
+    assert app_1 == app_2
+
+    app_1.type = 1
+    app_2.type = 9
+    assert app_1 != app_2
