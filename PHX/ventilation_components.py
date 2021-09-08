@@ -73,11 +73,17 @@ class Ventilation_Duct(PHX._base._Base):
         return new_obj
 
     def __add__(self, other):
-        self.segments.extend(other.segments)
-        return self
+        # type: (Ventilation_Duct, Ventilation_Duct) -> Ventilation_Duct
+        new_obj = self.__class__()
+        new_obj.segments.extend(self.segments)
+        new_obj.segments.extend(other.segments)
+        return new_obj
 
     def __radd__(self, other):
-        return self.__add__(other)
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
 
 
 class Ventilator_PH_Parameters(PHX._base._Base):
@@ -115,9 +121,11 @@ class Ventilator_PH_Parameters(PHX._base._Base):
 class Ventilator(PHX.hvac.HVAC_Device):
 
     _default = None
+    _count = 0
 
     def __init__(self):
         super(Ventilator, self).__init__()
+        self.id = self._count
         self.UsedFor_Ventilation = True
         self.PH_Parameters = Ventilator_PH_Parameters()
 
