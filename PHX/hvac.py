@@ -35,7 +35,6 @@ class HVAC_Device(PHX._base._Base):
         self.UsedFor_Ventilation = False
         self.UsedFor_Humidification = False
         self.UsedFor_Dehumidification = False
-        # self.Ventilation_Parameters = {}
         self.UseOptionalClimate = False
         self.IdentNr_OptionalClimate = -1
 
@@ -75,6 +74,20 @@ class HVAC_System(PHX._base._Base):
     def lDevice(self):
         return list(self._device_dict.values())
 
+    def add_devices_to_system(self, _devices):
+        # type: (list[HVAC_Device]) -> None
+        """Adds any HVAC Devices to the HVAC System"""
+
+        if not isinstance(_devices, list):
+            _devices = [_devices]
+
+        for d in _devices:
+            if not isinstance(d, HVAC_Device):
+                raise HVACSystemAddError(d)
+
+            # -- Ensure no duplicates
+            self._device_dict[d.identifier] = d
+
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
 
@@ -82,8 +95,8 @@ class HVAC_System(PHX._base._Base):
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
     def add_zone_to_system_coverage(self, _zone):
-        # type: (HVAC_System_ZoneCover) -> None
-        """Adds a Zone to the HVAC System's Covered Areas"""
+        # type: (PHX.bldg_segment.Zone) -> None
+        """Adds a Zone's id number to the HVAC System's Covered Zones list"""
 
         new_coverage = HVAC_System_ZoneCover()
         new_coverage.idZoneCovered = _zone.id
@@ -106,20 +119,6 @@ class HVAC_System(PHX._base._Base):
         for zone in _zones:
             for space in zone.spaces:
                 self.add_devices_to_system(space.ventilation.system.ventilator)
-
-    def add_devices_to_system(self, _devices):
-        # type: (list[HVAC_Device]) -> None
-        """Adds any HVAC Devices to the HVAC System"""
-
-        if not isinstance(_devices, list):
-            _devices = [_devices]
-
-        for d in _devices:
-            if not isinstance(d, HVAC_Device):
-                raise HVACSystemAddError(d)
-
-            # -- Ensure no duplicates
-            self._device_dict[d.identifier] = d
 
     @classmethod
     def from_dict(cls, _dict):
