@@ -100,3 +100,9 @@ def test_set_sum():
     s3.add_appliance(dw3)
 
     s4 = sum([s1, s2, s3])
+    assert len(s3) == 1
+    assert s4.dishwasher.type == 1
+    assert s4.dishwasher.quantity == 3
+    assert s4.dishwasher.dishwasher_capacity_type == 1
+    assert s4.dishwasher.dishwasher_capacity == (10 + 20 + 20) / 3
+    assert s4.dishwasher.dishwasher_water_connection == 2
