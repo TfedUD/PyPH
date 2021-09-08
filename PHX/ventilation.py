@@ -59,4 +59,13 @@ class SpaceVentilation(PHX._base._Base):
 
         new_obj.airflow_rates = self.airflow_rates.join(_other.airflow_rates)
 
+        #
+        #
+        # TODO: Join Utilizations
+        #
+        #
+        # TODO: Join Systems
+        #
+        #
+
         return new_obj
