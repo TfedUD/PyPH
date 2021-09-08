@@ -100,9 +100,7 @@ class ApplianceSet(PHX._base._Base):
 
     def __add__(self, other):
         # type: (ApplianceSet, ApplianceSet) -> ApplianceSet
-
-        # -- Handle None cases
-        if self and not other:
+        if other is None:
             return self
 
         # -- Merge together Appliances
@@ -125,7 +123,11 @@ class ApplianceSet(PHX._base._Base):
 
         return new_set
 
-    __radd__ = __add__
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
 
 
 class Appliance(PHX._base._Base):
@@ -296,7 +298,11 @@ class Appliance(PHX._base._Base):
 
         return new_appliance
 
-    __radd__ = __add__
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
 
     @classmethod
     def PHIUS_Dishwasher(cls):

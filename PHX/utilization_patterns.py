@@ -20,6 +20,7 @@ class Vent_UtilRate(PHX._base._Base):
 
     @property
     def daily_op_sched(self):
+        """Hours / Day of operation (0-24)"""
         return self._daily_op_sched
 
     @daily_op_sched.setter
@@ -95,7 +96,17 @@ class UtilPat_Vent(PHX._base._Base):
         return super(UtilPat_Vent, cls).__new__(cls, *args, **kwargs)
 
     def validate_total_hours(self):
-        TOLERANCE = 0.01
+        # type: (UtilPat_Vent) -> None | str
+        """
+        Return a warning if the Utilization Pattern's total utilization hours do not equal 24
+
+        Returns:
+        --------
+            * (None | str): If total utilization hours == 24 (hrs), returns None.
+                If total does not equal 24 (hrs), returns a warning message.
+        """
+
+        TOLERANCE = 0.001
 
         total_operating_hours = 0
         total_operating_hours += self.utilization_rates.maximum.daily_op_sched
@@ -176,6 +187,7 @@ class UtilPat_Occupancy(PHX._base._Base):
 
     @property
     def unique_key(self):
+        """Return a key uniqu to this 'type' (collection of values) of pattern"""
         return "{}_{}_{}_{}_".format(
             self.start_hour, self.end_hour, self.annual_utilization_days, self.annual_utilization_factor
         )
@@ -214,4 +226,5 @@ class UtilPat_Lighting(PHX._base._Base):
 
     @property
     def unique_key(self):
+        """Return a key uniqu to this 'type' (collection of values) of pattern"""
         return "{}_".format(self.annual_utilization_factor)

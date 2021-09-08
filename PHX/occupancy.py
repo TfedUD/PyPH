@@ -63,7 +63,8 @@ class BldgSegmentOccupancy(PHX._base._Base):
         self.num_stories = 1
 
     def validate(self):
-        """Ensure all values are allowed / compatible"""
+        # type: (BldgSegmentOccupancy) -> str | None
+        """Returns error message if incompatible types are set"""
         if self.category == 1:
             if self.usage_type == 1:
                 return None

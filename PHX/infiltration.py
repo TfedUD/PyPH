@@ -16,9 +16,15 @@ class Infiltration(PHX._base._Base):
     @property
     def q50(self):
         """Envelope Airtightness - m3/h-m2-envelope"""
-        return self.annual_avg_airflow / self.host_bldg_segment.total_envelope_area
+        try:
+            return self.annual_avg_airflow / self.host_bldg_segment.total_envelope_area
+        except ZeroDivisionError:
+            return 0
 
     @property
     def n50(self):
         """Volmetric Airtightness - Air-Changes-per-Hour (ACH)"""
-        return self.annual_avg_airflow / self.host_bldg_segment.total_volume_net
+        try:
+            return self.annual_avg_airflow / self.host_bldg_segment.total_volume_net
+        except ZeroDivisionError:
+            return 0

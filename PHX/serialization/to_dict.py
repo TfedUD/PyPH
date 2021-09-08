@@ -6,6 +6,16 @@ Functions for converting PHX Objects to serializable text dictionaries. All PHX 
 should be able to be converted to fully text represenations.
 """
 
+# -- Base
+def __Base(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"user_data": _obj.user_data})
+
+    return d
+
+
 # -- Utilization Patterns
 def _Vent_UtilRate(_obj):
     d = {}

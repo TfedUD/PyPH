@@ -55,6 +55,7 @@ def test_add_not_appliances():
     dw1.dishwasher_water_connection = 2
 
     s1.add_appliance(dw1)
+    s2.dishwasher = None
 
     # Try in order
     s3 = s1 + s2
@@ -67,12 +68,12 @@ def test_add_not_appliances():
 
     # Try reversing the order
     s4 = s2 + s1
-    assert len(s3) == 1
-    assert s3.dishwasher.type == 1
-    assert s3.dishwasher.quantity == 1
-    assert s3.dishwasher.dishwasher_capacity_type == 1
-    assert s3.dishwasher.dishwasher_capacity == 10
-    assert s3.dishwasher.dishwasher_water_connection == 2
+    assert len(s4) == 1
+    assert s4.dishwasher.type == 1
+    assert s4.dishwasher.quantity == 1
+    assert s4.dishwasher.dishwasher_capacity_type == 1
+    assert s4.dishwasher.dishwasher_capacity == 10
+    assert s4.dishwasher.dishwasher_water_connection == 2
 
 
 def test_set_sum():
@@ -100,9 +101,25 @@ def test_set_sum():
     s3.add_appliance(dw3)
 
     s4 = sum([s1, s2, s3])
-    assert len(s3) == 1
+    assert len(s4) == 1
     assert s4.dishwasher.type == 1
     assert s4.dishwasher.quantity == 3
     assert s4.dishwasher.dishwasher_capacity_type == 1
     assert s4.dishwasher.dishwasher_capacity == (10 + 20 + 20) / 3
     assert s4.dishwasher.dishwasher_water_connection == 2
+
+    s5 = sum([s3, s2, s1])
+    assert len(s5) == 1
+    assert s5.dishwasher.type == 1
+    assert s5.dishwasher.quantity == 3
+    assert s5.dishwasher.dishwasher_capacity_type == 1
+    assert s5.dishwasher.dishwasher_capacity == (10 + 20 + 20) / 3
+    assert s5.dishwasher.dishwasher_water_connection == 2
+
+    s6 = sum([s1])
+    assert len(s6) == 1
+    assert s6.dishwasher.type == 1
+    assert s6.dishwasher.quantity == 1
+    assert s6.dishwasher.dishwasher_capacity_type == 1
+    assert s6.dishwasher.dishwasher_capacity == 10
+    assert s6.dishwasher.dishwasher_water_connection == 2
