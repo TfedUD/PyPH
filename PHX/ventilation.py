@@ -55,9 +55,7 @@ class SpaceVentilation(PHX._base._Base):
         return super(SpaceVentilation, cls).__new__(cls, *args, **kwargs)
 
     def __add__(self, _other):
-        new_obj = self.__class__()
-
-        new_obj.airflow_rates = self.airflow_rates.join(_other.airflow_rates)
+        self.airflow_rates = self.airflow_rates.join(_other.airflow_rates)
 
         #
         #
@@ -68,4 +66,4 @@ class SpaceVentilation(PHX._base._Base):
         #
         #
 
-        return new_obj
+        return self

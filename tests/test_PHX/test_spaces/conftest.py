@@ -26,99 +26,106 @@ def face3D_2():
     return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
 
 
+@pytest.fixture()
+def face3D_3():
+    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
+    pt_2 = ladybug_geometry.geometry3d.Point3D(-10, 0, 0)
+    pt_3 = ladybug_geometry.geometry3d.Point3D(-10, -10, 0)
+    pt_4 = ladybug_geometry.geometry3d.Point3D(0, -10, 0)
+
+    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
+
+
+@pytest.fixture()
+def face3D_4():
+    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
+    pt_2 = ladybug_geometry.geometry3d.Point3D(10, 0, 0)
+    pt_3 = ladybug_geometry.geometry3d.Point3D(10, 10, 0)
+    pt_4 = ladybug_geometry.geometry3d.Point3D(0, 10, 0)
+
+    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
+
+
 # -- FloorSegments
 # -------------------------------------------------------------------------------
-FloorSegment_Data = namedtuple(
-    "FloorSegment_Data",
-    [
-        "weighting_factor",
-        "floor_area_gross",
-        "space_name",
-        "space_number",
-        "non_res_lighting",
-        "non_res_motion",
-        "non_res_usage",
-        "ventilation_v_sup",
-        "ventilation_v_eta",
-        "ventilation_v_trans",
-        "geometry",
-        "host_zone_identifier",
-    ],
-)
+@pytest.fixture()
+def flr_seg_101_no_geometry():
+    seg = PHX.spaces.FloorSegment()
+
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 0
+    seg.space_name = "A First Floor Segment"
+    seg.space_number = 101
+    seg.geometry = []
+
+    return seg
 
 
 @pytest.fixture()
-def floor_segment_a():
-    return FloorSegment_Data(
-        weighting_factor=1,
-        floor_area_gross=100,
-        space_name="A First Floor Segment",
-        space_number=101,
-        non_res_lighting=None,
-        non_res_motion=None,
-        non_res_usage=None,
-        ventilation_v_sup=0.0,
-        ventilation_v_eta=0.0,
-        ventilation_v_trans=0.0,
-        geometry=[],
-        host_zone_identifier="ABC-123",
-    )
+def flr_seg_101_with_geometry(face3D_1):
+    seg = PHX.spaces.FloorSegment()
+
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 100
+    seg.space_name = "A First Floor Segment"
+    seg.space_number = 101
+    seg.geometry = [face3D_1]
+
+    return seg
 
 
 @pytest.fixture()
-def floor_segment_b(face3D_1):
-    return FloorSegment_Data(
-        weighting_factor=1,
-        floor_area_gross=200,
-        space_name="A Second Floor Segment",
-        space_number=102,
-        non_res_lighting=None,
-        non_res_motion=None,
-        non_res_usage=None,
-        ventilation_v_sup=0.0,
-        ventilation_v_eta=0.0,
-        ventilation_v_trans=0.0,
-        geometry=[face3D_1],
-        host_zone_identifier="DEF-456",
-    )
+def flr_seg_201_with_geometry(face3D_1):
+    seg = PHX.spaces.FloorSegment()
+
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 100
+    seg.space_name = "A Second Floor Segment"
+    seg.space_number = 102
+    seg.geometry = [face3D_1]
+
+    return seg
 
 
 @pytest.fixture()
-def floor_segment_c1(face3D_2):
-    return FloorSegment_Data(
-        weighting_factor=1,
-        floor_area_gross=300,
-        space_name="A Third Floor Segment",
-        space_number=103,
-        non_res_lighting=None,
-        non_res_motion=None,
-        non_res_usage=None,
-        ventilation_v_sup=0.0,
-        ventilation_v_eta=0.0,
-        ventilation_v_trans=0.0,
-        geometry=[face3D_2],
-        host_zone_identifier="GHI-789",
-    )
+def flr_seg_301_with_geometry_a(face3D_1):
+    seg = PHX.spaces.FloorSegment()
+
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 100
+    seg.space_name = "A Third Floor Segment"
+    seg.space_number = 103
+    seg.geometry = [face3D_1]
+
+    return seg
 
 
 @pytest.fixture()
-def floor_segment_c2(face3D_2):
-    """Same name/number as c_1, different geomtery"""
+def flr_seg_301_with_geometry_b(face3D_2):
+    """Same name/number, different geomtery"""
+    seg = PHX.spaces.FloorSegment()
 
-    return FloorSegment_Data(
-        weighting_factor=1,
-        floor_area_gross=400,
-        space_name="A Third Floor Segment",
-        space_number=103,
-        non_res_lighting=None,
-        non_res_motion=None,
-        non_res_usage=None,
-        ventilation_v_sup=0.0,
-        ventilation_v_eta=0.0,
-        ventilation_v_trans=0.0,
-        geometry=[face3D_1],
-        host_zone_identifier="GHI-789",
-    )
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 100
+    seg.space_name = "A Third Floor Segment"
+    seg.space_number = 103
+    seg.geometry = [face3D_2]
+
+    return seg
+
+
+@pytest.fixture()
+def flr_seg_301_with_geometry_c(face3D_3, face3D_4):
+    """Same name/number, different geomtery"""
+    seg = PHX.spaces.FloorSegment()
+
+    seg.weighting_factor = 1
+    seg.floor_area_gross = 200
+    seg.space_name = "A Third Floor Segment"
+    seg.space_number = 103
+    seg.geometry = [face3D_3, face3D_4]
+
+    return seg
 
 
 # -- Space
@@ -145,34 +152,3 @@ def space_data_1():
 @pytest.fixture()
 def space_data_2():
     return Space_Data("A Second Space", 102, "DEF-456", [], None, None, None)
-
-
-# --- Collect all the data together
-# ------------------------------------------------------------------------------
-@pytest.fixture()
-def floor_segments(floor_segment_a, floor_segment_b, floor_segment_c1, floor_segment_c2):
-    """Create new FloorSegments based on the input namedtuples"""
-
-    params_a = floor_segment_a._asdict()
-    params_b = floor_segment_b._asdict()
-    params_c1 = floor_segment_c1._asdict()
-    params_c2 = floor_segment_c2._asdict()
-
-    seg_1 = PHX.spaces.FloorSegment()
-    seg_2 = PHX.spaces.FloorSegment()
-    seg_3 = PHX.spaces.FloorSegment()
-    seg_4 = PHX.spaces.FloorSegment()
-
-    for k, v in params_a.items():
-        setattr(seg_1, k, v)
-
-    for k, v in params_b.items():
-        setattr(seg_2, k, v)
-
-    for k, v in params_c1.items():
-        setattr(seg_3, k, v)
-
-    for k, v in params_c2.items():
-        setattr(seg_4, k, v)
-
-    return seg_1, seg_2, seg_3, seg_4

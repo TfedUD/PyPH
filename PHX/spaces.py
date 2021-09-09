@@ -11,7 +11,8 @@ import PHX.occupancy
 import PHX.lighting
 import PHX.ventilation
 
-
+# -- Errors
+# ------------------------------------------------------------------------------
 class SpaceVentilationInputError(Exception):
     def __init__(self, _in):
         self.message = (
@@ -47,6 +48,41 @@ class FloorAreaGrossInputError(Exception):
         super(FloorAreaGrossInputError, self).__init__(self.message)
 
 
+class VolumeMissingFloorError(Exception):
+    def __init__(self, _in):
+        self.message = 'Error: Cannot set ventilation for Volume: "{}". No Floor?'.format(_in)
+        super(VolumeMissingFloorError, self).__init__(self.message)
+
+
+class AddVolumeToSpaceNameError(Exception):
+    def __init__(self, _name1, _name2):
+        self.message = (
+            'Error: Cannot add Volume with space_name: "{}" to'
+            'Volume with name: "{}". Ensure names are the same before joining.'.format(_name1, _name2)
+        )
+        super(AddVolumeToSpaceNameError, self).__init__(self.message)
+
+
+class AddVolumeToSpaceNumberError(Exception):
+    def __init__(self, _num1, _num2):
+        self.message = (
+            'Error: Cannot add Volume with space_number: "{}" to'
+            'Volume with number: "{}". Ensure Numbers are the same before joining.'.format(_num1, _num2)
+        )
+        super(AddVolumeToSpaceNumberError, self).__init__(self.message)
+
+
+class AddVolumeToSpaceHostZoneIDError(Exception):
+    def __init__(self, _num1, _num2):
+        self.message = 'Error: Cannot add Volume with Host-Zone: "{}" to Volume with Host-Zone: "{}". Ensure HostZone IDs are the same before joining.'.format(
+            _num1, _num2
+        )
+
+        super(AddVolumeToSpaceHostZoneIDError, self).__init__(self.message)
+
+
+# -- Space Classes
+# ------------------------------------------------------------------------------
 class FloorSegment(PHX._base._Base):
     """An individual segment of floor area with some relevant attributes"""
 
@@ -154,6 +190,9 @@ class Floor(PHX._base._Base):
 
     @ventilation.setter
     def ventilation(self, _in):
+        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
+            raise SpaceVentilationInputError(_in)
+
         self._ventilation = _in
         for floor_segment in self.floor_segments:
             floor_segment.ventilation = _in  # -- Keep everything aligned
@@ -275,9 +314,13 @@ class Volume(PHX._base._Base):
 
     @ventilation.setter
     def ventilation(self, _in):
-        self._ventilation = _in
         if not self.floor:
-            raise Exception('Error: Cannot set ventilation for Volume: "{}". No Floor?'.format(self.display_name))
+            raise VolumeMissingFloorError(self.display_name)
+
+        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
+            raise SpaceVentilationInputError(_in)
+
+        self._ventilation = _in
         self.floor.ventilation = _in  # -- Keep everything aligned
 
     @property
@@ -314,8 +357,8 @@ class Volume(PHX._base._Base):
     def display_name(self):
         return "{}-{}".format(self.space_number, self.space_name)
 
-    def add_Floor(self, _floor):
-        """Adds a Floor Object to the Volume, sets the Volume's Attributes"""
+    def set_Floor(self, _floor):
+        """Sets the Floor Object for the Volume, sets the Volume's Attributes"""
         #
         #
         #
@@ -384,8 +427,8 @@ class Space(PHX._base._Base):
 
     @ventilation.setter
     def ventilation(self, _in):
-        if not _in:
-            return
+        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
+            raise SpaceVentilationInputError(_in)
 
         self._ventilation = _in
 
@@ -415,12 +458,7 @@ class Space(PHX._base._Base):
 
     @property
     def peak_occupancy(self):
-        if not self.floor_area_weighted:
-            return 0
-        elif not self.occupancy.people_per_area:
-            return 0
-        else:
-            return self.floor_area_weighted * self.occupancy.people_per_area
+        return float(self.floor_area_weighted) * float(self.occupancy.people_per_area)
 
     @classmethod
     def from_dict(cls, _dict):
@@ -448,28 +486,19 @@ class Space(PHX._base._Base):
             self.space_name = _new_volume.space_name
         else:
             if self.space_name != _new_volume.space_name:
-                raise Exception(
-                    'Error: Cannot add Volume with name: "{}" to'
-                    'Volume with name: "{}"'.format(_new_volume.space_name, self.space_name)
-                )
+                raise AddVolumeToSpaceNameError(_new_volume.space_name, self.space_name)
 
         if not self.space_number:
             self.space_number = _new_volume.space_number
         else:
             if self.space_number != _new_volume.space_number:
-                raise Exception(
-                    'Error: Cannot add Volume with number: "{}" to'
-                    'Volume with number: "{}"'.format(_new_volume.space_number, self.space_number)
-                )
+                raise AddVolumeToSpaceNumberError(_new_volume.space_number, self.space_number)
 
         if not self.host_zone_identifier:
             self.host_zone_identifier = _new_volume.host_zone_identifier
         else:
             if self.host_zone_identifier != _new_volume.host_zone_identifier:
-                raise Exception(
-                    'Error: Cannot add Volume with Host-Zone: "{}" to'
-                    'Volume with Host-Zone: "{}"'.format(_new_volume.host_zone_identifier, self.host_zone_identifier)
-                )
+                raise AddVolumeToSpaceHostZoneIDError(_new_volume.host_zone_identifier, self.host_zone_identifier)
 
         # -- Set the Space's Ventilation Properties
         # -- This will also ripple down to the FloorSegment level

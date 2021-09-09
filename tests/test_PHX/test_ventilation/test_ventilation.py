@@ -15,4 +15,4 @@ def test_add_SpaceVentilations(reset_ventilation):
     sv2 = PHX.ventilation.SpaceVentilation()
 
     sv3 = sv1 + sv2
-    assert sv3 != sv1 and sv3 != sv2
+    assert sv3 == sv1 and sv3 != sv2
