@@ -19,9 +19,7 @@ class ComponentTypeError(Exception):
 
 class WindowHostNotFoundError(Exception):
     def __init__(self, _p, _c):
-        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(
-            _p.id, _c.n
-        )
+        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)
         super(WindowHostNotFoundError, self).__init__(self.message)
 
 
@@ -126,8 +124,6 @@ class Component(PHX._base._Base):
         """
 
         for p in self.polygons:
-            if not isinstance(p, PHX.geometry.Polygon):
-                raise PHX.geometry.PolygonTypeError(p)
             if p.identifier != _poly_identifier:
                 continue
 

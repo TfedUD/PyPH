@@ -1,4 +1,5 @@
 import PHX.component
+import PHX.bldg_segment
 import PHX.geometry
 import pytest
 
@@ -112,3 +113,82 @@ def test_add_window_as_child():
     not_window = NotWindow()
     with pytest.raises(PHX.geometry.PolygonTypeError):
         c1.add_window_as_child(not_window, p1.identifier)
+
+
+def test_host_zone_name():
+    c1 = PHX.component.Component()
+    zn1 = PHX.bldg_segment.Zone()
+    zn1.n = "test name"
+
+    c1.set_host_zone_name(zn1)
+
+    assert zn1.id == c1.idIC
+    assert zn1.n in c1.nmIC
+
+
+# -- Test Exposed Area
+def test_component_exposed_area_single_face(poly_1):
+    c1 = PHX.component.Component()
+    c1.add_polygons(poly_1)
+    c1.type = 1  # Opaque
+    c1.idEC = -1  # Outdoors
+
+    c1.exposed_area == 100
+
+
+def test_component_exposed_area_multiple_face(poly_1, poly_2, poly_3):
+    c1 = PHX.component.Component()
+    c1.add_polygons([poly_1, poly_2, poly_3])
+    c1.type = 1  # Opaque
+    c1.idEC = -1  # Outdoors
+
+    c1.exposed_area == 300
+
+
+def test_component_exposed_area_transparent(poly_1):
+    c1 = PHX.component.Component()
+    c1.add_polygons(poly_1)
+    c1.type = 2  # Transparent
+    c1.idEC = -1  # Outdoors
+
+    c1.exposed_area == 0
+
+
+def test_component_exposed_area_opening(poly_1):
+    c1 = PHX.component.Component()
+    c1.add_polygons(poly_1)
+    c1.type = 3  # Opening
+    c1.idEC = -1  # Outdoors
+
+    c1.exposed_area == 0
+
+
+def test_component_exposed_area_ground(poly_1):
+    c1 = PHX.component.Component()
+    c1.add_polygons(poly_1)
+    c1.type = 1  # Opaque
+    c1.idEC = -2  # Ground
+
+    c1.exposed_area == 100
+
+
+def test_component_exposed_area_adiabatic(poly_1):
+    c1 = PHX.component.Component()
+    c1.add_polygons(poly_1)
+    c1.type = 1  # Opaque
+    c1.idEC = -3  # Space with same inner conditions
+
+    c1.exposed_area == 0
+
+
+# -- Test Add
+def test_add_components(poly_1, poly_2):
+    c1 = PHX.component.Component()
+    c2 = PHX.component.Component()
+
+    c1.add_polygons(poly_1)
+    c2.add_polygons(poly_2)
+
+    c3 = c1 + c2
+    assert poly_1 in c3.polygons
+    assert poly_2 in c3.polygons
