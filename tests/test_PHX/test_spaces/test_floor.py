@@ -27,8 +27,8 @@ def test_Floor_add_FloorSegment(floor_segments):
 
 
 def test_Floor_add_two_FloorSegments_with_different_names(floor_segments):
-    flr_seg_2 = floor_segments[1]  # The one with some Geometry
-    flr_seg_3a = floor_segments[2]  # The one with some Geometry
+    flr_seg_2 = floor_segments[1]  # One with some Geometry
+    flr_seg_3a = floor_segments[2]  # One with some Geometry
 
     new_flr = PHX.spaces.Floor()
 
@@ -38,6 +38,7 @@ def test_Floor_add_two_FloorSegments_with_different_names(floor_segments):
 
     assert len(new_flr.geometry) == 1
     assert flr_seg_2.display_name != flr_seg_3a.display_name
+
     with pytest.raises(Exception):
         new_flr.add_new_floor_segment(flr_seg_3a)
 

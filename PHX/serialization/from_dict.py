@@ -260,8 +260,8 @@ def _HVAC_System(_cls, _input_dict):
 def _FloorSegment(_cls, _input_dict):
     new_obj = _cls()
 
-    new_obj.weighting_factor = _input_dict.get("weighting_factor")
-    new_obj.floor_area_gross = _input_dict.get("floor_area_gross")
+    new_obj._weighting_factor = _input_dict.get("_weighting_factor")
+    new_obj._floor_area_gross = _input_dict.get("_floor_area_gross")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")

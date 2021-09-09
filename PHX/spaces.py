@@ -12,13 +12,48 @@ import PHX.lighting
 import PHX.ventilation
 
 
+class SpaceVentilationInputError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            "Error: Please input PHX.ventilation.SpaceVentilation objects for"
+            "FloorSegment 'ventilation'. Got: {}, type: {}".format(_in, type(_in))
+        )
+        super(SpaceVentilationInputError, self).__init__(self.message)
+
+
+class FloorAreaWeightingInputError(Exception):
+    def __init__(self):
+        self.message = (
+            "Error: Please set the Floor Segment's 'floor_area_gross' and 'weighting_factor' only."
+            "Setting the 'floor_area_weighted' attribute directly is not allowed."
+        )
+        super(FloorAreaWeightingInputError, self).__init__(self.message)
+
+
+class WeightingFactorInputError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            'Error: Cannot set FloorSegment "weighting_factor" to value: "{}".'
+            "Input only numeric values between 0-1".format(_in)
+        )
+        super(WeightingFactorInputError, self).__init__(self.message)
+
+
+class FloorAreaGrossInputError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            'Error: Cannot set FloorSegment "floor_area_gross" to value: "{}". Input only numeric values'.format(_in)
+        )
+        super(FloorAreaGrossInputError, self).__init__(self.message)
+
+
 class FloorSegment(PHX._base._Base):
     """An individual segment of floor area with some relevant attributes"""
 
     def __init__(self):
         super(FloorSegment, self).__init__()
-        self.weighting_factor = 1.0
-        self.floor_area_gross = 0.0
+        self._weighting_factor = 1.0
+        self._floor_area_gross = 0.0
         self.space_name = None
         self.space_number = None
         self.geometry = []
@@ -36,29 +71,53 @@ class FloorSegment(PHX._base._Base):
 
     @ventilation.setter
     def ventilation(self, _in):
+        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
+            raise SpaceVentilationInputError(_in)
+
         self._ventilation = _in
 
     @property
-    def floor_area_weighted(self):
-        try:
-            weighting = float(self.weighting_factor)
-        except TypeError:
-            raise TypeError(
-                'Error: Cannot calculate with Floor Area Weighting Factor: "{}"'.format(self.weighting_factor)
-            )
+    def weighting_factor(self):
+        return self._weighting_factor
 
+    @weighting_factor.setter
+    def weighting_factor(self, _in):
+        if _in is None:
+            return
         try:
-            fa_gross = float(self.floor_area_gross)
-        except TypeError:
-            raise TypeError('Error: Cannot calculate with Gross Floor Area of: "{}"'.format(self.floor_area_gross))
+            val = float(_in)
+            if val > 1.0:
+                # In case input is not in decimal %
+                self._weighting_factor = val / 100
+            else:
+                self._weighting_factor = val
+        except ValueError:
+            raise WeightingFactorInputError(_in)
+
+    @property
+    def floor_area_gross(self):
+        return self._floor_area_gross
+
+    @floor_area_gross.setter
+    def floor_area_gross(self, _in):
+        if _in is None:
+            return
+        try:
+            self._floor_area_gross = float(_in)
+        except ValueError:
+            raise FloorAreaGrossInputError(_in)
+
+    @property
+    def floor_area_weighted(self):
+        weighting = float(self.weighting_factor)
+        fa_gross = float(self.floor_area_gross)
 
         return float(fa_gross * weighting)
 
     @floor_area_weighted.setter
     def floor_area_weighted(self, _in):
-        raise Exception(
-            "Error: Please set the Floor Segment's Gross Floor Area and Weighting Factor, not the Weighted Area."
-        )
+        """Not allowed"""
+        raise FloorAreaWeightingInputError()
 
     @classmethod
     def from_dict(cls, _dict):
@@ -203,7 +262,7 @@ class Volume(PHX._base._Base):
         self.space_number = None
         self.host_zone_identifier = None
 
-        self.floor = None
+        self.floor = Floor()
         self._average_ceiling_height = 0.0
         self._volume = 0.0
         self.volume_geometry = []

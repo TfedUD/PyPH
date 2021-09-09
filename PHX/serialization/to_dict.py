@@ -240,8 +240,8 @@ def _HVAC_System(_obj):
 def _FloorSegment(_obj):
     d = {}
 
-    d.update({"weighting_factor": _obj.weighting_factor})
-    d.update({"floor_area_gross": _obj.floor_area_gross})
+    d.update({"_weighting_factor": _obj._weighting_factor})
+    d.update({"_floor_area_gross": _obj._floor_area_gross})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"non_res_lighting": _obj.non_res_lighting})

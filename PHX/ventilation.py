@@ -42,8 +42,8 @@ class SpaceVentilation(PHX._base._Base):
         self.id = self._count
         super(SpaceVentilation, self).__init__()
         self.airflow_rates = AirflowRates()
-        self.utilization = PHX.utilization_patterns.UtilPat_Vent()
-        self.system = PHX.ventilation_components.Ventilation_System()
+        self.utilization = PHX.utilization_patterns.UtilPat_Vent.default()
+        self.system = PHX.ventilation_components.Ventilation_System.default()
 
     @classmethod
     def from_dict(cls, _dict):
