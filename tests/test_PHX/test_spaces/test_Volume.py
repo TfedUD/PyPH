@@ -121,6 +121,22 @@ def test_Volume_ceiling_heights(flr_seg_301_with_geometry_a):
     assert v_1.average_ceiling_height == 4
 
 
+def test_Volume_set_ceiling_height_error():
+    v1 = PHX.spaces.Volume()
+    assert v1.floor_area_weighted == 0
+
+    with pytest.raises(PHX.spaces.VolumeMissingFloorAreaWarning):
+        v1.average_ceiling_height = 2.5
+
+
+def test_Volume_set_volume_error():
+    v1 = PHX.spaces.Volume()
+    assert v1.floor_area_weighted == 0
+
+    with pytest.raises(PHX.spaces.VolumeMissingFloorAreaWarning):
+        v1.volume = 2000
+
+
 def test_set_ventilation_error():
     o = PHX.spaces.Volume()
 

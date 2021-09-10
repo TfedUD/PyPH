@@ -54,6 +54,14 @@ class VolumeMissingFloorError(Exception):
         super(VolumeMissingFloorError, self).__init__(self.message)
 
 
+class VolumeMissingFloorAreaWarning(Exception):
+    def __init__(self, _in):
+        self.message = "Warning: You are setting the average ceiling height or volume for a Volume object: {}"
+        "with no floor-area. Cannot properly calculate the volume. Please set the floor area"
+        "of the Volume object first, then set the ceiling height and/or volume.".format(_in)
+        super(VolumeMissingFloorAreaWarning, self).__init__(self.message)
+
+
 class AddVolumeToSpaceNameError(Exception):
     def __init__(self, _name1, _name2):
         self.message = (
@@ -338,7 +346,10 @@ class Volume(PHX._base._Base):
     @volume.setter
     def volume(self, _in):
         self._volume = float(_in)
-        self._average_ceiling_height = float(self._volume / self.floor_area_gross)
+        if self.floor_area_gross:
+            self._average_ceiling_height = float(self._volume / self.floor_area_gross)
+        else:
+            raise VolumeMissingFloorAreaWarning(self)
 
     @property
     def average_ceiling_height(self):
@@ -347,7 +358,10 @@ class Volume(PHX._base._Base):
     @average_ceiling_height.setter
     def average_ceiling_height(self, _in):
         self._average_ceiling_height = float(_in)
-        self._volume = float(self.floor_area_gross * self._average_ceiling_height)
+        if self.floor_area_gross:
+            self._volume = float(self.floor_area_gross * self._average_ceiling_height)
+        else:
+            raise VolumeMissingFloorAreaWarning(self)
 
     @classmethod
     def from_dict(cls, _dict):

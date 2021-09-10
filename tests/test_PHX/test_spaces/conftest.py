@@ -1,7 +1,5 @@
 import PHX.spaces
-
 import pytest
-from collections import namedtuple
 import ladybug_geometry.geometry3d
 
 # -- Ladybug Geometry
@@ -128,27 +126,27 @@ def flr_seg_301_with_geometry_c(face3D_3, face3D_4):
     return seg
 
 
-# -- Space
-# ------------------------------------------------------------------------------
-Space_Data = namedtuple(
-    "Space_Data",
-    [
-        "space_name",
-        "space_number",
-        "host_zone_identifier",
-        "volumes",
-        "occupancy",
-        "equipment",
-        "ventilation",
-    ],
-)
+# # -- Space
+# # ------------------------------------------------------------------------------
+# Space_Data = namedtuple(
+#     "Space_Data",
+#     [
+#         "space_name",
+#         "space_number",
+#         "host_zone_identifier",
+#         "volumes",
+#         "occupancy",
+#         "equipment",
+#         "ventilation",
+#     ],
+# )
 
 
-@pytest.fixture()
-def space_data_1():
-    return Space_Data("A First Space", 101, "ABC-123", [], None, None, None)
+# @pytest.fixture()
+# def space_data_1():
+#     return Space_Data("A First Space", 101, "ABC-123", [], None, None, None)
 
 
-@pytest.fixture()
-def space_data_2():
-    return Space_Data("A Second Space", 102, "DEF-456", [], None, None, None)
+# @pytest.fixture()
+# def space_data_2():
+#     return Space_Data("A Second Space", 102, "DEF-456", [], None, None, None)

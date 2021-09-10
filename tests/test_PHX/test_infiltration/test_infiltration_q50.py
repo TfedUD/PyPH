@@ -24,7 +24,7 @@ def test_q50_with_simple_envelope():
     c1 = PHX.component.Component()
     c1.add_polygons(p1)
     c1.type = 1  # Opaque
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     host_segment.add_components(c1)
 
@@ -55,7 +55,7 @@ def test_q50_with_complex_envelope():
     c1 = PHX.component.Component()
     c1.add_polygons([p1, p2])
     c1.type = 1  # Opaque
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     v9 = PHX.geometry.Vertex(0, 0, 0)
     v10 = PHX.geometry.Vertex(0, 2, 0)
@@ -67,7 +67,7 @@ def test_q50_with_complex_envelope():
     c2 = PHX.component.Component()
     c2.add_polygons(p3)
     c2.type = 1  # Opaque
-    c2.idEC = -1  # Outdoors
+    c2.ext_exposure_zone_id = -1  # Outdoors
 
     host_segment.add_components([c1, c2])
 
@@ -99,7 +99,7 @@ def test_q50_with_windows():
     c1 = PHX.component.Component()
     c1.add_polygons([p1, p2])
     c1.type = 1  # Opaque
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     v9 = PHX.geometry.Vertex(0, 0, 0)
     v10 = PHX.geometry.Vertex(0, 2, 0)
@@ -111,7 +111,7 @@ def test_q50_with_windows():
     c2 = PHX.component.Component()
     c2.add_polygons(p3)
     c2.type = 1  # Opaque
-    c2.idEC = -1  # Outdoors
+    c2.ext_exposure_zone_id = -1  # Outdoors
 
     wv1 = PHX.geometry.Vertex(0.5, 0.5, 0)
     wv2 = PHX.geometry.Vertex(0.5, 1.0, 0)
@@ -122,7 +122,7 @@ def test_q50_with_windows():
     wc = PHX.component.Component()
     wc.add_polygons(wp)
     wc.type = 2  # Transparent
-    wc.idEC = -1  # Outdoors
+    wc.ext_exposure_zone_id = -1  # Outdoors
 
     c2.add_window_as_child(wc, p3.identifier)
 

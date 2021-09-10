@@ -105,9 +105,7 @@ def test_set_Space_ventilation_error():
         sp_1.ventilation = "Not a SpaceVentilation Object"
 
 
-def test_Space_floor_area_weighted(
-    flr_seg_301_with_geometry_a, flr_seg_301_with_geometry_b, flr_seg_301_with_geometry_c
-):
+def test_Space_floor_area_weighted(flr_seg_301_with_geometry_a):
     # Build the FloorSegment, Floor, Volume, Space
     flr = PHX.spaces.Floor()
     flr.add_new_floor_segment(flr_seg_301_with_geometry_a)

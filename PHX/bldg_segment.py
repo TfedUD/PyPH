@@ -28,6 +28,12 @@ class ZoneTypeError(Exception):
         super(ZoneTypeError, self).__init__(self.message)
 
 
+class GroupTypeNotImplementedError(Exception):
+    def __init__(self, _in):
+        self.message = 'Error: BuildingSegment grouping by Group Type: "{}" not implemented yet.'.format(str(_in))
+        super(GroupTypeNotImplementedError, self).__init__(self.message)
+
+
 class Geom(PHX._base._Base):
     """Geometry Collection"""
 
@@ -305,28 +311,35 @@ class Zone(PHX._base._Base):
             self.floor_area_selection = 6  # user-defined
 
     @staticmethod
-    def _clean_join(_a, _b):
-        if _a is None and _b is None:
-            return None
-        elif _a is None and _b is not None:
-            return _b
-        elif _a is not None and _b is None:
-            return _a
-        else:
-            return _a + _b
+    def _floor_area_weighted_join(_a, _b, _attr_str):
+        # type: (Zone, Zone, str) -> float
+        """
+        Util function to cleanly join together two Zone attributes, weighted
+        by floor area handles ZeroDivisionErrors and None values
+        """
+
+        val_a = getattr(_a, _attr_str)
+        val_b = getattr(_b, _attr_str)
+
+        try:
+            return ((val_a * _a.floor_area) + (val_b * _b.floor_area)) / (_a.floor_area + _b.floor_area)
+        except ZeroDivisionError:
+            return 0
 
     def __add__(self, other):
         # type: (Zone, Zone) -> Zone
         new_obj = self.__class__()
 
-        # -- Combine weighted paramaters first
-        new_obj.clearance_height = (
-            (self.clearance_height * self.floor_area) + (other.clearance_height * other.floor_area)
-        ) / (self.floor_area + other.floor_area)
+        # -- Add basic parameters
+        new_obj.n = "Merged Zone"
+        # -- Protect from None
+        new_obj.volume_gross = (self.volume_gross or 0) + (other.volume_gross or 0)
+        new_obj.volume_net = (self.volume_net or 0) + (other.volume_net or 0)
+        new_obj.floor_area = (self.floor_area or 0) + (other.floor_area or 0)
 
-        new_obj.spec_heat_cap = ((self.spec_heat_cap * self.floor_area) + (other.spec_heat_cap * other.floor_area)) / (
-            self.floor_area + other.floor_area
-        )
+        # -- Combine weighted paramaters
+        new_obj.clearance_height = self._floor_area_weighted_join(self, other, "clearance_height")
+        new_obj.spec_heat_cap = self._floor_area_weighted_join(self, other, "spec_heat_cap")
 
         # -- Combine Summer Ventilation, weighted by Zone volume
         new_obj.summer_ventilation = PHX.summer_ventilation.SummerVent.weighted_join(
@@ -336,29 +349,26 @@ class Zone(PHX._base._Base):
             other.volume_gross,
         )
 
-        # -- Add basic parameters
-        new_obj.n = "Merged Zone"
-        new_obj.volume_gross = self.volume_gross + other.volume_gross
-        new_obj.volume_net = self._clean_join(self.volume_net, other.volume_net)
-        new_obj.floor_area = self.floor_area + other.floor_area
-
         # -- Extend rooms ventilation
         new_obj.spaces.extend(self.spaces)
         new_obj.spaces.extend(other.spaces)
+        new_obj.source_zone_identifiers.extend([self.identifier, other.identifier])
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
 
         # -- Combine ApplianceSets
         new_obj.appliances = self.appliances + other.appliances
-        # print("Self:", self.appliances.appliances)
-        # print("Other:", other.appliances.appliances)
+
         # -- Combine Occupancies
         new_obj.occupancy = self.occupancy + other.occupancy
-        # print("New Zone: {}".format(new_obj.appliances.appliances))
+
         return new_obj
 
     def __radd__(self, other):
-        return self.__add__(other)
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
 
 
 class BldgSegment(PHX._base._Base):
@@ -418,15 +428,15 @@ class BldgSegment(PHX._base._Base):
 
     @property
     def total_envelope_area(self):
-        return sum(_.exposed_area for _ in self.components)
+        return sum((_.exposed_area or 0) for _ in self.components)
 
     @property
     def total_volume_net(self):
-        return sum(_.volume_net for _ in self.zones)
+        return sum((_.volume_net or 0) for _ in self.zones)
 
     @property
     def total_volume_gross(self):
-        return sum(_.volume_gross for _ in self.zones)
+        return sum((_.volume_gross or 0) for _ in self.zones)
 
     def add_zones(self, _zones):
         # type: (list[PHX.spaces.Zone]) -> None
@@ -456,17 +466,18 @@ class BldgSegment(PHX._base._Base):
             * None
         """
 
-        self.geom.add_component_polygons(_components)
-
         if not isinstance(_components, list):
             _components = [_components]
 
         for c in _components:
             if c in self.components:
                 continue
+
             if not isinstance(c, PHX.component.Component):
                 raise PHX.component.ComponentTypeError(c)
+
             self.components.append(c)
+            self.geom.add_component_polygons(c)
 
     def get_component_groups(self, group_by=None):
         # type: (str) -> dict[PHX.component.Component]
@@ -490,8 +501,11 @@ class BldgSegment(PHX._base._Base):
 
             # Group compos that are in the same zone, (and the same exposures)
             for compo in self.components:
-                key = "IC_{}_EC_{}_TYP_{}".format(compo.idIC, compo.idEC, compo.type)
+                key = "IC_{}_EC_{}_TYP_{}".format(compo.int_exposure_zone_id, compo.ext_exposure_zone_id, compo.type)
                 compo_groups[key].append(compo)
+
+        else:
+            raise GroupTypeNotImplementedError(group_by)
 
         return compo_groups
 
@@ -510,11 +524,13 @@ class BldgSegment(PHX._base._Base):
         """
 
         for zone in self.zones:
-            if zone.identifier == _zone_identifier_lookup:
+            if str(zone.identifier) == str(_zone_identifier_lookup):
                 return zone
-            elif _zone_identifier_lookup in zone.source_zone_identifiers:
-                # -- If the zone has been joined previously
-                return zone
+            else:
+                # -- If the zone has been joined previouslyz
+                for identifier in zone.source_zone_identifiers:
+                    if str(_zone_identifier_lookup) in str(identifier):
+                        return zone
         else:
             return None
 
@@ -527,7 +543,7 @@ class BldgSegment(PHX._base._Base):
 
         Arguments:
         ----------
-            * by (str): 'assembly', '...'
+            * by (str): default='assembly', ...
 
         Returns:
         --------
@@ -542,24 +558,27 @@ class BldgSegment(PHX._base._Base):
 
                 compo_groups = defaultdict(list)
 
-                # -- Group by Assembly
+                # -- Group by Assembly Number
                 for compo in zone_compos:
-                    if compo.idAssC != -1:
-                        # -- Opaque Component
-                        compo_groups[compo.idAssC].append(compo)
-                    elif compo.idWtC != -1:
-                        # -- Window Component
-                        compo_groups[compo.idWtC].append(compo)
+                    if compo.assembly_id_num != -1:
+                        # -- Its a normal Opaque Component
+                        compo_groups[compo.assembly_id_num].append(compo)
+                    elif compo.win_type_id_num != -1:
+                        # -- Its a Window Component
+                        compo_groups[compo.win_type_id_num].append(compo)
                     else:
+                        # -- Its some other type?
                         compo_groups[-1].append(compo)
 
-                # -- Join the groups into single new Component
+                # -- Join all the Components in each group into single new Component
                 for compo_gr in compo_groups.values():
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
                     new_compo_list.append(compo_joined)
 
             # -- Replace the Component List with the new one
             self.components = new_compo_list
+        else:
+            raise GroupTypeNotImplementedError(by)
 
     def merge_zones(self):
         # type: (None) -> None
@@ -579,7 +598,3 @@ class BldgSegment(PHX._base._Base):
                 compo.set_host_zone_name(self.zones[0])
 
             return None
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._BldgSegment(cls, _dict)

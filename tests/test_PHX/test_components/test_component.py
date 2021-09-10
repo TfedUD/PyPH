@@ -122,8 +122,8 @@ def test_host_zone_name():
 
     c1.set_host_zone_name(zn1)
 
-    assert zn1.id == c1.idIC
-    assert zn1.n in c1.nmIC
+    assert zn1.id == c1.int_exposure_zone_id
+    assert zn1.n in c1.int_exposure_zone_name
 
 
 # -- Test Exposed Area
@@ -131,7 +131,7 @@ def test_component_exposed_area_single_face(poly_1):
     c1 = PHX.component.Component()
     c1.add_polygons(poly_1)
     c1.type = 1  # Opaque
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     c1.exposed_area == 100
 
@@ -140,7 +140,7 @@ def test_component_exposed_area_multiple_face(poly_1, poly_2, poly_3):
     c1 = PHX.component.Component()
     c1.add_polygons([poly_1, poly_2, poly_3])
     c1.type = 1  # Opaque
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     c1.exposed_area == 300
 
@@ -149,7 +149,7 @@ def test_component_exposed_area_transparent(poly_1):
     c1 = PHX.component.Component()
     c1.add_polygons(poly_1)
     c1.type = 2  # Transparent
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     c1.exposed_area == 0
 
@@ -158,7 +158,7 @@ def test_component_exposed_area_opening(poly_1):
     c1 = PHX.component.Component()
     c1.add_polygons(poly_1)
     c1.type = 3  # Opening
-    c1.idEC = -1  # Outdoors
+    c1.ext_exposure_zone_id = -1  # Outdoors
 
     c1.exposed_area == 0
 
@@ -167,7 +167,7 @@ def test_component_exposed_area_ground(poly_1):
     c1 = PHX.component.Component()
     c1.add_polygons(poly_1)
     c1.type = 1  # Opaque
-    c1.idEC = -2  # Ground
+    c1.ext_exposure_zone_id = -2  # Ground
 
     c1.exposed_area == 100
 
@@ -176,7 +176,7 @@ def test_component_exposed_area_adiabatic(poly_1):
     c1 = PHX.component.Component()
     c1.add_polygons(poly_1)
     c1.type = 1  # Opaque
-    c1.idEC = -3  # Space with same inner conditions
+    c1.ext_exposure_zone_id = -3  # Space with same inner conditions
 
     c1.exposed_area == 0
 

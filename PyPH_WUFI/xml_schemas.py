@@ -199,20 +199,24 @@ def _Component(_obj):
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("Visual", _obj.visC),
-        PyPH_WUFI.xml_node.XML_Node("InnerAttachment", _obj.idIC, "choice", _obj.nmIC),
-        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Component::OuterAttachment", _obj.idEC).xml_data),
+        PyPH_WUFI.xml_node.XML_Node(
+            "InnerAttachment", _obj.int_exposure_zone_id, "choice", _obj.int_exposure_zone_name
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Component::OuterAttachment", _obj.ext_exposure_zone_id).xml_data
+        ),
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Component::Type", _obj.type).xml_data),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrColorI", _obj.id_color_int),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrColorE", _obj.id_color_ext),
-        PyPH_WUFI.xml_node.XML_Object("ColorExternUserDef", _obj.ud_colog_int),
-        PyPH_WUFI.xml_node.XML_Object("ColorInternUserDef", _obj.ud_colog_ext),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrColorI", _obj.int_color_id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrColorE", _obj.ext_color_id),
+        PyPH_WUFI.xml_node.XML_Object("ColorExternUserDef", _obj.int_UD_color),
+        PyPH_WUFI.xml_node.XML_Object("ColorInternUserDef", _obj.ext_UD_color),
         PyPH_WUFI.xml_node.XML_Node("IdentNr_ComponentInnerSurface", _obj.inner_srfc_compo_idNr),
         PyPH_WUFI.xml_node.XML_List(
             "IdentNrPolygons",
             [PyPH_WUFI.xml_node.XML_Node("IdentNr", _, "index", i) for i, _ in enumerate(_obj.polygon_id_list)],
         ),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrAssembly", _obj.idAssC),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrWindowType", _obj.idWtC),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrAssembly", _obj.assembly_id_num),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrWindowType", _obj.win_type_id_num),
     ]
 
 

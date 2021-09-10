@@ -43,18 +43,18 @@ class Component(PHX._base._Base):
         self.n = "No Name"
         self.visC = True
         self.type = 1
-        self.idIC = 1
-        self.nmIC = None
-        self.idEC = -1
-        self.nmEC = None
-        self.id_color_int = 5
-        self.id_color_ext = 5
-        self.ud_colog_int = WP_Color()
-        self.ud_colog_ext = WP_Color()
+        self.int_exposure_zone_id = 1
+        self.int_exposure_zone_name = None
+        self.ext_exposure_zone_id = -1
+        self.ext_exposure_zone_name = None
+        self.int_color_id = 5
+        self.ext_color_id = 5
+        self.int_UD_color = WP_Color()
+        self.ext_UD_color = WP_Color()
         self.inner_srfc_compo_idNr = -1
         self.polygons = []
-        self.idAssC = -1
-        self.idWtC = -1
+        self.assembly_id_num = -1
+        self.win_type_id_num = -1
 
     @property
     def exposed_area(self):
@@ -62,7 +62,7 @@ class Component(PHX._base._Base):
         # Opaque areas are not 'punched' areas (yet).
         if self.type != 1:
             return 0  # Only include Opaque surfaces
-        if self.idEC not in [-1, -2]:
+        if self.ext_exposure_zone_id not in [-1, -2]:
             return 0  # Exclude Adiabatic / Surface Expsure
 
         return sum(_.area for _ in self.polygons)
@@ -79,8 +79,8 @@ class Component(PHX._base._Base):
         return [poly.id for poly in self.polygons]
 
     def set_host_zone_name(self, _zone):
-        self.idIC = _zone.id
-        self.nmIC = "Zone {}: {}".format(_zone.id, _zone.n)
+        self.int_exposure_zone_id = _zone.id
+        self.int_exposure_zone_name = "Zone {}: {}".format(_zone.id, _zone.n)
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
