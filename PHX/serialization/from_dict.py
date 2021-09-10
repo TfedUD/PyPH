@@ -9,6 +9,7 @@ certain functions use other PHX Object to_dict() constructors.
 ie: _Floor calls _FloorSegment.to_dict()
 """
 
+from typing import Dict
 import PHX
 import PHX.geometry
 import PHX.hvac
@@ -30,6 +31,47 @@ def _setattr_filter(_obj, _attr_name, _attr_val, _filter=True):
     else:
         setattr(_obj, _attr_name, _attr_val)
         return None
+
+
+# --- Geometry
+def _Vector(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.x = _input_dict.get("x")
+    new_obj.y = _input_dict.get("y")
+    new_obj.z = _input_dict.get("z")
+
+    return new_obj
+
+
+def _Vertex(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.x = _input_dict.get("x")
+    new_obj.y = _input_dict.get("y")
+    new_obj.z = _input_dict.get("z")
+
+    return new_obj
+
+
+# -- Geometry
+def _Polygon(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj._nVec = PHX.geometry.Vector.from_dict(_input_dict.get("_nVec", {}))
+    new_obj._area = _input_dict.get("_area")
+    new_obj.idPolyI = _input_dict.get("idPolyI")
+    new_obj.children = _input_dict.get("children")
+
+    for _ in _input_dict.get("vertices", {}).values():
+        new_obj.vertices.append(PHX.geometry.Vertex.from_dict(_))
+
+    return new_obj
 
 
 # -- Utilization Patterns
@@ -260,6 +302,7 @@ def _HVAC_System(_cls, _input_dict):
 def _FloorSegment(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj._weighting_factor = _input_dict.get("_weighting_factor")
     new_obj._floor_area_gross = _input_dict.get("_floor_area_gross")
     new_obj.space_name = _input_dict.get("space_name")
@@ -269,8 +312,13 @@ def _FloorSegment(_cls, _input_dict):
     new_obj.non_res_usage = _input_dict.get("non_res_usage")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
-    for _ in _input_dict.get("geometry", {}).values():
-        new_obj.geometry.append(LBT_Utils.geometry.LBT_geometry_dict_util(_))
+    for d in _input_dict.get("geometry", {}).values():
+        # -- Allows for both LBT geometry and PHX geometry
+        try:
+            geom = LBT_Utils.geometry.LBT_geometry_dict_util(d)
+        except LBT_Utils.geometry.LBTGeometryTypeError:
+            geom = PHX.geometry.Polygon.from_dict(d)
+        new_obj.geometry.append(geom)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
 
@@ -280,6 +328,7 @@ def _FloorSegment(_cls, _input_dict):
 def _Floor(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
@@ -301,6 +350,7 @@ def _Floor(_cls, _input_dict):
 def _Volume(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
@@ -315,7 +365,12 @@ def _Volume(_cls, _input_dict):
     for _ in _input_dict.get("volume_geometry", {}).values():
         new_geom_list = []
         for __ in _.values():
-            new_geom_list.append(LBT_Utils.geometry.LBT_geometry_dict_util(__))
+            # -- Allows for both LBT geometry and PHX geometry
+            try:
+                new_geom = LBT_Utils.geometry.LBT_geometry_dict_util(__)
+            except LBT_Utils.geometry.LBTGeometryTypeError:
+                new_geom = PHX.geometry.Polygon.from_dict(__)
+            new_geom_list.append(new_geom)
         new_obj.volume_geometry.append(new_geom_list)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
@@ -326,6 +381,7 @@ def _Volume(_cls, _input_dict):
 def _Space(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.identifier = _input_dict.get("identifier")
     new_obj.volume = _input_dict.get("volume")  # Number
     new_obj.volumes = []  # Volume Objects
     for volume_dict in _input_dict.get("volumes", {}).values():

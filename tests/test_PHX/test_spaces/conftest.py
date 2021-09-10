@@ -1,47 +1,51 @@
 import PHX.spaces
 import pytest
-import ladybug_geometry.geometry3d
+import PHX.geometry
 
 # -- Ladybug Geometry
 # -------------------------------------------------------------------------------
 @pytest.fixture()
-def face3D_1():
-    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
-    pt_2 = ladybug_geometry.geometry3d.Point3D(10, 0, 0)
-    pt_3 = ladybug_geometry.geometry3d.Point3D(10, 10, 0)
-    pt_4 = ladybug_geometry.geometry3d.Point3D(0, 10, 0)
-
-    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
-
-
-@pytest.fixture()
-def face3D_2():
-    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
-    pt_2 = ladybug_geometry.geometry3d.Point3D(-10, 0, 0)
-    pt_3 = ladybug_geometry.geometry3d.Point3D(-10, -10, 0)
-    pt_4 = ladybug_geometry.geometry3d.Point3D(0, -10, 0)
-
-    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
+def polygon_1():
+    v1 = PHX.geometry.Vertex(0, 0, 0)
+    v2 = PHX.geometry.Vertex(0, 10, 0)
+    v3 = PHX.geometry.Vertex(10, 10, 0)
+    v4 = PHX.geometry.Vertex(10, 0, 0)
+    p1 = PHX.geometry.Polygon()
+    p1.vertices = [v1, v2, v3, v4]
+    return p1
 
 
 @pytest.fixture()
-def face3D_3():
-    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
-    pt_2 = ladybug_geometry.geometry3d.Point3D(-10, 0, 0)
-    pt_3 = ladybug_geometry.geometry3d.Point3D(-10, -10, 0)
-    pt_4 = ladybug_geometry.geometry3d.Point3D(0, -10, 0)
-
-    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
+def polygon_2():
+    v1 = PHX.geometry.Vertex(0, 0, 0)
+    v2 = PHX.geometry.Vertex(0, -10, 0)
+    v3 = PHX.geometry.Vertex(-10, -10, 0)
+    v4 = PHX.geometry.Vertex(-10, 0, 0)
+    p1 = PHX.geometry.Polygon()
+    p1.vertices = [v1, v2, v3, v4]
+    return p1
 
 
 @pytest.fixture()
-def face3D_4():
-    pt_1 = ladybug_geometry.geometry3d.Point3D(0, 0, 0)
-    pt_2 = ladybug_geometry.geometry3d.Point3D(10, 0, 0)
-    pt_3 = ladybug_geometry.geometry3d.Point3D(10, 10, 0)
-    pt_4 = ladybug_geometry.geometry3d.Point3D(0, 10, 0)
+def polygon_3():
+    v1 = PHX.geometry.Vertex(0, 0, 0)
+    v2 = PHX.geometry.Vertex(0, -10, 0)
+    v3 = PHX.geometry.Vertex(-10, -10, 0)
+    v4 = PHX.geometry.Vertex(-10, 0, 0)
+    p1 = PHX.geometry.Polygon()
+    p1.vertices = [v1, v2, v3, v4]
+    return p1
 
-    return ladybug_geometry.geometry3d.Face3D([pt_1, pt_2, pt_3, pt_4])
+
+@pytest.fixture()
+def polygon_4():
+    v1 = PHX.geometry.Vertex(0, 0, 0)
+    v2 = PHX.geometry.Vertex(0, 10, 0)
+    v3 = PHX.geometry.Vertex(10, 10, 0)
+    v4 = PHX.geometry.Vertex(10, 0, 0)
+    p1 = PHX.geometry.Polygon()
+    p1.vertices = [v1, v2, v3, v4]
+    return p1
 
 
 # -- FloorSegments
@@ -60,46 +64,46 @@ def flr_seg_101_no_geometry():
 
 
 @pytest.fixture()
-def flr_seg_101_with_geometry(face3D_1):
+def flr_seg_101_with_geometry(polygon_1):
     seg = PHX.spaces.FloorSegment()
 
     seg.weighting_factor = 1
     seg.floor_area_gross = 100
     seg.space_name = "A First Floor Segment"
     seg.space_number = 101
-    seg.geometry = [face3D_1]
+    seg.geometry = [polygon_1]
 
     return seg
 
 
 @pytest.fixture()
-def flr_seg_201_with_geometry(face3D_1):
+def flr_seg_201_with_geometry(polygon_1):
     seg = PHX.spaces.FloorSegment()
 
     seg.weighting_factor = 1
     seg.floor_area_gross = 100
     seg.space_name = "A Second Floor Segment"
     seg.space_number = 102
-    seg.geometry = [face3D_1]
+    seg.geometry = [polygon_1]
 
     return seg
 
 
 @pytest.fixture()
-def flr_seg_301_with_geometry_a(face3D_1):
+def flr_seg_301_with_geometry_a(polygon_1):
     seg = PHX.spaces.FloorSegment()
 
     seg.weighting_factor = 1
     seg.floor_area_gross = 100
     seg.space_name = "A Third Floor Segment"
     seg.space_number = 103
-    seg.geometry = [face3D_1]
+    seg.geometry = [polygon_1]
 
     return seg
 
 
 @pytest.fixture()
-def flr_seg_301_with_geometry_b(face3D_2):
+def flr_seg_301_with_geometry_b(polygon_2):
     """Same name/number, different geomtery"""
     seg = PHX.spaces.FloorSegment()
 
@@ -107,13 +111,13 @@ def flr_seg_301_with_geometry_b(face3D_2):
     seg.floor_area_gross = 100
     seg.space_name = "A Third Floor Segment"
     seg.space_number = 103
-    seg.geometry = [face3D_2]
+    seg.geometry = [polygon_2]
 
     return seg
 
 
 @pytest.fixture()
-def flr_seg_301_with_geometry_c(face3D_3, face3D_4):
+def flr_seg_301_with_geometry_c(polygon_3, polygon_4):
     """Same name/number, different geomtery"""
     seg = PHX.spaces.FloorSegment()
 
@@ -121,32 +125,6 @@ def flr_seg_301_with_geometry_c(face3D_3, face3D_4):
     seg.floor_area_gross = 200
     seg.space_name = "A Third Floor Segment"
     seg.space_number = 103
-    seg.geometry = [face3D_3, face3D_4]
+    seg.geometry = [polygon_3, polygon_4]
 
     return seg
-
-
-# # -- Space
-# # ------------------------------------------------------------------------------
-# Space_Data = namedtuple(
-#     "Space_Data",
-#     [
-#         "space_name",
-#         "space_number",
-#         "host_zone_identifier",
-#         "volumes",
-#         "occupancy",
-#         "equipment",
-#         "ventilation",
-#     ],
-# )
-
-
-# @pytest.fixture()
-# def space_data_1():
-#     return Space_Data("A First Space", 101, "ABC-123", [], None, None, None)
-
-
-# @pytest.fixture()
-# def space_data_2():
-#     return Space_Data("A Second Space", 102, "DEF-456", [], None, None, None)

@@ -43,6 +43,10 @@ class HVAC_Device(PHX._base._Base):
         cls._count += 1
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
 
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
+
 
 class HVAC_System_ZoneCover(PHX._base._Base):
     def __init__(self):

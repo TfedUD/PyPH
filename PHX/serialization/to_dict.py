@@ -16,6 +16,48 @@ def __Base(_obj):
     return d
 
 
+def _Vector(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"x": _obj.x})
+    d.update({"y": _obj.y})
+    d.update({"z": _obj.z})
+
+    return d
+
+
+def _Vertex(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"x": _obj.x})
+    d.update({"y": _obj.y})
+    d.update({"z": _obj.z})
+
+    return d
+
+
+# -- Geometry
+def _Polygon(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"_nVec": _obj._nVec.to_dict()})
+    d.update({"_area": _obj._area})
+    d.update({"idPolyI": _obj.idPolyI})
+    d.update({"children": _obj.children})
+
+    vertex_dict = {}
+    for _ in _obj.vertices:
+        vertex_dict.update({str(_.identifier): _.to_dict()})
+    d.update({"vertices": vertex_dict})
+
+    return d
+
+
 # -- Utilization Patterns
 def _Vent_UtilRate(_obj):
     d = {}
@@ -240,6 +282,7 @@ def _HVAC_System(_obj):
 def _FloorSegment(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"_weighting_factor": _obj._weighting_factor})
     d.update({"_floor_area_gross": _obj._floor_area_gross})
     d.update({"space_name": _obj.space_name})
@@ -252,7 +295,7 @@ def _FloorSegment(_obj):
 
     geometry_dict = {}
     for _ in _obj.geometry:
-        geometry_dict.update({id(_): _.to_dict()})
+        geometry_dict.update({str(_.identifier): _.to_dict()})
     d.update({"geometry": geometry_dict})
 
     return d
@@ -261,6 +304,7 @@ def _FloorSegment(_obj):
 def _Floor(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"non_res_lighting": _obj.non_res_lighting})
@@ -271,7 +315,7 @@ def _Floor(_obj):
 
     floor_segments_dict = {}
     for flr_seg in _obj.floor_segments:
-        floor_segments_dict.update({id(flr_seg): flr_seg.to_dict()})
+        floor_segments_dict.update({str(flr_seg.identifier): flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
 
     return d
@@ -280,6 +324,7 @@ def _Floor(_obj):
 def _Volume(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
@@ -291,11 +336,11 @@ def _Volume(_obj):
     d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     volume_geometry_dict = {}
-    for list_of_geom in _obj.volume_geometry:
+    for k, list_of_geom in enumerate(_obj.volume_geometry):
         geom_list = {}
-        for geom in list_of_geom:
-            geom_list.update({id(geom): geom.to_dict()})
-        volume_geometry_dict.update({id(geom_list): geom_list})
+        for i, geom in enumerate(list_of_geom):
+            geom_list.update({i: geom.to_dict()})
+        volume_geometry_dict.update({k: geom_list})
 
     d.update({"volume_geometry": volume_geometry_dict})
 
@@ -304,7 +349,8 @@ def _Volume(_obj):
 
 def _Space(_obj):
     d = {}
-
+    
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
@@ -318,7 +364,7 @@ def _Space(_obj):
 
     volumes_dict = {}
     for volume in _obj.volumes:
-        volumes_dict.update({id(volume): volume.to_dict()})
+        volumes_dict.update({str(volume.identifier): volume.to_dict()})
     d.update({"volumes": volumes_dict})
 
     return d
