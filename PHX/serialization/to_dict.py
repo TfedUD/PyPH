@@ -294,8 +294,8 @@ def _FloorSegment(_obj):
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     geometry_dict = {}
-    for _ in _obj.geometry:
-        geometry_dict.update({str(_.identifier): _.to_dict()})
+    for i, geom in enumerate(_obj.geometry):
+        geometry_dict.update({i: geom.to_dict()})
     d.update({"geometry": geometry_dict})
 
     return d
@@ -314,8 +314,8 @@ def _Floor(_obj):
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     floor_segments_dict = {}
-    for flr_seg in _obj.floor_segments:
-        floor_segments_dict.update({str(flr_seg.identifier): flr_seg.to_dict()})
+    for i, flr_seg in enumerate(_obj.floor_segments):
+        floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
 
     return d
@@ -349,7 +349,7 @@ def _Volume(_obj):
 
 def _Space(_obj):
     d = {}
-    
+
     d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
@@ -363,8 +363,8 @@ def _Space(_obj):
     d.update({"volume": _obj.volume})
 
     volumes_dict = {}
-    for volume in _obj.volumes:
-        volumes_dict.update({str(volume.identifier): volume.to_dict()})
+    for i, volume in enumerate(_obj.volumes):
+        volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
 
     return d

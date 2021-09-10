@@ -9,7 +9,6 @@ certain functions use other PHX Object to_dict() constructors.
 ie: _Floor calls _FloorSegment.to_dict()
 """
 
-from typing import Dict
 import PHX
 import PHX.geometry
 import PHX.hvac
