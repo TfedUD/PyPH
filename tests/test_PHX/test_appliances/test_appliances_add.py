@@ -230,30 +230,15 @@ def test_add_PHIUS_Lighting_Int():
     app_2.lighting_frac_high_efficiency = 4
 
     app_3 = app_1 + app_2
-    assert app_3.quantity == 2
     assert app_3.lighting_frac_high_efficiency == 3
 
-    # Test User-Defined + None
-    app_1.user_defined_total = 200
-    app_2.user_defined_total = None
-
     app_4 = app_1 + app_2
-    assert app_4.quantity == 1
     assert app_4.lighting_frac_high_efficiency == 3
-    assert app_4.reference_quantity == 5
-    assert app_4.user_defined_total == 200
-    assert app_4.energy_demand == 100
-    assert app_4.energy_demand_per_use == 100
 
     # Test 2 User-Defined
     app_2.user_defined_total = 400
     app_5 = app_1 + app_2
-    assert app_5.quantity == 1
     assert app_5.lighting_frac_high_efficiency == 3
-    assert app_5.reference_quantity == 5
-    assert app_5.user_defined_total == 600
-    assert app_5.energy_demand == 100
-    assert app_5.energy_demand_per_use == 100
 
 
 def test_add_PHIUS_Lighting_Ext():
@@ -268,27 +253,13 @@ def test_add_PHIUS_Lighting_Ext():
     assert app_3.quantity == 2
     assert app_3.lighting_frac_high_efficiency == 3
 
-    # Test User-Defined + None
-    app_1.user_defined_total = 200
-    app_2.user_defined_total = None
-
     app_4 = app_1 + app_2
-    assert app_4.quantity == 1
     assert app_4.lighting_frac_high_efficiency == 3
-    assert app_4.reference_quantity == 5
-    assert app_4.user_defined_total == 200
-    assert app_4.energy_demand == 100
-    assert app_4.energy_demand_per_use == 100
 
     # Test 2 User-Defined
     app_2.user_defined_total = 400
     app_5 = app_1 + app_2
-    assert app_5.quantity == 1
     assert app_5.lighting_frac_high_efficiency == 3
-    assert app_5.reference_quantity == 5
-    assert app_5.user_defined_total == 600
-    assert app_5.energy_demand == 100
-    assert app_5.energy_demand_per_use == 100
 
 
 def test_add_PHIUS_MEL():
@@ -297,23 +268,3 @@ def test_add_PHIUS_MEL():
 
     app_3 = app_1 + app_2
     assert app_3.quantity == 2
-
-    # Test User-Defined + None
-    app_1.user_defined_total = 200
-    app_2.user_defined_total = None
-
-    app_4 = app_1 + app_2
-    assert app_4.quantity == 1
-    assert app_4.reference_quantity == 5
-    assert app_4.user_defined_total == 200
-    assert app_4.energy_demand == 100
-    assert app_4.energy_demand_per_use == 100
-
-    # Test 2 User-Defined
-    app_2.user_defined_total = 400
-    app_5 = app_1 + app_2
-    assert app_5.quantity == 1
-    assert app_5.reference_quantity == 5
-    assert app_5.user_defined_total == 600
-    assert app_5.energy_demand == 100
-    assert app_5.energy_demand_per_use == 100

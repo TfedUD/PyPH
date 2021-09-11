@@ -458,6 +458,7 @@ def _Foundation(_cls, _input_dict):
 
     return new_obj
 
+
 # -- Assemblies
 def _Material(_cls, _input_dict):
     new_obj = _cls()
@@ -470,10 +471,12 @@ def _Material(_cls, _input_dict):
 
     return new_obj
 
+
 def _Layer(_cls, _input_dict):
     new_obj = _cls()
 
     return new_obj
+
 
 def _Assembly(_cls, _input_dict):
     new_obj = _cls()
@@ -485,16 +488,10 @@ def _Assembly(_cls, _input_dict):
 def _ApplianceSet(_cls, _input_dict):
     new_obj = _cls()
 
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("dishwasher", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_washer", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("clothes_dryer", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("fridge", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("freezer", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("fridge_freezer", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("cooking", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_MEL", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_Lighting_Int", {})))
-    new_obj.add_appliance(PHX.appliances.Appliance.from_dict(_input_dict.get("PHIUS_Lighting_Ext", {})))
+    for appliance_type_dict in _input_dict.values():
+        for appliance_dict in appliance_type_dict.values():
+            appliance_obj = PHX.appliances.Appliance.from_dict(appliance_dict)
+            new_obj.add_appliances_to_set(appliance_obj)
 
     return new_obj
 

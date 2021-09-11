@@ -982,6 +982,14 @@ def _Appliance_PHIUS_Lighting_Ext(_obj):
     ]
 
 
+def _Appliance_Custom_Electric_per_Year(_obj):
+    return []
+
+
+def _Appliance_Custom_Electric_per_Use(_obj):
+    return []
+
+
 def _Appliance(_obj):
     """Appliances have some basic shared params, then a bunch of custom params"""
 
@@ -996,10 +1004,13 @@ def _Appliance(_obj):
         13: _Appliance_PHIUS_MEL,
         14: _Appliance_PHIUS_Lighting_Int,
         15: _Appliance_PHIUS_Lighting_Ext,
+        11: _Appliance_Custom_Electric_per_Year,
+        17: _Appliance_Custom_Electric_per_Use,
+        18: _Appliance_Custom_Electric_per_Use,
     }
 
-    # Fix the energy Norm. Fucking WUFI....
-    # Uses '1' for both 'Use' and 'Day'
+    # Fix the energy Norm.
+    # WUFI uses '1' for both 'Use' and 'Day'
     energy_norm = PyPH_WUFI.selection.Selection(
         "Appliances::ReferenceEnergyDemandNorm", _obj.reference_energy_norm
     ).xml_data

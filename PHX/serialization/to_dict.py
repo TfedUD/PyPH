@@ -453,12 +453,11 @@ def _Assembly(_obj):
 def _ApplianceSet(_obj):
     d = {}
 
-    for appliance in _obj.appliances:
-        if not appliance:
-            continue
-
-        appliance_name = _obj.known_types.get(appliance.type)
-        d.update({appliance_name: appliance.to_dict()})
+    for appliance_type_name, appliances in _obj.appliance_dict.items():
+        type_dict = {}
+        for i, appliance in enumerate(appliances):
+            type_dict[i] = appliance.to_dict()
+        d[appliance_type_name] = type_dict
 
     return d
 
@@ -467,6 +466,7 @@ def _Appliance(_obj):
     d = {}
 
     d.update({"type": _obj.type})
+    d.update({"comment": _obj.comment})
     d.update({"reference_quantity": _obj.reference_quantity})
     d.update({"quantity": _obj.quantity})
     d.update({"in_conditioned_space": _obj.in_conditioned_space})

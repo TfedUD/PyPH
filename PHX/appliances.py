@@ -1,5 +1,6 @@
 import PHX._base
 import PHX.serialization.from_dict
+from collections import defaultdict
 
 
 class UnknownApplianceError(Exception):
@@ -28,106 +29,6 @@ class ApplianceTypeMismatchError(Exception):
             )
         )
         super(ApplianceTypeMismatchError, self).__init__(self.message)
-
-
-class ApplianceSet(PHX._base._Base):
-    """A Collection of Appliances"""
-
-    known_types = {
-        1: "dishwasher",
-        2: "clothes_washer",
-        3: "clothes_dryer",
-        4: "fridge",
-        5: "freezer",
-        6: "fridge_freezer",
-        7: "cooking",
-        13: "PHIUS_MEL",
-        14: "PHIUS_Lighting_Int",
-        15: "PHIUS_Lighting_Ext",
-    }
-
-    def __init__(self):
-        super(ApplianceSet, self).__init__()
-        self.dishwasher = None
-        self.clothes_washer = None
-        self.clothes_dryer = None
-        self.fridge = None
-        self.freezer = None
-        self.fridge_freezer = None
-        self.cooking = None
-        self.PHIUS_MEL = None
-        self.PHIUS_Lighting_Int = None
-        self.PHIUS_Lighting_Ext = None
-
-    def add_appliance(self, _appliance):
-        """Adds a (known type of) Appliance to the set"""
-        if not _appliance:
-            return
-
-        app_type = self.known_types.get(_appliance.type)
-        if app_type:
-            setattr(self, app_type, _appliance)
-        else:
-            raise UnknownApplianceError(_appliance)
-
-    @property
-    def appliances(self):
-        return (
-            self.dishwasher,
-            self.clothes_washer,
-            self.clothes_dryer,
-            self.fridge,
-            self.freezer,
-            self.fridge_freezer,
-            self.cooking,
-            self.PHIUS_MEL,
-            self.PHIUS_Lighting_Int,
-            self.PHIUS_Lighting_Ext,
-        )
-
-    def __iter__(self):
-        for _ in self.appliances:
-            if not _:
-                continue
-            yield _
-
-    def __len__(self):
-        return len([_ for _ in self.appliances if _])
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._ApplianceSet(cls, _dict)
-
-    def __add__(self, other):
-        # type: (ApplianceSet, ApplianceSet) -> ApplianceSet
-        if other is None:
-            return self
-
-        # -- Merge together Appliances
-        new_set = self.__class__()
-        for app_type_name in self.known_types.values():
-            self_appliance = getattr(self, app_type_name)
-            other_appliance = getattr(other, app_type_name)
-
-            # -- Handle None cases
-            if self_appliance and other_appliance:
-                new_appliance = self_appliance + other_appliance
-            elif self_appliance and not other_appliance:
-                new_appliance = self_appliance
-            elif other_appliance and not self_appliance:
-                new_appliance = other_appliance
-            elif not self_appliance and not other_appliance:
-                new_appliance = None
-
-            new_set.add_appliance(new_appliance)
-
-        return new_set
-
-    def __radd__(self, other):
-        if other == 0:
-            return self
-        else:
-            return self.__add__(other)
 
 
 class Appliance(PHX._base._Base):
@@ -252,7 +153,7 @@ class Appliance(PHX._base._Base):
             return self
         elif self.type != other.type:
             raise ApplianceAdditionError(self, other)
-        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 13, 14, 15}:
+        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 11, 13, 14, 15, 16, 17, 18}:
             raise ApplianceAdditionError(self, other)
 
         new_appliance = self.__class__()
@@ -288,13 +189,14 @@ class Appliance(PHX._base._Base):
 
         # -- PHIUS Lighting and MEL
         _set_quantity_weighted_average(new_appliance, self, other, "lighting_frac_high_efficiency")
-        if self.type in {13, 14, 15}:
+
+        # -- User-Determine Loads (and PHIUS Multifamily)
+        if self.type == 11:
             if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
                 new_appliance.quantity = 1
                 new_appliance.reference_quantity = 5
-                new_appliance.user_defined_total = float(self.user_defined_total) + float(other.user_defined_total)
-                new_appliance.energy_demand = 100
-                new_appliance.energy_demand_per_use = 100
+                new_appliance.energy_demand = float(self.energy_demand) + float(other.energy_demand)
+                new_appliance.energy_demand_per_use = 0
 
         return new_appliance
 
@@ -437,6 +339,26 @@ class Appliance(PHX._base._Base):
 
         return app
 
+    # -- PHIUS Resi Loads
+    @classmethod
+    def PHIUS_MEL(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 13  # PHIUS+ MEL
+        app.reference_quantity = 3  # Bedroooms
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
     @classmethod
     def PHIUS_Lighting_Int(cls, **kwargs):
         app = cls()
@@ -446,7 +368,7 @@ class Appliance(PHX._base._Base):
         app.reference_quantity = 6  # PH case floor area
         app.quantity = 1
         app.in_conditioned_space = True
-        app.reference_energy_norm = 99  # Use
+        app.reference_energy_norm = 2  # Year
         app.energy_demand = 0  # kwh
         app.energy_demand_per_use = 0  # kwh/use
         app.combined_energy_facor = 0  # CEF
@@ -467,7 +389,7 @@ class Appliance(PHX._base._Base):
         app.reference_quantity = 6  # PH case floor area
         app.quantity = 1
         app.in_conditioned_space = False
-        app.reference_energy_norm = 99  # Use
+        app.reference_energy_norm = 2  # Year
         app.energy_demand = 0  # kwh
         app.energy_demand_per_use = 0  # kwh/use
         app.combined_energy_facor = 0  # CEF
@@ -480,12 +402,53 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_MEL(cls, **kwargs):
+    def PHIUS_Lighting_Garage(cls, **kwargs):
         app = cls()
 
         # -- Standard
-        app.type = 13  # PHIUS+ MEL
-        app.reference_quantity = 3  # Bedrooms
+        app.type = 16  # PHIUS+ Garage lighting
+        app.reference_quantity = 6  # PH case floor area
+        app.quantity = 1
+        app.in_conditioned_space = False
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        app.lighting_frac_high_efficiency = 1  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
+    # --- Custom Loads
+    @classmethod
+    def Custom_Electric_per_Year(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 11  # User defined
+        app.reference_quantity = 5  # User Defined
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 2  # Year
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
+    @classmethod
+    def Custom_Electric_per_Use(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 18  # User defined - Misc electric loads
+        app.reference_quantity = 5  # User Defined
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 99  # Use
@@ -497,3 +460,111 @@ class Appliance(PHX._base._Base):
             setattr(app, k, v)
 
         return app
+
+
+class ApplianceSet(PHX._base._Base):
+    """A Collection of Appliances"""
+
+    known_types = {
+        1: "dishwasher",
+        2: "clothes_washer",
+        3: "clothes_dryer",
+        4: "fridge",
+        5: "freezer",
+        6: "fridge_freezer",
+        7: "cooking",
+        13: "PHIUS_MEL",
+        14: "PHIUS_Lighting_Int",
+        15: "PHIUS_Lighting_Ext",
+        16: "PHIUS_Lighting_Garage",
+        11: "Custom_Electric_per_Year",
+        18: "Custom_Electric_per_Use",
+    }
+
+    def __init__(self):
+        super(ApplianceSet, self).__init__()
+        self.appliance_dict = defaultdict(list)  # {'washer': [w1, w2,...], 'dryer':[...], ...}
+
+    def add_appliances_to_set(self, _appliances):
+        # type: (ApplianceSet, list[Appliance]) -> None
+        """Adds Appliances to the set if they are of a known type."""
+
+        if not isinstance(_appliances, list):
+            _appliances = [_appliances]
+
+        for appliance in _appliances:
+            if not appliance:
+                continue
+
+            app_type_name = self.known_types.get(appliance.type, None)
+
+            if not app_type_name:
+                raise UnknownApplianceError(appliance)
+
+            self.appliance_dict[app_type_name].append(appliance)
+
+    def remove_type_from_set(self, _type_name):
+        # type: (str) -> None
+        if _type_name not in self.known_types.values():
+            raise UnknownApplianceError(_type_name)
+
+        self.appliance_dict.pop(_type_name, None)
+
+    @property
+    def appliances(self):
+        # type: (ApplianceSet) -> list[Appliance]
+        """Return a flat list of all the appliances in the ApplianceSet"""
+        appliance_list = []
+        for appliance_type_list in self.appliance_dict.values():
+            for appliance in appliance_type_list:
+                if appliance:
+                    appliance_list.append(appliance)
+
+        return appliance_list
+
+    def __iter__(self):
+        for _ in self.appliances:
+            if not _:
+                continue
+            yield _
+
+    def __len__(self):
+        return len(self.appliances)
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._ApplianceSet(cls, _dict)
+
+    def __add__(self, other):
+        # type: (ApplianceSet, ApplianceSet) -> ApplianceSet
+        if other is None:
+            return self
+
+        new_set = self.__class__()
+
+        # -- Merge together Appliance Lists one Type at a time
+        for app_type_name in self.known_types.values():
+            self_appliances = self.appliance_dict.get(app_type_name, [])
+            other_appliances = other.appliance_dict.get(app_type_name, [])
+
+            appliances = []
+            appliances.extend(self_appliances)
+            appliances.extend(other_appliances)
+
+            if not appliances:
+                continue
+
+            # -- Merge all the appliances of that Type into a single instance,
+            merged_appliance = sum(appliances)
+
+            # -- Keep track of the count
+
+            new_set.add_appliances_to_set(merged_appliance)
+
+        return new_set
+
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)

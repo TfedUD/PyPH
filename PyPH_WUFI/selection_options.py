@@ -190,14 +190,6 @@ __Foundation = {
 
 # -- Appliances
 __Appliances = {
-    "ReferenceEnergyDemandNorm": {
-        "attr_name": "choice",
-        "enum": {
-            1: "Day",
-            2: "Year",
-            99: "Use",
-        },
-    },
     "Type": {
         "attr_name": "choice",
         "enum": {
@@ -208,9 +200,13 @@ __Appliances = {
             5: "Kitchen freezer",
             6: "Kitchen fridge/freeze combo",
             7: "Kitchen cooking",
+            11: "User defined",
             13: "PHIUS+ MELS",
             14: "PHIUS+ Interior lighting",
             15: "PHIUS+ Exterior lighting",
+            16: "PHIUS+ Garage lighting",
+            17: "User defined - lighting",
+            18: "User defined - Misc electric loads",
         },
     },
     "ReferenceQuantity": {
@@ -223,6 +219,15 @@ __Appliances = {
             5: "User defined",
             6: "PH case floor area",
             7: "Zone floor area",
+            8: "None",
+        },
+    },
+    "ReferenceEnergyDemandNorm": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Day",
+            2: "Year",
+            99: "Use",
         },
     },
     "DishwasherCapacityPreselection": {
