@@ -430,6 +430,25 @@ def _Foundation(_obj):
     return d
 
 
+# -- Assemblies
+def _Material(_obj):
+    d = {}
+
+    return d
+
+
+def _Layer(_obj):
+    d = {}
+
+    return d
+
+
+def _Assembly(_obj):
+    d = {}
+
+    return d
+
+
 # -- Appliances
 def _ApplianceSet(_obj):
     d = {}
