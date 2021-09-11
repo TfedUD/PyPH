@@ -20,11 +20,10 @@
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
-Calculate lighting and electrical (MEL) loads according to the PHIUS Multifamily 
-Calculator (Floor Method).
+Set Passive House Appliance and Lighting energy loads on the Honeybee Rooms.
 -----
 -
-EM August 19, 2021
+EM September 11, 2021
     Args:
         
         use_PHIUS_defaults_: (bool) If True, will add the 'standard' PHIUS residential 
@@ -47,7 +46,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Res Appliances"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 19, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_11_2021')
 
 if DEV:
     reload(PHX.appliances)
@@ -77,48 +76,48 @@ for i, room in enumerate(_HB_rooms):
     
     # -- Build the Appliances
     # --------------------------------------------------------------------------
-    appliances = PHX.appliances.ApplianceSet()
+    appliance_set = PHX.appliances.ApplianceSet()
     # -- Setup the PHIUS appliances
     if use_PHIUS_defaults_:
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Dishwasher())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Clothes_Washer())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Clothes_Dryer())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Cooktop())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Combo_Fridge())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Lighting_Int())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Lighting_Ext())
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_MEL())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Dishwasher())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Clothes_Washer())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Clothes_Dryer())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Cooktop())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Combo_Fridge())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Lighting_Int())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_Lighting_Ext())
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.PHIUS_MEL())
     
     
-    if lighting_interior_: 
-        kwargs = {  'user_defined_total':clean_get(lighting_interior_, i, 0),
-                    'reference_quantity':5 ,
-                    'energy_demand':100,
-                    'energy_demand_per_use':100,
+    if lighting_interior_:       
+        appliance_set.remove_type_from_set('PHIUS_Lighting_Int')
+        kwargs = { 'reference_quantity':5,
+                    'energy_demand':clean_get(lighting_interior_, i, 0),
+                    'comment': 'PHIUS Interior Lighting'
                   }
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Lighting_Int(**kwargs))
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.Custom_Electric_per_Year(**kwargs))
     
-    if lighting_exterior_: 
-        kwargs = {  'user_defined_total':clean_get(lighting_exterior_, i, 0),
-                    'reference_quantity':5 ,
-                    'energy_demand':100,
-                    'energy_demand_per_use':100,
+    if lighting_exterior_:
+        appliance_set.remove_type_from_set('PHIUS_Lighting_Ext')
+        kwargs = {  'reference_quantity':5,
+                    'energy_demand':clean_get(lighting_exterior_, i, 0),
+                    'comment': 'PHIUS Exterior Lighting'
                   }
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_Lighting_Ext(**kwargs))
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.Custom_Electric_per_Year(**kwargs))
     
-    if mel_: 
-        kwargs = {  'user_defined_total':clean_get(mel_, i, 0),
-                    'reference_quantity':5 ,
-                    'energy_demand':100,
-                    'energy_demand_per_use':100,
+    if mel_:
+        appliance_set.remove_type_from_set('PHIUS_MEL')
+        kwargs = {  'reference_quantity':5,
+                    'energy_demand':clean_get(mel_, i, 0),
+                    'comment': 'PHIUS MEL'
                   }
-        appliances.add_appliance(PHX.appliances.Appliance.PHIUS_MEL(**kwargs))
+        appliance_set.add_appliances_to_set(PHX.appliances.Appliance.Custom_Electric_per_Year(**kwargs))
     
     
     # -- Pack Appliances onto the Room(s)
     # --------------------------------------------------------------------------
     new_hb_room = room.duplicate()
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                    appliances.to_dict(), 'zone_appliances', _write_mode='overwrite')
+                                    appliance_set.to_dict(), 'zone_appliances', _write_mode='overwrite')
     
     HB_rooms_.append(new_hb_room)
