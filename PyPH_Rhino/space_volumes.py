@@ -35,13 +35,9 @@ def create_default_volume_geometry(IGH, _volume, _height=2.5):
     for _ in merged_floor_geom:
         for lbt_face3D in _:
             new_floor_srfc = IGH.convert_to_rhino_geom(lbt_face3D)
-            new_volume_geometry.append(
-                IGH.grasshopper_components.Extrude(new_floor_srfc, extrusion_vector)
-            )
+            new_volume_geometry.append(IGH.grasshopper_components.Extrude(new_floor_srfc, extrusion_vector))
 
-    total_volume = sum(
-        IGH.grasshopper_components.Volume(g).volume for g in new_volume_geometry
-    )
+    total_volume = sum(IGH.grasshopper_components.Volume(g).volume for g in new_volume_geometry)
     volume_geom = IGH.convert_to_LBT_geom(new_volume_geometry)
 
     return (volume_geom, total_volume)
@@ -82,7 +78,7 @@ def create_volumes(IGH, _floors_dict, _space_geometry_dict):
 
             for floor in list_of_floors:
                 new_volume = PHX.spaces.Volume()
-                new_volume.add_Floor(floor)
+                new_volume.set_Floor(floor)
 
                 merged_floor_geom = IGH.merge_Face3D(floor.geometry)
                 rh_floor_surfaces = IGH.convert_to_rhino_geom(merged_floor_geom)
@@ -93,14 +89,10 @@ def create_volumes(IGH, _floors_dict, _space_geometry_dict):
                         test_geometry.extend(flr_srfc)
                         test_geometry.append(v)
 
-                        breps, closed = IGH.grasshopper_components.BrepJoin(
-                            test_geometry
-                        )
+                        breps, closed = IGH.grasshopper_components.BrepJoin(test_geometry)
 
                         if closed is True:
-                            new_volume.volume = IGH.grasshopper_components.Volume(
-                                breps
-                            ).volume
+                            new_volume.volume = IGH.grasshopper_components.Volume(breps).volume
                             new_volume.volume_geometry = IGH.convert_to_LBT_geom(breps)
                             del space_geometry_dict[k]  # to speed up later tests
 

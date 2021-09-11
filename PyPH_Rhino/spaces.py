@@ -29,12 +29,11 @@ def build_floors(IGH, _floor_surfaces, _input_node_name, _HB_rooms):
         * (list[Rhino.Geometry.Brep]): A list of the Breps for all the FloorSegments
     """
 
-    input_floor_surfaces = space_io.handle_input_geometry(
-        IGH, _floor_surfaces, _input_node_name
-    )
-    hb_room_dicts = space_floors.sort_floor_surfaces_by_hb_room(
-        input_floor_surfaces, _HB_rooms
-    )
+    if not _HB_rooms:
+        return {}
+
+    input_floor_surfaces = space_io.handle_input_geometry(IGH, _floor_surfaces, _input_node_name)
+    hb_room_dicts = space_floors.sort_floor_surfaces_by_hb_room(input_floor_surfaces, _HB_rooms)
     hb_room_dicts = space_floors.add_default_floor_surfaces(IGH, hb_room_dicts)
     hb_room_dicts = space_floors.convert_inputs_to_FloorSements(hb_room_dicts)
     hb_room_dicts = space_floors.group_FloorSegments_by_room_name(hb_room_dicts)
@@ -69,9 +68,7 @@ def build_volumes(IGH, _floors_dict, _space_geometry, _input_node_name):
         * (list[Rhino.Geometry.Brep]): A list of the Breps for all the Space Geometry
     """
 
-    input_space_geometry = space_io.handle_input_geometry(
-        IGH, _space_geometry, _input_node_name
-    )
+    input_space_geometry = space_io.handle_input_geometry(IGH, _space_geometry, _input_node_name)
     input_space_geometry_dict = {id(v): v for v in input_space_geometry}
     volumes = space_volumes.create_volumes(IGH, _floors_dict, input_space_geometry_dict)
 

@@ -12,8 +12,12 @@ with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
 from collections import namedtuple
+
+import PHX.spaces
+
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
+import PyPH_WUFI.prepare_data
 
 
 def _WindowType(_obj):
@@ -37,20 +41,56 @@ def _WindowType(_obj):
 
 
 # - Utilization Patterns
-def _UtilizationPattern_Ventilation(_obj):
+def _UtilizationPattern_Vent(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
-        PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.OperatingDays),
-        PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.OperatingWeeks),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilizations.maximum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilizations.maximum.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilizations.standard.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilizations.standard.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilizations.basic.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilizations.basic.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilizations.minimum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilizations.minimum.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
+        PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.operating_days),
+        PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.operating_weeks),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilization_rates.maximum.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilization_rates.maximum.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilization_rates.standard.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilization_rates.standard.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilization_rates.basic.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilization_rates.basic.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilization_rates.minimum.daily_op_sched),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilization_rates.minimum.frac_of_design_airflow),
+    ]
+
+
+def _UtilizationPattern_NonRes(_obj):
+    # type: (PHX.spaces.Space) -> list
+    # cus' WUFI wants absent, not present...
+    absent_fac = 1.0 - float(_obj.occupancy.utilization.annual_utilization_factor)
+    if _obj.occupancy.people_per_area:
+        m2_per_person = 1 / _obj.occupancy.people_per_area
+    else:
+        m2_per_person = 0
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
+        # -- Occupancy
+        PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.utilization.start_hour),
+        PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.utilization.end_hour),
+        PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.utilization.annual_utilization_days),
+        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", absent_fac),
+        # -- Lighting
+        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.space_illumination),
+        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.installed_power_density),
+        PyPH_WUFI.xml_node.XML_Node(
+            "PartUseFactorPeriodForLighting", _obj.lighting.utilization.annual_utilization_factor
+        ),
+        PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", m2_per_person),
+        # PyPH_WUFI.xml_node.XML_Node("RoomSetpointTemperature", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("HeatingTemperatureReduction", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyUtilizationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHoursDaytime", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationHoursNighttime", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyHeatingOperationHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("DailyVentilationOperatingHours", _obj._________),
+        # PyPH_WUFI.xml_node.XML_Node("NumberOfMaxTabsPerDay", _obj._________),
     ]
 
 
@@ -159,50 +199,64 @@ def _Component(_obj):
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("Visual", _obj.visC),
-        PyPH_WUFI.xml_node.XML_Node("InnerAttachment", _obj.idIC, "choice", _obj.nmIC),
-        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Component::OuterAttachment", _obj.idEC).xml_data),
+        PyPH_WUFI.xml_node.XML_Node(
+            "InnerAttachment", _obj.int_exposure_zone_id, "choice", _obj.int_exposure_zone_name
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Component::OuterAttachment", _obj.ext_exposure_zone_id).xml_data
+        ),
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Component::Type", _obj.type).xml_data),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrColorI", _obj.id_color_int),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrColorE", _obj.id_color_ext),
-        PyPH_WUFI.xml_node.XML_Object("ColorExternUserDef", _obj.ud_colog_int),
-        PyPH_WUFI.xml_node.XML_Object("ColorInternUserDef", _obj.ud_colog_ext),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrColorI", _obj.int_color_id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrColorE", _obj.ext_color_id),
+        PyPH_WUFI.xml_node.XML_Object("ColorExternUserDef", _obj.int_UD_color),
+        PyPH_WUFI.xml_node.XML_Object("ColorInternUserDef", _obj.ext_UD_color),
         PyPH_WUFI.xml_node.XML_Node("IdentNr_ComponentInnerSurface", _obj.inner_srfc_compo_idNr),
         PyPH_WUFI.xml_node.XML_List(
             "IdentNrPolygons",
             [PyPH_WUFI.xml_node.XML_Node("IdentNr", _, "index", i) for i, _ in enumerate(_obj.polygon_id_list)],
         ),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrAssembly", _obj.idAssC),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrWindowType", _obj.idWtC),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrAssembly", _obj.assembly_id_num),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrWindowType", _obj.win_type_id_num),
     ]
 
 
-def _Space(_obj):
+def _RoomVentilation(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _obj.type).xml_data),
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", _obj.floor_area_weighted, "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", _obj.clear_height, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.utilization_pattern.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.ventilator.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.utilization.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
-            _obj.ventilation.airflows.supply,
+            _obj.ventilation.airflow_rates.supply,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateExhaust",
-            _obj.ventilation.airflows.extract,
+            _obj.ventilation.airflow_rates.extract,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignFlowInterzonalUserDef",
-            _obj.ventilation.airflows.transfer,
+            _obj.ventilation.airflow_rates.transfer,
             "unit",
             "m³/h",
         ),
+    ]
+
+
+def _RoomLoads_Occupancy(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _obj.occupancy.id),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
+        # PyPH_WUFI.xml_node.XML_Node("NumberOccupants", _obj.peak_occupancy),
+        PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", _obj.floor_area_weighted),
     ]
 
 
@@ -234,7 +288,17 @@ def _Zone(_obj):
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", _obj.spec_heat_cap, "unit", "Wh/m²K"),
         PyPH_WUFI.xml_node.XML_List(
             "RoomsVentilation",
-            [PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i) for i, _ in enumerate(_obj.rooms_ventilation)],
+            [
+                PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i, "_RoomVentilation")
+                for i, _ in enumerate(_obj.spaces)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "LoadsPersonsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("LoadPerson", _, "index", i, "_RoomLoads_Occupancy")
+                for i, _ in enumerate(_obj.spaces)
+            ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",
@@ -320,6 +384,17 @@ def _Building(_obj):
 
 
 # -- PHIUS Data
+def _IntGainsData(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("EvaporationHeatPerPerson", _obj.int_gains_evap_per_person, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("HeatLossFluschingWC", _obj.int_gains_flush_heat_loss),
+        PyPH_WUFI.xml_node.XML_Node("QuantityWCs", _obj.int_gains_num_toilets, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", 1, _obj.int_gains_toilet_room_util_pat),
+        PyPH_WUFI.xml_node.XML_Node("UseDefaultValuesSchool", _obj.int_gains_use_school_defaults),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MarginalPerformanceRatioDHW", _obj.int_gains_dhw_marginal_perf_ratio, "unit", "-"
+        ),
+    ]
 
 
 def _PH_Building(_obj):
@@ -354,6 +429,7 @@ def _PH_Building(_obj):
                 for i, _ in enumerate(_obj.foundations)
             ],
         ),
+        PyPH_WUFI.xml_node.XML_Object("InternalGainsAdditionalData", _obj.int_gains_data),
     ]
 
 
@@ -475,7 +551,7 @@ def _Foundation(_obj):
 
 
 # -- HVAC
-def _HVAC_PH_Parameters(_obj):
+def _Ventilator_PH_Parameters(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.Quantity),
         PyPH_WUFI.xml_node.XML_Node(
@@ -522,6 +598,35 @@ def _HVAC_PH_Parameters(_obj):
     ]
 
 
+def _Ventilator(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.SystemType).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.TypeDevice).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.UsedFor_Heating),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.UsedFor_DHW),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.UsedFor_Cooling),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
+        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
+        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.PH_Parameters),
+        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MoistureRecovery",
+            _obj.PH_Parameters.HumidityRecoveryEfficiency,
+            "unit",
+            "-",
+        ),
+    ]
+
+
 def _HVAC_Device(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
@@ -538,17 +643,8 @@ def _HVAC_Device(_obj):
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
-        PyPH_WUFI.xml_node.XML_Node("Ventilation_Parameters", _obj.Ventilation_Parameters),
         PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
         PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
-        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.PH_Parameters),
-        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "MoistureRecovery",
-            _obj.PH_Parameters.HumidityRecoveryEfficiency,
-            "unit",
-            "-",
-        ),
     ]
 
 
@@ -635,6 +731,18 @@ def _BldgSegment(_obj):
     )
 
     # --- PH_Building Object
+    tIntGainsData = namedtuple(
+        "IntGainsData",
+        [
+            "int_gains_evap_per_person",
+            "int_gains_flush_heat_loss",
+            "int_gains_num_toilets",
+            "int_gains_toilet_room_util_pat",
+            "int_gains_use_school_defaults",
+            "int_gains_dhw_marginal_perf_ratio",
+        ],
+    )
+
     tPH_Building = namedtuple(
         "PH_Building",
         [
@@ -649,6 +757,7 @@ def _BldgSegment(_obj):
             "q50",
             "n50",
             "foundations",
+            "int_gains_data",
         ],
     )
 
@@ -664,6 +773,14 @@ def _BldgSegment(_obj):
         _obj.infiltration.q50,
         _obj.infiltration.n50,
         _obj.foundations,
+        tIntGainsData(
+            _obj.PHIUS_certification.int_gains_evap_per_person,
+            _obj.PHIUS_certification.int_gains_flush_heat_loss,
+            _obj.PHIUS_certification.int_gains_num_toilets,
+            _obj.PHIUS_certification.int_gains_toilet_room_util_pat,
+            _obj.PHIUS_certification.int_gains_use_school_defaults,
+            _obj.PHIUS_certification.int_gains_dhw_marginal_perf_ratio,
+        ),
     )
 
     # ---- PassivehouseData Object
@@ -745,8 +862,8 @@ def _ProjectData(_obj):
 
 
 def _Project(_obj):
-
-    _obj.collect_utilization_patterns_from_zones()
+    util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_vent_utilization_patterns_from_zones(_obj.zones)
+    util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_utilization_patterns_from_zones(_obj.zones)
 
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
@@ -768,7 +885,14 @@ def _Project(_obj):
             "UtilisationPatternsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPatternVent", _, "index", i)
-                for i, _ in enumerate(_obj.lUtilVentPH.items)
+                for i, _ in enumerate(util_patter_collection_ventilation)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "UtilizationPatternsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("UtilizationPattern", _, "index", i)
+                for i, _ in enumerate(util_pattern_collection_NonRes)
             ],
         ),
         # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
@@ -776,22 +900,23 @@ def _Project(_obj):
         # of a building to be modeled in the same WUFI file, in different 'Cases'
         PyPH_WUFI.xml_node.XML_List(
             "Variants",
-            [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.lBldgSegments)],
+            [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.building_segments)],
         ),
     ]
 
 
+# -- Appliances
 def _Appliance_dishwasher(_obj):
     return [
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
+        ),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection(
                 "Appliances::DishwasherCapacityPreselection", _obj.dishwasher_capacity_type
             ).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("CapacityClothesWasher", _obj.dishwasher_capacity, "unit", "m³"),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
-        ),
+        PyPH_WUFI.xml_node.XML_Node("DishwasherCapacityInPlace", _obj.dishwasher_capacity, "unit", "-"),
     ]
 
 
@@ -846,11 +971,15 @@ def _Appliance_PHIUS_MEL(_obj):
 
 
 def _Appliance_PHIUS_Lighting_Int(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+    ]
 
 
 def _Appliance_PHIUS_Lighting_Ext(_obj):
-    return []
+    return [
+        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+    ]
 
 
 def _Appliance(_obj):
@@ -869,22 +998,32 @@ def _Appliance(_obj):
         15: _Appliance_PHIUS_Lighting_Ext,
     }
 
+    # Fix the energy Norm. Fucking WUFI....
+    # Uses '1' for both 'Use' and 'Day'
+    energy_norm = PyPH_WUFI.selection.Selection(
+        "Appliances::ReferenceEnergyDemandNorm", _obj.reference_energy_norm
+    ).xml_data
+    if energy_norm[1] == 99:
+        energy_norm = (energy_norm[0], 1, energy_norm[2], energy_norm[3])
+
+    # -- Build the basic params
     basic_params = [
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Appliances::Type", _obj.type).xml_data),
+        PyPH_WUFI.xml_node.XML_Node("Comment", _obj.comment),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::ReferenceQuantity", _obj.reference_quantity).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection(
-                "Appliances::ReferenceEnergyDemandNorm", _obj.reference_energy_norm
-            ).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
         PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
+        PyPH_WUFI.xml_node.XML_Node(*energy_norm),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", _obj.energy_demand, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", _obj.energy_demand_per_use, "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("UtilizationFactor", _obj.washer_utilization_factor, "unit", "-"),
     ]
+
+    # -- cus' of the bullshit with PHIUS that they pulled. Lazy fuckers
+    if _obj.type in [13, 14, 15] and _obj.reference_quantity == 5:
+        basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.user_defined_total)))
+    else:
+        basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)))
 
     return basic_params + appliances.get(_obj.type)(_obj)

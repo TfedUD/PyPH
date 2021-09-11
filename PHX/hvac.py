@@ -8,76 +8,20 @@ PHX Basic HVAC Classes
 from collections import defaultdict
 
 import PHX._base
-import PHX.serialization.from_dict
-import PHX.bldg_segment
 
 
-class HVAC_Ventilation_Airflows(PHX._base._Base):
-    def __init__(self):
-        super(HVAC_Ventilation_Airflows, self).__init__()
-        self.supply = 0.0
-        self.extract = 0.0
-        self.transfer = 0.0
-
-    def join(self, _other):
-        """Returns a new airflow object with the maximum values from each input"""
-        new_obj = self.__class__()
-
-        new_obj.supply = max(self.supply, _other.supply)
-        new_obj.extract = max(self.extract, _other.extract)
-        new_obj.transfer = max(self.transfer, _other.transfer)
-
-        return new_obj
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Ventilation_Airflows(cls, _dict)
-
-    def __repr__(self):
-        return "{}(supply={:.02f}, extract={:.02f}, transfer={:.02f})".format(
-            self.__class__.__name__, self.supply, self.extract, self.transfer
+class HVACSystemAddError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            "Error: Cannot add Device {}, type: {}"
+            "to the HVAC System list. Please add only HVAC Devices.".format(_in, type(_in))
         )
-
-    def __str__(self):
-        return self.__repr__()
-
-
-class HVAC_PH_Parameters(PHX._base._Base):
-    def __init__(self):
-        super(HVAC_PH_Parameters, self).__init__()
-        self.ElectricEfficiency = 0.45  # W/m3h
-        self.FrostProtection = True
-        self.Quantity = 1
-        self.SubsoilHeatExchangeEfficiency = 0.0
-        self.HumidityRecoveryEfficiency = 0.0
-        self.HeatRecoveryEfficiency = 0.75
-        self.VolumeFlowRateFrom = 0.0
-        self.VolumeFlowRateTo = 0.0
-        self.TemperatureBelowDefrostUsed = -5  # C
-        self.DefrostRequired = True
-        self.NoSummerBypass = False
-        self.HRVCalculatorData = None
-        self.Maximum_VOS = 0
-        self.Maximum_PP = 100
-        self.Standard_VOS = 0
-        self.Standard_PP = 0
-        self.Basic_VOS = 0
-        self.Basic_PP = 0
-        self.Minimum_VOS = 0
-        self.Minimum_PP = 0
-        self.AuxiliaryEnergy = 0.0
-        self.AuxiliaryEnergyDHW = 0.0
-        self.InConditionedSpace = True
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_PH_Parameters(cls, _dict)
+        super(HVACSystemAddError, self).__init__(self.message)
 
 
 class HVAC_Device(PHX._base._Base):
 
     _count = 0
-    _default_ventilator = None
 
     def __init__(self):
         super(HVAC_Device, self).__init__()
@@ -88,33 +32,16 @@ class HVAC_Device(PHX._base._Base):
         self.UsedFor_Heating = False
         self.UsedFor_DHW = False
         self.UsedFor_Cooling = False
-        self.UsedFor_Ventilation = True
+        self.UsedFor_Ventilation = False
         self.UsedFor_Humidification = False
         self.UsedFor_Dehumidification = False
-        self.Ventilation_Parameters = {}
         self.UseOptionalClimate = False
         self.IdentNr_OptionalClimate = -1
-        self.PH_Parameters = HVAC_PH_Parameters()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def default_ventilator(cls, *args, **kwargs):
-        """Returns a new Device for a default Ventilator (HRV/ERV)"""
-        if cls._default_ventilator:
-            return cls._default_ventilator
-
-        new_obj = cls()
-
-        new_obj.Name = "__default_ventilation__"
-        new_obj.TypeDevice = 1
-        new_obj.SystemType = 1
-
-        cls._default_ventilator = new_obj
-        return new_obj
 
     @classmethod
     def from_dict(cls, _dict):
@@ -130,126 +57,6 @@ class HVAC_System_ZoneCover(PHX._base._Base):
         self.cover_ventilation = 0
         self.cover_humidification = 0
         self.cover_dehumidification = 0
-
-
-class HVAC_Ventilation_Duct_Segment(PHX._base._Base):
-    """A single duct length/segment"""
-
-    _default = None
-
-    def __init__(self):
-        super(HVAC_Ventilation_Duct_Segment, self).__init__()
-        self.length = 0.0
-        self.diameter = 0.0
-        self.width = 0.0
-        self.height = 0.0
-        self.insulation_thickness = 0.0
-        self.insulation_conductivity = 0.0
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Ventilation_Duct_Segment(cls, _dict)
-
-    @classmethod
-    def default(cls, *args, **kwargs):
-        """Returns the default Duct-Segment"""
-
-        if cls._default:
-            return cls._default
-
-        new_obj = cls()
-
-        new_obj.length = 5  # m
-        new_obj.diameter = 0.160  # m
-        new_obj.width = 0.0
-        new_obj.height = 0.0
-        new_obj.insulation_thickness = 0.0254  # m
-        new_obj.insulation_conductivity = 0.04
-
-        cls._default = new_obj
-        return new_obj
-
-
-class HVAC_Ventilation_Duct(PHX._base._Base):
-    """A duct, made of 1 or more duct-segments"""
-
-    _default = None
-
-    def __init__(self):
-        super(HVAC_Ventilation_Duct, self).__init__()
-        self.segments = []
-
-    @property
-    def length(self):
-        return sum(seg.length for seg in self.segments)
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Ventilation_Duct(cls, _dict)
-
-    @classmethod
-    def default(cls, *args, **kwargs):
-        """Returns the default Duct"""
-
-        if cls._default:
-            return cls._default
-
-        new_obj = cls()
-
-        new_obj.segments = [HVAC_Ventilation_Duct_Segment.default()]
-
-        cls._default = new_obj
-        return new_obj
-
-    def __add__(self, other):
-        self.segments.extend(other.segments)
-        return self
-
-    def __radd__(self, other):
-        return self.__add__(other)
-
-
-class HVAC_Ventilation_System(PHX._base._Base):
-    """HVAC System for Fresh-Air Ventilation Devices and Distribution"""
-
-    _count = 0
-    _default = None
-
-    def __init__(self):
-        super(HVAC_Ventilation_System, self).__init__()
-        self.name = ""
-        self.type = 2
-        self.ventilator = HVAC_Device.default_ventilator()
-        self.duct_01 = HVAC_Ventilation_Duct()
-        self.duct_02 = HVAC_Ventilation_Duct()
-
-    def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable"""
-
-        cls._count += 1
-        return super(HVAC_Ventilation_System, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Ventilation_System(cls, _dict)
-
-    @classmethod
-    def default(cls, *args, **kwargs):
-        """Returns the new Ventilation System"""
-
-        if cls._default:
-            return cls._default
-
-        new_obj = cls()
-
-        new_obj.name = "__default_ventilation_system__"
-        new_obj.type = 2
-        new_obj.ventilator = HVAC_Device.default_ventilator()
-        new_obj.duct_01 = HVAC_Ventilation_Duct.default()
-        new_obj.duct_02 = HVAC_Ventilation_Duct.default()
-
-        cls._default = new_obj
-        return new_obj
 
 
 class HVAC_System(PHX._base._Base):
@@ -271,6 +78,20 @@ class HVAC_System(PHX._base._Base):
     def lDevice(self):
         return list(self._device_dict.values())
 
+    def add_devices_to_system(self, _devices):
+        # type: (list[HVAC_Device]) -> None
+        """Adds any HVAC Devices to the HVAC System"""
+
+        if not isinstance(_devices, list):
+            _devices = [_devices]
+
+        for d in _devices:
+            if not isinstance(d, HVAC_Device):
+                raise HVACSystemAddError(d)
+
+            # -- Ensure no duplicates
+            self._device_dict[d.identifier] = d
+
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
 
@@ -278,8 +99,8 @@ class HVAC_System(PHX._base._Base):
         return super(HVAC_System, cls).__new__(cls, *args, **kwargs)
 
     def add_zone_to_system_coverage(self, _zone):
-        # type: (HVAC_System_ZoneCover) -> None
-        """Adds a Zone to the HVAC System's Covered Areas"""
+        # type: (PHX.bldg_segment.Zone) -> None
+        """Adds a Zone's id number to the HVAC System's Covered Zones list"""
 
         new_coverage = HVAC_System_ZoneCover()
         new_coverage.idZoneCovered = _zone.id
@@ -288,7 +109,7 @@ class HVAC_System(PHX._base._Base):
 
     def add_zone_ventilators_to_system(self, _zones):
         # type: (list[PHX.bldg_segment.Zone]) -> None
-        """Adds Ventilators and Distribution from a PHX-Zone to the HVAC-System Device list
+        """Adds all the Ventilators and Distribution from a PHX-Zone's Spaces to the HVAC-System Device list
 
         Arguments:
         ----------
@@ -299,24 +120,9 @@ class HVAC_System(PHX._base._Base):
             _zones = [_zones]
 
         # Pull the ventilator out of the space.
-        # Annoying that its way down there?
         for zone in _zones:
-            for space in zone.rooms_ventilation:
-                self.add_devices_to_system(space.ventilation.ventilator)
-
-    def add_devices_to_system(self, _devices):
-        # type: (list[HVAC_Device]) -> None
-        """Adds any HVAC Devices to the HVAC System"""
-
-        if not isinstance(_devices, list):
-            _devices = [_devices]
-
-        for d in _devices:
-            if not isinstance(d, HVAC_Device):
-                raise Exception("Error")
-
-            # -- Ensure no duplicates
-            self._device_dict[d.identifier] = d
+            for space in zone.spaces:
+                self.add_devices_to_system(space.ventilation.system.ventilator)
 
     @classmethod
     def from_dict(cls, _dict):

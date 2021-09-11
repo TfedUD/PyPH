@@ -125,8 +125,8 @@ def set_compo_exterior_exposure_from_hb_face(
         ec_value = exterior_exposure_types.get(_hb_face.boundary_condition.name, -1)
         ec_attr = None
 
-    _compo.idEC = ec_value
-    _compo.nmEC = ec_attr
+    _compo.ext_exposure_zone_id = ec_value
+    _compo.ext_exposure_zone_name = ec_attr
 
     return _compo
 
@@ -174,12 +174,10 @@ def set_compo_colors_by_hb_face(
     }
 
     compo_color_by_srfc_type = colors.get(_hb_face.type.name, {})
-    compo_color_by_bc = compo_color_by_srfc_type.get(
-        _hb_face.boundary_condition.name, None
-    )
+    compo_color_by_bc = compo_color_by_srfc_type.get(_hb_face.boundary_condition.name, None)
     if compo_color_by_bc:
-        _compo.id_color_int = compo_color_by_bc.get("int")
-        _compo.id_color_ext = compo_color_by_bc.get("ext")
+        _compo.int_color_id = compo_color_by_bc.get("int")
+        _compo.ext_color_id = compo_color_by_bc.get("ext")
 
     return _compo
 
@@ -202,7 +200,7 @@ def set_compo_assembly_from_hb_face(
 
     hb_construction_identifier = _hb_face.properties.energy.construction.identifier
     assembly = _assembly_collection.get_assembly_by_name(hb_construction_identifier)
-    _compo.idAssC = assembly.id
+    _compo.assembly_id_num = assembly.id
 
     return _compo
 
@@ -229,12 +227,12 @@ def create_new_window_component_from_hb_aperture(
     # -- Basic Component Attributes
     window_compo.n = _hb_Aperture.display_name
     window_compo.type = 2  # Transparent
-    window_compo.id_color_int = 4
-    window_compo.id_color_ext = 4
+    window_compo.int_color_id = 4
+    window_compo.ext_color_id = 4
 
     # -- Set Exposures / Host Zone
     window_compo.set_host_zone_name(_zone)
-    window_compo.idEC = -1
+    window_compo.ext_exposure_zone_id = -1
 
     # -- Pack window Polygons onto the new Component
     window_compo.add_polygons(create_poly_from_HB_face(_hb_Aperture.geometry))

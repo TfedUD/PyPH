@@ -60,7 +60,7 @@ def test_Polygon_add_child(reset_geometry_count):
     assert p2.id in p1.children
     assert len(p1.children) == 1
 
-    # Try adding multiple children
+    # Try adding multiple children in a list
     p1.add_children([p3, p4])
     assert p2.id in p1.children
     assert p3.id in p1.children
@@ -71,3 +71,12 @@ def test_Polygon_add_child(reset_geometry_count):
     p1.add_children(p2)
     assert p2.id in p1.children
     assert len(p1.children) == 3
+
+
+def test_Polygon_add_not_a_child():
+    p1 = Polygon()
+    p2 = None
+
+    # Try adding a a None Poly
+    p1.add_children(p2)
+    assert len(p1.children) == 0

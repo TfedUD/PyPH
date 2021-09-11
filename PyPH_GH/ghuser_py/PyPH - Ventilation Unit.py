@@ -23,7 +23,7 @@
 Collects and organizes data for a Ventilator Unit (HRV/ERV). Used to build up a 
 PH-Style Ventilation System.
 -
-EM August 11, 2021
+EM August 25, 2021
     Args:
         unit_name_: <Optional> The name of the Ventilator Unit
         heat_recovery_eff_: <Optional> Input the Ventialtion Unit's Heat Recovery %. Default is 75% 
@@ -38,16 +38,18 @@ EM August 11, 2021
 """
 
 import PHX.hvac
+import PHX.ventilation_components
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Unit"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 14, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 25, 2021')
 
 if DEV:
     reload(PHX.hvac)
+    reload(PHX.ventilation_components)
 
 def validate_efficiency(_in):
     if not _in: return None
@@ -57,7 +59,7 @@ def validate_efficiency(_in):
     else:
         return float(_in)
 
-unit_ = PHX.hvac.HVAC_Device()
+unit_ = PHX.ventilation_components.Ventilator()
 
 # -- Basic Parameters for Ventilation Systems
 unit_.SystemType = 1

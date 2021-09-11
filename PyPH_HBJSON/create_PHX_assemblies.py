@@ -78,17 +78,14 @@ def create_new_material_from_hb_mat(_hb_material) -> PHX.assemblies.Material:
     """
 
     if hasattr(_hb_material, "thickness"):
-        return create_new_StandardMaterial_from_hb_mat(
-            _hb_material, _hb_material.thickness
-        )
+        return create_new_StandardMaterial_from_hb_mat(_hb_material, _hb_material.thickness)
     elif not hasattr(_hb_material, "thickness"):
         # NoMass Materials don't have a conductivity or thickness, only and R-Value
         # So for WP, use a default thickness of 0.100m for all NoMass Materials
         return create_new_NoMassMaterial_from_hb_mat(_hb_material, 0.100)
     else:
         raise Exception(
-            f"Error: Cannot determine type of Honeybee Material: "
-            f'"{_hb_material}", type: "{type(_hb_material)}"'
+            f"Error: Cannot determine type of Honeybee Material: " f'"{_hb_material}", type: "{type(_hb_material)}"'
         )
 
 
@@ -123,12 +120,8 @@ def create_new_assembly_from_hb_face(
     for layer_name in _face.properties.energy.construction.layers:
         new_layer = PHX.assemblies.Layer()
 
-        hb_material = _face.properties.energy.construction.materials[
-            materials[layer_name]
-        ]
-        new_layer.material, new_layer.thickness = create_new_material_from_hb_mat(
-            hb_material
-        )
+        hb_material = _face.properties.energy.construction.materials[materials[layer_name]]
+        new_layer.material, new_layer.thickness = create_new_material_from_hb_mat(hb_material)
 
         assembly.add_layer(new_layer)
 
@@ -190,10 +183,8 @@ def set_compo_window_type_from_hb_aperture(
     """
 
     hb_construction_identifier = _hb_face.properties.energy.construction.identifier
-    window_type = _window_type_collection.get_window_type_by_identifier(
-        hb_construction_identifier
-    )
+    window_type = _window_type_collection.get_window_type_by_identifier(hb_construction_identifier)
 
-    _window_compo.idWtC = window_type.id
+    _window_compo.win_type_id_num = window_type.id
 
     return _window_compo

@@ -1,3 +1,4 @@
+from LBT_Utils.boundary_conditions import *
 from LBT_Utils.geometry import *
 from LBT_Utils.hb_loads import *
 from LBT_Utils.hb_schedules import *

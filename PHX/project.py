@@ -5,12 +5,9 @@
 PHX Project Classes
 """
 
-from collections import defaultdict
 import PHX._base
 import PHX.bldg_segment
-import PHX.type_collections
 from datetime import datetime
-import PHX.type_collections  # .UtilizationPatternsVentilationCollection()
 
 
 class Date(PHX._base._Base):
@@ -68,37 +65,40 @@ class Project(PHX._base._Base):
         self.lWindow = []
         self.lSolProt = []
         self.lOverhang = []
-        self.lUtilNResPH = []
-        self.lUtilVentPH = PHX.type_collections.CVent_Util_Patterns()
         self.lFile = []
         self.timeProf = {}
         self._bldg_segments = {}
 
     @property
-    def lBldgSegments(self):
+    def building_segments(self):
         return self._bldg_segments.values()
+
+    @property
+    def zones(self):
+        """Return all the Zones of all the Segments"""
+        zones = []
+        for seg in self.building_segments:
+            zones.extend(seg.zones)
+
+        return zones
 
     def add_segment(self, *args) -> None:
         for seg in args:
             if isinstance(seg, PHX.bldg_segment.BldgSegment):
                 self._bldg_segments[seg.identifier] = seg
             else:
-                msg = (
-                    "Error: Input must be type PHX.bldg_segment.BldgSegment."
-                    'Got: "{}"'.format(seg)
-                )
+                msg = "Error: Input must be type PHX.bldg_segment.BldgSegment." 'Got: "{}"'.format(seg)
                 raise TypeError(msg)
 
     def get_segment_by_identifier(self, _identifier):
-        for seg in self.lBldgSegments:
+        for seg in self.building_segments:
             if str(seg.identifier) == str(_identifier):
                 return seg
         else:
             return None
 
-    def add_assemblies_from_collection(
-        self, _assmbly_c: PHX.type_collections.AssemblyCollection
-    ) -> None:
+    # -- Stupid... move thes to Prepate data for WUFI
+    def add_assemblies_from_collection(self, _assmbly_c) -> None:
         """Extends the lAssembly list with all of the Assemblies from an
             AssemblyCollection Object
 
@@ -113,9 +113,7 @@ class Project(PHX._base._Base):
         """
         self.lAssembly.extend(_assmbly_c.project_assemblies)
 
-    def add_window_types_from_collection(
-        self, _win_type_c: PHX.type_collections.WindowTypeCollection
-    ) -> None:
+    def add_window_types_from_collection(self, _win_type_c) -> None:
         """Extends the lWindow list with all of the window_types from an
             PHX.type_collections.AssemblyCollection Object
 
@@ -129,15 +127,3 @@ class Project(PHX._base._Base):
             * None
         """
         self.lWindow.extend(_win_type_c.window_types)
-
-    def collect_utilization_patterns_from_zones(self):
-        """Set the Project Utilization Patterns based on the values in the
-        BldgSegment / Zones / Rooms
-        """
-
-        for v in self.lBldgSegments:
-            for z in v.zones:
-                for r in z.rooms_ventilation:
-                    self.lUtilVentPH.add_to_collection(
-                        r.ventilation.utilization_pattern
-                    )

@@ -6,6 +6,14 @@
 import ladybug_geometry.geometry3d.face
 
 
+class LBTGeometryTypeError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            'Error: The input dict does not include a "type" field. Must not be LBT Geometry? Got: {}'.format(_in)
+        )
+        super(LBTGeometryTypeError, self).__init__(self.message)
+
+
 def LBT_geometry_dict_util(_dict):
     # type (dict): -> Optional[ladybug_geometry.geometry3d.face.Face3D]
     """Utility for de-serializing Ladybug Geometry dictionaries
@@ -21,17 +29,13 @@ def LBT_geometry_dict_util(_dict):
     """
 
     object_type = _dict.get("type", None)
-    assert object_type is not None, (
-        'Error converting to LBT Geometry: No "type" '
-        "information found in the input dictionary?"
-    )
+    if not object_type:
+        raise LBTGeometryTypeError(object_type)
 
     if str(object_type) == "Face3D":
         new_obj = ladybug_geometry.geometry3d.face.Face3D.from_dict(_dict)
     else:
         new_obj = None
-        raise Exception(
-            'Error: Cannot convert LBT Geometry of type: "{}"'.format(str(object_type))
-        )
+        raise Exception('Error: Cannot convert LBT Geometry of type: "{}"'.format(str(object_type)))
 
     return new_obj

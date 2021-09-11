@@ -11,6 +11,25 @@ class UnknownApplianceError(Exception):
         super(UnknownApplianceError, self).__init__(self.message)
 
 
+class ApplianceAdditionError(Exception):
+    def __init__(self, _a, _b):
+        self.message = 'Error: Cannot add Appliance "{}" with type: "{}" to Appliance {}' 'with type: "{}"'.format(
+            _a, _a.type, _b, _b.type
+        )
+        super(ApplianceAdditionError, self).__init__(self.message)
+
+
+class ApplianceTypeMismatchError(Exception):
+    def __init__(self, _a, _b, _attr_name):
+        self.message = (
+            'Error: Cannot add Appliance "{}" with attribute: "{}:{}" to Appliance {}'
+            'with attribute: "{}:{}"'.format(
+                _a, _attr_name, getattr(_a, _attr_name), _b, _attr_name, getattr(_b, _attr_name)
+            )
+        )
+        super(ApplianceTypeMismatchError, self).__init__(self.message)
+
+
 class ApplianceSet(PHX._base._Base):
     """A Collection of Appliances"""
 
@@ -42,7 +61,6 @@ class ApplianceSet(PHX._base._Base):
 
     def add_appliance(self, _appliance):
         """Adds a (known type of) Appliance to the set"""
-
         if not _appliance:
             return
 
@@ -54,7 +72,7 @@ class ApplianceSet(PHX._base._Base):
 
     @property
     def appliances(self):
-        return [
+        return (
             self.dishwasher,
             self.clothes_washer,
             self.clothes_dryer,
@@ -65,7 +83,7 @@ class ApplianceSet(PHX._base._Base):
             self.PHIUS_MEL,
             self.PHIUS_Lighting_Int,
             self.PHIUS_Lighting_Ext,
-        ]
+        )
 
     def __iter__(self):
         for _ in self.appliances:
@@ -73,16 +91,43 @@ class ApplianceSet(PHX._base._Base):
                 continue
             yield _
 
+    def __len__(self):
+        return len([_ for _ in self.appliances if _])
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._ApplianceSet(cls, _dict)
 
     def __add__(self, other):
         # type: (ApplianceSet, ApplianceSet) -> ApplianceSet
+        if other is None:
+            return self
 
-        # Not implemented yet....
+        # -- Merge together Appliances
+        new_set = self.__class__()
+        for app_type_name in self.known_types.values():
+            self_appliance = getattr(self, app_type_name)
+            other_appliance = getattr(other, app_type_name)
 
-        return self
+            # -- Handle None cases
+            if self_appliance and other_appliance:
+                new_appliance = self_appliance + other_appliance
+            elif self_appliance and not other_appliance:
+                new_appliance = self_appliance
+            elif other_appliance and not self_appliance:
+                new_appliance = other_appliance
+            elif not self_appliance and not other_appliance:
+                new_appliance = None
+
+            new_set.add_appliance(new_appliance)
+
+        return new_set
+
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
 
 
 class Appliance(PHX._base._Base):
@@ -91,6 +136,7 @@ class Appliance(PHX._base._Base):
     def __init__(self):
         super(Appliance, self).__init__()
         self.type = 1
+        self.comment = None
         self.reference_quantity = 2  # Zone Occupants
         self.quantity = 1
         self.in_conditioned_space = True
@@ -122,18 +168,149 @@ class Appliance(PHX._base._Base):
 
         # -- PHIUS Lighting
         self.lighting_frac_high_efficiency = 1
+        self._user_defined_total = 0
+
+    @property
+    def user_defined_total(self):
+        return self._user_defined_total
+
+    @user_defined_total.setter
+    def user_defined_total(self, _in):
+        if not _in:
+            return None
+        self._user_defined_total = _in
+        self.reference_quantity = 5  # User Defined
+
+    def __eq__(self, other):
+        # type: (Appliance, Appliance) -> Appliance
+        fields = (
+            "type",
+            "comment",
+            "reference_quantity",
+            "quantity",
+            "in_conditioned_space",
+            "reference_energy_norm",
+            "energy_demand",
+            "energy_demand_per_use",
+            "combined_energy_facor",
+            "dishwasher_capacity_type",
+            "dishwasher_capacity",
+            "dishwasher_water_connection",
+            "washer_capacity",
+            "washer_modified_energy_factor",
+            "washer_connection",
+            "washer_utilization_factor",
+            "dryer_type",
+            "dryer_gas_consumption",
+            "dryer_gas_efficiency_factor",
+            "dryer_field_utilization_factor_type",
+            "dryer_field_utilization_factor",
+            "cooktop_type",
+            "lighting_frac_high_efficiency",
+            "user_defined_total",
+        )
+
+        for field in fields:
+            attr_a = getattr(self, field)
+            attr_b = getattr(other, field)
+            if attr_a != attr_b:
+                # print("{}:{} does not equal {}:{}".format(field, attr_a, field, attr_b))
+                return False
+
+        return True
 
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Appliance(cls, _dict)
 
+    def __add__(self, other):
+        # type: (Appliance, Appliance) -> Appliance
+
+        def _set_quantity_weighted_average(_new_obj, _obj_a, _obj_b, _attr_name):
+            # type: (Appliance, Appliance, Appliance, str) -> None
+            """Utility function used by __add__: Sets appliance energy demand on a unit-weighted average basis"""
+
+            a = getattr(_obj_a, _attr_name) * _obj_a.quantity
+            b = getattr(_obj_b, _attr_name) * _obj_b.quantity
+            weighted_avg = (float(a) + float(b)) / (_obj_a.quantity + _obj_b.quantity)
+            setattr(_new_obj, _attr_name, weighted_avg)
+
+            return None
+
+        def _set_type_value(_new_obj, _obj_a, _obj_b, _attr_name):
+            # type (Appliance, Appliance, Appliance, str) -> None
+            """Utility function used by __add__: Checks Appliance 'type' values are the same when adding"""
+
+            a = getattr(_obj_a, _attr_name)
+            b = getattr(_obj_b, _attr_name)
+            if a != b:
+                raise ApplianceTypeMismatchError(_obj_a, _obj_b, _attr_name)
+            else:
+                setattr(_new_obj, _attr_name, a)
+
+        if self and not other:
+            return self
+        elif self.type != other.type:
+            raise ApplianceAdditionError(self, other)
+        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 13, 14, 15}:
+            raise ApplianceAdditionError(self, other)
+
+        new_appliance = self.__class__()
+        new_appliance.type = self.type
+        new_appliance.quantity = self.quantity + other.quantity
+
+        # -- General Appliance Values
+        _set_type_value(new_appliance, self, other, "reference_energy_norm")
+        _set_quantity_weighted_average(new_appliance, self, other, "energy_demand")
+        _set_quantity_weighted_average(new_appliance, self, other, "energy_demand_per_use")
+        _set_quantity_weighted_average(new_appliance, self, other, "combined_energy_facor")
+
+        # -- Dishwasher
+        _set_type_value(new_appliance, self, other, "dishwasher_capacity_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dishwasher_capacity")
+        _set_type_value(new_appliance, self, other, "dishwasher_water_connection")
+
+        # -- Laundry Washer
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_capacity")
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_modified_energy_factor")
+        _set_type_value(new_appliance, self, other, "washer_connection")
+        _set_quantity_weighted_average(new_appliance, self, other, "washer_utilization_factor")
+
+        # -- Laundry Dryer
+        _set_type_value(new_appliance, self, other, "dryer_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_consumption")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_gas_efficiency_factor")
+        _set_type_value(new_appliance, self, other, "dryer_field_utilization_factor_type")
+        _set_quantity_weighted_average(new_appliance, self, other, "dryer_field_utilization_factor")
+
+        # -- Cooktop
+        _set_type_value(new_appliance, self, other, "cooktop_type")
+
+        # -- PHIUS Lighting and MEL
+        _set_quantity_weighted_average(new_appliance, self, other, "lighting_frac_high_efficiency")
+        if self.type in {13, 14, 15}:
+            if self.reference_quantity == 5 or other.reference_quantity == 5:  # User defined
+                new_appliance.quantity = 1
+                new_appliance.reference_quantity = 5
+                new_appliance.user_defined_total = float(self.user_defined_total) + float(other.user_defined_total)
+                new_appliance.energy_demand = 100
+                new_appliance.energy_demand_per_use = 100
+
+        return new_appliance
+
+    def __radd__(self, other):
+        if other == 0:
+            return self
+        else:
+            return self.__add__(other)
+
     @classmethod
-    def PHIUS_dishwasher(cls):
+    def PHIUS_Dishwasher(cls):
         app = cls()
 
         # -- Standard
         app.type = 1  # dishwasher
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -149,12 +326,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_clothes_washer(cls):
+    def PHIUS_Clothes_Washer(cls):
         app = cls()
 
         # -- Standard
-        app.type = 2  # dishwasher
-        app.reference_quantity = 2  # Zone Occupants
+        app.type = 2  # clothes washer
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -171,21 +348,21 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_clothes_dryer(cls):
+    def PHIUS_Clothes_Dryer(cls):
         app = cls()
 
         # -- Standard
         app.type = 3  # Laundry - dryer
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day/Use
         app.energy_demand = 0  # kwh
         app.energy_demand_per_use = 3.5  # kwh/use
-        app.combined_energy_facor = 1  # CEF
+        app.combined_energy_facor = 3.93  # CEF
 
         # -- Specific
-        app.dryer_type = 1
+        app.dryer_type = 4  # Condensation dryer
         app.dryer_gas_consumption = 0  # kWh
         app.dryer_gas_efficiency_factor = 2.67
         app.dryer_field_utilization_factor_type = 1  # Timer
@@ -194,12 +371,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_cooktop(cls):
+    def PHIUS_Cooktop(cls):
         app = cls()
 
         # -- Standard
         app.type = 7  # Kitchen cooking
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 2  # Year
@@ -213,12 +390,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_fridge(cls):
+    def PHIUS_Fridge(cls):
         app = cls()
 
         # -- Standard
         app.type = 4  # Kitchen refrigerator
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
@@ -229,12 +406,12 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_freezer(cls):
+    def PHIUS_Freezer(cls):
         app = cls()
 
         # -- Standard
         app.type = 5  # Kitchen freezer
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
@@ -245,17 +422,78 @@ class Appliance(PHX._base._Base):
         return app
 
     @classmethod
-    def PHIUS_combo_fridge(cls):
+    def PHIUS_Combo_Fridge(cls):
         app = cls()
 
         # -- Standard
         app.type = 6  # Kitchen fridge/freeze combo
-        app.reference_quantity = 2  # Zone Occupants
+        app.reference_quantity = 1  # PH-Case Occupants
         app.quantity = 1
         app.in_conditioned_space = True
         app.reference_energy_norm = 1  # Day
         app.energy_demand = 0.99  # kwh
         app.energy_demand_per_use = 0  # kwh/use
         app.combined_energy_facor = 0  # CEF
+
+        return app
+
+    @classmethod
+    def PHIUS_Lighting_Int(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 14  # PHIUS+ Interior lighting
+        app.reference_quantity = 6  # PH case floor area
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 99  # Use
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        app.lighting_frac_high_efficiency = 1  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
+    @classmethod
+    def PHIUS_Lighting_Ext(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 15  # PHIUS+ Exterior lighting
+        app.reference_quantity = 6  # PH case floor area
+        app.quantity = 1
+        app.in_conditioned_space = False
+        app.reference_energy_norm = 99  # Use
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        app.lighting_frac_high_efficiency = 1  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
+    @classmethod
+    def PHIUS_MEL(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.type = 13  # PHIUS+ MEL
+        app.reference_quantity = 3  # Bedrooms
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 99  # Use
+        app.energy_demand = 0  # kwh
+        app.energy_demand_per_use = 0  # kwh/use
+        app.combined_energy_facor = 0  # CEF
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
 
         return app

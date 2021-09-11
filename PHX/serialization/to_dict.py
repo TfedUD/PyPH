@@ -6,8 +6,60 @@ Functions for converting PHX Objects to serializable text dictionaries. All PHX 
 should be able to be converted to fully text represenations.
 """
 
+# -- Base
+def __Base(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"user_data": _obj.user_data})
+
+    return d
+
+
+def _Vector(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"x": _obj.x})
+    d.update({"y": _obj.y})
+    d.update({"z": _obj.z})
+
+    return d
+
+
+def _Vertex(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"x": _obj.x})
+    d.update({"y": _obj.y})
+    d.update({"z": _obj.z})
+
+    return d
+
+
+# -- Geometry
+def _Polygon(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"_nVec": _obj._nVec.to_dict()})
+    d.update({"_area": _obj._area})
+    d.update({"idPolyI": _obj.idPolyI})
+    d.update({"children": _obj.children})
+
+    vertex_dict = {}
+    for _ in _obj.vertices:
+        vertex_dict.update({str(_.identifier): _.to_dict()})
+    d.update({"vertices": vertex_dict})
+
+    return d
+
+
 # -- Utilization Patterns
-def _VentilationUtilization(_obj):
+def _Vent_UtilRate(_obj):
     d = {}
 
     d.update({"daily_op_sched": _obj.daily_op_sched})
@@ -16,7 +68,7 @@ def _VentilationUtilization(_obj):
     return d
 
 
-def _VentilationUtilizations(_obj):  # Collection
+def _Vent_UtilRates(_obj):  # Collection
     d = {}
 
     d.update({"maximum": _obj.maximum.to_dict()})
@@ -27,20 +79,43 @@ def _VentilationUtilizations(_obj):  # Collection
     return d
 
 
-def _UtilizationPattern_Ventilation(_obj):
+# -- Utilization Patterns
+def _UtilPat_Vent(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"id": _obj.id})
-    d.update({"n": _obj.n})
-    d.update({"OperatingDays": _obj.OperatingDays})
-    d.update({"OperatingWeeks": _obj.OperatingWeeks})
+    d.update({"name": _obj.name})
+    d.update({"operating_days": _obj.operating_days})
+    d.update({"operating_weeks": _obj.operating_weeks})
 
-    d.update({"utilizations": _obj.utilizations.to_dict()})
+    d.update({"utilization_rates": _obj.utilization_rates.to_dict()})
 
     return d
 
 
-# -- Ventilation
+def _UtilPat_Occupancy(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"start_hour": _obj.start_hour})
+    d.update({"end_hour": _obj.end_hour})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
+def _UtilPat_Lighting(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
+# -- HVAC: Ventilation
 def _SummerVent(_obj):
     d = {}
 
@@ -57,18 +132,53 @@ def _SummerVent(_obj):
     return d
 
 
-# -- HVAC
-def _PropertiesVentilation(_obj):
+def _Ventilation_Duct_Segment(_obj):
     d = {}
 
-    d.update({"airflows": _obj.airflows.to_dict()})
-    d.update({"ventilator": _obj.ventilator.to_dict()})
-    d.update({"utilization_pattern": _obj.utilization_pattern.to_dict()})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"length": _obj.length})
+    d.update({"diameter": _obj.diameter})
+    d.update({"width": _obj.width})
+    d.update({"height": _obj.height})
+    d.update({"insulation_thickness": _obj.insulation_thickness})
+    d.update({"insulation_conductivity": _obj.insulation_conductivity})
 
     return d
 
 
-def _HVAC_Ventilation_Airflows(_obj):
+def _Ventilation_Duct(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
+
+    return d
+
+
+def _Ventilation_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"type": _obj.type})
+    d.update({"ventilator": _obj.ventilator.to_dict()})
+    d.update({"duct_01": _obj.duct_01.to_dict()})
+    d.update({"duct_02": _obj.duct_02.to_dict()})
+
+    return d
+
+
+def _SpaceVentilation(_obj):
+    d = {}
+
+    d.update({"airflow_rates": _obj.airflow_rates.to_dict()})
+    d.update({"system": _obj.system.to_dict()})
+    d.update({"utilization": _obj.utilization.to_dict()})
+
+    return d
+
+
+def _AirflowRates(_obj):
     d = {}
 
     d.update({"supply": _obj.supply})
@@ -78,7 +188,7 @@ def _HVAC_Ventilation_Airflows(_obj):
     return d
 
 
-def _HVAC_PH_Parameters(_obj):
+def _Ventilator_PH_Parameters(_obj):
     d = {}
 
     d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
@@ -108,6 +218,29 @@ def _HVAC_PH_Parameters(_obj):
     return d
 
 
+def _Ventilator(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"Name": _obj.Name})
+    d.update({"SystemType": _obj.SystemType})
+    d.update({"TypeDevice": _obj.TypeDevice})
+    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
+    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
+    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
+    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
+    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
+    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
+    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
+    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
+
+    return d
+
+
+# -- HVAC: System / General
 def _HVAC_Device(_obj):
     d = {}
 
@@ -122,10 +255,9 @@ def _HVAC_Device(_obj):
     d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
     d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
     d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
     d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
     d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
-    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
 
     return d
 
@@ -146,49 +278,13 @@ def _HVAC_System(_obj):
     return d
 
 
-# -- HVAC: Ventilation
-def _HVAC_Ventilation_Duct_Segment(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"length": _obj.length})
-    d.update({"diameter": _obj.diameter})
-    d.update({"width": _obj.width})
-    d.update({"height": _obj.height})
-    d.update({"insulation_thickness": _obj.insulation_thickness})
-    d.update({"insulation_conductivity": _obj.insulation_conductivity})
-
-    return d
-
-
-def _HVAC_Ventilation_Duct(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
-
-    return d
-
-
-def _HVAC_Ventilation_System(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"name": _obj.name})
-    d.update({"type": _obj.type})
-    d.update({"ventilator": _obj.ventilator.to_dict()})
-    d.update({"duct_01": _obj.duct_01.to_dict()})
-    d.update({"duct_02": _obj.duct_02.to_dict()})
-
-    return d
-
-
 # -- Spaces
 def _FloorSegment(_obj):
     d = {}
 
-    d.update({"weighting_factor": _obj.weighting_factor})
-    d.update({"floor_area_gross": _obj.floor_area_gross})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"_weighting_factor": _obj._weighting_factor})
+    d.update({"_floor_area_gross": _obj._floor_area_gross})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"non_res_lighting": _obj.non_res_lighting})
@@ -198,8 +294,8 @@ def _FloorSegment(_obj):
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     geometry_dict = {}
-    for _ in _obj.geometry:
-        geometry_dict.update({id(_): _.to_dict()})
+    for i, geom in enumerate(_obj.geometry):
+        geometry_dict.update({i: geom.to_dict()})
     d.update({"geometry": geometry_dict})
 
     return d
@@ -208,6 +304,7 @@ def _FloorSegment(_obj):
 def _Floor(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"non_res_lighting": _obj.non_res_lighting})
@@ -217,8 +314,8 @@ def _Floor(_obj):
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     floor_segments_dict = {}
-    for flr_seg in _obj.floor_segments:
-        floor_segments_dict.update({id(flr_seg): flr_seg.to_dict()})
+    for i, flr_seg in enumerate(_obj.floor_segments):
+        floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
 
     return d
@@ -227,6 +324,7 @@ def _Floor(_obj):
 def _Volume(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
@@ -238,11 +336,11 @@ def _Volume(_obj):
     d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     volume_geometry_dict = {}
-    for list_of_geom in _obj.volume_geometry:
+    for k, list_of_geom in enumerate(_obj.volume_geometry):
         geom_list = {}
-        for geom in list_of_geom:
-            geom_list.update({id(geom): geom.to_dict()})
-        volume_geometry_dict.update({id(geom_list): geom_list})
+        for i, geom in enumerate(list_of_geom):
+            geom_list.update({i: geom.to_dict()})
+        volume_geometry_dict.update({k: geom_list})
 
     d.update({"volume_geometry": volume_geometry_dict})
 
@@ -252,18 +350,21 @@ def _Volume(_obj):
 def _Space(_obj):
     d = {}
 
+    d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
     d.update({"occupancy": _obj.occupancy})
     d.update({"equipment": _obj.equipment})
-    d.update({"ventilation": _obj.ventilation.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
+    d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
 
     d.update({"volume": _obj.volume})
 
     volumes_dict = {}
-    for volume in _obj.volumes:
-        volumes_dict.update({id(volume): volume.to_dict()})
+    for i, volume in enumerate(_obj.volumes):
+        volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
 
     return d
@@ -288,6 +389,19 @@ def _ZoneOccupancy(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"num_occupants": _obj.num_occupants})
     d.update({"num_bedrooms": _obj.num_bedrooms})
+    d.update({"num_dwelling_units": _obj.num_dwelling_units})
+
+    return d
+
+
+def _SpaceOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"utilization": _obj.utilization.to_dict()})
+    d.update({"people_per_area": _obj.people_per_area})
 
     return d
 
@@ -311,6 +425,25 @@ def _PHIUSCertification(_obj):
 
 # -- Ground
 def _Foundation(_obj):
+    d = {}
+
+    return d
+
+
+# -- Assemblies
+def _Material(_obj):
+    d = {}
+
+    return d
+
+
+def _Layer(_obj):
+    d = {}
+
+    return d
+
+
+def _Assembly(_obj):
     d = {}
 
     return d
@@ -364,5 +497,19 @@ def _Appliance(_obj):
 
     # -- PHIUS Lighting
     d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
+    d.update({"_user_defined_total": _obj._user_defined_total})
+
+    return d
+
+
+# -- Lighting
+def _SpaceLighting(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"utilization": _obj.utilization.to_dict()})
+    d.update({"space_illumination": _obj.space_illumination})
+    d.update({"installed_power_density": _obj.installed_power_density})
 
     return d

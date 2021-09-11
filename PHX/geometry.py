@@ -10,9 +10,7 @@ import PHX._base
 
 class PolygonTypeError(Exception):
     def __init__(self, _in):
-        self.message = 'Error: Expected input of type: "PHX.geometry.Polygon" Got: "{}"::"{}"?'.format(
-            _in, type(_in)
-        )
+        self.message = 'Error: Expected input of type: "PHX.geometry.Polygon" Got: "{}"::"{}"?'.format(_in, type(_in))
         super(PolygonTypeError, self).__init__(self.message)
 
 
@@ -54,7 +52,10 @@ class Vector(PHX._base._Base):
         z = a.x * b.y - a.y * b.x
 
         return Vector(x, y, z)
-
+    
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Vector(cls, _dict)
 
 class Vertex(PHX._base._Base):
     """A single Vertex object with x, y, z positions and an ID number
@@ -83,7 +84,10 @@ class Vertex(PHX._base._Base):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Vertex, cls).__new__(cls, *args, **kwargs)
-
+    
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Vertex(cls, _dict)
 
 class Polygon(PHX._base._Base):
     """A Single Polygon Object, part of a Component
@@ -103,7 +107,7 @@ class Polygon(PHX._base._Base):
     def __init__(self):
         super(Polygon, self).__init__()
         self.id = self._count
-        self._nVec = None
+        self._nVec = Vector()
         self._area = None
         self.idPolyI = []
         self.vertices = []
@@ -165,9 +169,7 @@ class Polygon(PHX._base._Base):
 
         result = Vector.dot(
             total,
-            self.unit_normal_vector(
-                self.vertices[0], self.vertices[1], self.vertices[2]
-            ),
+            self.unit_normal_vector(self.vertices[0], self.vertices[1], self.vertices[2]),
         )
 
         return abs(result / 2)
@@ -220,3 +222,7 @@ class Polygon(PHX._base._Base):
                 continue
 
             self.children.append(child_poly.id)
+    
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Polygon(cls, _dict)
