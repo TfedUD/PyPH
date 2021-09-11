@@ -30,7 +30,7 @@ class SummerVent(PHX._base._Base):
         # type: (SummerVent, float, SummerVent, float, str) -> float
         """
         Util function to cleanly join together two SummerVent attributes,
-        weighted by volume handles ZeroDivisionErrors and None values
+        weighted by volume. Handles ZeroDivisionErrors and None values
         """
 
         val_a = getattr(_a, _attr_str, 0)

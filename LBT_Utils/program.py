@@ -56,7 +56,7 @@ def calc_HB_Room_total_ventilation_m3sec(_hb_room):
         * (float): The Honeybee Room's total ventilation airflow in M3/second.
     """
 
-    flow_per_ach = _hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume
+    flow_per_ach = (_hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume) / 3600
     flow_per_area = _hb_room.properties.energy.ventilation.flow_per_area * _hb_room.floor_area
     flow_per_zone = _hb_room.properties.energy.ventilation.flow_per_zone
     room_avg_occupancy = calc_HB_Room_avg_occupancy(_hb_room)
@@ -98,6 +98,6 @@ def calc_HB_room_avg_ventilation_ach(_hb_room):
     # -- Calc the annual average airflow (m3/h)
     design_airflow_m3s = calc_HB_Room_total_ventilation_m3sec(_hb_room)
     design_airflow_m3h = design_airflow_m3s * 3600
-    avg_annual_flow = design_airflow_m3h * avg_flow_fraction
+    avg_annual_flow_m3h = design_airflow_m3h * avg_flow_fraction
 
-    return avg_annual_flow / _hb_room.volume
+    return avg_annual_flow_m3h / _hb_room.volume
