@@ -591,6 +591,13 @@ class BldgSegment(PHX._base._Base):
             zones_joined.id = 1
             self.zones = [zones_joined]
 
+            # -- Set the appliance Reference Quantity
+            # -- As per PHIUS, if the building is single Zone, all appliances
+            # -- should be set to 'PH Case' quantity
+            for appliance in zones_joined.appliances.appliances:
+                if appliance.type in {1, 2, 3, 7}:
+                    appliance.reference_quantity = 1  # PH-Case
+
             # -- Merge all the Components
             # -- Update all the exposure names,
             # -- Remove interior surfaces (?!)

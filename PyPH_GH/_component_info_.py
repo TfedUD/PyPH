@@ -34,8 +34,14 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
-    "PyPH - Res Appliances": {
-        "NickName": "PHX Appliances",
+    "PyPH - Appliance": {
+        "NickName": "PHX Appliance",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - Appliance Set": {
+        "NickName": "PHX Appliance Set",
         "Message": RELEASE_VERSION,
         "Category": CATEGORY,
         "SubCategory": 4,
