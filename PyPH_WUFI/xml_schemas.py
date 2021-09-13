@@ -1017,6 +1017,7 @@ def _Appliance(_obj):
     if energy_norm[1] == 99:
         energy_norm = (energy_norm[0], 1, energy_norm[2], energy_norm[3])
 
+    # --------------------------------------------------------------------------
     # -- Build the basic params
     basic_params = [
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("Appliances::Type", _obj.type).xml_data),
@@ -1031,10 +1032,14 @@ def _Appliance(_obj):
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
     ]
 
-    # -- cus' of the bullshit with PHIUS that they pulled. Lazy fuckers
+    # --------------------------------------------------------------------------
+    # -- Build the custom Params
     if _obj.type in [13, 14, 15] and _obj.reference_quantity == 5:
+        # -- Cus' of the way they added the PHIUS appliances.
         basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.user_defined_total)))
     else:
         basic_params.append(PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)))
 
+    # --------------------------------------------------------------------------
+    # -- Combine the Basic and the Custom Params
     return basic_params + appliances.get(_obj.type)(_obj)

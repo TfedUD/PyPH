@@ -160,6 +160,12 @@ class Appliance(PHX._base._Base):
         new_appliance.type = self.type
         new_appliance.quantity = self.quantity + other.quantity
 
+        # -- Set the comment
+        if self.comment == other.comment:
+            new_appliance.comment = self.comment
+        else:
+            new_appliance.comment = self.comment or "" + other.comment or ""
+
         # -- General Appliance Values
         _set_type_value(new_appliance, self, other, "reference_energy_norm")
         _set_quantity_weighted_average(new_appliance, self, other, "energy_demand")
@@ -497,7 +503,6 @@ class ApplianceSet(PHX._base._Base):
                 continue
 
             app_type_name = self.known_types.get(appliance.type, None)
-
             if not app_type_name:
                 raise UnknownApplianceError(appliance)
 
@@ -554,12 +559,26 @@ class ApplianceSet(PHX._base._Base):
             if not appliances:
                 continue
 
+            # ------------------------------------------------------------------
+            # -- Breakup/Sort the appliances based on the 'comment'. This
+            # -- allows for multiple instances of a single type to be included
+            # -- in the ApplianceSet, if the user gives each a different 'comment' attr
+            appliances_by_comment_type = defaultdict(list)
+            for app in appliances:
+                appliances_by_comment_type[app.comment].append(app)
+
+            # ------------------------------------------------------------------
             # -- Merge all the appliances of that Type into a single instance,
-            merged_appliance = sum(appliances)
+            for app_list in appliances_by_comment_type.values():
+                merged_appliance = sum(app_list)
+                new_set.add_appliances_to_set(merged_appliance)
 
+            # ------------------------------------------------------------------
             # -- Keep track of the count
-
-            new_set.add_appliances_to_set(merged_appliance)
+            #
+            #
+            #
+            # TODO
 
         return new_set
 

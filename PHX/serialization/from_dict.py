@@ -503,6 +503,7 @@ def _Appliance(_cls, _input_dict):
     new_obj = _cls()
 
     _setattr_filter(new_obj, "type", _input_dict.get("type"))
+    _setattr_filter(new_obj, "comment", _input_dict.get("comment"))
     _setattr_filter(new_obj, "reference_quantity", _input_dict.get("reference_quantity"))
     _setattr_filter(new_obj, "quantity", _input_dict.get("quantity"))
     _setattr_filter(new_obj, "in_conditioned_space", _input_dict.get("in_conditioned_space"))
