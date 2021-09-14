@@ -1,5 +1,5 @@
 import PHX.lighting
-import PHX.utilization_patterns
+import PHX.schedules
 
 
 def test_lighting_unique_key():
@@ -25,24 +25,24 @@ def test_lighting_unique_key():
 
     # -- When illumination values are different
     l1 = PHX.lighting.SpaceLighting()
-    l1.space_illumination = 1
+    l1.loads.space_illumination = 1
     l2 = PHX.lighting.SpaceLighting()
-    l2.space_illumination = 2
+    l2.loads.space_illumination = 2
 
     assert l1.unique_key != l2.unique_key
 
     # -- When power-density values are different
     l1 = PHX.lighting.SpaceLighting()
-    l1.installed_power_density = 1
+    l1.loads.installed_power_density = 1
     l2 = PHX.lighting.SpaceLighting()
-    l2.installed_power_density = 2
+    l2.loads.installed_power_density = 2
 
     assert l1.unique_key != l2.unique_key
 
     # -- When utilization values are different
     l1 = PHX.lighting.SpaceLighting()
-    l1.utilization = PHX.utilization_patterns.UtilPat_Lighting()
+    l1.schedule = PHX.schedules.Schedule_Lighting()
     l2 = PHX.lighting.SpaceLighting()
-    l2.utilization = PHX.utilization_patterns.UtilPat_Lighting()
+    l2.schedule = PHX.schedules.Schedule_Lighting()
 
     assert l1.unique_key == l2.unique_key

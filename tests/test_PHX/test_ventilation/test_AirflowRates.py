@@ -1,13 +1,14 @@
 import PHX.ventilation
+import PHX.loads
 
 
-def test_AirFlowRates(reset_ventilation):
-    af1 = PHX.ventilation.AirflowRates()
+def test_Load_Ventilation(reset_ventilation):
+    af1 = PHX.loads.Load_Ventilation()
     af1.supply = 200
     af1.extract = 300
     af1.transfer = 400
 
-    af2 = PHX.ventilation.AirflowRates()
+    af2 = PHX.loads.Load_Ventilation()
     af2.supply = 500
     af2.extract = 600
     af2.transfer = 700
@@ -22,13 +23,13 @@ def test_AirFlowRates(reset_ventilation):
     assert str(af2.supply) in str(af2)
 
 
-def test_add_AirflowRates(reset_ventilation):
-    af1 = PHX.ventilation.AirflowRates()
+def test_add_Load_Ventilation(reset_ventilation):
+    af1 = PHX.loads.Load_Ventilation()
     af1.supply = 200
     af1.extract = 600
     af1.transfer = 400
 
-    af2 = PHX.ventilation.AirflowRates()
+    af2 = PHX.loads.Load_Ventilation()
     af2.supply = 500
     af2.extract = 300
     af2.transfer = 700

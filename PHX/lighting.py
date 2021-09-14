@@ -1,5 +1,7 @@
 import PHX._base
-import PHX.utilization_patterns
+import PHX.schedules
+import PHX.loads
+import PHX.serialization.from_dict
 
 
 class SpaceLighting(PHX._base._Base):
@@ -9,9 +11,8 @@ class SpaceLighting(PHX._base._Base):
     def __init__(self):
         super(SpaceLighting, self).__init__()
         self.name = ""
-        self.utilization = PHX.utilization_patterns.UtilPat_Lighting()
-        self.space_illumination = 0  # Lux
-        self.installed_power_density = 0.0  # installed power density (W/m2)
+        self.schedule = PHX.schedules.Schedule_Lighting()
+        self.loads = PHX.loads.Load_Lighting()
 
     @classmethod
     def default(cls):
@@ -20,10 +21,9 @@ class SpaceLighting(PHX._base._Base):
 
         new_obj = cls()
 
-        new_obj.name = "_default_lighting_"
-        new_obj.utilization = PHX.utilization_patterns.UtilPat_Lighting.default()
-        new_obj.space_illumination = 300
-        new_obj.installed_power_density = 1.0
+        new_obj.name = "_default_space_lighting_"
+        new_obj.schedule = PHX.schedules.Schedule_Lighting.default()
+        new_obj.loads = PHX.loads.Load_Lighting.default()
 
         cls._default = new_obj
 
@@ -35,6 +35,4 @@ class SpaceLighting(PHX._base._Base):
 
     @property
     def unique_key(self):
-        return "{}_{}_{}_{}_".format(
-            self.name, self.space_illumination, self.installed_power_density, self.utilization.unique_key
-        )
+        return "{}_{}_{}_".format(self.name, self.loads.unique_key, self.schedule.unique_key)

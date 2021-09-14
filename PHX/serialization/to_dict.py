@@ -16,6 +16,156 @@ def __Base(_obj):
     return d
 
 
+# ------- PROGRAMS --------
+def _SpaceLighting(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"schedule": _obj.schedule.to_dict()})
+    d.update({"loads": _obj.loads.to_dict()})
+
+    return d
+
+
+def _SpaceVentilation(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"system": _obj.system.to_dict()})
+    d.update({"schedule": _obj.schedule.to_dict()})
+    d.update({"loads": _obj.loads.to_dict()})
+
+    return d
+
+
+def _SpaceOccupancy(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"schedule": _obj.schedule.to_dict()})
+    d.update({"loads": _obj.loads.to_dict()})
+
+    return d
+
+
+def _BldgSegmentOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"category": _obj.category})
+    d.update({"usage_type": _obj.usage_type})
+    d.update({"num_units": _obj.num_units})
+    d.update({"num_stories": _obj.num_stories})
+
+    return d
+
+
+def _ZoneOccupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"num_occupants": _obj.num_occupants})
+    d.update({"num_bedrooms": _obj.num_bedrooms})
+    d.update({"num_dwelling_units": _obj.num_dwelling_units})
+
+    return d
+
+
+# ------- Schedules and Utilization Rates  -------
+def _Vent_UtilRate(_obj):
+    d = {}
+
+    d.update({"daily_op_sched": _obj.daily_op_sched})
+    d.update({"frac_of_design_airflow": _obj.frac_of_design_airflow})
+
+    return d
+
+
+def _Vent_UtilRates(_obj):  # Collection
+    d = {}
+
+    d.update({"maximum": _obj.maximum.to_dict()})
+    d.update({"standard": _obj.standard.to_dict()})
+    d.update({"basic": _obj.basic.to_dict()})
+    d.update({"minimum": _obj.minimum.to_dict()})
+
+    return d
+
+
+def _Schedule_Ventilation(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"operating_days": _obj.operating_days})
+    d.update({"operating_weeks": _obj.operating_weeks})
+    d.update({"utilization_rates": _obj.utilization_rates.to_dict()})
+
+    return d
+
+
+def _Schedule_Occupancy(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"start_hour": _obj.start_hour})
+    d.update({"end_hour": _obj.end_hour})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
+def _Schedule_Lighting(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
+# ------- Loads  -------
+def _Load_Lighting(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"space_illumination": _obj.space_illumination})
+    d.update({"installed_power_density": _obj.installed_power_density})
+
+    return d
+
+
+def _Load_Ventilation(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"supply": _obj.supply})
+    d.update({"extract": _obj.extract})
+    d.update({"transfer": _obj.transfer})
+
+    return d
+
+
+def _Load_Occupancy(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"people_per_area": _obj.people_per_area})
+
+    return d
+
+
+# ------- GEOMETRY --------
 def _Vector(_obj):
     d = {}
 
@@ -39,7 +189,6 @@ def _Vertex(_obj):
     return d
 
 
-# -- Geometry
 def _Polygon(_obj):
     d = {}
 
@@ -54,63 +203,6 @@ def _Polygon(_obj):
     for _ in _obj.vertices:
         vertex_dict.update({str(_.identifier): _.to_dict()})
     d.update({"vertices": vertex_dict})
-
-    return d
-
-
-# -- Utilization Patterns
-def _Vent_UtilRate(_obj):
-    d = {}
-
-    d.update({"daily_op_sched": _obj.daily_op_sched})
-    d.update({"frac_of_design_airflow": _obj.frac_of_design_airflow})
-
-    return d
-
-
-def _Vent_UtilRates(_obj):  # Collection
-    d = {}
-
-    d.update({"maximum": _obj.maximum.to_dict()})
-    d.update({"standard": _obj.standard.to_dict()})
-    d.update({"basic": _obj.basic.to_dict()})
-    d.update({"minimum": _obj.minimum.to_dict()})
-
-    return d
-
-
-# -- Utilization Patterns
-def _UtilPat_Vent(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"id": _obj.id})
-    d.update({"name": _obj.name})
-    d.update({"operating_days": _obj.operating_days})
-    d.update({"operating_weeks": _obj.operating_weeks})
-
-    d.update({"utilization_rates": _obj.utilization_rates.to_dict()})
-
-    return d
-
-
-def _UtilPat_Occupancy(_obj):
-    d = {}
-
-    d.update({"id": _obj.id})
-    d.update({"start_hour": _obj.start_hour})
-    d.update({"end_hour": _obj.end_hour})
-    d.update({"annual_utilization_days": _obj.annual_utilization_days})
-    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
-
-    return d
-
-
-def _UtilPat_Lighting(_obj):
-    d = {}
-
-    d.update({"id": _obj.id})
-    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
 
     return d
 
@@ -164,26 +256,6 @@ def _Ventilation_System(_obj):
     d.update({"ventilator": _obj.ventilator.to_dict()})
     d.update({"duct_01": _obj.duct_01.to_dict()})
     d.update({"duct_02": _obj.duct_02.to_dict()})
-
-    return d
-
-
-def _SpaceVentilation(_obj):
-    d = {}
-
-    d.update({"airflow_rates": _obj.airflow_rates.to_dict()})
-    d.update({"system": _obj.system.to_dict()})
-    d.update({"utilization": _obj.utilization.to_dict()})
-
-    return d
-
-
-def _AirflowRates(_obj):
-    d = {}
-
-    d.update({"supply": _obj.supply})
-    d.update({"extract": _obj.extract})
-    d.update({"transfer": _obj.transfer})
 
     return d
 
@@ -354,7 +426,6 @@ def _Space(_obj):
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
-    d.update({"occupancy": _obj.occupancy})
     d.update({"equipment": _obj.equipment})
     d.update({"_ventilation": _obj._ventilation.to_dict()})
     d.update({"occupancy": _obj.occupancy.to_dict()})
@@ -366,42 +437,6 @@ def _Space(_obj):
     for i, volume in enumerate(_obj.volumes):
         volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
-
-    return d
-
-
-# -- Occupany
-def _BldgSegmentOccupancy(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"category": _obj.category})
-    d.update({"usage_type": _obj.usage_type})
-    d.update({"num_units": _obj.num_units})
-    d.update({"num_stories": _obj.num_stories})
-
-    return d
-
-
-def _ZoneOccupancy(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"num_occupants": _obj.num_occupants})
-    d.update({"num_bedrooms": _obj.num_bedrooms})
-    d.update({"num_dwelling_units": _obj.num_dwelling_units})
-
-    return d
-
-
-def _SpaceOccupancy(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"id": _obj.id})
-    d.update({"name": _obj.name})
-    d.update({"utilization": _obj.utilization.to_dict()})
-    d.update({"people_per_area": _obj.people_per_area})
 
     return d
 
@@ -498,18 +533,5 @@ def _Appliance(_obj):
     # -- PHIUS Lighting
     d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
     d.update({"_user_defined_total": _obj._user_defined_total})
-
-    return d
-
-
-# -- Lighting
-def _SpaceLighting(_obj):
-    d = {}
-
-    d.update({"name": _obj.name})
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"utilization": _obj.utilization.to_dict()})
-    d.update({"space_illumination": _obj.space_illumination})
-    d.update({"installed_power_density": _obj.installed_power_density})
 
     return d

@@ -1,9 +1,9 @@
-import PHX.utilization_patterns
+import PHX.schedules
 import pytest
 
 
 def test_set_rates_valid_inputs():
-    rates = PHX.utilization_patterns.Vent_UtilRates()
+    rates = PHX.schedules.Vent_UtilRates()
 
     rates.maximum.daily_op_sched = 1
     rates.maximum.daily_op_sched = None
@@ -46,7 +46,7 @@ def test_set_rates_valid_inputs():
 
 
 def test_set_rates_invalid_inputs():
-    rates = PHX.utilization_patterns.Vent_UtilRates()
+    rates = PHX.schedules.Vent_UtilRates()
 
     with pytest.raises(ValueError):
         rates.maximum.daily_op_sched = 100

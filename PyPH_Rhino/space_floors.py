@@ -143,9 +143,9 @@ def convert_inputs_to_FloorSements(_room_dicts):
             new_floor_seg.non_res_usage = input_floor_surface_dict.get("useType")
 
             try:
-                new_floor_seg.ventilation.airflow_rates.supply = float(input_floor_surface_dict.get("V_sup", 0.0))
-                new_floor_seg.ventilation.airflow_rates.extract = float(input_floor_surface_dict.get("V_eta", 0.0))
-                new_floor_seg.ventilation.airflow_rates.transfer = float(input_floor_surface_dict.get("V_trans", 0.0))
+                new_floor_seg.ventilation.loads.supply = float(input_floor_surface_dict.get("V_sup", 0.0))
+                new_floor_seg.ventilation.loads.extract = float(input_floor_surface_dict.get("V_eta", 0.0))
+                new_floor_seg.ventilation.loads.transfer = float(input_floor_surface_dict.get("V_trans", 0.0))
             except ValueError as e:
                 raise VentilationInputError(new_floor_seg.display_name, e)
 

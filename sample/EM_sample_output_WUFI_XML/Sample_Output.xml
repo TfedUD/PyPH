@@ -32,9 +32,9 @@
 		<Date_Project>
 			<Year>2021</Year>
 			<Month>9</Month>
-			<Day>13</Day>
-			<Hour>18</Hour>
-			<Minutes>17</Minutes>
+			<Day>14</Day>
+			<Hour>17</Hour>
+			<Minutes>12</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -331,19 +331,19 @@
 	<UtilizationPatternsPH count="9">
 		<UtilizationPattern index="0">
 			<IdentNr>1</IdentNr>
-			<Name>_default_occupancy_</Name>
+			<Name>_default_space_occupancy_</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
 			<RelativeAbsenteeism>0.0</RelativeAbsenteeism>
 			<IlluminationLevel>300</IlluminationLevel>
-			<HeightUtilizationLevel>1.0</HeightUtilizationLevel>
+			<HeightUtilizationLevel>10</HeightUtilizationLevel>
 			<PartUseFactorPeriodForLighting>1.0</PartUseFactorPeriodForLighting>
 			<AverageOccupancy>17.699115044247787</AverageOccupancy>
 		</UtilizationPattern>
 		<UtilizationPattern index="1">
 			<IdentNr>2</IdentNr>
-			<Name>PublicRestroom</Name>
+			<Name>OCC_PublicRestroom</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
@@ -355,10 +355,10 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="2">
 			<IdentNr>3</IdentNr>
-			<Name>Zero_Occupancy</Name>
-			<BeginUtilization>1</BeginUtilization>
-			<EndUtilization>24</EndUtilization>
-			<AnnualUtilizationDays>365</AnnualUtilizationDays>
+			<Name>OCC_Stair</Name>
+			<BeginUtilization>0</BeginUtilization>
+			<EndUtilization>1</EndUtilization>
+			<AnnualUtilizationDays>0</AnnualUtilizationDays>
 			<RelativeAbsenteeism>0.0</RelativeAbsenteeism>
 			<IlluminationLevel>300</IlluminationLevel>
 			<HeightUtilizationLevel>5.274311</HeightUtilizationLevel>
@@ -367,7 +367,7 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="3">
 			<IdentNr>4</IdentNr>
-			<Name>Kitchen</Name>
+			<Name>OCC_Kitchen</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
@@ -379,7 +379,7 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="4">
 			<IdentNr>5</IdentNr>
-			<Name>Office</Name>
+			<Name>OCC_Office</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
@@ -391,7 +391,7 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="5">
 			<IdentNr>6</IdentNr>
-			<Name>GuestLounge</Name>
+			<Name>OCC_GuestLounge</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
@@ -403,10 +403,10 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="6">
 			<IdentNr>7</IdentNr>
-			<Name>Zero_Occupancy</Name>
-			<BeginUtilization>1</BeginUtilization>
-			<EndUtilization>24</EndUtilization>
-			<AnnualUtilizationDays>365</AnnualUtilizationDays>
+			<Name>OCC_Corridor</Name>
+			<BeginUtilization>0</BeginUtilization>
+			<EndUtilization>1</EndUtilization>
+			<AnnualUtilizationDays>0</AnnualUtilizationDays>
 			<RelativeAbsenteeism>0.0</RelativeAbsenteeism>
 			<IlluminationLevel>300</IlluminationLevel>
 			<HeightUtilizationLevel>4.413199</HeightUtilizationLevel>
@@ -415,10 +415,10 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="7">
 			<IdentNr>8</IdentNr>
-			<Name>Zero_Occupancy</Name>
-			<BeginUtilization>1</BeginUtilization>
-			<EndUtilization>24</EndUtilization>
-			<AnnualUtilizationDays>365</AnnualUtilizationDays>
+			<Name>OCC_Storage</Name>
+			<BeginUtilization>0</BeginUtilization>
+			<EndUtilization>1</EndUtilization>
+			<AnnualUtilizationDays>0</AnnualUtilizationDays>
 			<RelativeAbsenteeism>0.0</RelativeAbsenteeism>
 			<IlluminationLevel>300</IlluminationLevel>
 			<HeightUtilizationLevel>4.090282</HeightUtilizationLevel>
@@ -427,7 +427,7 @@
 		</UtilizationPattern>
 		<UtilizationPattern index="8">
 			<IdentNr>9</IdentNr>
-			<Name>Lobby</Name>
+			<Name>OCC_Lobby</Name>
 			<BeginUtilization>1</BeginUtilization>
 			<EndUtilization>24</EndUtilization>
 			<AnnualUtilizationDays>365</AnnualUtilizationDays>
@@ -12437,7 +12437,7 @@
 					</Component>
 					<Component index="5">
 						<IdentNr>81</IdentNr>
-						<Name>Aperture_fd6c3705</Name>
+						<Name>Aperture_88b8c131</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -12613,8 +12613,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999964</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="1">
@@ -12625,8 +12625,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="2">
@@ -12637,8 +12637,8 @@
 								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="3">
@@ -12661,8 +12661,8 @@
 								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="5">
@@ -12673,8 +12673,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="6">
@@ -12685,8 +12685,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="7">
@@ -12702,18 +12702,6 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="8">
-								<Name>500-CORRIDOR</Name>
-								<Quantity>1</Quantity>
-								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
-								<ClearRoomHeight unit="m">2.499999999999997</ClearRoomHeight>
-								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
-								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
-								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
-							</Room>
-							<Room index="9">
 								<Name>508-UTILITY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
@@ -12721,8 +12709,20 @@
 								<ClearRoomHeight unit="m">2.4999999999999942</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">11.0389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">11.0389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</Room>
+							<Room index="9">
+								<Name>500-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="10">
@@ -12745,8 +12745,8 @@
 								<ClearRoomHeight unit="m">2.500000000000007</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="12">
@@ -12757,8 +12757,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="13">
@@ -12769,8 +12769,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="14">
@@ -12781,8 +12781,8 @@
 								<ClearRoomHeight unit="m">2.499999999999992</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="15">
@@ -12793,8 +12793,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="16">
@@ -12805,8 +12805,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="17">
@@ -12817,8 +12817,8 @@
 								<ClearRoomHeight unit="m">2.499999999999999</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="18">
@@ -12829,8 +12829,8 @@
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="19">
@@ -12841,8 +12841,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="20">
@@ -12853,8 +12853,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999933</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="21">
@@ -12865,8 +12865,8 @@
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="22">
@@ -12877,8 +12877,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="23">
@@ -12889,8 +12889,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">44.155844166</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="24">
@@ -12901,8 +12901,8 @@
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="25">
@@ -12913,8 +12913,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="26">
@@ -12925,8 +12925,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999902</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="27">
@@ -12937,8 +12937,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="28">
@@ -12949,8 +12949,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="29">
@@ -12961,8 +12961,8 @@
 								<ClearRoomHeight unit="m">2.499999999999998</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>2</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">66.233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>
@@ -13016,16 +13016,16 @@
 								<FloorAreaUtilizationZone>7.404738213877474</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="8">
-								<Name>500-CORRIDOR</Name>
-								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
-								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
-								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
-							</LoadPerson>
-							<LoadPerson index="9">
 								<Name>508-UTILITY</Name>
 								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
 								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
 								<FloorAreaUtilizationZone>3.55563117532821</FloorAreaUtilizationZone>
+							</LoadPerson>
+							<LoadPerson index="9">
+								<Name>500-CORRIDOR</Name>
+								<IdentNrUtilizationPattern>1</IdentNrUtilizationPattern>
+								<ChoiceActivityPersons choice="Adult, standing or light work">3</ChoiceActivityPersons>
+								<FloorAreaUtilizationZone>35.33416599104009</FloorAreaUtilizationZone>
 							</LoadPerson>
 							<LoadPerson index="10">
 								<Name>ES-5-EGRESS STAIR</Name>
@@ -24512,7 +24512,7 @@
 					</Component>
 					<Component index="5">
 						<IdentNr>363</IdentNr>
-						<Name>Aperture_b0ea0e07</Name>
+						<Name>Aperture_01992a97</Name>
 						<Visual>true</Visual>
 						<InnerAttachment choice="Zone 1: Merged Zone">1</InnerAttachment>
 						<OuterAttachment choice="Outer air">-1</OuterAttachment>
@@ -24689,8 +24689,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="3">
@@ -24701,8 +24701,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="4">
@@ -24713,8 +24713,8 @@
 								<ClearRoomHeight unit="m">2.500000000000003</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">375.064935151</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">375.064935151</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="5">
@@ -24725,8 +24725,8 @@
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">55.1948052075</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">55.1948052075</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="6">
@@ -24737,8 +24737,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">308.961039032</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">308.961039032</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="7">
@@ -24749,8 +24749,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">33.1168831245</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">33.1168831245</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="8">
@@ -24761,8 +24761,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999982</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="9">
@@ -24773,8 +24773,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999956</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">110.389610415</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">110.389610415</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="10">
@@ -24785,8 +24785,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999982</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">1246.62337691</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">1246.62337691</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="11">
@@ -24797,8 +24797,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">1246.62337691</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">1246.62337691</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="12">
@@ -24809,8 +24809,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">77.2727272905</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="13">
@@ -24821,8 +24821,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">165.454545493</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">220.6493507</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="14">
@@ -24833,8 +24833,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000018</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">275.844155908</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">331.038961115</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="15">
@@ -24845,8 +24845,8 @@
 								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">6.6233766249</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">6.6233766249</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="16">
@@ -24869,8 +24869,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000036</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">143.37662341</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">143.37662341</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="18">
@@ -24881,8 +24881,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="19">
@@ -24893,8 +24893,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">1698.96103935</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">1698.96103935</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="20">
@@ -24905,8 +24905,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">496.493506608</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">551.688311815</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="21">
@@ -24917,8 +24917,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999973</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="22">
@@ -24929,8 +24929,8 @@
 								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 							<Room index="23">
@@ -24941,8 +24941,8 @@
 								<ClearRoomHeight unit="m">2.5000000000000004</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>1</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
-								<DesignVolumeFlowRateSupply unit="m³/h">22.077922083</DesignVolumeFlowRateSupply>
-								<DesignVolumeFlowRateExhaust unit="m³/h">22.077922083</DesignVolumeFlowRateExhaust>
+								<DesignVolumeFlowRateSupply unit="m³/h">16.4935064973</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">16.4935064973</DesignVolumeFlowRateExhaust>
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</Room>
 						</RoomsVentilation>

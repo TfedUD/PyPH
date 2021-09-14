@@ -13,8 +13,6 @@ with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 
 from collections import namedtuple
 
-import PHX.spaces
-
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
 import PyPH_WUFI.prepare_data
@@ -59,11 +57,11 @@ def _UtilizationPattern_Vent(_obj):
 
 
 def _UtilizationPattern_NonRes(_obj):
-    # type: (PHX.spaces.Space) -> list
     # cus' WUFI wants absent, not present...
-    absent_fac = 1.0 - float(_obj.occupancy.utilization.annual_utilization_factor)
-    if _obj.occupancy.people_per_area:
-        m2_per_person = 1 / _obj.occupancy.people_per_area
+    absent_fac = 1.0 - float(_obj.occupancy.schedule.annual_utilization_factor)
+
+    if _obj.occupancy.loads.people_per_area:
+        m2_per_person = 1 / _obj.occupancy.loads.people_per_area
     else:
         m2_per_person = 0
 
@@ -71,15 +69,15 @@ def _UtilizationPattern_NonRes(_obj):
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
         # -- Occupancy
-        PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.utilization.start_hour),
-        PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.utilization.end_hour),
-        PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.utilization.annual_utilization_days),
+        PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.schedule.start_hour),
+        PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.schedule.end_hour),
+        PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.schedule.annual_utilization_days),
         PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", absent_fac),
         # -- Lighting
-        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.space_illumination),
-        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.installed_power_density),
+        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.loads.space_illumination),
+        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.loads.installed_power_density),
         PyPH_WUFI.xml_node.XML_Node(
-            "PartUseFactorPeriodForLighting", _obj.lighting.utilization.annual_utilization_factor
+            "PartUseFactorPeriodForLighting", _obj.lighting.schedule.annual_utilization_factor
         ),
         PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", m2_per_person),
         # PyPH_WUFI.xml_node.XML_Node("RoomSetpointTemperature", _obj._________),
@@ -227,23 +225,23 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _obj.type).xml_data),
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", _obj.floor_area_weighted, "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", _obj.clear_height, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.utilization.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.schedule.id),
         PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
-            _obj.ventilation.airflow_rates.supply,
+            _obj.ventilation.loads.supply,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateExhaust",
-            _obj.ventilation.airflow_rates.extract,
+            _obj.ventilation.loads.extract,
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignFlowInterzonalUserDef",
-            _obj.ventilation.airflow_rates.transfer,
+            _obj.ventilation.loads.transfer,
             "unit",
             "m³/h",
         ),

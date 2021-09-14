@@ -28,7 +28,7 @@ within the utilisation period can be considered. All of these attributes can
 be manually input using the Rhino-Scene PHPP tool 'Set TFA Surface Factor(s)'.
 > All time values should add up to 24 hours
 -
-EM August 26, 2021
+EM September 14, 2021
     Args:
         _name:
             
@@ -67,7 +67,8 @@ import PHX.serialization.to_dict
 import PHX.serialization.from_dict
 import PHX
 import PHX._base
-import PHX.utilization_patterns
+import PHX.schedules
+import PHX.loads
 import PHX.hvac
 import PHX.ventilation
 import PHX.ventilation_components
@@ -75,7 +76,6 @@ import PHX.geometry
 import PHX.spaces
 import PHX.occupancy
 import PHX.lighting
-
 
 import PyPH_Rhino
 import PyPH_Rhino.gh_utils
@@ -85,7 +85,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Apply Vent. Schedule"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 26, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_14_2021')
 
 if DEV:
     reload(PHX.serialization.to_dict)
@@ -96,7 +96,8 @@ if DEV:
     
     reload(PHX)
     reload(PHX._base)
-    reload(PHX.utilization_patterns)
+    reload(PHX.schedules)
+    reload(PHX.loads)
     reload(PHX.hvac)
     reload(PHX.ventilation)
     reload(PHX.ventilation_components)
@@ -108,8 +109,8 @@ if DEV:
 # -- 
 HB_rooms_ = []
 if _HB_rooms:
-    #-- Create the new Ventilation Utilization Pattern
-    ventilation_schedule_ = PHX.utilization_patterns.UtilPat_Vent()
+    #-- Create the new Ventilation Schedule
+    ventilation_schedule_ = PHX.schedules.Schedule_Ventilation()
     
     ventilation_schedule_.name = _name or 'unnamed schedule'
     
@@ -139,7 +140,7 @@ if _HB_rooms:
         for space_dict in room.user_data.get('phx', {}).get('spaces', {}).values():
             #-- Update the Space properties
             space_obj = PHX.spaces.Space.from_dict(space_dict)
-            space_obj.ventilation.utilization = ventilation_schedule_
+            space_obj.ventilation.schedule = ventilation_schedule_
             spaces_dict.update( {id(space_obj):space_obj.to_dict()} )
             
         new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
