@@ -14,6 +14,7 @@ import PHX.occupancy
 import PHX.appliances
 import LBT_Utils.program
 import LBT_Utils.boundary_conditions
+import pprint
 
 # -- Zones
 # ------------------------------------------------------------------------------
@@ -86,6 +87,9 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
         for space_dict in user_determined_space_dict.values():
 
             new_phx_space = PHX.spaces.Space.from_dict(space_dict)
+            # if "CORRIDOR" in new_phx_space.space_name:
+            #     pp = pprint.PrettyPrinter(indent=2)
+            #     pp.pprint(space_dict["occupancy"])
 
             spaces.append(new_phx_space)
     else:

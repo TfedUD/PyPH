@@ -360,16 +360,17 @@ def _FloorSegment(_obj):
     d.update({"_floor_area_gross": _obj._floor_area_gross})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
-    d.update({"non_res_lighting": _obj.non_res_lighting})
-    d.update({"non_res_motion": _obj.non_res_motion})
-    d.update({"non_res_usage": _obj.non_res_usage})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
+
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     geometry_dict = {}
     for i, geom in enumerate(_obj.geometry):
         geometry_dict.update({i: geom.to_dict()})
     d.update({"geometry": geometry_dict})
+
+    d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     return d
 
@@ -380,16 +381,17 @@ def _Floor(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
-    d.update({"non_res_lighting": _obj.non_res_lighting})
-    d.update({"non_res_motion": _obj.non_res_motion})
-    d.update({"non_res_usage": _obj.non_res_usage})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
+
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
 
     floor_segments_dict = {}
     for i, flr_seg in enumerate(_obj.floor_segments):
         floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
+
+    d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     return d
 
@@ -406,8 +408,6 @@ def _Volume(_obj):
 
     d.update({"floor": _obj.floor.to_dict()})
 
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
-
     volume_geometry_dict = {}
     for k, list_of_geom in enumerate(_obj.volume_geometry):
         geom_list = {}
@@ -416,6 +416,10 @@ def _Volume(_obj):
         volume_geometry_dict.update({k: geom_list})
 
     d.update({"volume_geometry": volume_geometry_dict})
+
+    d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
 
     return d
 
@@ -428,9 +432,6 @@ def _Space(_obj):
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
     d.update({"equipment": _obj.equipment})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
-    d.update({"occupancy": _obj.occupancy.to_dict()})
-    d.update({"lighting": _obj.lighting.to_dict()})
 
     d.update({"volume": _obj.volume})
 
@@ -438,6 +439,10 @@ def _Space(_obj):
     for i, volume in enumerate(_obj.volumes):
         volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
+
+    d.update({"_ventilation": _obj._ventilation.to_dict()})
+    d.update({"occupancy": _obj.occupancy.to_dict()})
+    d.update({"lighting": _obj.lighting.to_dict()})
 
     return d
 

@@ -260,7 +260,7 @@ def _Ventilation_Duct(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
-    for d in _input_dict.get("segments"):
+    for d in _input_dict.get("segments", []):
         new_obj.segments.append(PHX.ventilation_components.Ventilation_Duct_Segment.from_dict(d))
 
     return new_obj
@@ -381,9 +381,6 @@ def _FloorSegment(_cls, _input_dict):
     new_obj._floor_area_gross = _input_dict.get("_floor_area_gross")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
-    new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
-    new_obj.non_res_motion = _input_dict.get("non_res_motion")
-    new_obj.non_res_usage = _input_dict.get("non_res_usage")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     for d in _input_dict.get("geometry", {}).values():
@@ -395,6 +392,8 @@ def _FloorSegment(_cls, _input_dict):
         new_obj.geometry.append(geom)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -405,9 +404,6 @@ def _Floor(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
-    new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
-    new_obj.non_res_motion = _input_dict.get("non_res_motion")
-    new_obj.non_res_usage = _input_dict.get("non_res_usage")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     new_obj.floor_segments = []
@@ -417,6 +413,8 @@ def _Floor(_cls, _input_dict):
             new_obj.floor_segments.append(new_flr_seg)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -448,6 +446,8 @@ def _Volume(_cls, _input_dict):
         new_obj.volume_geometry.append(new_geom_list)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -465,6 +465,7 @@ def _Space(_cls, _input_dict):
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
     new_obj.equipment = _input_dict.get("equipment")
+
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
     new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))

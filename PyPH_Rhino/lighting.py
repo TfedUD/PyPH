@@ -7,7 +7,7 @@ import PHX.lighting
 def phx_lighting_from_hb(_hb_lighting):
     # type: (honeybee_energy.load.lighting.Lighting) -> PHX.lighting.SpaceLighting
 
-    lighting = PHX.lighting.SpaceLighting.default()
+    lighting = PHX.lighting.SpaceLighting()
 
     if _hb_lighting:
         lighting.name = LBT_Utils.program.clean_HB_program_name(_hb_lighting.display_name)

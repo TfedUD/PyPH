@@ -57,6 +57,8 @@ def _UtilizationPattern_Vent(_obj):
 
 
 def _UtilizationPattern_NonRes(_obj):
+    # type: (PyPH_WUFI.utilization_patterns.UtilizationPattern_NonRes) -> list
+
     # cus' WUFI wants absent, not present...
     absent_fac = 1.0 - float(_obj.occupancy.schedule.annual_utilization_factor)
 

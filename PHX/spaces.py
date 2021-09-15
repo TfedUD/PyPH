@@ -108,6 +108,8 @@ class FloorSegment(PHX._base._Base):
         self.non_res_usage = None
 
         self._ventilation = PHX.ventilation.SpaceVentilation.default()
+        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
+        self.lighting = PHX.lighting.SpaceLighting.default()
 
     @property
     def ventilation(self):
@@ -191,6 +193,8 @@ class Floor(PHX._base._Base):
         self.non_res_usage = None
 
         self._ventilation = PHX.ventilation.SpaceVentilation.default()
+        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
+        self.lighting = PHX.lighting.SpaceLighting.default()
 
     @property
     def ventilation(self):
@@ -315,6 +319,8 @@ class Volume(PHX._base._Base):
         self.volume_geometry = []
 
         self._ventilation = PHX.ventilation.SpaceVentilation.default()
+        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
+        self.lighting = PHX.lighting.SpaceLighting.default()
 
     @property
     def ventilation(self):
