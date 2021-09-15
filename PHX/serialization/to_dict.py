@@ -118,7 +118,8 @@ def _Schedule_Occupancy(_obj):
     d.update({"start_hour": _obj.start_hour})
     d.update({"end_hour": _obj.end_hour})
     d.update({"annual_utilization_days": _obj.annual_utilization_days})
-    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+    d.update({"relative_utilization_factor": _obj.relative_utilization_factor})
+    d.update({"_annual_utilization_factor": _obj._annual_utilization_factor})
 
     return d
 

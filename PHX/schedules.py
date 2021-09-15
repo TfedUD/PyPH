@@ -156,7 +156,34 @@ class Schedule_Occupancy(PHX._base._Base):
         self.start_hour = 0
         self.end_hour = 1
         self.annual_utilization_days = 0
-        self.annual_utilization_factor = 0.0
+        self.relative_utilization_factor = 0.0  # Relative to the Operating Period Above
+        self._annual_utilization_factor = 0.0  # Relative to the Entire Year
+
+    @property
+    def annual_utilization_factor(self):
+        """Return the annual Utilition Rate (0-1) relative to the entire year (8760 hours)"""
+        operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
+
+        return operating_period_utilization_factor * self.relative_utilization_factor
+
+    @annual_utilization_factor.setter
+    def annual_utilization_factor(self, _in):
+        if _in:
+            self._annual_utilization_factor = _in
+
+            # -- Re-Set the relative utilization factor as well
+            self.start_hour = 0
+            self.end_hour = 24
+            self.annual_utilization_days = 365
+            self.relative_utilization_factor = _in
+
+    @property
+    def daily_operating_hours(self):
+        return self.end_hour - self.start_hour
+
+    @property
+    def annual_operating_hours(self):
+        return self.annual_utilization_days * self.daily_operating_hours
 
     @classmethod
     def from_dict(cls, _dict):
@@ -178,9 +205,10 @@ class Schedule_Occupancy(PHX._base._Base):
         new_obj.start_hour = 1
         new_obj.end_hour = 24
         new_obj.annual_utilization_days = 365
-        new_obj.annual_utilization_factor = 1.0
+        new_obj.relative_utilization_factor = 1.0
 
         cls._default = new_obj
+
         return new_obj
 
     @property

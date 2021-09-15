@@ -137,7 +137,8 @@ def _Schedule_Occupancy(_cls, _input_dict):
     new_obj.start_hour = _input_dict.get("start_hour")
     new_obj.end_hour = _input_dict.get("end_hour")
     new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
-    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+    new_obj.relative_utilization_factor = _input_dict.get("relative_utilization_factor")
+    new_obj._annual_utilization_factor = _input_dict.get("_annual_utilization_factor")
 
     return new_obj
 
