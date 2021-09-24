@@ -104,6 +104,26 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
+    # ---------------------------------------------------------------------------
+    # Section 01.XX | Programs
+    "PyPH - Sched Occupancy": {
+        "NickName": "PHX Sched: Occupancy",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - Sched Lighting": {
+        "NickName": "PHX Sched: Lighting",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - Load Lighting": {
+        "NickName": "PHX Lighting",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
 }
 
 

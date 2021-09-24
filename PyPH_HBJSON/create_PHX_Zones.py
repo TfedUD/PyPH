@@ -9,11 +9,12 @@ import honeybee.room
 import PHX.bldg_segment
 import PHX.spaces
 import PHX.summer_ventilation
-import PHX.utilization_patterns
+import PHX.schedules
 import PHX.occupancy
 import PHX.appliances
 import LBT_Utils.program
 import LBT_Utils.boundary_conditions
+import pprint
 
 # -- Zones
 # ------------------------------------------------------------------------------
@@ -68,9 +69,9 @@ def set_Space_ventilation_from_HB_room(_hb_room, _phx_Space):
     # - Ventilation Airflow
     total_vent_airflow = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(_hb_room)
 
-    _phx_Space.ventilation.airflow_rates.supply = total_vent_airflow * 3600
-    _phx_Space.ventilation.airflow_rates.extract = total_vent_airflow * 3600
-    _phx_Space.ventilation.airflow_rates.transfer = 0.0
+    _phx_Space.ventilation.loads.supply = total_vent_airflow * 3600
+    _phx_Space.ventilation.loads.extract = total_vent_airflow * 3600
+    _phx_Space.ventilation.loads.transfer = 0.0
 
 
 def create_PHX_Spaces_from_HB_room(_hb_room):
@@ -86,6 +87,9 @@ def create_PHX_Spaces_from_HB_room(_hb_room):
         for space_dict in user_determined_space_dict.values():
 
             new_phx_space = PHX.spaces.Space.from_dict(space_dict)
+            # if "CORRIDOR" in new_phx_space.space_name:
+            #     pp = pprint.PrettyPrinter(indent=2)
+            #     pp.pprint(space_dict["occupancy"])
 
             spaces.append(new_phx_space)
     else:

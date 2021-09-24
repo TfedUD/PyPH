@@ -7,14 +7,14 @@ import PHX.lighting
 def phx_lighting_from_hb(_hb_lighting):
     # type: (honeybee_energy.load.lighting.Lighting) -> PHX.lighting.SpaceLighting
 
-    lighting = PHX.lighting.SpaceLighting.default()
+    lighting = PHX.lighting.SpaceLighting()
 
     if _hb_lighting:
         lighting.name = LBT_Utils.program.clean_HB_program_name(_hb_lighting.display_name)
-        lighting.installed_power_density = _hb_lighting.watts_per_area
+        lighting.loads.installed_power_density = _hb_lighting.watts_per_area
 
         # Utilization Rates
         annual_util = LBT_Utils.hb_schedules.calc_utilization_factor(_hb_lighting.schedule)
-        lighting.utilization.annual_utilization_factor = annual_util
+        lighting.schedule.annual_utilization_factor = annual_util
 
     return lighting

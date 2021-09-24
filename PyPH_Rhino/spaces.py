@@ -36,6 +36,7 @@ def build_floors(IGH, _floor_surfaces, _input_node_name, _HB_rooms):
     hb_room_dicts = space_floors.sort_floor_surfaces_by_hb_room(input_floor_surfaces, _HB_rooms)
     hb_room_dicts = space_floors.add_default_floor_surfaces(IGH, hb_room_dicts)
     hb_room_dicts = space_floors.convert_inputs_to_FloorSements(hb_room_dicts)
+
     hb_room_dicts = space_floors.group_FloorSegments_by_room_name(hb_room_dicts)
     floors_dict = space_floors.create_Floors_from_FloorSegments(IGH, hb_room_dicts)
 

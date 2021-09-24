@@ -13,7 +13,8 @@ import PHX
 import PHX.geometry
 import PHX.hvac
 import PHX.spaces
-import PHX.utilization_patterns
+import PHX.schedules
+import PHX.loads
 import PHX.appliances
 import PHX.occupancy
 import PHX.lighting
@@ -32,7 +33,159 @@ def _setattr_filter(_obj, _attr_name, _attr_val, _filter=True):
         return None
 
 
-# --- Geometry
+# ------- PROGRAMS --------
+def _SpaceLighting(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.schedule = PHX.schedules.Schedule_Lighting.from_dict(_input_dict.get("schedule", {}))
+    new_obj.loads = PHX.loads.Load_Lighting.from_dict(_input_dict.get("loads", {}))
+
+    return new_obj
+
+
+def _SpaceVentilation(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.system = PHX.ventilation_components.Ventilation_System.from_dict(_input_dict.get("system", {}))
+    new_obj.schedule = PHX.schedules.Schedule_Ventilation.from_dict(_input_dict.get("schedule", {}))
+    new_obj.loads = PHX.loads.Load_Ventilation.from_dict(_input_dict.get("loads", {}))
+
+    return new_obj
+
+
+def _SpaceOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.id = _input_dict.get("id")
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.schedule = PHX.schedules.Schedule_Occupancy.from_dict(_input_dict.get("schedule", {}))
+    new_obj.loads = PHX.loads.Load_Occupancy.from_dict(_input_dict.get("loads", {}))
+
+    return new_obj
+
+
+def _BldgSegmentOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.category = _input_dict.get("category")
+    new_obj.usage_type = _input_dict.get("usage_type")
+    new_obj.num_units = _input_dict.get("num_units")
+    new_obj.num_stories = _input_dict.get("num_stories")
+
+    return new_obj
+
+
+def _ZoneOccupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.num_occupants = _input_dict.get("num_occupants", 0)
+    new_obj.num_bedrooms = _input_dict.get("num_bedrooms", 0)
+    new_obj.num_dwelling_units = _input_dict.get("num_dwelling_units", 0)
+
+    return new_obj
+
+
+# ------- Schedules and Utilization Rates  -------
+
+
+def _Vent_UtilRate(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.daily_op_sched = _input_dict.get("daily_op_sched")
+    new_obj.frac_of_design_airflow = _input_dict.get("frac_of_design_airflow")
+
+    return new_obj
+
+
+def _Vent_UtilRates(_cls, _input_dict):  # Collection
+    new_obj = _cls()
+
+    new_obj.maximum = PHX.schedules.Vent_UtilRate.from_dict(_input_dict.get("maximum", {}))
+    new_obj.standard = PHX.schedules.Vent_UtilRate.from_dict(_input_dict.get("standard", {}))
+    new_obj.basic = PHX.schedules.Vent_UtilRate.from_dict(_input_dict.get("basic", {}))
+    new_obj.minimum = PHX.schedules.Vent_UtilRate.from_dict(_input_dict.get("minimum", {}))
+
+    return new_obj
+
+
+def _Schedule_Ventilation(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.name = _input_dict.get("name")
+    new_obj.operating_days = _input_dict.get("operating_days")
+    new_obj.operating_weeks = _input_dict.get("operating_weeks")
+    new_obj.utilization_rates = PHX.schedules.Vent_UtilRates.from_dict(_input_dict.get("utilization_rates", {}))
+
+    return new_obj
+
+
+def _Schedule_Occupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.name = _input_dict.get("name")
+    new_obj.start_hour = _input_dict.get("start_hour")
+    new_obj.end_hour = _input_dict.get("end_hour")
+    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
+    new_obj.relative_utilization_factor = _input_dict.get("relative_utilization_factor")
+    new_obj._annual_utilization_factor = _input_dict.get("_annual_utilization_factor")
+
+    return new_obj
+
+
+def _Schedule_Lighting(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.name = _input_dict.get("name")
+    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+
+    return new_obj
+
+
+# ------- Loads  -------
+def _Load_Lighting(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.name = _input_dict.get("name")
+    new_obj.space_illumination = _input_dict.get("space_illumination")
+    new_obj.installed_power_density = _input_dict.get("installed_power_density")
+
+    return new_obj
+
+
+def _Load_Ventilation(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.name = _input_dict.get("name")
+    new_obj.supply = _input_dict.get("supply")
+    new_obj.extract = _input_dict.get("extract")
+    new_obj.transfer = _input_dict.get("transfer")
+
+    return new_obj
+
+
+def _Load_Occupancy(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.name = _input_dict.get("name")
+    new_obj.people_per_area = _input_dict.get("people_per_area")
+
+    return new_obj
+
+
+# ------- GEOMETRY --------
 def _Vector(_cls, _input_dict):
     new_obj = _cls()
 
@@ -56,7 +209,6 @@ def _Vertex(_cls, _input_dict):
     return new_obj
 
 
-# -- Geometry
 def _Polygon(_cls, _input_dict):
     new_obj = _cls()
 
@@ -69,63 +221,6 @@ def _Polygon(_cls, _input_dict):
 
     for _ in _input_dict.get("vertices", {}).values():
         new_obj.vertices.append(PHX.geometry.Vertex.from_dict(_))
-
-    return new_obj
-
-
-# -- Utilization Patterns
-def _Vent_UtilRate(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.daily_op_sched = _input_dict.get("daily_op_sched")
-    new_obj.frac_of_design_airflow = _input_dict.get("frac_of_design_airflow")
-
-    return new_obj
-
-
-def _Vent_UtilRates(_cls, _input_dict):  # Collection
-    new_obj = _cls()
-
-    new_obj.maximum = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("maximum", {}))
-    new_obj.standard = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("standard", {}))
-    new_obj.basic = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("basic", {}))
-    new_obj.minimum = PHX.utilization_patterns.Vent_UtilRate.from_dict(_input_dict.get("minimum", {}))
-
-    return new_obj
-
-
-def _UtilPat_Vent(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.id = _input_dict.get("id")
-    new_obj.name = _input_dict.get("name")
-    new_obj.operating_days = _input_dict.get("operating_days")
-    new_obj.operating_weeks = _input_dict.get("operating_weeks")
-
-    new_obj.utilization_rates = PHX.utilization_patterns.Vent_UtilRates.from_dict(
-        _input_dict.get("utilization_rates", {})
-    )
-    return new_obj
-
-
-def _UtilPat_Occupancy(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.id = _input_dict.get("id")
-    new_obj.start_hour = _input_dict.get("start_hour")
-    new_obj.end_hour = _input_dict.get("end_hour")
-    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
-    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
-
-    return new_obj
-
-
-def _UtilPat_Lighting(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.id = _input_dict.get("id")
-    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
 
     return new_obj
 
@@ -165,7 +260,7 @@ def _Ventilation_Duct(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
-    for d in _input_dict.get("segments"):
+    for d in _input_dict.get("segments", []):
         new_obj.segments.append(PHX.ventilation_components.Ventilation_Duct_Segment.from_dict(d))
 
     return new_obj
@@ -181,26 +276,6 @@ def _Ventilation_System(_cls, _input_dict):
     new_obj.ventilator = PHX.ventilation_components.Ventilator.from_dict(_input_dict.get("ventilator", {}))
     new_obj.duct_01 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_01", {}))
     new_obj.duct_02 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_02", {}))
-
-    return new_obj
-
-
-def _SpaceVentilation(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.airflow_rates = PHX.ventilation.AirflowRates.from_dict(_input_dict.get("airflow_rates", {}))
-    new_obj.system = PHX.ventilation_components.Ventilation_System.from_dict(_input_dict.get("system", {}))
-    new_obj.utilization = PHX.utilization_patterns.UtilPat_Vent.from_dict(_input_dict.get("utilization", {}))
-
-    return new_obj
-
-
-def _AirflowRates(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.supply = _input_dict.get("supply")
-    new_obj.extract = _input_dict.get("extract")
-    new_obj.transfer = _input_dict.get("transfer")
 
     return new_obj
 
@@ -306,9 +381,6 @@ def _FloorSegment(_cls, _input_dict):
     new_obj._floor_area_gross = _input_dict.get("_floor_area_gross")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
-    new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
-    new_obj.non_res_motion = _input_dict.get("non_res_motion")
-    new_obj.non_res_usage = _input_dict.get("non_res_usage")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     for d in _input_dict.get("geometry", {}).values():
@@ -320,6 +392,8 @@ def _FloorSegment(_cls, _input_dict):
         new_obj.geometry.append(geom)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -330,9 +404,6 @@ def _Floor(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
-    new_obj.non_res_lighting = _input_dict.get("non_res_lighting")
-    new_obj.non_res_motion = _input_dict.get("non_res_motion")
-    new_obj.non_res_usage = _input_dict.get("non_res_usage")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
     new_obj.floor_segments = []
@@ -342,6 +413,8 @@ def _Floor(_cls, _input_dict):
             new_obj.floor_segments.append(new_flr_seg)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -373,6 +446,8 @@ def _Volume(_cls, _input_dict):
         new_obj.volume_geometry.append(new_geom_list)
 
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
+    new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
+    new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
 
     return new_obj
 
@@ -389,48 +464,11 @@ def _Space(_cls, _input_dict):
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
-    new_obj.occupancy = _input_dict.get("occupancy")
     new_obj.equipment = _input_dict.get("equipment")
+
     new_obj.ventilation = PHX.ventilation.SpaceVentilation.from_dict(_input_dict.get("_ventilation", {}))
     new_obj.occupancy = PHX.occupancy.SpaceOccupancy.from_dict(_input_dict.get("occupancy", {}))
     new_obj.lighting = PHX.lighting.SpaceLighting.from_dict(_input_dict.get("lighting", {}))
-
-    return new_obj
-
-
-# -- Occupany
-def _BldgSegmentOccupancy(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.category = _input_dict.get("category")
-    new_obj.usage_type = _input_dict.get("usage_type")
-    new_obj.num_units = _input_dict.get("num_units")
-    new_obj.num_stories = _input_dict.get("num_stories")
-
-    return new_obj
-
-
-def _ZoneOccupancy(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.num_occupants = _input_dict.get("num_occupants", 0)
-    new_obj.num_bedrooms = _input_dict.get("num_bedrooms", 0)
-    new_obj.num_dwelling_units = _input_dict.get("num_dwelling_units", 0)
-
-    return new_obj
-
-
-def _SpaceOccupancy(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.name = _input_dict.get("name")
-    new_obj.id = _input_dict.get("id")
-    util_dict = _input_dict.get("utilization", {})
-    new_obj.utilization = PHX.utilization_patterns.UtilPat_Occupancy.from_dict(util_dict)
-    new_obj.people_per_area = _input_dict.get("people_per_area")
 
     return new_obj
 
@@ -537,19 +575,5 @@ def _Appliance(_cls, _input_dict):
     # -- PHIUS Lighting
     _setattr_filter(new_obj, "lighting_frac_high_efficiency", _input_dict.get("lighting_frac_high_efficiency"))
     _setattr_filter(new_obj, "_user_defined_total", _input_dict.get("_user_defined_total"))
-
-    return new_obj
-
-
-# -- Lighting
-def _SpaceLighting(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = str(_input_dict.get("identifier"))
-    new_obj.name = _input_dict.get("name")
-    util_dict = _input_dict.get("utilization", {})
-    new_obj.utilization = PHX.utilization_patterns.UtilPat_Lighting.from_dict(util_dict)
-    new_obj.space_illumination = _input_dict.get("space_illumination")
-    new_obj.installed_power_density = _input_dict.get("installed_power_density")
 
     return new_obj

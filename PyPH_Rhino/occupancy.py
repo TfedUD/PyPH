@@ -4,30 +4,42 @@
 """Functions to calculate Space-Level Occupancy attributes """
 
 import PHX.occupancy
-import PHX.utilization_patterns
+import PHX.schedules
 import honeybee_energy.schedule.ruleset
 import LBT_Utils.program
 import LBT_Utils.hb_schedules
 
 
-def phx_occupancy_from_hb(_hb_occupancy):
-    # type: (honeybee_energy.load.people.People | None) -> PHX.occupancy.SpaceOccupancy
+def phx_occupancy_from_hb(_hb_occupancy, _name=None):
+    # type: (honeybee_energy.load.people.People | None, str) -> PHX.occupancy.SpaceOccupancy
     """Returns a new PHX-SpaceOccupancy based on a Honeybee Occupancy"""
 
     occ = PHX.occupancy.SpaceOccupancy()
 
     if _hb_occupancy:
-        occ.identifier = _hb_occupancy.identifier
-        occ.name = LBT_Utils.program.clean_HB_program_name(_hb_occupancy.display_name)
-        occ.people_per_area = _hb_occupancy.people_per_area
 
-        # Utilization Rates
-        occ.utilization = PHX.utilization_patterns.UtilPat_Occupancy.default()
+        occ.name = "OCC_{}".format(LBT_Utils.program.clean_HB_program_name(_hb_occupancy.display_name))
+
+        # -- Loads
+        occ.loads.people_per_area = _hb_occupancy.people_per_area
+
+        # -- Schedules
+        occ.schedule = PHX.schedules.Schedule_Occupancy.default()
         annual_util = LBT_Utils.hb_schedules.calc_utilization_factor(_hb_occupancy.occupancy_schedule)
-        occ.utilization.annual_utilization_factor = annual_util
+        occ.schedule.annual_utilization_factor = annual_util
+
+        # -- Try and set the detaled Schedule data, if it is supplied
+        ud = _hb_occupancy.occupancy_schedule.user_data or {}
+        ud_sched_dict = ud.get("phx", {}).get("schedule", None)
+        if ud_sched_dict:
+            occ.schedule.name = occ.name
+            occ.schedule.start_hour = ud_sched_dict.get("start_hour")
+            occ.schedule.end_hour = ud_sched_dict.get("end_hour")
+            occ.schedule.annual_utilization_days = ud_sched_dict.get("annual_utilization_days")
+            occ.schedule.relative_utilization_factor = ud_sched_dict.get("relative_utilization_factor")
     else:
-        occ.name = "Zero_Occupancy"
-        occ.utilization.annual_utilization_factor = 1.0
-        occ.people_per_area = 0.0
+        occ.name = "OCC_{}".format(LBT_Utils.program.clean_HB_program_name(_name) or "ZERO")
+        occ.schedule.annual_utilization_factor = 1.0
+        occ.loads.people_per_area = 0.0
 
     return occ

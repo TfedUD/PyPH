@@ -25,7 +25,7 @@ as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM August 26, 2021
+EM September 14, 2021
     Args:
         segment_name_: Name for the building-segment
         
@@ -74,26 +74,38 @@ import ghpythonlib.components as ghc
 import Grasshopper as gh
 
 import LBT_Utils
+import LBT_Utils.hb_schedules
+
 import PHX
 import PHX.bldg_segment
 import PHX.occupancy
+import PHX.spaces
+
 import PyPH_Rhino.gh_io
 import PyPH_Rhino.bldg_segment_id
+import PyPH_Rhino.occupancy
+import PyPH_Rhino.lighting
+
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 26, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_14_2021')
 
 if DEV:
     reload(LBT_Utils)
+    reload(LBT_Utils.hb_schedules)
     reload(PHX.serialization.to_dict)
     reload(PHX.serialization.from_dict)
     reload(PHX.bldg_segment)
+    reload(PHX.spaces)
+    reload(PHX.occupancy)
     reload(PyPH_Rhino.gh_io)
     reload(PyPH_Rhino.bldg_segment_id)
+    reload(PyPH_Rhino.occupancy)
+    reload(PyPH_Rhino.lighting)
 
 # -- GH Interface
 IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
@@ -120,9 +132,33 @@ new_PH_params.building_type = PyPH_Rhino.gh_io.input_to_int(IGH, bldg_type_, 1)
 HB_rooms_ = []
 for room in _HB_rooms:
     if not room: continue
-    
     new_hb_room = room.duplicate()
     
+    # -- NON_RES ONLY
+    if occupancy.category == 2:
+        default_name = room.properties.energy.program_type.display_name
+        # -- For Non-Residential, calc the PHX Occupancy and Lighting Schedules
+        hb_occ = room.properties.energy.people
+        hb_lighting = room.properties.energy.lighting
+        new_phx_occupany = PyPH_Rhino.occupancy.phx_occupancy_from_hb(hb_occ, default_name)
+        new_phx_lighting = PyPH_Rhino.lighting.phx_lighting_from_hb(hb_lighting)
+        
+        # -- Build a new Occupancy based on the HB Zone,
+        # -- Apply it to each space in the Zone
+        space_dicts = room.user_data.get('phx',{}).get('spaces',{})
+        new_spaces = []
+        for space_dict in space_dicts.values():
+            new_space = PHX.spaces.Space.from_dict(space_dict)
+            new_space.occupancy = new_phx_occupany
+            new_space.lighting = new_phx_lighting
+            new_spaces.append(new_space)
+            
+        # -- pack new dict onto HB Room
+        space_dict = {id(space):space.to_dict() for space in new_spaces}
+        new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
+                                    space_dict, 'spaces', _write_mode='overwrite')
+    
+    # -- ALL
     #-- Pack everything back into the HB Room user-data
     bldg_seg_dict = new_bldg_segment.to_dict()
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,

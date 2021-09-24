@@ -14,9 +14,13 @@ def clean_HB_program_name(_name):
     ie: "2013::MutiFam::Corridor" --> "Corridor"
     "Corrior_People" --> "Corridor"
     """
+    if not _name:
+        return None
+
     clean = str(_name).split("::")[-1]
     clean = str(clean).replace("_People", "")
     clean = str(clean).replace("_Lighting", "")
+
     return clean
 
 

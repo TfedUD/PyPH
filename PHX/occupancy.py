@@ -5,7 +5,8 @@
 
 
 import PHX._base
-import PHX.utilization_patterns
+import PHX.schedules
+import PHX.loads
 
 
 class ZoneOccupancy(PHX._base._Base):
@@ -113,8 +114,8 @@ class SpaceOccupancy(PHX._base._Base):
         self.id = self._count
         super(SpaceOccupancy, self).__init__()
         self.name = ""
-        self.utilization = PHX.utilization_patterns.UtilPat_Occupancy.default()
-        self.people_per_area = 0.0  # ppl/m2
+        self.schedule = PHX.schedules.Schedule_Occupancy()
+        self.loads = PHX.loads.Load_Occupancy()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -128,13 +129,16 @@ class SpaceOccupancy(PHX._base._Base):
 
         new_obj = cls()
 
-        new_obj.name = "_default_occupancy_"
-        new_obj.utilization = PHX.utilization_patterns.UtilPat_Occupancy.default()
-        new_obj.people_per_area = 0.0565  # ppl/m2 (HB Generic Office) = ~1 per/200ft2
+        new_obj.name = "_default_space_occupancy_"
+        new_obj.schedule = PHX.schedules.Schedule_Occupancy.default()
+        new_obj.loads = PHX.loads.Load_Occupancy.default()
 
         cls._default = new_obj
 
         return new_obj
+
+    def __str__(self):
+        return "PHX_{}: {}".format(self.__class__.__name__, self.name)
 
     @classmethod
     def from_dict(cls, _dict):
@@ -142,4 +146,4 @@ class SpaceOccupancy(PHX._base._Base):
 
     @property
     def unique_key(self):
-        return "{}_{}_{}".format(self.name, self.people_per_area, self.utilization.unique_key)
+        return "{}_{}_{}".format(self.name, self.loads.unique_key, self.schedule.unique_key)
