@@ -1,5 +1,5 @@
 import PHX.spaces
-import PHX.ventilation
+import PHX.programs.ventilation
 import pytest
 
 
@@ -42,12 +42,12 @@ def test_Volume_attrs_from_Floor():
 
 def test_set_Volume_ventilation():
     v1 = PHX.spaces.Volume()
-    vent_1 = PHX.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.SpaceVentilation()
     v1.ventilation = vent_1
 
     # -- Before adding, the vents are different
     flr = PHX.spaces.Floor()
-    vent_2 = PHX.ventilation.SpaceVentilation()
+    vent_2 = PHX.programs.ventilation.SpaceVentilation()
     flr.ventilation = vent_2
     assert v1.ventilation != flr.ventilation
 

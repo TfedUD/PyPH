@@ -16,12 +16,14 @@ import PHX.hvac
 import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
-import PHX.occupancy
+import PHX.programs.lighting
+import PHX.programs.occupancy
+import PHX.programs.ventilation
 import PHX.infiltration
 import PHX.ground
 import PHX.appliances
 
-
+# ------------------------------------------------------------------------------
 class ZoneTypeError(Exception):
     def __init__(self, _in):
         self.message = 'Error: Expected input of type: "PHX.bldg_segment.Zone" Got: "{}"::"{}"?'.format(_in, type(_in))
@@ -34,6 +36,7 @@ class GroupTypeNotImplementedError(Exception):
         super(GroupTypeNotImplementedError, self).__init__(self.message)
 
 
+# ------------------------------------------------------------------------------
 class Geom(PHX._base._Base):
     """Geometry Collection"""
 
@@ -264,7 +267,63 @@ class ClimateLocation(PHX._base._Base):
         self.Unit_CO2concentration = 48
 
 
+# ------------------------------------------------------------------------------
+class Room(PHX._base._Base):
+    """A PHX-Room. Part of a PHX-Zone.
+
+    BldgSegment_1
+       +----Zone_1
+       |      +----Room_1  #<-----
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
+
+    Containts one or more PHX-Spaces and all the Program data (sched, loads) for the spaces
+    """
+
+    _count = 0
+
+    def __init__(self):
+        super(Room, self).__init__()
+        self.id = self._count
+        self.name = ""
+        self.volume_gross = 0.0
+        self.spaces = []
+
+        self.ventilation = PHX.programs.ventilation.SpaceVentilation()
+        self.lighting = PHX.programs.lighting.SpaceLighting()
+        self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(Room, cls).__new__(cls, *args, **kwargs)
+
+    def add_spaces(self, _spaces):
+        # type: (list[PHX.spaces.Space]) -> None
+        """Adds new Rooms to the Zone"""
+
+        if not isinstance(_spaces, list):
+            _spaces = [_spaces]
+
+        for space in _spaces:
+            self.spaces.append(space)
+
+
 class Zone(PHX._base._Base):
+    """A Thermal Zone. Contains one or more Rooms and relevant Zone-level attributes
+
+    BldgSegment_1
+       +----Zone_1  #<-----
+       |      +----Room_1
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
+    """
 
     _count = 0
 
@@ -273,6 +332,7 @@ class Zone(PHX._base._Base):
         self.id = self._count
         self.n = None
         self.typeZ = 1
+
         self.volume_gross = 0.0
         self.volume_gross_selection = 7
         self.volume_net = 0.0
@@ -283,32 +343,38 @@ class Zone(PHX._base._Base):
         self.clearance_height = 2.5
         self.spec_heat_cap_selection = 2
         self.spec_heat_cap = 132
-        self.spaces = []
+
+        self.rooms = []
         self.source_zone_identifiers = []
+
         self.appliances = PHX.appliances.ApplianceSet()
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
-        self.occupancy = PHX.occupancy.ZoneOccupancy()
+        self.occupancy = PHX.programs.occupancy.ZoneOccupancy()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Zone, cls).__new__(cls, *args, **kwargs)
 
-    def add_spaces(self, _new_spaces):
-        # type; (list[PHX.spaces.Space]): -> None
-        """Adds new Spaces to the Zone"""
+    def add_rooms(self, _new_rooms):
+        # type: (list[PHX.bldg_segment.Room]) -> None
+        """Adds new Rooms to the Zone"""
 
-        if not isinstance(_new_spaces, list):
-            _new_spaces = [_new_spaces]
+        if not isinstance(_new_rooms, list):
+            _new_rooms = [_new_rooms]
 
-        for space in _new_spaces:
-            self.spaces.append(space)
+        for room in _new_rooms:
+            self.rooms.append(room)
 
-            # -- Add to the zone totals
-            self.volume_net += space.volume
-            self.volume_net_selection = 6  # user-defined
-            self.floor_area += space.floor_area_weighted
-            self.floor_area_selection = 6  # user-defined
+            self.volume_gross += room.volume_gross
+            self.volume_gross_selection = 6  # user-defined
+
+            for space in room.spaces:
+                # -- Add to the zone totals
+                self.volume_net += space.volume
+                self.volume_net_selection = 6  # user-defined
+                self.floor_area += space.floor_area_weighted
+                self.floor_area_selection = 6  # user-defined
 
     @staticmethod
     def _floor_area_weighted_join(_a, _b, _attr_str):
@@ -372,7 +438,16 @@ class Zone(PHX._base._Base):
 
 
 class BldgSegment(PHX._base._Base):
-    """A Segment/Zone/Wing of a Project with one or more PHX-Zones inside.
+    """A Segment/Part/Wing of a Project with one or more PHX-Zones inside.
+
+    BldgSegment_1 #<-----
+       +----Zone_1
+       |      +----Room_1
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
 
     A single Structure/Project can have one or more Building-Segments.
     For WUFI-Passive, this class basically maps to a 'Variant'/'Case' at the Project level
@@ -392,12 +467,12 @@ class BldgSegment(PHX._base._Base):
         self.calcScope = 4
         self.HaMT = {}
         self.PHIUS_certification = PHIUSCertification()
-        self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
+        self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
         self.infiltration = PHX.infiltration.Infiltration(self)
         self.foundations = [PHX.ground.Foundation()]
         self.DIN4108 = {}
         self.cliLoc = ClimateLocation()
-        self.HVAC = PHX.hvac.HVAC()
+        self.HVAC_system = PHX.hvac.HVAC_System()
         self.res = None
         self.plugin = None
 

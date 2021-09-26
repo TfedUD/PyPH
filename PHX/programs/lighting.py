@@ -1,6 +1,13 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""
+PHX Program: Lighting Classes
+"""
+
 import PHX._base
-import PHX.schedules
-import PHX.loads
+import PHX.programs.schedules
+import PHX.programs.loads
 import PHX.serialization.from_dict
 
 
@@ -11,8 +18,8 @@ class SpaceLighting(PHX._base._Base):
     def __init__(self):
         super(SpaceLighting, self).__init__()
         self.name = ""
-        self.schedule = PHX.schedules.Schedule_Lighting()
-        self.loads = PHX.loads.Load_Lighting()
+        self.schedule = PHX.programs.schedules.Schedule_Lighting()
+        self.loads = PHX.programs.loads.Load_Lighting()
 
     @classmethod
     def default(cls):
@@ -22,8 +29,8 @@ class SpaceLighting(PHX._base._Base):
         new_obj = cls()
 
         new_obj.name = "_default_space_lighting_"
-        new_obj.schedule = PHX.schedules.Schedule_Lighting.default()
-        new_obj.loads = PHX.loads.Load_Lighting.default()
+        new_obj.schedule = PHX.programs.schedules.Schedule_Lighting.default()
+        new_obj.loads = PHX.programs.loads.Load_Lighting.default()
 
         cls._default = new_obj
 

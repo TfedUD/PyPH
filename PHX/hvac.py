@@ -6,7 +6,6 @@ PHX Basic HVAC Classes
 """
 
 from collections import defaultdict
-
 import PHX._base
 
 
@@ -107,43 +106,6 @@ class HVAC_System(PHX._base._Base):
 
         self.lZoneCover.append(new_coverage)
 
-    def add_zone_ventilators_to_system(self, _zones):
-        # type: (list[PHX.bldg_segment.Zone]) -> None
-        """Adds all the Ventilators and Distribution from a PHX-Zone's Spaces to the HVAC-System Device list
-
-        Arguments:
-        ----------
-            * _zones (list[PHX.bldg_segment.Zone]): The Zone/Zones to get ventilators from.
-        """
-
-        if not isinstance(_zones, list):
-            _zones = [_zones]
-
-        # Pull the ventilator out of the space.
-        for zone in _zones:
-            for space in zone.spaces:
-                self.add_devices_to_system(space.ventilation.system.ventilator)
-
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_System(cls, _dict)
-
-
-class HVAC(PHX._base._Base):
-    def __init__(self):
-        super(HVAC, self).__init__()
-        self.lSystem = [HVAC_System()]
-
-    @property
-    def default_system(self):
-        return self.lSystem[0]
-
-    def add_system(self, _systems):
-        # type: (HVAC_System) -> None
-        """Add a new HVAC System to the collection"""
-
-        if not isinstance(_systems, list):
-            _systems = [_systems]
-
-        for sys in _systems:
-            self.lSystem.append(sys)

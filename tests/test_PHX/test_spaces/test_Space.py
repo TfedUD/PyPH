@@ -1,5 +1,5 @@
 import PHX.spaces
-import PHX.ventilation
+import PHX.programs.ventilation
 import pytest
 
 
@@ -86,7 +86,7 @@ def test_set_Space_ventilation(flr_seg_301_with_geometry_a):
     assert vol_1 in sp_1.volumes
 
     # -- Set the ventilation at the Space level
-    vent_1 = PHX.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.SpaceVentilation()
     sp_1.ventilation = vent_1
 
     # -- Should ripple down through all the sub-elements of the Space

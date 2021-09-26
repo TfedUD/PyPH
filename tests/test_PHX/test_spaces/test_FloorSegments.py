@@ -1,5 +1,5 @@
 import PHX.spaces
-import PHX.ventilation
+import PHX.programs.ventilation
 import pytest
 
 # ---- Floor Segments
@@ -7,7 +7,7 @@ import pytest
 def test_floor_segment_basics():
     # -- Make a Floor segment
     seg_1 = PHX.spaces.FloorSegment()
-    vent_1 = PHX.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.SpaceVentilation()
 
     seg_1.weighting_factor = 1.0
     seg_1.space_name = "A First Segment"
@@ -21,7 +21,7 @@ def test_floor_segment_basics():
 
     # -- Make another one
     seg_2 = PHX.spaces.FloorSegment()
-    vent_2 = PHX.ventilation.SpaceVentilation()
+    vent_2 = PHX.programs.ventilation.SpaceVentilation()
 
     seg_2.weighting_factor = 1.0
     seg_2.space_name = "A First Segment"

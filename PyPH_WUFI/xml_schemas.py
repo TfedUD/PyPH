@@ -286,20 +286,20 @@ def _Zone(_obj):
             ).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", _obj.spec_heat_cap, "unit", "Wh/m²K"),
-        PyPH_WUFI.xml_node.XML_List(
-            "RoomsVentilation",
-            [
-                PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i, "_RoomVentilation")
-                for i, _ in enumerate(_obj.spaces)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "LoadsPersonsPH",
-            [
-                PyPH_WUFI.xml_node.XML_Object("LoadPerson", _, "index", i, "_RoomLoads_Occupancy")
-                for i, _ in enumerate(_obj.spaces)
-            ],
-        ),
+        # PyPH_WUFI.xml_node.XML_List(
+        #     "RoomsVentilation",
+        #     [
+        #         PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i, "_RoomVentilation")
+        #         for i, _ in enumerate(_obj.spaces)
+        #     ],
+        # ),
+        # PyPH_WUFI.xml_node.XML_List(
+        #     "LoadsPersonsPH",
+        #     [
+        #         PyPH_WUFI.xml_node.XML_Object("LoadPerson", _, "index", i, "_RoomLoads_Occupancy")
+        #         for i, _ in enumerate(_obj.spaces)
+        #     ],
+        # ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",
             [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.appliances)],
@@ -816,7 +816,6 @@ def _BldgSegment(_obj):
         PyPH_WUFI.xml_node.XML_Object("Building", tbuilding_container),
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
-        PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.HVAC),
         PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
     ]
 
@@ -862,8 +861,8 @@ def _ProjectData(_obj):
 
 
 def _Project(_obj):
-    util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_vent_utilization_patterns_from_zones(_obj.zones)
-    util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_utilization_patterns_from_zones(_obj.zones)
+    util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_Vent_Schdeules_from_zones(_obj.zones)
+    util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_schedules_from_zones(_obj.zones)
 
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),

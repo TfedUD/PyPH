@@ -1,6 +1,13 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""
+PHX Program: Ventilation Classes
+"""
+
 import PHX._base
-import PHX.schedules
-import PHX.loads
+import PHX.programs.schedules
+import PHX.programs.loads
 import PHX.ventilation_components
 import PHX.hvac
 import PHX.serialization.from_dict
@@ -15,8 +22,8 @@ class SpaceVentilation(PHX._base._Base):
         super(SpaceVentilation, self).__init__()
         self.id = self._count
         self.name = ""
-        self.loads = PHX.loads.Load_Ventilation()
-        self.schedule = PHX.schedules.Schedule_Ventilation()
+        self.loads = PHX.programs.loads.Load_Ventilation()
+        self.schedule = PHX.programs.schedules.Schedule_Ventilation()
         self.system = PHX.ventilation_components.Ventilation_System()
 
     @classmethod
@@ -27,8 +34,8 @@ class SpaceVentilation(PHX._base._Base):
         new_obj = cls()
 
         new_obj.name = "_default_space_ventialtion_"
-        new_obj.schedule = PHX.schedules.Schedule_Ventilation.default()
-        new_obj.loads = PHX.loads.Load_Ventilation.default()
+        new_obj.schedule = PHX.programs.schedules.Schedule_Ventilation.default()
+        new_obj.loads = PHX.programs.loads.Load_Ventilation.default()
         new_obj.system = PHX.ventilation_components.Ventilation_System.default()
 
         cls._default = new_obj

@@ -2,7 +2,7 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Program Schedule Classes
+PHX Program: Schedule Classes
 """
 
 import PHX._base

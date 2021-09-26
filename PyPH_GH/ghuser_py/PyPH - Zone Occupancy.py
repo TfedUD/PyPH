@@ -1,22 +1,22 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-# 
+#
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-# 
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
-# PyPH is free software; you can redistribute it and/or modify 
-# it under the terms of the GNU General Public License as published 
-# by the Free Software Foundation; either version 3 of the License, 
-# or (at your option) any later version. 
-# 
+#
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
+# PyPH is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 3 of the License,
+# or (at your option) any later version.
+#
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
-# 
+#
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-# 
+#
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
@@ -58,32 +58,34 @@ import Grasshopper as gh
 import PyPH_Rhino.gh_io
 import LBT_Utils
 import PHX
-import PHX.occupancy
+import PHX.programs.occupancy
 
 # --
 import PyPH_GH._component_info_
+
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Zone Occupancy"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 19, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 19, 2021")
 
 if DEV:
     reload(PyPH_Rhino.gh_io)
     reload(LBT_Utils)
-    reload(PHX.occupancy)
+    reload(PHX.programs.occupancy)
     reload(PHX.serialization.to_dict)
     reload(PHX.serialization.from_dict)
-    
-# Go through and set the occupancy on each HB room, try and get i from list, 
+
+# Go through and set the occupancy on each HB room, try and get i from list,
 # if none input, default to the first one in the list of inputs
 
+
 def clean_get(IGH, _in, _i, _default=None):
-    #type: (IGH, list, int, Any) -> None
+    # type: (IGH, list, int, Any) -> None
     """
     Allow list inputs, if it can, use the current list index
     otherwise, try and use th first list input.  If none, return default
     """
-    
+
     try:
         input = _in[i]
     except IndexError:
@@ -91,30 +93,32 @@ def clean_get(IGH, _in, _i, _default=None):
             input = _in[0]
         except IndexError:
             input = _default
-    
+
     return PyPH_Rhino.gh_io.input_to_int(IGH, input, _default)
 
 
 # -- GH Interface
-IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
+IGH = PyPH_Rhino.gh_io.IGH(ghdoc, ghenv, sc, rh, rs, ghc, gh)
 
 HB_rooms_ = []
 for i, room in enumerate(_HB_rooms):
-    if not room: continue
-    
+    if not room:
+        continue
+
     new_hb_room = room.duplicate()
-    
+
     # -- Build a new occupancy object
-    occupancy = PHX.occupancy.ZoneOccupancy()
-    
+    occupancy = PHX.programs.occupancy.ZoneOccupancy()
+
     # -- Get the input data
     occupancy.num_bedrooms = clean_get(IGH, num_bedrooms_, i, 1)
     occupancy.num_occupants = clean_get(IGH, num_occupants_, i, 0)
     occupancy.num_dwelling_units = clean_get(IGH, num_dwelling_units_, i, 0)
-    
+
     # -- Add the occupancy dict to the HB-Room
     occ_dict = occupancy.to_dict()
-    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                    occ_dict, 'zone_occupancy', _write_mode='overwrite')
-    
+    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(
+        new_hb_room, occ_dict, "zone_occupancy", _write_mode="overwrite"
+    )
+
     HB_rooms_.append(new_hb_room)

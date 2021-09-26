@@ -2,7 +2,7 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Program Load Classes
+PHX Program: Load Classes
 """
 
 import PHX._base

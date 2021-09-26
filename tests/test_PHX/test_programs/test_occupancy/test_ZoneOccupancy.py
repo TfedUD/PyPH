@@ -1,20 +1,20 @@
-import PHX.occupancy
+import PHX.programs.occupancy
 
 
 def test_ZoneOccupancy_count(reset_occupancies):
-    zo1 = PHX.occupancy.ZoneOccupancy()
-    zo2 = PHX.occupancy.ZoneOccupancy()
+    zo1 = PHX.programs.occupancy.ZoneOccupancy()
+    zo2 = PHX.programs.occupancy.ZoneOccupancy()
 
     assert zo1.id != zo2.id
 
 
 def test_ZoneOccupancy_equal(reset_occupancies):
-    zo1 = PHX.occupancy.ZoneOccupancy()
+    zo1 = PHX.programs.occupancy.ZoneOccupancy()
     zo1.num_occupants = 12
     zo1.num_bedrooms = 157
     zo1.num_dwelling_units = 345
 
-    zo2 = PHX.occupancy.ZoneOccupancy()
+    zo2 = PHX.programs.occupancy.ZoneOccupancy()
     zo2.num_occupants = 12
     zo2.num_bedrooms = 157
     zo2.num_dwelling_units = 345
@@ -23,8 +23,8 @@ def test_ZoneOccupancy_equal(reset_occupancies):
 
 
 def test_ZoneOccupancy_unequal(reset_occupancies):
-    zo1 = PHX.occupancy.ZoneOccupancy()
-    zo2 = PHX.occupancy.ZoneOccupancy()
+    zo1 = PHX.programs.occupancy.ZoneOccupancy()
+    zo2 = PHX.programs.occupancy.ZoneOccupancy()
 
     assert zo1 == zo2
 
@@ -54,8 +54,8 @@ def test_ZoneOccupancy_unequal(reset_occupancies):
 
 
 def test_ZoneOccupancy_add(reset_occupancies):
-    zo1 = PHX.occupancy.ZoneOccupancy()
-    zo2 = PHX.occupancy.ZoneOccupancy()
+    zo1 = PHX.programs.occupancy.ZoneOccupancy()
+    zo2 = PHX.programs.occupancy.ZoneOccupancy()
 
     zo1.num_occupants = 12
     zo2.num_occupants = 13

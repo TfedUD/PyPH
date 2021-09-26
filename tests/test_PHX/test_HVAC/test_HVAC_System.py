@@ -1,7 +1,7 @@
 import PHX.hvac
 import PHX.bldg_segment
 import PHX.spaces
-import PHX.ventilation
+import PHX.programs.ventilation
 import PHX.ventilation_components
 import pytest
 
@@ -78,7 +78,7 @@ def test_add_zone_with_ventilator_to_system(reset_hvac):
     new_system = PHX.ventilation_components.Ventilation_System()
     new_system.ventilator = new_ventilator
 
-    new_space_vent = PHX.ventilation.SpaceVentilation()
+    new_space_vent = PHX.programs.ventilation.SpaceVentilation()
     new_space_vent.system = new_system
 
     # -- Build the space, add the ventilation systme with the Ventilator
