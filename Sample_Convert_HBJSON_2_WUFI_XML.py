@@ -58,9 +58,8 @@ for room in hb_model.rooms:
 project_1 = PHX.project.Project()
 
 # ------------------------------------------------------------------------------
-# --- Build all the Rooms and Zones first. The Zones need to all be in place so that the Component's exterior
+# --- Build all the Rooms and Thermal-Zones first. The Thermal-Zones need to all be in place so that the Component's exterior
 # --- exposures for any adjacent-surfaces can be set with the proper ID number when building Components.
-
 for room in hb_model.rooms:
     phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
@@ -73,16 +72,17 @@ for room in hb_model.rooms:
 
     phx_BldgSegment.HVAC_system.add_zone_to_system_coverage(phx_Zone)
 
-print("- " * 5)
-print(project_1)
-for bldg_seg in project_1.building_segments:
-    print(" ", bldg_seg)
-    for zone in bldg_seg.zones:
-        print("  ", zone)
-        for room in zone.rooms:
-            print("   ", room)
-            for space in room.spaces:
-                print("    ", space)
+# --
+# print("- " * 5)
+# print(project_1)
+# for bldg_seg in project_1.building_segments:
+#     print(" ", bldg_seg)
+#     for zone in bldg_seg.zones:
+#         print("  ", zone, "| Zone id:", zone.id)
+#         for room in zone.rooms:
+#             print("   ", room)
+#             for space in room.spaces:
+#                 print("    ", space)
 
 # --
 # host_blg_segment.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
@@ -95,30 +95,30 @@ for bldg_seg in project_1.building_segments:
 
 # # # --- Build all the Components (Surfaces, Windows)
 # # # ----------------------------------------------------------------------------
-# for room in hb_model.rooms:
-#     host_blg_segment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
-#     zone = host_blg_segment.get_zone_by_identifier(room.identifier)
+for room in hb_model.rooms:
+    phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
+    phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
 
-#     for face in room.faces:
-#         # -- Build the opaque Components
-#         opaque_compo = create_new_opaque_component_from_hb_face(face)
-#         opaque_compo.set_host_zone_name(zone)
-#         # opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
-#         opaque_compo = set_compo_exterior_exposure_from_hb_face(opaque_compo, face, host_blg_segment.zones)
-#         opaque_compo = set_compo_colors_by_hb_face(opaque_compo, face)
-#         opaque_compo = set_compo_assembly_from_hb_face(opaque_compo, face, assmbly_collection)
+    for face in room.faces:
+        # -- Build the opaque Components
+        opaque_compo = create_new_opaque_component_from_hb_face(face)
+        opaque_compo.set_host_zone_name(phx_Zone)
+        # opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
+        opaque_compo = set_compo_exterior_exposure_from_hb_face(opaque_compo, face, phx_BldgSegment.zones)
+        opaque_compo = set_compo_colors_by_hb_face(opaque_compo, face)
+        opaque_compo = set_compo_assembly_from_hb_face(opaque_compo, face, assmbly_collection)
 
-#         # -- Add any Apertures found on the face
-#         for aperture in face.apertures:
-#             host_polygon_identifier = opaque_compo.polygons[0].identifier
-#             window_compo = create_new_window_component_from_hb_aperture(aperture, zone)
-#             window_compo = set_compo_window_type_from_hb_aperture(window_compo, aperture, window_type_collection)
-#             opaque_compo.add_window_as_child(window_compo, host_polygon_identifier)
+        # -- Add any Apertures found on the face
+        for aperture in face.apertures:
+            host_polygon_identifier = opaque_compo.polygons[0].identifier
+            window_compo = create_new_window_component_from_hb_aperture(aperture, phx_Zone)
+            window_compo = set_compo_window_type_from_hb_aperture(window_compo, aperture, window_type_collection)
+            opaque_compo.add_window_as_child(window_compo, host_polygon_identifier)
 
-#             host_blg_segment.add_components(window_compo)
+            phx_BldgSegment.add_components(window_compo)
 
-#         # -- Pack the new Polygons & Components onto the BldgSegment.
-#         host_blg_segment.add_components(opaque_compo)
+        # -- Pack the new Polygons & Components onto the BldgSegment.
+        phx_BldgSegment.add_components(opaque_compo)
 
 
 # # --- Clean up the BuildingSegments
@@ -130,8 +130,8 @@ for bldg_seg in project_1.building_segments:
 #     seg.merge_components(by="assembly")
 
 # # ----------------------------------------------------------------------------
-# project_1.add_assemblies_from_collection(assmbly_collection)
-# project_1.add_window_types_from_collection(window_type_collection)
+project_1.add_assemblies_from_collection(assmbly_collection)
+project_1.add_window_types_from_collection(window_type_collection)
 
 # # --- Output the new Project to an XML file for WUFI
 # # ----------------------------------------------------------------------------

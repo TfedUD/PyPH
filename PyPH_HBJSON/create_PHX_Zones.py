@@ -10,15 +10,11 @@ import PHX.summer_ventilation
 import PHX.programs.schedules
 import PHX.programs.occupancy
 import PHX.appliances
-import LBT_Utils.boundary_conditions
 
 # -- Thermal Zones
 # ------------------------------------------------------------------------------
 def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segment.Zone:
     """Creates a new PHX-Zone from a single Honeybee 'Room'.
-
-    Note: This function does not create the 'PHX-Spaces' within the PHX-Zone. Use
-    create_PHX_Zones.add_Spaces_from_HB_room() in order to add Spaces if desired.
 
     Arguments:
     ----------
@@ -57,10 +53,15 @@ def get_host_PHX_Zone(
     If none found by that ID, or no ID input, return a new PHX-Zone based on the HB-Room.
     """
 
+    # First, see if there is any user-defined Zone id
     zone_identifier = (_hb_room.user_data or {}).get("phx", {}).get("zone_id", {}).get("identifier", None)
     zone = _bldg_segment.get_zone_by_identifier(zone_identifier)
     if not zone:
-        zone = create_PHX_Zone_from_HB_room(_hb_room)
+        # -- If not, try and use the Room's identifier to find any existing Zone
+        zone = _bldg_segment.get_zone_by_identifier(_hb_room.identifier)
+        if not zone:
+            # -- If it still isn't found, make a new one
+            zone = create_PHX_Zone_from_HB_room(_hb_room)
 
     return zone
 

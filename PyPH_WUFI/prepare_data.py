@@ -10,7 +10,7 @@ def build_NonRes_schedules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
     Arguments:
     ----------
-        _zones (list[PHX.bldg_segment.Zone]): A list of the zones to collect the
+        _zones (list[PHX.bldg_segment.Zone]): A list of the PHX-Zones to collect the
             utilization patterns from.
 
     Returns:
@@ -34,11 +34,11 @@ def build_NonRes_schedules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
 
 def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
-    """Collects and builds the Ventilation Utilization Patterns found on the Zone's Spaces
+    """Collects and builds the Ventilation Utilization Patterns found on the Zone's HB-Rooms
 
     Arguments:
     ----------
-        _zones (list[PHX.bldg_segment.Zone]): A list of the zones to collect the
+        _zones (list[PHX.bldg_segment.Zone]): A list of the PHX-Zones to collect the
             utilization patterns from.
 
     Returns:
@@ -56,7 +56,7 @@ def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
             util_pattern.name = room.ventilation.schedule.name
             util_pattern.operating_days = room.ventilation.schedule.operating_days
-            util_pattern.operating_weeks = room.ventilation.schedule.operating_days
+            util_pattern.operating_weeks = room.ventilation.schedule.operating_weeks
             util_pattern.utilization_rates = room.ventilation.schedule.utilization_rates
 
             key = room.ventilation.schedule.identifier

@@ -311,6 +311,9 @@ class Room(PHX._base._Base):
         for space in _spaces:
             self.spaces.append(space)
 
+    def __str__(self):
+        return "PHX_{}: {}".format(self.__class__.__name__, self.name)
+
 
 class Zone(PHX._base._Base):
     """A Thermal Zone. Contains one or more Rooms and relevant Zone-level attributes
@@ -416,8 +419,8 @@ class Zone(PHX._base._Base):
         )
 
         # -- Extend rooms ventilation
-        new_obj.spaces.extend(self.spaces)
-        new_obj.spaces.extend(other.spaces)
+        new_obj.rooms.extend(self.rooms)
+        new_obj.rooms.extend(other.rooms)
         new_obj.source_zone_identifiers.extend([self.identifier, other.identifier])
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)

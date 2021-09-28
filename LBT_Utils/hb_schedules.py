@@ -6,6 +6,7 @@
 from honeybee.typing import clean_and_id_ep_string
 from honeybee_energy.schedule.ruleset import ScheduleRuleset
 from honeybee_energy.lib.scheduletypelimits import schedule_type_limit_by_identifier
+from ladybug.dt import Date
 
 
 def calc_utilization_factor(_HB_sched):
@@ -43,3 +44,16 @@ def create_hb_constant_schedule(_name, _type_limit="Fractional", _value=1):
     schedule.display_name = _name
 
     return schedule
+
+
+def hb_schedule_to_data(_schedule_object):
+    """Get the Honeybee Schedule values as Data, using default inputs"""
+
+    if not _schedule_object:
+        return None
+
+    week_start_day = "Sunday"
+    start_date, end_date, timestep = Date(1, 1), Date(12, 31), 1
+    holidays = None
+
+    return _schedule_object.data_collection(timestep, start_date, end_date, week_start_day, holidays, leap_year=False)

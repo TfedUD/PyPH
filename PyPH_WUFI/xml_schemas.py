@@ -40,19 +40,22 @@ def _WindowType(_obj):
 
 # - Utilization Patterns
 def _UtilizationPattern_Vent(_obj):
+    tol = 2
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.operating_days),
         PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.operating_weeks),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", _obj.utilization_rates.maximum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", _obj.utilization_rates.maximum.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", _obj.utilization_rates.standard.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Standard_PDF", _obj.utilization_rates.standard.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", _obj.utilization_rates.basic.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", _obj.utilization_rates.basic.frac_of_design_airflow),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _obj.utilization_rates.minimum.daily_op_sched),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", _obj.utilization_rates.minimum.frac_of_design_airflow),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", round(_obj.utilization_rates.maximum.daily_op_sched, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", round(_obj.utilization_rates.maximum.frac_of_design_airflow, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", round(_obj.utilization_rates.standard.daily_op_sched, tol)),
+        PyPH_WUFI.xml_node.XML_Node(
+            "Standard_PDF", round(_obj.utilization_rates.standard.frac_of_design_airflow, tol)
+        ),
+        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", round(_obj.utilization_rates.basic.daily_op_sched, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", round(_obj.utilization_rates.basic.frac_of_design_airflow, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_obj.utilization_rates.minimum.daily_op_sched, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", round(_obj.utilization_rates.minimum.frac_of_design_airflow, tol)),
     ]
 
 
