@@ -61,5 +61,6 @@ def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
             key = room.ventilation.schedule.identifier
             util_collection.add_to_collection(util_pattern, _key=key, _reset_count=True)
+            room.ventilation.schedule.id = util_pattern.id  # Reset the Room Vent id to match
 
     return util_collection

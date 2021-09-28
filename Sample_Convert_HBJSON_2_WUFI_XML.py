@@ -27,6 +27,7 @@ from PyPH_HBJSON.create_PHX_assemblies import (
 import PyPH_HBJSON.create_PHX_BldgSegments
 import PyPH_HBJSON.create_PHX_Zones
 import PyPH_HBJSON.create_PHX_Rooms
+import PyPH_HBJSON.create_PHX_Spaces
 import PyPH_HBJSON.infiltration
 
 # --- Note: Path format in MAC OS (forward slash)
@@ -64,7 +65,7 @@ for room in hb_model.rooms:
     phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
     phx_Room = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Room_from_HB_room(room)
-    phx_Spaces = PyPH_HBJSON.create_PHX_Zones.create_PHX_Spaces_from_HB_room(room)
+    phx_Spaces = PyPH_HBJSON.create_PHX_Spaces.create_PHX_Spaces_from_HB_room(room)
 
     phx_Room.add_spaces(phx_Spaces)
     phx_Zone.add_rooms(phx_Room)

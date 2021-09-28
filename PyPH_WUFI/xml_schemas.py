@@ -228,12 +228,13 @@ def _Component(_obj):
 
 
 def _RoomVentilation(_obj):
+    print(_obj.ventilation.schedule.id)
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
         PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _obj.type).xml_data),
-        PyPH_WUFI.xml_node.XML_Node("AreaRoom", _obj.floor_area_weighted, "unit", "m²"),
-        PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", _obj.clear_height, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_obj.floor_area_weighted, TOL), "unit", "m²"),
+        PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_obj.clear_height, TOL), "unit", "m"),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.schedule.id),
         PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
@@ -274,11 +275,24 @@ def _RoomLoads_Occupancy(_obj):
 def _Zone(_obj):
     def _zone_spaces_with_room_program(_zone):
         # type: (PHX.bldg_segment.Zone) -> list[PHX.spaces.Space]
-        """Returns a list of Spaces, with the Room's Program objects to the Space"""
+        """Returns a list of Spaces, with the Room's Program objects added to the Spaces
+
+        This has to be done since the Program only lives at the Room level, and all Spaces
+        need to inherit from the Room.
+
+        Arguments:
+        ----------
+            * _zone (PHX.bldg_segment.Zone): The Zone to get the Rooms and Spaces from
+
+        Returns:
+        --------
+            * (list[PHX.spaces.Space]) A flat list of all the spaces, with the Room's
+                Program objects added.
+        """
 
         spaces = []
         for room in _zone.rooms:
-            for space in _zone.spaces:
+            for space in room.spaces:
                 # -- Add the Room's Program info to the Space
                 space.ventilation = room.ventilation
                 space.lighting = room.lighting
@@ -294,25 +308,25 @@ def _Zone(_obj):
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Zone::GrossVolume_Selection", _obj.volume_gross_selection).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("GrossVolume", _obj.volume_gross, "unit"),
+        PyPH_WUFI.xml_node.XML_Node("GrossVolume", round(_obj.volume_gross, TOL), "unit"),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Zone::NetVolume_Selection", _obj.volume_net_selection).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("NetVolume", _obj.volume_net, "unit"),
+        PyPH_WUFI.xml_node.XML_Node("NetVolume", round(_obj.volume_net, TOL), "unit"),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Zone::FloorArea_Selection", _obj.floor_area_selection).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("FloorArea", _obj.floor_area, "unit"),
+        PyPH_WUFI.xml_node.XML_Node("FloorArea", round(_obj.floor_area, TOL), "unit"),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Zone::ClearanceHeight_Selection", _obj.clearance_height_selection).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("ClearanceHeight", _obj.clearance_height, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("ClearanceHeight", round(_obj.clearance_height, TOL), "unit", "m"),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection(
                 "Zone::SpecificHeatCapacity_Selection", _obj.spec_heat_cap_selection
             ).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", _obj.spec_heat_cap, "unit", "Wh/m²K"),
+        PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", round(_obj.spec_heat_cap, 0), "unit", "Wh/m²K"),
         PyPH_WUFI.xml_node.XML_List(
             "RoomsVentilation",
             [
