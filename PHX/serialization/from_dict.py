@@ -11,7 +11,7 @@ ie: _Floor calls _FloorSegment.to_dict()
 
 import PHX
 import PHX.geometry
-import PHX.hvac
+import PHX.hvac_system
 import PHX.spaces
 import PHX.programs.schedules
 import PHX.programs.loads
@@ -45,12 +45,11 @@ def _SpaceLighting(_cls, _input_dict):
     return new_obj
 
 
-def _SpaceVentilation(_cls, _input_dict):
+def _RoomVentilation(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
-    new_obj.system = PHX.ventilation_components.Ventilation_System.from_dict(_input_dict.get("system", {}))
     new_obj.schedule = PHX.programs.schedules.Schedule_Ventilation.from_dict(_input_dict.get("schedule", {}))
     new_obj.loads = PHX.programs.loads.Load_Ventilation.from_dict(_input_dict.get("loads", {}))
 
@@ -227,6 +226,44 @@ def _Polygon(_cls, _input_dict):
     return new_obj
 
 
+# -- HVAC: System / General
+def _HVAC_Device(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.Name = _input_dict.get("Name")
+    new_obj.SystemType = _input_dict.get("SystemType")
+    new_obj.TypeDevice = _input_dict.get("TypeDevice")
+    new_obj.UsedFor_Heating = _input_dict.get("UsedFor_Heating")
+    new_obj.UsedFor_DHW = _input_dict.get("UsedFor_DHW")
+    new_obj.UsedFor_Cooling = _input_dict.get("UsedFor_Cooling")
+    new_obj.UsedFor_Ventilation = _input_dict.get("UsedFor_Ventilation")
+    new_obj.UsedFor_Humidification = _input_dict.get("UsedFor_Humidification")
+    new_obj.UsedFor_Dehumidification = _input_dict.get("UsedFor_Dehumidification")
+    # new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
+    new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
+    new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
+
+    return new_obj
+
+
+def _HVAC_System(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.n = _input_dict.get("n")
+    new_obj.typeSys = _input_dict.get("typeSys")
+    new_obj.lZoneCover = _input_dict.get("lZoneCover")
+    new_obj._device_dict = _input_dict.get("_device_dict")
+    new_obj.distrib = _input_dict.get("distrib")
+    new_obj.suppDev = _input_dict.get("suppDev")
+    new_obj.PHdistrib = _input_dict.get("PHdistrib")
+
+    return new_obj
+
+
 # -- HVAC: Ventilation
 def _SummerVent(_cls, _input_dict):
     new_obj = _cls()
@@ -312,7 +349,7 @@ def _Ventilator_PH_Parameters(_cls, _input_dict):
     return new_obj
 
 
-def _Ventilator(_cls, _input_dict):
+def _HVAC_Ventilator(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
@@ -332,44 +369,6 @@ def _Ventilator(_cls, _input_dict):
     new_obj.PH_Parameters = PHX.ventilation_components.Ventilator_PH_Parameters.from_dict(
         _input_dict.get("PH_Parameters", {})
     )
-
-    return new_obj
-
-
-# -- HVAC: System / General
-def _HVAC_Device(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.id = _input_dict.get("id")
-    new_obj.Name = _input_dict.get("Name")
-    new_obj.SystemType = _input_dict.get("SystemType")
-    new_obj.TypeDevice = _input_dict.get("TypeDevice")
-    new_obj.UsedFor_Heating = _input_dict.get("UsedFor_Heating")
-    new_obj.UsedFor_DHW = _input_dict.get("UsedFor_DHW")
-    new_obj.UsedFor_Cooling = _input_dict.get("UsedFor_Cooling")
-    new_obj.UsedFor_Ventilation = _input_dict.get("UsedFor_Ventilation")
-    new_obj.UsedFor_Humidification = _input_dict.get("UsedFor_Humidification")
-    new_obj.UsedFor_Dehumidification = _input_dict.get("UsedFor_Dehumidification")
-    # new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
-    new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
-    new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
-
-    return new_obj
-
-
-def _HVAC_System(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.identifier = _input_dict.get("identifier")
-    new_obj.id = _input_dict.get("id")
-    new_obj.n = _input_dict.get("n")
-    new_obj.typeSys = _input_dict.get("typeSys")
-    new_obj.lZoneCover = _input_dict.get("lZoneCover")
-    new_obj._device_dict = _input_dict.get("_device_dict")
-    new_obj.distrib = _input_dict.get("distrib")
-    new_obj.suppDev = _input_dict.get("suppDev")
-    new_obj.PHdistrib = _input_dict.get("PHdistrib")
 
     return new_obj
 

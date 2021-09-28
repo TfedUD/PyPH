@@ -1,7 +1,10 @@
 import PHX.programs.ventilation
 import PHX.programs.loads
 import PHX.programs.schedules
+import PHX.hvac_components
+import PHX.bldg_segment
 import LBT_Utils.program
+
 import honeybee.room
 
 
@@ -14,7 +17,7 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         * _hb_room (honeybee.room.Room): The Honeybee room to build the Ventilation object from.
     """
 
-    phx_Ventilation = PHX.programs.ventilation.SpaceVentilation()
+    phx_Ventilation = PHX.programs.ventilation.RoomVentilation()
     phx_Ventilation.name = _hb_room.properties.energy.ventilation.display_name
     phx_Ventilation.identifier = _hb_room.properties.energy.ventilation.identifier
     phx_Ventilation.loads.identifier = _hb_room.properties.energy.ventilation.identifier
@@ -83,3 +86,11 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         phx_Ventilation.schedule.utilization_rates = new_util_rates
 
     return phx_Ventilation
+
+
+def get_ventilator_from_hb_room(_hb_room: honeybee.room.Room):
+    ventilator = PHX.hvac_components.HVAC_Ventilator()
+    ventilator.Name = "Room Ventilator"
+    ventilator.UsedFor_Ventilation = True
+
+    return ventilator

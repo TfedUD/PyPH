@@ -86,7 +86,7 @@ def test_set_Space_ventilation(flr_seg_301_with_geometry_a):
     assert vol_1 in sp_1.volumes
 
     # -- Set the ventilation at the Space level
-    vent_1 = PHX.programs.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.RoomVentilation()
     sp_1.ventilation = vent_1
 
     # -- Should ripple down through all the sub-elements of the Space
@@ -101,8 +101,8 @@ def test_set_Space_ventilation_error():
     sp_1 = PHX.spaces.Space()
 
     # -- Set the ventilation at the Space level
-    with pytest.raises(PHX.spaces.SpaceVentilationInputError):
-        sp_1.ventilation = "Not a SpaceVentilation Object"
+    with pytest.raises(PHX.spaces.RoomVentilationInputError):
+        sp_1.ventilation = "Not a RoomVentilation Object"
 
 
 def test_Space_floor_area_weighted(flr_seg_301_with_geometry_a):

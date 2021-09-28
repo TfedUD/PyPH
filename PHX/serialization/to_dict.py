@@ -28,12 +28,11 @@ def _SpaceLighting(_obj):
     return d
 
 
-def _SpaceVentilation(_obj):
+def _RoomVentilation(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
-    d.update({"system": _obj.system.to_dict()})
     d.update({"schedule": _obj.schedule.to_dict()})
     d.update({"loads": _obj.loads.to_dict()})
 
@@ -208,6 +207,44 @@ def _Polygon(_obj):
     return d
 
 
+# -- HVAC: System / General
+def _HVAC_Device(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"Name": _obj.Name})
+    d.update({"SystemType": _obj.SystemType})
+    d.update({"TypeDevice": _obj.TypeDevice})
+    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
+    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
+    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
+    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
+    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
+    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
+    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
+
+    return d
+
+
+def _HVAC_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"n": _obj.n})
+    d.update({"typeSys": _obj.typeSys})
+    d.update({"lZoneCover": _obj.lZoneCover})
+    d.update({"_device_dict": _obj._device_dict})
+    d.update({"distrib": _obj.distrib})
+    d.update({"suppDev": _obj.suppDev})
+    d.update({"PHdistrib": _obj.PHdistrib})
+
+    return d
+
+
 # -- HVAC: Ventilation
 def _SummerVent(_obj):
     d = {}
@@ -291,7 +328,7 @@ def _Ventilator_PH_Parameters(_obj):
     return d
 
 
-def _Ventilator(_obj):
+def _HVAC_Ventilator(_obj):
     d = {}
 
     d.update({"id": _obj.id})
@@ -309,44 +346,6 @@ def _Ventilator(_obj):
     d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
     d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
     d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
-
-    return d
-
-
-# -- HVAC: System / General
-def _HVAC_Device(_obj):
-    d = {}
-
-    d.update({"id": _obj.id})
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"Name": _obj.Name})
-    d.update({"SystemType": _obj.SystemType})
-    d.update({"TypeDevice": _obj.TypeDevice})
-    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
-    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
-    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
-    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
-    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
-    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
-    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
-    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
-
-    return d
-
-
-def _HVAC_System(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"id": _obj.id})
-    d.update({"n": _obj.n})
-    d.update({"typeSys": _obj.typeSys})
-    d.update({"lZoneCover": _obj.lZoneCover})
-    d.update({"_device_dict": _obj._device_dict})
-    d.update({"distrib": _obj.distrib})
-    d.update({"suppDev": _obj.suppDev})
-    d.update({"PHdistrib": _obj.PHdistrib})
 
     return d
 

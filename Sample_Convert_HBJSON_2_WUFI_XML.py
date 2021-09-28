@@ -28,6 +28,7 @@ import PyPH_HBJSON.create_PHX_BldgSegments
 import PyPH_HBJSON.create_PHX_Zones
 import PyPH_HBJSON.create_PHX_Rooms
 import PyPH_HBJSON.create_PHX_Spaces
+import PyPH_HBJSON.create_PHX_Ventilation
 import PyPH_HBJSON.infiltration
 
 # --- Note: Path format in MAC OS (forward slash)
@@ -71,19 +72,19 @@ for room in hb_model.rooms:
     phx_Zone.add_rooms(phx_Room)
     phx_BldgSegment.add_zones(phx_Zone)
 
+    # -- Mechanicals
     phx_BldgSegment.HVAC_system.add_zone_to_system_coverage(phx_Zone)
+    ventilator = PyPH_HBJSON.create_PHX_Ventilation.get_ventilator_from_hb_room(phx_Room)
+    phx_Room.equipment.ventilator = ventilator
+    phx_BldgSegment.HVAC_system.add_devices_to_system(ventilator)
 
-# --
-# host_blg_segment.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
+    # -- Infiltration Airflow (n50, q50)
+    room_infiltration_m3s = PyPH_HBJSON.infiltration.calc_HB_room_infiltration(room)
+    room_infiltration_m3h = room_infiltration_m3s * 3600
+    phx_BldgSegment.infiltration.annual_avg_airflow += room_infiltration_m3h
 
-# -- Figure out the Infiltration airflow / n50, q50
-# room_infiltration_m3s = PyPH_HBJSON.infiltration.calc_HB_room_infiltration(room)
-# room_infiltration_m3h = room_infiltration_m3s * 3600
-
-# host_blg_segment.infiltration.annual_avg_airflow += room_infiltration_m3h
-
-# # # --- Build all the Components (Surfaces, Windows)
-# # # ----------------------------------------------------------------------------
+# --- Build all the Components (Surfaces, Windows)
+# ----------------------------------------------------------------------------
 for room in hb_model.rooms:
     phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)

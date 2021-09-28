@@ -113,5 +113,5 @@ def test_set_ventilation_error():
     o = PHX.spaces.Floor()
 
     # -- Set the ventilation at the Space level
-    with pytest.raises(PHX.spaces.SpaceVentilationInputError):
-        o.ventilation = "Not a SpaceVentilation Object"
+    with pytest.raises(PHX.spaces.RoomVentilationInputError):
+        o.ventilation = "Not a RoomVentilation Object"

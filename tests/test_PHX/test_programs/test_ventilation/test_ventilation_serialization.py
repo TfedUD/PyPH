@@ -11,10 +11,10 @@ def test_Load_Ventilation_serialization(reset_ventilation):
     assert d == o2.to_dict()
 
 
-def test_SpaceVentilation_serialization(reset_ventilation):
-    o1 = PHX.programs.ventilation.SpaceVentilation()
+def test_RoomVentilation_serialization(reset_ventilation):
+    o1 = PHX.programs.ventilation.RoomVentilation()
     d = o1.to_dict()
 
-    o2 = PHX.programs.ventilation.SpaceVentilation.from_dict(d)
+    o2 = PHX.programs.ventilation.RoomVentilation.from_dict(d)
 
     assert d == o2.to_dict()

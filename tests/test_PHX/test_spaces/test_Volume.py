@@ -42,12 +42,12 @@ def test_Volume_attrs_from_Floor():
 
 def test_set_Volume_ventilation():
     v1 = PHX.spaces.Volume()
-    vent_1 = PHX.programs.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.RoomVentilation()
     v1.ventilation = vent_1
 
     # -- Before adding, the vents are different
     flr = PHX.spaces.Floor()
-    vent_2 = PHX.programs.ventilation.SpaceVentilation()
+    vent_2 = PHX.programs.ventilation.RoomVentilation()
     flr.ventilation = vent_2
     assert v1.ventilation != flr.ventilation
 
@@ -141,5 +141,5 @@ def test_set_ventilation_error():
     o = PHX.spaces.Volume()
 
     # -- Set the ventilation at the Space level
-    with pytest.raises(PHX.spaces.SpaceVentilationInputError):
-        o.ventilation = "Not a SpaceVentilation Object"
+    with pytest.raises(PHX.spaces.RoomVentilationInputError):
+        o.ventilation = "Not a RoomVentilation Object"

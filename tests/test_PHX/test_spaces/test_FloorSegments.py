@@ -7,7 +7,7 @@ import pytest
 def test_floor_segment_basics():
     # -- Make a Floor segment
     seg_1 = PHX.spaces.FloorSegment()
-    vent_1 = PHX.programs.ventilation.SpaceVentilation()
+    vent_1 = PHX.programs.ventilation.RoomVentilation()
 
     seg_1.weighting_factor = 1.0
     seg_1.space_name = "A First Segment"
@@ -21,7 +21,7 @@ def test_floor_segment_basics():
 
     # -- Make another one
     seg_2 = PHX.spaces.FloorSegment()
-    vent_2 = PHX.programs.ventilation.SpaceVentilation()
+    vent_2 = PHX.programs.ventilation.RoomVentilation()
 
     seg_2.weighting_factor = 1.0
     seg_2.space_name = "A First Segment"
@@ -76,5 +76,5 @@ def test_floor_segment_input_errors():
         seg_1.floor_area_gross = "not a floor area"
         seg_1.floor_area_gross = [1, 2, 3]
 
-    with pytest.raises(PHX.spaces.SpaceVentilationInputError):
+    with pytest.raises(PHX.spaces.RoomVentilationInputError):
         seg_1.ventilation = "not a ventilation object"

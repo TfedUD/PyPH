@@ -7,16 +7,16 @@ import pytest
 
 
 def test_hvac_zone_coverage(reset_hvac):
-    d1 = PHX.hvac.HVAC_System_ZoneCover()
-    d2 = PHX.hvac.HVAC_System_ZoneCover()
+    d1 = PHX.hvac_system.HVAC_System_ZoneCover()
+    d2 = PHX.hvac_system.HVAC_System_ZoneCover()
 
     assert d1 and d2
     assert d1 != d2
 
 
 def test_hvac_system(reset_hvac):
-    s1 = PHX.hvac.HVAC_System()
-    s2 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
+    s2 = PHX.hvac_system.HVAC_System()
 
     assert s1 and s2
     assert s1 != s2
@@ -24,37 +24,37 @@ def test_hvac_system(reset_hvac):
 
 
 def test_add_devices_to_system(reset_hvac):
-    d1 = PHX.hvac.HVAC_Device()
-    d2 = PHX.hvac.HVAC_Device()
-    d3 = PHX.hvac.HVAC_Device()
+    d1 = PHX.hvac_components.HVAC_Device()
+    d2 = PHX.hvac_components.HVAC_Device()
+    d3 = PHX.hvac_components.HVAC_Device()
 
-    s1 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
 
     s1.add_devices_to_system(d1)
-    assert len(s1.lDevice) == 1
-    assert d1 in s1.lDevice
+    assert len(s1.devices) == 1
+    assert d1 in s1.devices
 
     s1.add_devices_to_system([d2, d3])
-    assert len(s1.lDevice) == 3
-    assert d2 in s1.lDevice
-    assert d3 in s1.lDevice
+    assert len(s1.devices) == 3
+    assert d2 in s1.devices
+    assert d3 in s1.devices
 
     # verfiy no duplicates
     s1.add_devices_to_system(d1)
-    assert len(s1.lDevice) == 3
+    assert len(s1.devices) == 3
 
 
 def test_add_not_devices_to_system(reset_hvac):
-    s1 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
 
-    with pytest.raises(PHX.hvac.HVACSystemAddError):
+    with pytest.raises(PHX.hvac_system.HVACSystemAddError):
         s1.add_devices_to_system("Not a Device")
 
-    assert len(s1.lDevice) == 0
+    assert len(s1.devices) == 0
 
 
 def test_add_zone_to_coverage(reset_hvac):
-    s1 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
     z1 = PHX.bldg_segment.Zone()
 
     s1.add_zone_to_system_coverage(z1)
@@ -63,12 +63,12 @@ def test_add_zone_to_coverage(reset_hvac):
 
 
 def test_add_zone_with_no_ventilator_to_system(reset_hvac):
-    s1 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
     z1 = PHX.bldg_segment.Zone()
 
     # Add a Zone with no ventilators, and no spaces
     s1.add_zone_ventilators_to_system(z1)
-    assert len(s1.lDevice) == 0
+    assert len(s1.devices) == 0
 
 
 def test_add_zone_with_ventilator_to_system(reset_hvac):
@@ -78,7 +78,7 @@ def test_add_zone_with_ventilator_to_system(reset_hvac):
     new_system = PHX.ventilation_components.Ventilation_System()
     new_system.ventilator = new_ventilator
 
-    new_space_vent = PHX.programs.ventilation.SpaceVentilation()
+    new_space_vent = PHX.programs.ventilation.RoomVentilation()
     new_space_vent.system = new_system
 
     # -- Build the space, add the ventilation systme with the Ventilator
@@ -90,7 +90,7 @@ def test_add_zone_with_ventilator_to_system(reset_hvac):
     z1.add_spaces(sp1)
 
     # -- Build the HVAC System, add the zone's ventilator
-    s1 = PHX.hvac.HVAC_System()
+    s1 = PHX.hvac_system.HVAC_System()
     s1.add_zone_ventilators_to_system(z1)
-    assert len(s1.lDevice) == 1
-    assert new_ventilator in s1.lDevice
+    assert len(s1.devices) == 1
+    assert new_ventilator in s1.devices

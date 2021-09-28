@@ -2,11 +2,12 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Basic HVAC Classes
+PHX Basic HVAC-System Classes
 """
 
 from collections import defaultdict
 import PHX._base
+import PHX.hvac_components
 
 
 class HVACSystemAddError(Exception):
@@ -16,35 +17,6 @@ class HVACSystemAddError(Exception):
             "to the HVAC System list. Please add only HVAC Devices.".format(_in, type(_in))
         )
         super(HVACSystemAddError, self).__init__(self.message)
-
-
-class HVAC_Device(PHX._base._Base):
-
-    _count = 0
-
-    def __init__(self):
-        super(HVAC_Device, self).__init__()
-        self.id = self._count
-        self.Name = ""
-        self.SystemType = None
-        self.TypeDevice = None
-        self.UsedFor_Heating = False
-        self.UsedFor_DHW = False
-        self.UsedFor_Cooling = False
-        self.UsedFor_Ventilation = False
-        self.UsedFor_Humidification = False
-        self.UsedFor_Dehumidification = False
-        self.UseOptionalClimate = False
-        self.IdentNr_OptionalClimate = -1
-
-    def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable"""
-        cls._count += 1
-        return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
 
 
 class HVAC_System_ZoneCover(PHX._base._Base):
@@ -74,18 +46,18 @@ class HVAC_System(PHX._base._Base):
         self.PHdistrib = None
 
     @property
-    def lDevice(self):
+    def devices(self):
         return list(self._device_dict.values())
 
     def add_devices_to_system(self, _devices):
-        # type: (list[HVAC_Device]) -> None
+        # type: (list[PHX.hvac_components.HVAC_Device]) -> None
         """Adds any HVAC Devices to the HVAC System"""
 
         if not isinstance(_devices, list):
             _devices = [_devices]
 
         for d in _devices:
-            if not isinstance(d, HVAC_Device):
+            if not isinstance(d, PHX.hvac_components.HVAC_Device):
                 raise HVACSystemAddError(d)
 
             # -- Ensure no duplicates

@@ -228,7 +228,6 @@ def _Component(_obj):
 
 
 def _RoomVentilation(_obj):
-    print(_obj.ventilation.schedule.id)
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
@@ -236,7 +235,7 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_obj.floor_area_weighted, TOL), "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_obj.clear_height, TOL), "unit", "m"),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.schedule.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.equipment.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
             round(_obj.ventilation.loads.supply, TOL),
@@ -273,11 +272,11 @@ def _RoomLoads_Occupancy(_obj):
 
 
 def _Zone(_obj):
-    def _zone_spaces_with_room_program(_zone):
+    def _zone_spaces_with_room_data(_zone):
         # type: (PHX.bldg_segment.Zone) -> list[PHX.spaces.Space]
-        """Returns a list of Spaces, with the Room's Program objects added to the Spaces
+        """Returns a list of Spaces, with the Room's Program and Equipment objects added to the Spaces
 
-        This has to be done since the Program only lives at the Room level, and all Spaces
+        This has to be done since the Program and Equipment only lives at the Room level, and all Spaces
         need to inherit from the Room.
 
         Arguments:
@@ -297,6 +296,7 @@ def _Zone(_obj):
                 space.ventilation = room.ventilation
                 space.lighting = room.lighting
                 space.occupancy = room.occupancy
+                space.equipment = room.equipment
 
                 spaces.append(space)
 
@@ -331,7 +331,7 @@ def _Zone(_obj):
             "RoomsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("RoomVentilation", _, "index", i, "_RoomVentilation")
-                for i, _ in enumerate(_zone_spaces_with_room_program(_obj))
+                for i, _ in enumerate(_zone_spaces_with_room_data(_obj))
             ],
         ),
         # PyPH_WUFI.xml_node.XML_List(
@@ -642,7 +642,7 @@ def _Ventilator_PH_Parameters(_obj):
     ]
 
 
-def _Ventilator(_obj):
+def _HVAC_Ventilator(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -714,7 +714,7 @@ def _HVAC_System(_obj):
         ),
         PyPH_WUFI.xml_node.XML_List(
             "Devices",
-            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.lDevice)],
+            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.devices)],
         ),
         PyPH_WUFI.xml_node.XML_Node("Distribution", _obj.distrib),
         PyPH_WUFI.xml_node.XML_Node("PHDistribution", _obj.PHdistrib),
@@ -722,10 +722,16 @@ def _HVAC_System(_obj):
 
 
 def _HVAC(_obj):
+    # -- In WUIF, a list of multiple systems are allowed. By default, only a single system is
+    # -- implemented right now.
+
+    if not isinstance(_obj, list):
+        _obj = [_obj]
+
     return [
         PyPH_WUFI.xml_node.XML_List(
             "Systems",
-            [PyPH_WUFI.xml_node.XML_Object("System", _, "index", i) for i, _ in enumerate(_obj.lSystem)],
+            [PyPH_WUFI.xml_node.XML_Object("System", _, "index", i) for i, _ in enumerate(_obj)],
         ),
     ]
 
@@ -738,7 +744,7 @@ def _BldgSegment(_obj):
     This is done for PHIUS modeling and allows for Non-Res and Res. sections
     of a building to be modeled in the same WUFI file, in different 'Cases'
 
-    This function builds up the speccific tree WUIF requires with all interstitial layers/nodes
+    This function builds up the specific tree WUFI requires with all interstitial layers/nodes
     Final XML tree should look like:
       :
       |- Building
@@ -862,6 +868,7 @@ def _BldgSegment(_obj):
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
         PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
+        PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.HVAC_system, _schema_name="_HVAC"),
     ]
 
 

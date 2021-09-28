@@ -12,13 +12,14 @@ from collections import defaultdict
 from functools import reduce
 
 import PHX._base
-import PHX.hvac
+import PHX.hvac_system
 import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
 import PHX.programs.lighting
 import PHX.programs.occupancy
 import PHX.programs.ventilation
+import PHX.programs.equipment
 import PHX.infiltration
 import PHX.ground
 import PHX.appliances
@@ -292,9 +293,10 @@ class Room(PHX._base._Base):
         self.volume_gross = 0.0
         self.spaces = []
 
-        self.ventilation = PHX.programs.ventilation.SpaceVentilation()
+        self.ventilation = PHX.programs.ventilation.RoomVentilation()
         self.lighting = PHX.programs.lighting.SpaceLighting()
         self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
+        self.equipment = PHX.programs.equipment.RoomVentilator()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -461,32 +463,30 @@ class BldgSegment(PHX._base._Base):
 
     def __init__(self):
         super(BldgSegment, self).__init__()
-        self.id = self._count
-        self.target_room_names = []
-        self.relative_variant = True  # WUFI shit
-        self.n = ""
-        self.remarks = ""
-        self.geom = Geom()
-        self.calcScope = 4
-        self.HaMT = {}
-        self.PHIUS_certification = PHIUSCertification()
-        self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
-        self.infiltration = PHX.infiltration.Infiltration(self)
-        self.foundations = [PHX.ground.Foundation()]
-        self.DIN4108 = {}
-        self.cliLoc = ClimateLocation()
-        self.HVAC_system = PHX.hvac.HVAC_System()
-        self.res = None
-        self.plugin = None
-
-        self.components = []
-        self.zones = []
-
-        self.numerics = None
         self.airflow_model = None
+        self.calcScope = 4
+        self.cliLoc = ClimateLocation()
+        self.components = []
         self.count_generator = 0
-        self.has_been_generated = False
+        self.DIN4108 = {}
+        self.foundations = [PHX.ground.Foundation()]
+        self.geom = Geom()
+        self.HaMT = {}
         self.has_been_changed_since_last_gen = False
+        self.has_been_generated = False
+        self.HVAC_system = PHX.hvac_system.HVAC_System()
+        self.id = self._count
+        self.infiltration = PHX.infiltration.Infiltration(self)
+        self.n = ""
+        self.numerics = None
+        self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
+        self.PHIUS_certification = PHIUSCertification()
+        self.plugin = None
+        self.relative_variant = True  # WUFI shit
+        self.remarks = ""
+        self.res = None
+        self.target_room_names = []
+        self.zones = []
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -517,8 +517,17 @@ class BldgSegment(PHX._base._Base):
         return sum((_.volume_gross or 0) for _ in self.zones)
 
     def add_zones(self, _zones):
-        # type: (list[PHX.spaces.Zone]) -> None
-        """Adds new Zones to the BldgSegment."""
+        # type: (list[PHX.bldg_segment.Zone]) -> None
+        """Adds new PHX-Zones to the BldgSegment.
+
+        Arguments:
+        ----------
+            * _zones (list[PHX.bldg_segment.Zone]): The list of new PHX Zones to add to the Bldg Segment
+
+        Returns:
+        --------
+            * None
+        """
 
         if not isinstance(_zones, list):
             _zones = [_zones]
