@@ -298,6 +298,13 @@ def _Zone(_obj):
                 space.occupancy = room.occupancy
                 space.equipment = room.equipment
 
+                # -- Reset the Space's Ventilation Loads using the detailed Space-level info
+                # -- instead of the Room level data
+                if space.ventilation_loads:
+                    space.ventilation.loads.supply = space.ventilation_loads.supply
+                    space.ventilation.loads.extract = space.ventilation_loads.extract
+                    space.ventilation.loads.transfer = space.ventilation_loads.transfer
+
                 spaces.append(space)
 
         return spaces

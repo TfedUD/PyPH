@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 2.7 -*-
+
+"""
+PHX Program: Equipment Class
+"""
+
 import PHX._base
 
 

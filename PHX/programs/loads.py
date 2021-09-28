@@ -86,13 +86,33 @@ class Load_Ventilation(PHX._base._Base):
         self.extract = 0.0
         self.transfer = 0.0
 
-    def join(self, _other):
-        """Returns a new airflow object with the maximum values from each input"""
-        new_obj = self.__class__()
+    def join(self, _other, _method="max"):
+        # type: (Load_Ventilation, str) -> Load_Ventilation
+        """Returns a new airflow object with the maximum values from each input
 
-        new_obj.supply = max(self.supply, _other.supply)
-        new_obj.extract = max(self.extract, _other.extract)
-        new_obj.transfer = max(self.transfer, _other.transfer)
+        Arguments:
+        ----------
+            * _other (PHX.progras.loads.Load_Ventilation): The other Load to Join with this one
+            * _method (str) choose either:
+                - 'max' (default): The largest flow-rate value from each object is used.
+                - 'sum': The flow-rate values from both objects are summed together.
+
+        Returns:
+        --------
+            * (PHX.programs.loads.Load_Ventilation): A new Load_Ventilation object with the new airfow rates.
+        """
+        if _other is None:
+            return self
+
+        new_obj = self.__class__()
+        if _method.upper() == "MAX":
+            new_obj.supply = max(self.supply, _other.supply)
+            new_obj.extract = max(self.extract, _other.extract)
+            new_obj.transfer = max(self.transfer, _other.transfer)
+        elif _method.upper() == "SUM":
+            new_obj.supply = self.supply + _other.supply
+            new_obj.extract = self.extract + _other.extract
+            new_obj.transfer = self.transfer + _other.transfer
 
         return new_obj
 

@@ -3,7 +3,7 @@
 
 """Rhino/Grasshopper functions for buiding PHX Ventilation Systems, Ducts."""
 
-import PHX.hvac
+import PHX.hvac_system
 import PHX.ventilation_components
 import PyPH_Rhino.gh_io
 

@@ -5,18 +5,19 @@
 
 from collections import defaultdict
 import PHX.spaces
+import PHX.programs.loads
 import gh_io
 
+# No idea what this shit is all about.....
+# class VentilationInputError(Exception):
+#     def __init__(self, _flr_name, _in):
+#         self.message = '\nError: Ventilation input for FloorSegment: "{}" ' 'should be a number. Got: "{}"\n'.format(
+#             _flr_name, self.get_error_item(_in)
+#         )
+#         super(VentilationInputError, self).__init__(self.message)
 
-class VentilationInputError(Exception):
-    def __init__(self, _flr_name, _in):
-        self.message = '\nError: Ventilation input for FloorSegment: "{}" ' 'should be a number. Got: "{}"\n'.format(
-            _flr_name, self.get_error_item(_in)
-        )
-        super(VentilationInputError, self).__init__(self.message)
-
-    def get_error_item(self, _in):
-        return str(str(_in.message).split(":")[-1]).lstrip().rstrip()
+#     def get_error_item(self, _in):
+#         return str(str(_in.message).split(":")[-1]).lstrip().rstrip()
 
 
 def sort_floor_surfaces_by_hb_room(_floor_surfaces, _hb_rooms):
@@ -116,8 +117,8 @@ def add_default_floor_surfaces(IGH, _room_dicts):
     return _room_dicts
 
 
-def convert_inputs_to_FloorSements(_room_dicts):
-    # type: (dict) -> dict
+def convert_inputs_to_FloorSements(_room_dicts, _use_ud_vent_rates=False):
+    # type: (dict, bool) -> dict
     """Convert the user-input dicts and floor surfaces into FloorSegment objects
 
     Arguments:
@@ -134,11 +135,23 @@ def convert_inputs_to_FloorSements(_room_dicts):
 
             new_floor_seg = PHX.spaces.FloorSegment()
 
+            # -- Basics
             new_floor_seg.weighting_factor = input_floor_surface_dict.get("TFA_Factor", 1.0)
             new_floor_seg.space_name = input_floor_surface_dict.get("Object Name")
             new_floor_seg.space_number = input_floor_surface_dict.get("Room_Number")
             new_floor_seg.geometry = input_floor_surface_dict.get("Geometry")
             new_floor_seg.host_zone_identifier = room_identifier
+
+            # -- Ventilation
+            if _use_ud_vent_rates:
+                v_sup = float(input_floor_surface_dict.get("V_sup", 0))
+                v_eta = float(input_floor_surface_dict.get("V_eta", 0))
+                v_trans = float(input_floor_surface_dict.get("V_trans", 0))
+
+                new_floor_seg.ventilation_loads = PHX.programs.loads.Load_Ventilation()
+                new_floor_seg.ventilation_loads.supply = v_sup
+                new_floor_seg.ventilation_loads.extract = v_eta
+                new_floor_seg.ventilation_loads.transfer = v_trans
 
             new_floor_seg.floor_area_gross = sum(float(geom.area) for geom in new_floor_seg.geometry)
             room_dict["floor_surfaces"][k] = new_floor_seg

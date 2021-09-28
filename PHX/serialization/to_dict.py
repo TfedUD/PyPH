@@ -367,6 +367,9 @@ def _FloorSegment(_obj):
         geometry_dict.update({i: geom.to_dict()})
     d.update({"geometry": geometry_dict})
 
+    if _obj.ventilation_loads:
+        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
+
     return d
 
 
@@ -383,6 +386,9 @@ def _Floor(_obj):
     for i, flr_seg in enumerate(_obj.floor_segments):
         floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
+    
+    if _obj.ventilation_loads:
+        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 
@@ -425,6 +431,9 @@ def _Space(_obj):
     for i, volume in enumerate(_obj.volumes):
         volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
+
+    if _obj.ventilation_loads:
+        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 

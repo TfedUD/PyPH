@@ -5,6 +5,7 @@
 PHX Space (Room) and Floor Area (iCFA / TFA) Classes
 """
 
+import PHX.programs.loads
 import PHX._base
 import PHX.serialization.from_dict
 import PHX.programs.occupancy
@@ -94,6 +95,8 @@ class FloorSegment(PHX._base._Base):
         self.geometry = []
         self.host_zone_identifier = None
 
+        self.ventilation_loads = None  # By default None, so will inherit from Room
+
     @property
     def weighting_factor(self):
         return self._weighting_factor
@@ -160,6 +163,8 @@ class Floor(PHX._base._Base):
         self.space_number = None
         self.host_zone_identifier = None
 
+        self.ventilation_loads = None  # By default None, so will inherit from Room
+
     @property
     def floor_area_gross(self):
         return sum(seg.floor_area_gross for seg in self.floor_segments)
@@ -192,6 +197,12 @@ class Floor(PHX._base._Base):
             self.space_name = self._join_string_values(seg, "space_name")
 
             self.host_zone_identifier = self._join_string_values(seg, "host_zone_identifier")
+
+            # -- UD Ventilation Loads, if any
+            if self.ventilation_loads:
+                self.ventilation_loads = self.ventilation_loads.join(seg.ventilation_loads)
+            else:
+                self.ventilation_loads = seg.ventilation_loads
 
     @property
     def geometry(self):
@@ -263,6 +274,10 @@ class Volume(PHX._base._Base):
         self.volume_geometry = []
 
     @property
+    def ventilation_loads(self):
+        return self.floor.ventilation_loads
+
+    @property
     def floor_area_gross(self):
         return float(self.floor.floor_area_gross)
 
@@ -324,27 +339,27 @@ class Volume(PHX._base._Base):
 
 class Space(PHX._base._Base):
     """
-    The 'Space' is the primary spatial unit for a Passive House model. This would roughly
-    map to a 'Zone' in EnergyPlus or 'Room' in Honeybee. The main difference is
-    that the 'Space' contains information on all its sub-areas (Volumes) and
+    A 'Space' contains information on all its sub-areas (Volumes) and
     TFA/iCFA floor segments and floor areas.
 
-    Space_01
+    Room
       |
-      +-- Volume_01
-      |     |
-      |     +-- Floor
-      |         |
-      |         +--FloorSegement_01
-      |         +--FloorSegement_02
-      |
-      +-- Volume_02
-      |     |
-      |     +-- Floor
-      |         |
-      |         +--FloorSegement_03
-      |         +--FloorSegement_04
-      .
+     Space_01
+        |
+        +-- Volume_01
+        |     |
+        |     +-- Floor
+        |         |
+        |         +--FloorSegement_01
+        |         +--FloorSegement_02
+        |
+        +-- Volume_02
+        |     |
+        |     +-- Floor
+        |         |
+        |         +--FloorSegement_03
+        |         +--FloorSegement_04
+        :
     """
 
     def __init__(self):
@@ -357,6 +372,8 @@ class Space(PHX._base._Base):
 
         self.volume = 0.0
         self.volumes = []
+
+        self.ventilation_loads = None  # By default None, so will inherit from Room
 
     @property
     def clear_height(self):
@@ -387,7 +404,7 @@ class Space(PHX._base._Base):
         return "{}-{}".format(self.space_number, self.space_name)
 
     def add_new_volume(self, _new_volume):
-        # type : (PHX.spaces.Space, PHX.spaces.Volume) -> None
+        # type : (Volume) -> None
         """Adds a new Volume onto the Space. Verifies that the names/numbers/hosts match
 
         Arguments:
@@ -423,6 +440,12 @@ class Space(PHX._base._Base):
 
         # -- Add the new Volume to Space's list
         self.volumes.append(_new_volume)
+
+        # -- Add the UD Ventilation Loads, if any
+        if self.ventilation_loads:
+            self.ventilation_loads = self.ventilation_loads.join(_new_volume.ventilation_loads)
+        else:
+            self.ventilation_loads = _new_volume.ventilation_loads
 
     def __str__(self):
         return "PHX_{}: {} ({} Volumes)".format(self.__class__.__name__, self.display_name, len(self.volumes))

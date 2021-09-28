@@ -392,6 +392,10 @@ def _FloorSegment(_cls, _input_dict):
             geom = PHX.geometry.Polygon.from_dict(d)
         new_obj.geometry.append(geom)
 
+    vent_load_dict = _input_dict.get("ventilation_loads")
+    if vent_load_dict:
+        new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
+
     return new_obj
 
 
@@ -408,6 +412,10 @@ def _Floor(_cls, _input_dict):
         if flr_seg_dict:
             new_flr_seg = PHX.spaces.FloorSegment.from_dict(flr_seg_dict)
             new_obj.floor_segments.append(new_flr_seg)
+
+    vent_load_dict = _input_dict.get("ventilation_loads")
+    if vent_load_dict:
+        new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
 
     return new_obj
 
@@ -453,6 +461,10 @@ def _Space(_cls, _input_dict):
     new_obj.space_name = _input_dict.get("space_name")
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
+
+    vent_load_dict = _input_dict.get("ventilation_loads")
+    if vent_load_dict:
+        new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
 
     return new_obj
 

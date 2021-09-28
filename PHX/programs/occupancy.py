@@ -11,18 +11,7 @@ import PHX.programs.loads
 
 
 class BldgSegmentOccupancy(PHX._base._Base):
-    """Building Segmenmt-level Occupncy Parameters
-
-    Bldg_Segment  #<------
-       |
-       +---Zone 1
-       |      |
-       |      +--- Space 1
-       |      +--- Space 2
-       +---Zone 2
-       |      |
-       :      :
-    """
+    """Building Segmenmt-level Occupncy Parameters"""
 
     _count = 0
 
@@ -81,13 +70,14 @@ class ZoneOccupancy(PHX._base._Base):
 
     Bldg_Segment
        |
-       +---Zone 1  #<------
-       |      |
-       |      +--- Space 1
-       |      +--- Space 2
-       +---Zone 2
-       |      |
-       :      :
+       +---Zone 1 #<------
+            +---Room 1
+            |      |
+            |      +--- Space 1
+            |      +--- Space 2
+            +---Room 2
+            |      |
+            :      :
     """
 
     _count = 0
@@ -129,15 +119,15 @@ class ZoneOccupancy(PHX._base._Base):
 
 
 class SpaceOccupancy(PHX._base._Base):
-    """Space-Level Occupancy Parameters
+    """Room-Level Occupancy Parameters
 
     Bldg_Segment
        |
-       +---Zone 1
+       +---Room 1 #<------
        |      |
-       |      +--- Space 1  #<------
+       |      +--- Space 1
        |      +--- Space 2
-       +---Zone 2
+       +---Room 2
        |      |
        :      :
     """
