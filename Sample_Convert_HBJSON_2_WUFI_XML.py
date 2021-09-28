@@ -73,18 +73,6 @@ for room in hb_model.rooms:
     phx_BldgSegment.HVAC_system.add_zone_to_system_coverage(phx_Zone)
 
 # --
-# print("- " * 5)
-# print(project_1)
-# for bldg_seg in project_1.building_segments:
-#     print(" ", bldg_seg)
-#     for zone in bldg_seg.zones:
-#         print("  ", zone, "| Zone id:", zone.id)
-#         for room in zone.rooms:
-#             print("   ", room)
-#             for space in room.spaces:
-#                 print("    ", space)
-
-# --
 # host_blg_segment.HVAC.default_system.add_zone_ventilators_to_system(new_zone)
 
 # -- Figure out the Infiltration airflow / n50, q50

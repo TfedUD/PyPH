@@ -17,7 +17,9 @@ import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
 import PyPH_WUFI.prepare_data
 
+TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
 
+# ------------------------------------------------------------------------------
 def _WindowType(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -38,24 +40,24 @@ def _WindowType(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # - Utilization Patterns
 def _UtilizationPattern_Vent(_obj):
-    tol = 2
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("OperatingDays", _obj.operating_days),
         PyPH_WUFI.xml_node.XML_Node("OperatingWeeks", _obj.operating_weeks),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", round(_obj.utilization_rates.maximum.daily_op_sched, tol)),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", round(_obj.utilization_rates.maximum.frac_of_design_airflow, tol)),
-        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", round(_obj.utilization_rates.standard.daily_op_sched, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_DOS", round(_obj.utilization_rates.maximum.daily_op_sched, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PDF", round(_obj.utilization_rates.maximum.frac_of_design_airflow, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Standard_DOS", round(_obj.utilization_rates.standard.daily_op_sched, TOL)),
         PyPH_WUFI.xml_node.XML_Node(
-            "Standard_PDF", round(_obj.utilization_rates.standard.frac_of_design_airflow, tol)
+            "Standard_PDF", round(_obj.utilization_rates.standard.frac_of_design_airflow, TOL)
         ),
-        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", round(_obj.utilization_rates.basic.daily_op_sched, tol)),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", round(_obj.utilization_rates.basic.frac_of_design_airflow, tol)),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_obj.utilization_rates.minimum.daily_op_sched, tol)),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", round(_obj.utilization_rates.minimum.frac_of_design_airflow, tol)),
+        PyPH_WUFI.xml_node.XML_Node("Basic_DOS", round(_obj.utilization_rates.basic.daily_op_sched, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PDF", round(_obj.utilization_rates.basic.frac_of_design_airflow, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_obj.utilization_rates.minimum.daily_op_sched, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", round(_obj.utilization_rates.minimum.frac_of_design_airflow, TOL)),
     ]
 
 
@@ -97,6 +99,7 @@ def _UtilizationPattern_NonRes(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # - Constructions
 def _Material(_obj):
     return [
@@ -132,6 +135,7 @@ def _Assembly(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # - Geometry
 def _Vertex(_obj):
     return [
@@ -234,19 +238,19 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.ventilation.system.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
-            _obj.ventilation.loads.supply,
+            round(_obj.ventilation.loads.supply, TOL),
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateExhaust",
-            _obj.ventilation.loads.extract,
+            round(_obj.ventilation.loads.extract, TOL),
             "unit",
             "m³/h",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignFlowInterzonalUserDef",
-            _obj.ventilation.loads.transfer,
+            round(_obj.ventilation.loads.transfer, TOL),
             "unit",
             "m³/h",
         ),
@@ -263,7 +267,27 @@ def _RoomLoads_Occupancy(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
+# -- Zones, Rooms
+
+
 def _Zone(_obj):
+    def _zone_spaces_with_room_program(_zone):
+        # type: (PHX.bldg_segment.Zone) -> list[PHX.spaces.Space]
+        """Returns a list of Spaces, with the Room's Program objects to the Space"""
+
+        spaces = []
+        for room in _zone.rooms:
+            for space in _zone.spaces:
+                # -- Add the Room's Program info to the Space
+                space.ventilation = room.ventilation
+                space.lighting = room.lighting
+                space.occupancy = room.occupancy
+
+                spaces.append(space)
+
+        return spaces
+
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -289,13 +313,13 @@ def _Zone(_obj):
             ).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", _obj.spec_heat_cap, "unit", "Wh/m²K"),
-        # PyPH_WUFI.xml_node.XML_List(
-        #     "RoomsVentilation",
-        #     [
-        #         PyPH_WUFI.xml_node.XML_Object("Room", _, "index", i, "_RoomVentilation")
-        #         for i, _ in enumerate(_obj.spaces)
-        #     ],
-        # ),
+        PyPH_WUFI.xml_node.XML_List(
+            "RoomsVentilation",
+            [
+                PyPH_WUFI.xml_node.XML_Object("RoomVentilation", _, "index", i, "_RoomVentilation")
+                for i, _ in enumerate(_zone_spaces_with_room_program(_obj))
+            ],
+        ),
         # PyPH_WUFI.xml_node.XML_List(
         #     "LoadsPersonsPH",
         #     [
@@ -386,6 +410,7 @@ def _Building(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # -- PHIUS Data
 def _IntGainsData(_obj):
     return [
@@ -540,6 +565,7 @@ def _PH_ClimateLocation(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # --Foundations
 def _Foundation(_obj):
     return [
@@ -553,6 +579,7 @@ def _Foundation(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # -- HVAC
 def _Ventilator_PH_Parameters(_obj):
     return [
@@ -689,6 +716,7 @@ def _HVAC(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # -- Variant, Project
 def _BldgSegment(_obj):
     """
@@ -907,6 +935,7 @@ def _Project(_obj):
     ]
 
 
+# ------------------------------------------------------------------------------
 # -- Appliances
 def _Appliance_dishwasher(_obj):
     return [
@@ -974,13 +1003,17 @@ def _Appliance_PHIUS_MEL(_obj):
 
 def _Appliance_PHIUS_Lighting_Int(_obj):
     return [
-        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "FractionHightEfficiency", round(_obj.lighting_frac_high_efficiency, TOL), "unit", "-"
+        ),
     ]
 
 
 def _Appliance_PHIUS_Lighting_Ext(_obj):
     return [
-        PyPH_WUFI.xml_node.XML_Node("FractionHightEfficiency", _obj.lighting_frac_high_efficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "FractionHightEfficiency", round(_obj.lighting_frac_high_efficiency, TOL), "unit", "-"
+        ),
     ]
 
 
@@ -994,7 +1027,6 @@ def _Appliance_Custom_Electric_per_Use(_obj):
 
 def _Appliance(_obj):
     """Appliances have some basic shared params, then a bunch of custom params"""
-
     appliances = {
         1: _Appliance_dishwasher,
         2: _Appliance_clothes_washer,
@@ -1029,8 +1061,8 @@ def _Appliance(_obj):
         ),
         PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
         PyPH_WUFI.xml_node.XML_Node(*energy_norm),
-        PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", _obj.energy_demand, "unit", "kWh"),
-        PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", _obj.energy_demand_per_use, "unit", "kWh"),
+        PyPH_WUFI.xml_node.XML_Node("EnergyDemandNorm", round(_obj.energy_demand, TOL), "unit", "kWh"),
+        PyPH_WUFI.xml_node.XML_Node("EnergyDemandNormUse", round(_obj.energy_demand_per_use, TOL), "unit", "kWh"),
         PyPH_WUFI.xml_node.XML_Node("CEF_CombinedEnergyFactor", _obj.combined_energy_facor, "unit", "-"),
     ]
 

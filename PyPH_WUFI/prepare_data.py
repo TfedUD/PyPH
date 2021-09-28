@@ -6,7 +6,7 @@ import PHX.bldg_segment
 
 
 def build_NonRes_schedules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
-    """Collects and builds the Non-Res Utilization Patterns (occupancy, lighting) found on the Zone's Spaces
+    """Collects and builds the Non-Res Utilization Patterns (occupancy, lighting) found on the Zone's Rooms
 
     Arguments:
     ----------
@@ -34,7 +34,7 @@ def build_NonRes_schedules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
 
 def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
-    """Collects and builds the Ventilation Utilization Patterns found on the Zone's HB-Rooms
+    """Collects and builds the Ventilation Utilization Patterns found on the Zone's Rooms
 
     Arguments:
     ----------
@@ -43,7 +43,7 @@ def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]):
 
     Returns:
     --------
-        * (PyPH_WUFI.type_collections.UtilizationPatternCollection_PH_NonRes)
+        * (PyPH_WUFI.type_collections.UtilizationPattern_Vent)
     """
 
     # Create the new Util Pattern Collection

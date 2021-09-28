@@ -379,6 +379,11 @@ class Zone(PHX._base._Base):
                 self.floor_area += space.floor_area_weighted
                 self.floor_area_selection = 6  # user-defined
 
+    @property
+    def spaces(self):
+        """Returns a flattened generator of all the Spaces in the Zone"""
+        return (space for room in self.rooms for space in room.spaces)
+
     @staticmethod
     def _floor_area_weighted_join(_a, _b, _attr_str):
         # type: (Zone, Zone, str) -> float

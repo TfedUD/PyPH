@@ -33,8 +33,8 @@
 			<Year>2021</Year>
 			<Month>9</Month>
 			<Day>28</Day>
-			<Hour>11</Hour>
-			<Minutes>18</Minutes>
+			<Hour>12</Hour>
+			<Minutes>34</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -280,132 +280,62 @@
 		</WindowType>
 	</WindowTypes>
 	<SolarProtectionTypes count="0"/>
-	<UtilisationPatternsVentilation count="9">
+	<UtilisationPatternsVentilation count="4">
 		<UtilizationPatternVent index="0">
 			<IdentNr>1</IdentNr>
 			<Name>Corridor_Ventilation</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
+			<Maximum_DOS>24.0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
 			<Standard_DOS>0.0</Standard_DOS>
 			<Standard_PDF>0.0</Standard_PDF>
 			<Basic_DOS>0.0</Basic_DOS>
 			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
+			<Minimum_DOS>0.0</Minimum_DOS>
+			<Minimum_PDF>0.0</Minimum_PDF>
 		</UtilizationPatternVent>
 		<UtilizationPatternVent index="1">
 			<IdentNr>2</IdentNr>
 			<Name>Stair_Ventilation</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
+			<Maximum_DOS>24.0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
 			<Standard_DOS>0.0</Standard_DOS>
 			<Standard_PDF>0.0</Standard_PDF>
 			<Basic_DOS>0.0</Basic_DOS>
 			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
+			<Minimum_DOS>0.0</Minimum_DOS>
+			<Minimum_PDF>0.0</Minimum_PDF>
 		</UtilizationPatternVent>
 		<UtilizationPatternVent index="2">
 			<IdentNr>3</IdentNr>
 			<Name>Laundry_Ventilation</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>16.0</Maximum_DOS>
-			<Maximum_PDF>0.85</Maximum_PDF>
-			<Standard_DOS>3.0</Standard_DOS>
-			<Standard_PDF>0.92</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>5.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
+			<Maximum_DOS>5.0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
+			<Standard_DOS>0.0</Standard_DOS>
+			<Standard_PDF>0.0</Standard_PDF>
+			<Basic_DOS>3.0</Basic_DOS>
+			<Basic_PDF>0.92</Basic_PDF>
+			<Minimum_DOS>16.0</Minimum_DOS>
+			<Minimum_PDF>0.85</Minimum_PDF>
 		</UtilizationPatternVent>
 		<UtilizationPatternVent index="3">
 			<IdentNr>4</IdentNr>
 			<Name>Apartment_Ventilation</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
+			<Maximum_DOS>24.0</Maximum_DOS>
+			<Maximum_PDF>1.0</Maximum_PDF>
 			<Standard_DOS>0.0</Standard_DOS>
 			<Standard_PDF>0.0</Standard_PDF>
 			<Basic_DOS>0.0</Basic_DOS>
 			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="4">
-			<IdentNr>5</IdentNr>
-			<Name>Apartment_Ventilation</Name>
-			<OperatingDays>7</OperatingDays>
-			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="5">
-			<IdentNr>6</IdentNr>
-			<Name>Apartment_Ventilation</Name>
-			<OperatingDays>7</OperatingDays>
-			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="6">
-			<IdentNr>7</IdentNr>
-			<Name>Apartment_Ventilation</Name>
-			<OperatingDays>7</OperatingDays>
-			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="7">
-			<IdentNr>8</IdentNr>
-			<Name>Apartment_Ventilation</Name>
-			<OperatingDays>7</OperatingDays>
-			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
-		</UtilizationPatternVent>
-		<UtilizationPatternVent index="8">
-			<IdentNr>9</IdentNr>
-			<Name>Apartment_Ventilation</Name>
-			<OperatingDays>7</OperatingDays>
-			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>0.0</Maximum_DOS>
-			<Maximum_PDF>0.0</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>24.0</Minimum_DOS>
-			<Minimum_PDF>1.0</Minimum_PDF>
+			<Minimum_DOS>0.0</Minimum_DOS>
+			<Minimum_PDF>0.0</Minimum_PDF>
 		</UtilizationPatternVent>
 	</UtilisationPatternsVentilation>
 	<UtilizationPatternsPH count="1">
@@ -7322,6 +7252,32 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="2">
+							<RoomVentilation index="0">
+								<Name>308-UTILITY</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">3.55563117532821</AreaRoom>
+								<ClearRoomHeight unit="m">2.499999999999996</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>2</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+							<RoomVentilation index="1">
+								<Name>300-CORRIDOR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">35.33416599104009</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999987</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>2</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>4</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">0.0</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">0.0</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="3">
 							<Device index="0">
 								<Type choice="User defined">11</Type>
@@ -7329,7 +7285,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">799.0013898210555</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">799.0</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7380,6 +7336,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>ES-3-EGRESS STAIR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">13.360745475230578</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999996</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>4</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>8</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">19.946005636697237</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">19.946005636697237</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">19.946005636697237</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="3">
 							<Device index="0">
 								<Type choice="User defined">11</Type>
@@ -7387,7 +7357,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">339.51832585836644</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">339.52</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7438,6 +7408,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>307-LAUNDRY</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">7.404738213877474</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000009</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>6</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>12</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">11.641298119605457</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">11.641298119605457</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">11.641298119605457</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="3">
 							<Device index="0">
 								<Type choice="User defined">11</Type>
@@ -7445,7 +7429,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">138.76840834376236</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">138.77</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7467,7 +7451,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">598.1296594439737</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">598.13</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7496,6 +7480,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>301-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">41.379442252428305</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>8</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>16</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">54.54786386148256</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">54.54786386148256</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">54.54786386148256</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -7558,7 +7556,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7569,7 +7567,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7580,7 +7578,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7621,6 +7619,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>302-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">39.432404127647175</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>10</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>20</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">47.155203465054576</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">47.155203465054576</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">47.155203465054576</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -7683,7 +7695,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7694,7 +7706,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7705,7 +7717,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7746,6 +7758,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>303-STUDIO A</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">39.69618773044899</AreaRoom>
+								<ClearRoomHeight unit="m">2.4999999999999933</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>12</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>24</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">47.41638268240581</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">47.41638268240581</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">47.41638268240581</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -7808,7 +7834,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7819,7 +7845,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7830,7 +7856,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7871,6 +7897,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>304-1BR</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">60.842297504855736</AreaRoom>
+								<ClearRoomHeight unit="m">2.500000000000002</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>14</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>28</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">74.06596988089531</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">74.06596988089531</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">74.06596988089531</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -7933,7 +7973,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7944,7 +7984,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7955,7 +7995,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -7996,6 +8036,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>305-STUDIO C</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">42.402256110713964</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000027</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>16</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>32</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">56.89827790136863</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">56.89827790136863</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">56.89827790136863</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -8058,7 +8112,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -8069,7 +8123,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -8080,7 +8134,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -8121,6 +8175,20 @@
 						<ClearanceHeight unit="m">2.5</ClearanceHeight>
 						<SpecificHeatCapacity_Selection choice="Mixed">2</SpecificHeatCapacity_Selection>
 						<SpecificHeatCapacity unit="Wh/m²K">132</SpecificHeatCapacity>
+						<RoomsVentilation count="1">
+							<RoomVentilation index="0">
+								<Name>306-STUDIO B</Name>
+								<Quantity>1</Quantity>
+								<Type choice="User defined">99</Type>
+								<AreaRoom unit="m²">43.95391422936315</AreaRoom>
+								<ClearRoomHeight unit="m">2.5000000000000013</ClearRoomHeight>
+								<IdentNrUtilizationPatternVent>18</IdentNrUtilizationPatternVent>
+								<IdentNrVentilationUnit>36</IdentNrVentilationUnit>
+								<DesignVolumeFlowRateSupply unit="m³/h">58.65037772991809</DesignVolumeFlowRateSupply>
+								<DesignVolumeFlowRateExhaust unit="m³/h">58.65037772991809</DesignVolumeFlowRateExhaust>
+								<DesignFlowInterzonalUserDef unit="m³/h">58.65037772991809</DesignFlowInterzonalUserDef>
+							</RoomVentilation>
+						</RoomsVentilation>
 						<HomeDevice count="8">
 							<Device index="0">
 								<Type choice="Laundry - dryer">3</Type>
@@ -8183,7 +8251,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">172.8245605537704</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">172.82</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -8194,7 +8262,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">20.800435004555094</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">20.8</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
@@ -8205,7 +8273,7 @@
 								<ReferenceQuantity choice="User defined">5</ReferenceQuantity>
 								<InConditionedSpace>true</InConditionedSpace>
 								<ReferenceEnergyDemandNorm choice="Year">2</ReferenceEnergyDemandNorm>
-								<EnergyDemandNorm unit="kWh">397.87166833161103</EnergyDemandNorm>
+								<EnergyDemandNorm unit="kWh">397.87</EnergyDemandNorm>
 								<EnergyDemandNormUse unit="kWh">0</EnergyDemandNormUse>
 								<CEF_CombinedEnergyFactor unit="-">0</CEF_CombinedEnergyFactor>
 								<Quantity>1</Quantity>
