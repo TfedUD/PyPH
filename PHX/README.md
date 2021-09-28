@@ -30,7 +30,7 @@ Project
 ├── Materials
 ├── Window Types
 └── BuildingSegments (WUFI='Variant/Case')
-   ├── Segment_01  
+   ├── Segment_01
    :    ├── Climate / Location
         ├── Components
         │     ├── Component_1
@@ -44,18 +44,20 @@ Project
         │
         ├── Zones (WUFI='Zone')
         │     └── Zone_1
-        │         ├── Spaces (WUFI='Room')
-        │         │   ├── Space_1
-        │         :   :   ├── Volume_1
-        │                 │   └── Floor
-        │                 │       ├── FloorSegment_1 
-        │                 │       ├── FloorSegment_2
-        │                 │       :
-        │                 └── Volume_2
-        │                    └── Floor
-        │                         ├── FloorSegment_1
-        │                         ├── FloorSegment_2
-        │                         :
+        |         └── Rooms
+                      ├── Room_1
+        │             :    ├── Spaces (WUFI='RoomVentilation')
+        │                  │   ├── Space_1
+        │                  :   :   ├── Volume_1
+        │                          │   └── Floor
+        │                          │       ├── FloorSegment_1 
+        │                          │       ├── FloorSegment_2
+        │                          │       :
+        │                          └── Volume_2
+        │                             └── Floor
+        │                                  ├── FloorSegment_1
+        │                                  ├── FloorSegment_2
+        │                                  :
         ├── Geometry
         │    ├── Polygons
         │    │   ├── Polygon_1
