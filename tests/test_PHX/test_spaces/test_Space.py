@@ -1,5 +1,5 @@
 import PHX.spaces
-import PHX.programs.ventilation
+import PHX.programs.loads
 import pytest
 
 
@@ -86,23 +86,21 @@ def test_set_Space_ventilation(flr_seg_301_with_geometry_a):
     assert vol_1 in sp_1.volumes
 
     # -- Set the ventilation at the Space level
-    vent_1 = PHX.programs.ventilation.RoomVentilation()
-    sp_1.ventilation = vent_1
+    vent_1 = PHX.programs.loads.Load_Ventilation()
+    sp_1.ventilation_loads = vent_1  # Set the Space's Ventilation Loads
 
     # -- Should ripple down through all the sub-elements of the Space
-    assert sp_1.ventilation == vent_1
-    assert vol_1.ventilation == vent_1
-    assert vol_1.floor.ventilation == vent_1
-    assert flr.ventilation == vent_1
-    assert flr_seg_301_with_geometry_a.ventilation == vent_1
+    assert sp_1.ventilation_loads == vent_1
+    assert flr.ventilation_loads == vent_1
+    assert flr_seg_301_with_geometry_a.ventilation_loads == vent_1
 
 
 def test_set_Space_ventilation_error():
     sp_1 = PHX.spaces.Space()
 
     # -- Set the ventilation at the Space level
-    with pytest.raises(PHX.spaces.RoomVentilationInputError):
-        sp_1.ventilation = "Not a RoomVentilation Object"
+    with pytest.raises(PHX.spaces.RoomVentilationLoadInputError):
+        sp_1.ventilation_loads = "Not a RoomVentilation Object"
 
 
 def test_Space_floor_area_weighted(flr_seg_301_with_geometry_a):
@@ -158,30 +156,3 @@ def test_Space_clear_height_multiple_volumes(flr_seg_301_with_geometry_a, flr_se
 
     # --
     assert spc.clear_height == 3  # = (4m * 100m2) + (2m * 100m2) / 200m2
-
-
-def test_Space_peak_occupancy(flr_seg_101_with_geometry):
-    flr = PHX.spaces.Floor()
-    flr.add_new_floor_segment(flr_seg_101_with_geometry)
-
-    vol = PHX.spaces.Volume()
-    vol.set_Floor(flr)
-
-    spc = PHX.spaces.Space()
-    spc.add_new_volume(vol)
-
-    flr_seg_101_with_geometry.floor_area_gross = 0.0
-    spc.occupancy.people_per_area = 0.0
-    assert spc.peak_occupancy == 0
-
-    flr_seg_101_with_geometry.floor_area_gross = 0.0
-    spc.occupancy.people_per_area = 10
-    assert spc.peak_occupancy == 0
-
-    flr_seg_101_with_geometry.floor_area_gross = 100
-    spc.occupancy.people_per_area = 0.0
-    assert spc.peak_occupancy == 0
-
-    flr_seg_101_with_geometry.floor_area_gross = 100
-    spc.occupancy.people_per_area = 10
-    assert spc.peak_occupancy == 1000

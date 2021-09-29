@@ -1,4 +1,5 @@
-import PHX.hvac
+import PHX.hvac_system
+import PHX.hvac_components
 
 
 def test_hvac_system_serialization():

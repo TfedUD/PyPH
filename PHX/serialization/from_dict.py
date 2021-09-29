@@ -19,7 +19,7 @@ import PHX.appliances
 import PHX.programs.occupancy
 import PHX.programs.lighting
 import PHX.programs.ventilation
-import PHX.ventilation_components
+import PHX.hvac_components
 import LBT_Utils.geometry
 
 
@@ -281,7 +281,7 @@ def _SummerVent(_cls, _input_dict):
     return new_obj
 
 
-def _Ventilation_Duct_Segment(_cls, _input_dict):
+def _HVAC_Duct_Segment(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
@@ -295,12 +295,12 @@ def _Ventilation_Duct_Segment(_cls, _input_dict):
     return new_obj
 
 
-def _Ventilation_Duct(_cls, _input_dict):
+def _HVAC_Duct(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
     for d in _input_dict.get("segments", []):
-        new_obj.segments.append(PHX.ventilation_components.Ventilation_Duct_Segment.from_dict(d))
+        new_obj.segments.append(PHX.hvac_components.HVAC_Duct_Segment.from_dict(d))
 
     return new_obj
 
@@ -312,9 +312,9 @@ def _Ventilation_System(_cls, _input_dict):
     new_obj.name = _input_dict.get("name")
     new_obj.type = _input_dict.get("type")
 
-    new_obj.ventilator = PHX.ventilation_components.Ventilator.from_dict(_input_dict.get("ventilator", {}))
-    new_obj.duct_01 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_01", {}))
-    new_obj.duct_02 = PHX.ventilation_components.Ventilation_Duct.from_dict(_input_dict.get("duct_02", {}))
+    new_obj.ventilator = PHX.hvac_components.HVAC_Ventilator.from_dict(_input_dict.get("ventilator", {}))
+    new_obj.duct_01 = PHX.hvac_components.HVAC_Duct.from_dict(_input_dict.get("duct_01", {}))
+    new_obj.duct_02 = PHX.hvac_components.HVAC_Duct.from_dict(_input_dict.get("duct_02", {}))
 
     return new_obj
 
@@ -366,7 +366,7 @@ def _HVAC_Ventilator(_cls, _input_dict):
     # new_obj.Ventilation_Parameters = _input_dict.get("Ventilation_Parameters")
     new_obj.UseOptionalClimate = _input_dict.get("UseOptionalClimate")
     new_obj.IdentNr_OptionalClimate = _input_dict.get("IdentNr_OptionalClimate")
-    new_obj.PH_Parameters = PHX.ventilation_components.Ventilator_PH_Parameters.from_dict(
+    new_obj.PH_Parameters = PHX.hvac_components.Ventilator_PH_Parameters.from_dict(
         _input_dict.get("PH_Parameters", {})
     )
 
@@ -392,7 +392,7 @@ def _FloorSegment(_cls, _input_dict):
             geom = PHX.geometry.Polygon.from_dict(d)
         new_obj.geometry.append(geom)
 
-    vent_load_dict = _input_dict.get("ventilation_loads")
+    vent_load_dict = _input_dict.get("_ventilation_loads")
     if vent_load_dict:
         new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
 
@@ -413,7 +413,7 @@ def _Floor(_cls, _input_dict):
             new_flr_seg = PHX.spaces.FloorSegment.from_dict(flr_seg_dict)
             new_obj.floor_segments.append(new_flr_seg)
 
-    vent_load_dict = _input_dict.get("ventilation_loads")
+    vent_load_dict = _input_dict.get("_ventilation_loads")
     if vent_load_dict:
         new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
 
@@ -462,7 +462,7 @@ def _Space(_cls, _input_dict):
     new_obj.space_number = _input_dict.get("space_number")
     new_obj.host_zone_identifier = _input_dict.get("host_zone_identifier")
 
-    vent_load_dict = _input_dict.get("ventilation_loads")
+    vent_load_dict = _input_dict.get("_ventilation_loads")
     if vent_load_dict:
         new_obj.ventilation_loads = PHX.programs.loads.Load_Ventilation.from_dict(vent_load_dict)
 

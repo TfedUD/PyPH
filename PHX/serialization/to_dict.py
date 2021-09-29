@@ -262,7 +262,7 @@ def _SummerVent(_obj):
     return d
 
 
-def _Ventilation_Duct_Segment(_obj):
+def _HVAC_Duct_Segment(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
@@ -276,7 +276,7 @@ def _Ventilation_Duct_Segment(_obj):
     return d
 
 
-def _Ventilation_Duct(_obj):
+def _HVAC_Duct(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
@@ -368,7 +368,7 @@ def _FloorSegment(_obj):
     d.update({"geometry": geometry_dict})
 
     if _obj.ventilation_loads:
-        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 
@@ -386,9 +386,9 @@ def _Floor(_obj):
     for i, flr_seg in enumerate(_obj.floor_segments):
         floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
-    
+
     if _obj.ventilation_loads:
-        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 
@@ -433,7 +433,7 @@ def _Space(_obj):
     d.update({"volumes": volumes_dict})
 
     if _obj.ventilation_loads:
-        d.update({"ventilation_loads": _obj.ventilation_loads.to_dict()})
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 

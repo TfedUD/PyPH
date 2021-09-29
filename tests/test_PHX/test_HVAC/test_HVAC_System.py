@@ -1,8 +1,9 @@
-import PHX.hvac
+import PHX.hvac_system
+import PHX.hvac_components
 import PHX.bldg_segment
 import PHX.spaces
 import PHX.programs.ventilation
-import PHX.ventilation_components
+import PHX.hvac_components
 import pytest
 
 
@@ -60,37 +61,3 @@ def test_add_zone_to_coverage(reset_hvac):
     s1.add_zone_to_system_coverage(z1)
     zone_ids_covered = {_.idZoneCovered for _ in s1.lZoneCover}
     assert z1.id in zone_ids_covered
-
-
-def test_add_zone_with_no_ventilator_to_system(reset_hvac):
-    s1 = PHX.hvac_system.HVAC_System()
-    z1 = PHX.bldg_segment.Zone()
-
-    # Add a Zone with no ventilators, and no spaces
-    s1.add_zone_ventilators_to_system(z1)
-    assert len(s1.devices) == 0
-
-
-def test_add_zone_with_ventilator_to_system(reset_hvac):
-    # -- Build the new Ventilation Components, Systems
-    new_ventilator = PHX.ventilation_components.Ventilator()
-
-    new_system = PHX.ventilation_components.Ventilation_System()
-    new_system.ventilator = new_ventilator
-
-    new_space_vent = PHX.programs.ventilation.RoomVentilation()
-    new_space_vent.system = new_system
-
-    # -- Build the space, add the ventilation systme with the Ventilator
-    sp1 = PHX.spaces.Space()
-    sp1.ventilation = new_space_vent
-
-    # -- Build the zone, add the space to the Zone
-    z1 = PHX.bldg_segment.Zone()
-    z1.add_spaces(sp1)
-
-    # -- Build the HVAC System, add the zone's ventilator
-    s1 = PHX.hvac_system.HVAC_System()
-    s1.add_zone_ventilators_to_system(z1)
-    assert len(s1.devices) == 1
-    assert new_ventilator in s1.devices

@@ -63,21 +63,25 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         # -- Calc and Apply the PH-Style
         new_util_rates = PHX.programs.schedules.Vent_UtilRates()
         four_part_sched_values = LBT_Utils.program.calc_four_part_vent_sched_values_from_hb_room(_hb_room)
+        daily_use_hours = 0.0
 
         values_high = four_part_sched_values.get(0, {})
         new_util_rates.maximum.daily_op_sched = values_high.get("frequency", 0) * 24
         new_util_rates.maximum.frac_of_design_airflow = values_high.get("value_frac_of_max", 0)
+        daily_use_hours += new_util_rates.maximum.daily_op_sched
 
         values_standard = four_part_sched_values.get(1, {})
         new_util_rates.standard.daily_op_sched = values_standard.get("frequency", 0) * 24
         new_util_rates.standard.frac_of_design_airflow = values_standard.get("value_frac_of_max", 0)
+        daily_use_hours += new_util_rates.standard.daily_op_sched
 
         values_basic = four_part_sched_values.get(2, {})
         new_util_rates.basic.daily_op_sched = values_basic.get("frequency", 0) * 24
         new_util_rates.basic.frac_of_design_airflow = values_basic.get("value_frac_of_max", 0)
+        daily_use_hours += new_util_rates.basic.daily_op_sched
 
         values_minimum = four_part_sched_values.get(3, {})
-        new_util_rates.minimum.daily_op_sched = values_minimum.get("frequency", 0) * 24
+        new_util_rates.minimum.daily_op_sched = 24.0 - daily_use_hours  # Enforce max 24 hr
         new_util_rates.minimum.frac_of_design_airflow = values_minimum.get("value_frac_of_max", 0)
 
         phx_Ventilation.schedule.name = LBT_Utils.program.clean_HB_program_name(phx_Ventilation.name)
@@ -89,8 +93,16 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
 
 
 def get_ventilator_from_hb_room(_hb_room: honeybee.room.Room):
-    ventilator = PHX.hvac_components.HVAC_Ventilator()
+    # -- Assing the Default Ventilator
+    ventilator = PHX.hvac_components.HVAC_Ventilator.default()
     ventilator.Name = "Room Ventilator"
     ventilator.UsedFor_Ventilation = True
+
+    # -- Get and assign any user-defined Ventilator found at the Room level
+    #
+    #
+    # TODO
+    #
+    #
 
     return ventilator

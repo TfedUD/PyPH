@@ -76,5 +76,5 @@ def test_floor_segment_input_errors():
         seg_1.floor_area_gross = "not a floor area"
         seg_1.floor_area_gross = [1, 2, 3]
 
-    with pytest.raises(PHX.spaces.RoomVentilationInputError):
-        seg_1.ventilation = "not a ventilation object"
+    with pytest.raises(PHX.spaces.RoomVentilationLoadInputError):
+        seg_1.ventilation_loads = "not a ventilation object"

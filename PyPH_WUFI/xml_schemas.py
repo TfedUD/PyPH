@@ -43,6 +43,15 @@ def _WindowType(_obj):
 # ------------------------------------------------------------------------------
 # - Utilization Patterns
 def _UtilizationPattern_Vent(_obj):
+    def _fix_the_bullshit(_obj):
+        # Fix the god damn > 24 bullshit    
+        a = round(_obj.utilization_rates.maximum.daily_op_sched, TOL)
+        b = round(_obj.utilization_rates.standard.daily_op_sched, TOL)
+        c = round(_obj.utilization_rates.basic.daily_op_sched, TOL)
+
+        total = a + b + c
+        return round(24.0 - total, TOL)
+
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -56,7 +65,7 @@ def _UtilizationPattern_Vent(_obj):
         ),
         PyPH_WUFI.xml_node.XML_Node("Basic_DOS", round(_obj.utilization_rates.basic.daily_op_sched, TOL)),
         PyPH_WUFI.xml_node.XML_Node("Basic_PDF", round(_obj.utilization_rates.basic.frac_of_design_airflow, TOL)),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_obj.utilization_rates.minimum.daily_op_sched, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", _fix_the_bullshit(_obj)),
         PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", round(_obj.utilization_rates.minimum.frac_of_design_airflow, TOL)),
     ]
 
@@ -235,7 +244,7 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_obj.floor_area_weighted, TOL), "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_obj.clear_height, TOL), "unit", "m"),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.schedule.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.equipment.ventilator.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.equipment_set.ventilator.id),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
             round(_obj.ventilation.loads.supply, TOL),
@@ -296,7 +305,7 @@ def _Zone(_obj):
                 space.ventilation = room.ventilation
                 space.lighting = room.lighting
                 space.occupancy = room.occupancy
-                space.equipment = room.equipment
+                space.equipment_set = room.equipment_set
 
                 # -- Reset the Space's Ventilation Loads using the detailed Space-level info
                 # -- instead of the Room level data
@@ -350,7 +359,7 @@ def _Zone(_obj):
         # ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",
-            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.appliances)],
+            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.appliance_set)],
         ),
         # -- Summer Ventilation
         # ----------------------------------------------------------------------

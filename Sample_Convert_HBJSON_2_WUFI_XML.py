@@ -75,7 +75,7 @@ for room in hb_model.rooms:
     # -- Mechanicals
     phx_BldgSegment.HVAC_system.add_zone_to_system_coverage(phx_Zone)
     ventilator = PyPH_HBJSON.create_PHX_Ventilation.get_ventilator_from_hb_room(phx_Room)
-    phx_Room.equipment.ventilator = ventilator
+    phx_Room.equipment_set.ventilator = ventilator
     phx_BldgSegment.HVAC_system.add_devices_to_system(ventilator)
 
     # -- Infiltration Airflow (n50, q50)
@@ -93,7 +93,6 @@ for room in hb_model.rooms:
         # -- Build the opaque Components
         opaque_compo = create_new_opaque_component_from_hb_face(face)
         opaque_compo.set_host_zone_name(phx_Zone)
-        # opaque_compo = set_compo_interior_exposure_from_hb_face(opaque_compo, zone)
         opaque_compo = set_compo_exterior_exposure_from_hb_face(opaque_compo, face, phx_BldgSegment.zones)
         opaque_compo = set_compo_colors_by_hb_face(opaque_compo, face)
         opaque_compo = set_compo_assembly_from_hb_face(opaque_compo, face, assmbly_collection)
@@ -111,13 +110,13 @@ for room in hb_model.rooms:
         phx_BldgSegment.add_components(opaque_compo)
 
 
-# # --- Clean up the BuildingSegments
-# # ----------------------------------------------------------------------------
-# for seg in project_1.building_segments:
-#     # -- This is (required?) for PHIUS Certification.
-#     # -- Sometimes might not want this though, so needs to be user-setting
-#     seg.merge_zones()
-#     seg.merge_components(by="assembly")
+# --- Clean up the BuildingSegments
+# ----------------------------------------------------------------------------
+for seg in project_1.building_segments:
+    # -- This is required for PHIUS Certification.
+    # -- Sometimes might not want this though, so needs to be user-setting
+    seg.merge_zones()
+    seg.merge_components(by="assembly")
 
 # # ----------------------------------------------------------------------------
 project_1.add_assemblies_from_collection(assmbly_collection)

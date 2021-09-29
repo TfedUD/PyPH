@@ -1,4 +1,4 @@
-import PHX.hvac
+import PHX.hvac_components
 
 
 def test_hvac_device(reset_hvac):

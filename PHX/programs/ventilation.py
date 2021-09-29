@@ -8,7 +8,7 @@ PHX Program: Ventilation Classes
 import PHX._base
 import PHX.programs.schedules
 import PHX.programs.loads
-import PHX.ventilation_components
+import PHX.hvac_components
 import PHX.hvac_system
 import PHX.serialization.from_dict
 

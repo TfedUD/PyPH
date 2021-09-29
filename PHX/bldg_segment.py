@@ -296,7 +296,7 @@ class Room(PHX._base._Base):
         self.ventilation = PHX.programs.ventilation.RoomVentilation()
         self.lighting = PHX.programs.lighting.SpaceLighting()
         self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
-        self.equipment = PHX.programs.equipment.RoomVentilator()
+        self.equipment_set = PHX.programs.equipment.EquipmentSet()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -352,7 +352,7 @@ class Zone(PHX._base._Base):
         self.rooms = []
         self.source_zone_identifiers = []
 
-        self.appliances = PHX.appliances.ApplianceSet()
+        self.appliance_set = PHX.appliances.ApplianceSet()
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
         self.occupancy = PHX.programs.occupancy.ZoneOccupancy()
 
@@ -428,7 +428,7 @@ class Zone(PHX._base._Base):
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
 
         # -- Combine ApplianceSets
-        new_obj.appliances = self.appliances + other.appliances
+        new_obj.appliance_set = self.appliance_set + other.appliance_set
 
         # -- Combine Occupancies
         new_obj.occupancy = self.occupancy + other.occupancy
@@ -660,6 +660,7 @@ class BldgSegment(PHX._base._Base):
                 # -- Join all the Components in each group into single new Component
                 for compo_gr in compo_groups.values():
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
+                    compo_joined.n = "Component_Group"
                     new_compo_list.append(compo_joined)
 
             # -- Replace the Component List with the new one
@@ -674,21 +675,23 @@ class BldgSegment(PHX._base._Base):
         if len(self.zones) <= 1:
             return None
         else:
-            zones_joined = reduce(lambda a, b: a + b, self.zones)
-            zones_joined.id = 1
-            self.zones = [zones_joined]
+            merged_zone = reduce(lambda a, b: a + b, self.zones)
+            merged_zone.id = 1
+            self.zones = [merged_zone]
 
             # -- Set the appliance Reference Quantity
             # -- As per PHIUS, if the building is single Zone, all appliances
             # -- should be set to 'PH Case' quantity
-            for appliance in zones_joined.appliances.appliances:
+            for appliance in merged_zone.appliance_set:
                 if appliance.type in {1, 2, 3, 7}:
                     appliance.reference_quantity = 1  # PH-Case
 
             # -- Merge all the Components
-            # -- Update all the exposure names,
-            # -- Remove interior surfaces (?!)
             for compo in self.components:
                 compo.set_host_zone_name(self.zones[0])
+
+            # Not Implemented Yet:
+            # -- Update all the exposure names (for inter-zonal adjacencies)
+            # -- Remove interior surfaces (and/or convert to Internal Mass Objects?)
 
             return None

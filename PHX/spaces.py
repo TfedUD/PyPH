@@ -14,6 +14,15 @@ import PHX.programs.ventilation
 
 # -- Errors
 # ------------------------------------------------------------------------------
+class RoomVentilationLoadInputError(Exception):
+    def __init__(self, _in):
+        self.message = (
+            "Error: 'ventilation_loads' may only be a PHX.programs.loads.Load_Ventilation "
+            "object. Got: {} - {}.".format(_in, type(_in))
+        )
+        super(RoomVentilationLoadInputError, self).__init__(self.message)
+
+
 class FloorAreaWeightingInputError(Exception):
     def __init__(self):
         self.message = (
@@ -94,8 +103,18 @@ class FloorSegment(PHX._base._Base):
         self.space_number = None
         self.geometry = []
         self.host_zone_identifier = None
+        self._ventilation_loads = None  # By default None, so will inherit from Room
 
-        self.ventilation_loads = None  # By default None, so will inherit from Room
+    @property
+    def ventilation_loads(self):
+        return self._ventilation_loads
+
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
 
     @property
     def weighting_factor(self):
@@ -163,7 +182,20 @@ class Floor(PHX._base._Base):
         self.space_number = None
         self.host_zone_identifier = None
 
-        self.ventilation_loads = None  # By default None, so will inherit from Room
+        self._ventilation_loads = None  # By default None, so will inherit from Room
+
+    @property
+    def ventilation_loads(self):
+        return self._ventilation_loads
+
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
+            for floor_segment in self.floor_segments:
+                floor_segment.ventilation_loads = _in
 
     @property
     def floor_area_gross(self):
@@ -373,7 +405,20 @@ class Space(PHX._base._Base):
         self.volume = 0.0
         self.volumes = []
 
-        self.ventilation_loads = None  # By default None, so will inherit from Room
+        self._ventilation_loads = None  # By default None, so will inherit from Room
+
+    @property
+    def ventilation_loads(self):
+        return self._ventilation_loads
+
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
+            for volume in self.volumes:
+                volume.floor.ventilation_loads = _in
 
     @property
     def clear_height(self):

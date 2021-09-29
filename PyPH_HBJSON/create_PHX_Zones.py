@@ -40,7 +40,7 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
 
     # -- Add in any Zone-Appliances
     appliance_set_dict = _hb_room.user_data.get("phx", {}).get("zone_appliances", {})
-    zone.appliances = PHX.appliances.ApplianceSet.from_dict(appliance_set_dict)
+    zone.appliance_set = PHX.appliances.ApplianceSet.from_dict(appliance_set_dict)
 
     return zone
 
