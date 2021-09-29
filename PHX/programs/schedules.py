@@ -2,7 +2,7 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Program Schedule Classes
+PHX Program: Schedule Classes
 """
 
 import PHX._base
@@ -58,6 +58,9 @@ class Vent_UtilRate(PHX._base._Base):
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Vent_UtilRate(cls, _dict)
 
+    def __str__(self):
+        return "{:.0f}%, {:.01f} hrs/day".format(self.frac_of_design_airflow * 100, self.daily_op_sched)
+
 
 class Vent_UtilRates(PHX._base._Base):
     def __init__(self):
@@ -70,6 +73,11 @@ class Vent_UtilRates(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Vent_UtilRates(cls, _dict)
+
+    def __str__(self):
+        return "PHX_Vent_UtilRates: max={} | standard={} | basic={} | min={}".format(
+            self.maximum, self.standard, self.basic, self.minimum
+        )
 
 
 # -- Primary Schedule Objects

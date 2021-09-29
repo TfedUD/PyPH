@@ -1,4 +1,4 @@
-import PHX.ventilation
+import PHX.programs.ventilation
 import pytest
 
 
@@ -6,8 +6,8 @@ import pytest
 def reset_ventilation():
     """Re-set the class _count variable in order to test incrementing properly"""
 
-    PHX.ventilation.SpaceVentilation._count = 0
+    PHX.programs.ventilation.RoomVentilation._count = 0
 
     yield
 
-    PHX.ventilation.SpaceVentilation._count = 0
+    PHX.programs.ventilation.RoomVentilation._count = 0

@@ -28,12 +28,11 @@ def _SpaceLighting(_obj):
     return d
 
 
-def _SpaceVentilation(_obj):
+def _RoomVentilation(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
-    d.update({"system": _obj.system.to_dict()})
     d.update({"schedule": _obj.schedule.to_dict()})
     d.update({"loads": _obj.loads.to_dict()})
 
@@ -208,6 +207,44 @@ def _Polygon(_obj):
     return d
 
 
+# -- HVAC: System / General
+def _HVAC_Device(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"Name": _obj.Name})
+    d.update({"SystemType": _obj.SystemType})
+    d.update({"TypeDevice": _obj.TypeDevice})
+    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
+    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
+    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
+    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
+    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
+    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
+    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
+    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
+    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
+
+    return d
+
+
+def _HVAC_System(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"n": _obj.n})
+    d.update({"typeSys": _obj.typeSys})
+    d.update({"lZoneCover": _obj.lZoneCover})
+    d.update({"_device_dict": _obj._device_dict})
+    d.update({"distrib": _obj.distrib})
+    d.update({"suppDev": _obj.suppDev})
+    d.update({"PHdistrib": _obj.PHdistrib})
+
+    return d
+
+
 # -- HVAC: Ventilation
 def _SummerVent(_obj):
     d = {}
@@ -225,7 +262,7 @@ def _SummerVent(_obj):
     return d
 
 
-def _Ventilation_Duct_Segment(_obj):
+def _HVAC_Duct_Segment(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
@@ -239,7 +276,7 @@ def _Ventilation_Duct_Segment(_obj):
     return d
 
 
-def _Ventilation_Duct(_obj):
+def _HVAC_Duct(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
@@ -291,7 +328,7 @@ def _Ventilator_PH_Parameters(_obj):
     return d
 
 
-def _Ventilator(_obj):
+def _HVAC_Ventilator(_obj):
     d = {}
 
     d.update({"id": _obj.id})
@@ -313,44 +350,6 @@ def _Ventilator(_obj):
     return d
 
 
-# -- HVAC: System / General
-def _HVAC_Device(_obj):
-    d = {}
-
-    d.update({"id": _obj.id})
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"Name": _obj.Name})
-    d.update({"SystemType": _obj.SystemType})
-    d.update({"TypeDevice": _obj.TypeDevice})
-    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
-    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
-    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
-    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
-    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
-    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
-    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
-    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
-
-    return d
-
-
-def _HVAC_System(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"id": _obj.id})
-    d.update({"n": _obj.n})
-    d.update({"typeSys": _obj.typeSys})
-    d.update({"lZoneCover": _obj.lZoneCover})
-    d.update({"_device_dict": _obj._device_dict})
-    d.update({"distrib": _obj.distrib})
-    d.update({"suppDev": _obj.suppDev})
-    d.update({"PHdistrib": _obj.PHdistrib})
-
-    return d
-
-
 # -- Spaces
 def _FloorSegment(_obj):
     d = {}
@@ -368,9 +367,8 @@ def _FloorSegment(_obj):
         geometry_dict.update({i: geom.to_dict()})
     d.update({"geometry": geometry_dict})
 
-    d.update({"occupancy": _obj.occupancy.to_dict()})
-    d.update({"lighting": _obj.lighting.to_dict()})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
+    if _obj.ventilation_loads:
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 
@@ -389,9 +387,8 @@ def _Floor(_obj):
         floor_segments_dict.update({i: flr_seg.to_dict()})
     d.update({"floor_segments": floor_segments_dict})
 
-    d.update({"occupancy": _obj.occupancy.to_dict()})
-    d.update({"lighting": _obj.lighting.to_dict()})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
+    if _obj.ventilation_loads:
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 
@@ -417,10 +414,6 @@ def _Volume(_obj):
 
     d.update({"volume_geometry": volume_geometry_dict})
 
-    d.update({"occupancy": _obj.occupancy.to_dict()})
-    d.update({"lighting": _obj.lighting.to_dict()})
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
-
     return d
 
 
@@ -431,7 +424,6 @@ def _Space(_obj):
     d.update({"space_name": _obj.space_name})
     d.update({"space_number": _obj.space_number})
     d.update({"host_zone_identifier": _obj.host_zone_identifier})
-    d.update({"equipment": _obj.equipment})
 
     d.update({"volume": _obj.volume})
 
@@ -440,9 +432,8 @@ def _Space(_obj):
         volumes_dict.update({i: volume.to_dict()})
     d.update({"volumes": volumes_dict})
 
-    d.update({"_ventilation": _obj._ventilation.to_dict()})
-    d.update({"occupancy": _obj.occupancy.to_dict()})
-    d.update({"lighting": _obj.lighting.to_dict()})
+    if _obj.ventilation_loads:
+        d.update({"_ventilation_loads": _obj.ventilation_loads.to_dict()})
 
     return d
 

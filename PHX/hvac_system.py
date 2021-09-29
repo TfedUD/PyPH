@@ -2,12 +2,12 @@
 # -*- Python Version: 2.7 -*-
 
 """
-PHX Basic HVAC Classes
+PHX Basic HVAC-System Classes
 """
 
 from collections import defaultdict
-
 import PHX._base
+import PHX.hvac_components
 
 
 class HVACSystemAddError(Exception):
@@ -17,35 +17,6 @@ class HVACSystemAddError(Exception):
             "to the HVAC System list. Please add only HVAC Devices.".format(_in, type(_in))
         )
         super(HVACSystemAddError, self).__init__(self.message)
-
-
-class HVAC_Device(PHX._base._Base):
-
-    _count = 0
-
-    def __init__(self):
-        super(HVAC_Device, self).__init__()
-        self.id = self._count
-        self.Name = ""
-        self.SystemType = None
-        self.TypeDevice = None
-        self.UsedFor_Heating = False
-        self.UsedFor_DHW = False
-        self.UsedFor_Cooling = False
-        self.UsedFor_Ventilation = False
-        self.UsedFor_Humidification = False
-        self.UsedFor_Dehumidification = False
-        self.UseOptionalClimate = False
-        self.IdentNr_OptionalClimate = -1
-
-    def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable"""
-        cls._count += 1
-        return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
 
 
 class HVAC_System_ZoneCover(PHX._base._Base):
@@ -75,18 +46,18 @@ class HVAC_System(PHX._base._Base):
         self.PHdistrib = None
 
     @property
-    def lDevice(self):
+    def devices(self):
         return list(self._device_dict.values())
 
     def add_devices_to_system(self, _devices):
-        # type: (list[HVAC_Device]) -> None
+        # type: (list[PHX.hvac_components.HVAC_Device]) -> None
         """Adds any HVAC Devices to the HVAC System"""
 
         if not isinstance(_devices, list):
             _devices = [_devices]
 
         for d in _devices:
-            if not isinstance(d, HVAC_Device):
+            if not isinstance(d, PHX.hvac_components.HVAC_Device):
                 raise HVACSystemAddError(d)
 
             # -- Ensure no duplicates
@@ -107,43 +78,6 @@ class HVAC_System(PHX._base._Base):
 
         self.lZoneCover.append(new_coverage)
 
-    def add_zone_ventilators_to_system(self, _zones):
-        # type: (list[PHX.bldg_segment.Zone]) -> None
-        """Adds all the Ventilators and Distribution from a PHX-Zone's Spaces to the HVAC-System Device list
-
-        Arguments:
-        ----------
-            * _zones (list[PHX.bldg_segment.Zone]): The Zone/Zones to get ventilators from.
-        """
-
-        if not isinstance(_zones, list):
-            _zones = [_zones]
-
-        # Pull the ventilator out of the space.
-        for zone in _zones:
-            for space in zone.spaces:
-                self.add_devices_to_system(space.ventilation.system.ventilator)
-
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_System(cls, _dict)
-
-
-class HVAC(PHX._base._Base):
-    def __init__(self):
-        super(HVAC, self).__init__()
-        self.lSystem = [HVAC_System()]
-
-    @property
-    def default_system(self):
-        return self.lSystem[0]
-
-    def add_system(self, _systems):
-        # type: (HVAC_System) -> None
-        """Add a new HVAC System to the collection"""
-
-        if not isinstance(_systems, list):
-            _systems = [_systems]
-
-        for sys in _systems:
-            self.lSystem.append(sys)

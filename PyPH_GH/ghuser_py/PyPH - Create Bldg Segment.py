@@ -25,7 +25,7 @@ as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM September 14, 2021
+EM September 28, 2021
     Args:
         segment_name_: Name for the building-segment
         
@@ -78,7 +78,9 @@ import LBT_Utils.hb_schedules
 
 import PHX
 import PHX.bldg_segment
-import PHX.occupancy
+import PHX.programs.occupancy
+import PHX.programs.lighting
+import PHX.programs.schedules
 import PHX.spaces
 
 import PyPH_Rhino.gh_io
@@ -92,7 +94,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_14_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -101,7 +103,9 @@ if DEV:
     reload(PHX.serialization.from_dict)
     reload(PHX.bldg_segment)
     reload(PHX.spaces)
-    reload(PHX.occupancy)
+    reload(PHX.programs.occupancy)
+    reload(PHX.programs.lighting)
+    reload(PHX.programs.schedules)
     reload(PyPH_Rhino.gh_io)
     reload(PyPH_Rhino.bldg_segment_id)
     reload(PyPH_Rhino.occupancy)
@@ -115,7 +119,7 @@ new_bldg_segment = PyPH_Rhino.bldg_segment_id.BldgSegment_ID()
 new_bldg_segment.name = segment_name_ or '_default_building_'
 
 # -- Segment Occupancy
-occupancy = PHX.occupancy.BldgSegmentOccupancy()
+occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
 occupancy.category = PyPH_Rhino.gh_io.input_to_int(IGH, occupancy_category_, 1)
 occupancy.usage_type = PyPH_Rhino.gh_io.input_to_int(IGH, usage_type_, 1)
 occupancy.num_stories = PyPH_Rhino.gh_io.input_to_int(IGH, num_floor_levels_, 1)
@@ -140,7 +144,7 @@ for room in _HB_rooms:
         # -- For Non-Residential, calc the PHX Occupancy and Lighting Schedules
         hb_occ = room.properties.energy.people
         hb_lighting = room.properties.energy.lighting
-        new_phx_occupany = PyPH_Rhino.occupancy.phx_occupancy_from_hb(hb_occ, default_name)
+        new_phx_occupancy = PyPH_Rhino.occupancy.phx_occupancy_from_hb(hb_occ, default_name)
         new_phx_lighting = PyPH_Rhino.lighting.phx_lighting_from_hb(hb_lighting)
         
         # -- Build a new Occupancy based on the HB Zone,
@@ -149,7 +153,7 @@ for room in _HB_rooms:
         new_spaces = []
         for space_dict in space_dicts.values():
             new_space = PHX.spaces.Space.from_dict(space_dict)
-            new_space.occupancy = new_phx_occupany
+            new_space.occupancy = new_phx_occupancy
             new_space.lighting = new_phx_lighting
             new_spaces.append(new_space)
             

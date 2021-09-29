@@ -1,22 +1,22 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-# 
+#
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-# 
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
-# PyPH is free software; you can redistribute it and/or modify 
-# it under the terms of the GNU General Public License as published 
-# by the Free Software Foundation; either version 3 of the License, 
-# or (at your option) any later version. 
-# 
+#
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
+# PyPH is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published
+# by the Free Software Foundation; either version 3 of the License,
+# or (at your option) any later version.
+#
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
-# 
+#
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-# 
+#
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
@@ -38,28 +38,32 @@ EM August 25, 2021
 """
 
 import PHX.hvac
-import PHX.ventilation_components
+import PHX.hvac_components
 
 # --
 import PyPH_GH._component_info_
+
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Unit"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 25, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 25, 2021")
 
 if DEV:
     reload(PHX.hvac)
-    reload(PHX.ventilation_components)
+    reload(PHX.hvac_components)
+
 
 def validate_efficiency(_in):
-    if not _in: return None
-    
+    if not _in:
+        return None
+
     if float(_in) > 1:
-        return float(_in)/100
+        return float(_in) / 100
     else:
         return float(_in)
 
-unit_ = PHX.ventilation_components.Ventilator()
+
+unit_ = PHX.hvac_components.Ventilator()
 
 # -- Basic Parameters for Ventilation Systems
 unit_.SystemType = 1
@@ -67,9 +71,13 @@ unit_.TypeDevice = 1
 unit_.UsedFor_Ventilation = True
 
 # -- Custom Attributes
-unit_.Name = unit_name_ or 'Unnamed Vent. Unit'
-unit_.PH_Parameters.HeatRecoveryEfficiency = validate_efficiency(heat_recovery_eff_) or unit_.PH_Parameters.HeatRecoveryEfficiency
-unit_.PH_Parameters.HumidityRecoveryEfficiency = validate_efficiency(moisture_recovery_eff_) or unit_.PH_Parameters.HumidityRecoveryEfficiency
+unit_.Name = unit_name_ or "Unnamed Vent. Unit"
+unit_.PH_Parameters.HeatRecoveryEfficiency = (
+    validate_efficiency(heat_recovery_eff_) or unit_.PH_Parameters.HeatRecoveryEfficiency
+)
+unit_.PH_Parameters.HumidityRecoveryEfficiency = (
+    validate_efficiency(moisture_recovery_eff_) or unit_.PH_Parameters.HumidityRecoveryEfficiency
+)
 
 unit_.PH_Parameters.ElectricEfficiency = electrical_eff_ or unit_.PH_Parameters.ElectricEfficiency
 unit_.PH_Parameters.TemperatureBelowDefrostUsed = frost_temp_ or unit_.PH_Parameters.TemperatureBelowDefrostUsed

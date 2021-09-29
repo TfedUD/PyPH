@@ -3,8 +3,8 @@
 
 """Rhino/Grasshopper functions for buiding PHX Ventilation Systems, Ducts."""
 
-import PHX.hvac
-import PHX.ventilation_components
+import PHX.hvac_system
+import PHX.hvac_components
 import PyPH_Rhino.gh_io
 
 
@@ -17,7 +17,7 @@ class DuctInputError(Exception):
 
 
 def handle_duct_input(IGH, _inputs, _input_node_name):
-    # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.ventilation_components.Ventilation_Duct
+    # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.hvac_components.HVAC_Duct
     """Handle user-input of Ventilation ducts at the Ventilation-System level.
 
     Input could be:
@@ -36,17 +36,17 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
 
     Returns:
     --------
-        * (PHX.ventilation_components.Ventilation_Duct): The new Ventilation Duct Object.
+        * (PHX.hvac_components.HVAC_Duct): The new Ventilation Duct Object.
     """
 
     try:
         # -- If its RH/GH-Geom, Str, Float - handle all that
         clean_inputs = PyPH_Rhino.gh_io.handle_inputs(IGH, _inputs, _input_node_name)
-        new_duct = PHX.ventilation_components.Ventilation_Duct()
+        new_duct = PHX.hvac_components.HVAC_Duct()
 
         for _in in clean_inputs:
             # -- Build new Duct Segments
-            new_duct_seg = PHX.ventilation_components.Ventilation_Duct_Segment()
+            new_duct_seg = PHX.hvac_components.HVAC_Duct_Segment()
 
             # -- Basic Duct Segment Params
             new_duct_seg.diameter = _in.get("ductDiameter", 0.0)
@@ -81,6 +81,6 @@ def handle_duct_input(IGH, _inputs, _input_node_name):
             else:
                 raise DuctInputError(_in)
 
-        new_duct = sum(new_ducts, start=PHX.ventilation_components.Ventilation_Duct())
+        new_duct = sum(new_ducts, start=PHX.hvac_components.HVAC_Duct())
 
         return new_duct

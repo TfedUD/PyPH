@@ -26,7 +26,7 @@ HB-rooms. If a list is input, the values from the list will be applied to the HB
 in that same order. 
 -----
 -
-EM August 19, 2021
+EM September 28, 2021
     Args:
         
         num_bedrooms_: (int) For residential only: Enter the number of bedrooms in
@@ -58,19 +58,19 @@ import Grasshopper as gh
 import PyPH_Rhino.gh_io
 import LBT_Utils
 import PHX
-import PHX.occupancy
+import PHX.programs.occupancy
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Zone Occupancy"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 19, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
 
 if DEV:
     reload(PyPH_Rhino.gh_io)
     reload(LBT_Utils)
-    reload(PHX.occupancy)
+    reload(PHX.programs.occupancy)
     reload(PHX.serialization.to_dict)
     reload(PHX.serialization.from_dict)
     
@@ -105,7 +105,7 @@ for i, room in enumerate(_HB_rooms):
     new_hb_room = room.duplicate()
     
     # -- Build a new occupancy object
-    occupancy = PHX.occupancy.ZoneOccupancy()
+    occupancy = PHX.programs.occupancy.ZoneOccupancy()
     
     # -- Get the input data
     occupancy.num_bedrooms = clean_get(IGH, num_bedrooms_, i, 1)

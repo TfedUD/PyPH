@@ -24,7 +24,7 @@ Calculate lighting and electrical (MEL) loads according to the PHIUS Multifamily
 Calculator (Floor Method).
 -----
 -
-EM August 19, 2021
+EM September 28, 2021
     Args:
         
         lighting_frac_HE_ext_: (float) Fraction of the exterior lighting which is 'high efficiency'
@@ -49,7 +49,7 @@ import ghpythonlib.components as ghc
 import Grasshopper as gh
 
 
-import PHX.occupancy
+import PHX.programs.occupancy
 import PyPH_Rhino.phius_MF_electric
 import PyPH_Rhino.gh_io
 
@@ -58,10 +58,10 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - PHIUS MF Calculator"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 19, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
 
 if DEV:
-    reload(PHX.occupancy)
+    reload(PHX.programs.occupancy)
     reload(PyPH_Rhino.phius_MF_electric)
     reload(PyPH_Rhino.gh_io)
 
@@ -83,7 +83,7 @@ for room_list in stories_dict.values():
     non_res_rooms = []
     res_rooms = []
     for room in room_list:
-        room_occupancy = PHX.occupancy.ZoneOccupancy.from_dict( room.user_data.get('phx', {}).get('zone_occupancy', {}) )
+        room_occupancy = PHX.programs.occupancy.ZoneOccupancy.from_dict( room.user_data.get('phx', {}).get('zone_occupancy', {}) )
         if room_occupancy.num_dwelling_units > 0:
             res_rooms.append(room)
         else:

@@ -5,21 +5,22 @@
 PHX Space (Room) and Floor Area (iCFA / TFA) Classes
 """
 
+import PHX.programs.loads
 import PHX._base
 import PHX.serialization.from_dict
-import PHX.occupancy
-import PHX.lighting
-import PHX.ventilation
+import PHX.programs.occupancy
+import PHX.programs.lighting
+import PHX.programs.ventilation
 
 # -- Errors
 # ------------------------------------------------------------------------------
-class SpaceVentilationInputError(Exception):
+class RoomVentilationLoadInputError(Exception):
     def __init__(self, _in):
         self.message = (
-            "Error: Please input PHX.ventilation.SpaceVentilation objects for"
-            "FloorSegment 'ventilation'. Got: {}, type: {}".format(_in, type(_in))
+            "Error: 'ventilation_loads' may only be a PHX.programs.loads.Load_Ventilation "
+            "object. Got: {} - {}.".format(_in, type(_in))
         )
-        super(SpaceVentilationInputError, self).__init__(self.message)
+        super(RoomVentilationLoadInputError, self).__init__(self.message)
 
 
 class FloorAreaWeightingInputError(Exception):
@@ -102,25 +103,18 @@ class FloorSegment(PHX._base._Base):
         self.space_number = None
         self.geometry = []
         self.host_zone_identifier = None
-
-        self.non_res_lighting = None
-        self.non_res_motion = None
-        self.non_res_usage = None
-
-        self._ventilation = PHX.ventilation.SpaceVentilation.default()
-        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
-        self.lighting = PHX.lighting.SpaceLighting.default()
+        self._ventilation_loads = None  # By default None, so will inherit from Room
 
     @property
-    def ventilation(self):
-        return self._ventilation
+    def ventilation_loads(self):
+        return self._ventilation_loads
 
-    @ventilation.setter
-    def ventilation(self, _in):
-        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
-            raise SpaceVentilationInputError(_in)
-
-        self._ventilation = _in
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
 
     @property
     def weighting_factor(self):
@@ -188,26 +182,20 @@ class Floor(PHX._base._Base):
         self.space_number = None
         self.host_zone_identifier = None
 
-        self.non_res_lighting = None
-        self.non_res_motion = None
-        self.non_res_usage = None
-
-        self._ventilation = PHX.ventilation.SpaceVentilation.default()
-        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
-        self.lighting = PHX.lighting.SpaceLighting.default()
+        self._ventilation_loads = None  # By default None, so will inherit from Room
 
     @property
-    def ventilation(self):
-        return self._ventilation
+    def ventilation_loads(self):
+        return self._ventilation_loads
 
-    @ventilation.setter
-    def ventilation(self, _in):
-        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
-            raise SpaceVentilationInputError(_in)
-
-        self._ventilation = _in
-        for floor_segment in self.floor_segments:
-            floor_segment.ventilation = _in  # -- Keep everything aligned
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
+            for floor_segment in self.floor_segments:
+                floor_segment.ventilation_loads = _in
 
     @property
     def floor_area_gross(self):
@@ -240,14 +228,13 @@ class Floor(PHX._base._Base):
             self.space_number = self._join_string_values(seg, "space_number")
             self.space_name = self._join_string_values(seg, "space_name")
 
-            self.non_res_lighting = self._join_string_values(seg, "non_res_lighting")
-            self.non_res_motion = self._join_string_values(seg, "non_res_motion")
-            self.non_res_usage = self._join_string_values(seg, "non_res_usage")
-
-            self.ventilation = self.ventilation + seg.ventilation
-            seg.ventilation = self.ventilation  # Ensure equality of all ventilation params
-
             self.host_zone_identifier = self._join_string_values(seg, "host_zone_identifier")
+
+            # -- UD Ventilation Loads, if any
+            if self.ventilation_loads:
+                self.ventilation_loads = self.ventilation_loads.join(seg.ventilation_loads)
+            else:
+                self.ventilation_loads = seg.ventilation_loads
 
     @property
     def geometry(self):
@@ -318,24 +305,9 @@ class Volume(PHX._base._Base):
         self._volume = 0.0
         self.volume_geometry = []
 
-        self._ventilation = PHX.ventilation.SpaceVentilation.default()
-        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
-        self.lighting = PHX.lighting.SpaceLighting.default()
-
     @property
-    def ventilation(self):
-        return self._ventilation
-
-    @ventilation.setter
-    def ventilation(self, _in):
-        if not self.floor:
-            raise VolumeMissingFloorError(self.display_name)
-
-        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
-            raise SpaceVentilationInputError(_in)
-
-        self._ventilation = _in
-        self.floor.ventilation = _in  # -- Keep everything aligned
+    def ventilation_loads(self):
+        return self.floor.ventilation_loads
 
     @property
     def floor_area_gross(self):
@@ -391,9 +363,6 @@ class Volume(PHX._base._Base):
         self.space_number = _floor.space_number
         self.host_zone_identifier = _floor.host_zone_identifier
 
-        self.ventilation = self.ventilation + _floor.ventilation
-        _floor.ventilation = self.ventilation
-
     def __str__(self):
         return "PHX_{}: {} ({} FloorSegments)".format(
             self.__class__.__name__, self.display_name, len(self.floor.floor_segments)
@@ -402,27 +371,27 @@ class Volume(PHX._base._Base):
 
 class Space(PHX._base._Base):
     """
-    The 'Space' is the primary spatial unit for a Passive House model. This would roughly
-    map to a 'Zone' in EnergyPlus or 'Room' in Honeybee. The main difference is
-    that the 'Space' contains information on all its sub-areas (Volumes) and
+    A 'Space' contains information on all its sub-areas (Volumes) and
     TFA/iCFA floor segments and floor areas.
 
-    Space_01
+    Room
       |
-      +-- Volume_01
-      |     |
-      |     +-- Floor
-      |         |
-      |         +--FloorSegement_01
-      |         +--FloorSegement_02
-      |
-      +-- Volume_02
-      |     |
-      |     +-- Floor
-      |         |
-      |         +--FloorSegement_03
-      |         +--FloorSegement_04
-      .
+     Space_01
+        |
+        +-- Volume_01
+        |     |
+        |     +-- Floor
+        |         |
+        |         +--FloorSegement_01
+        |         +--FloorSegement_02
+        |
+        +-- Volume_02
+        |     |
+        |     +-- Floor
+        |         |
+        |         +--FloorSegement_03
+        |         +--FloorSegement_04
+        :
     """
 
     def __init__(self):
@@ -436,25 +405,20 @@ class Space(PHX._base._Base):
         self.volume = 0.0
         self.volumes = []
 
-        self.equipment = None
-        self.ventilation = PHX.ventilation.SpaceVentilation()
-        self.occupancy = PHX.occupancy.SpaceOccupancy.default()
-        self.lighting = PHX.lighting.SpaceLighting.default()
+        self._ventilation_loads = None  # By default None, so will inherit from Room
 
     @property
-    def ventilation(self):
-        return self._ventilation
+    def ventilation_loads(self):
+        return self._ventilation_loads
 
-    @ventilation.setter
-    def ventilation(self, _in):
-        if not isinstance(_in, PHX.ventilation.SpaceVentilation):
-            raise SpaceVentilationInputError(_in)
-
-        self._ventilation = _in
-
-        # -- Reset all the Volume Ventilations as well
-        for volume in self.volumes:
-            volume.ventilation = _in
+    @ventilation_loads.setter
+    def ventilation_loads(self, _in):
+        if (_in is not None) and (not isinstance(_in, PHX.programs.loads.Load_Ventilation)):
+            raise RoomVentilationLoadInputError(_in)
+        else:
+            self._ventilation_loads = _in
+            for volume in self.volumes:
+                volume.floor.ventilation_loads = _in
 
     @property
     def clear_height(self):
@@ -476,10 +440,6 @@ class Space(PHX._base._Base):
 
         return total
 
-    @property
-    def peak_occupancy(self):
-        return float(self.floor_area_weighted) * float(self.occupancy.people_per_area)
-
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Space(cls, _dict)
@@ -489,7 +449,7 @@ class Space(PHX._base._Base):
         return "{}-{}".format(self.space_number, self.space_name)
 
     def add_new_volume(self, _new_volume):
-        # type : (PHX.spaces.Space, PHX.spaces.Volume) -> None
+        # type : (Volume) -> None
         """Adds a new Volume onto the Space. Verifies that the names/numbers/hosts match
 
         Arguments:
@@ -520,20 +480,17 @@ class Space(PHX._base._Base):
             if self.host_zone_identifier != _new_volume.host_zone_identifier:
                 raise AddVolumeToSpaceHostZoneIDError(_new_volume.host_zone_identifier, self.host_zone_identifier)
 
-        # -- Set the Space's Ventilation Properties
-        # -- This will also ripple down to the FloorSegment level
-        # -- resetting all the 'ventilation' objects for all the Objects
-        self.ventilation = self.ventilation + _new_volume.ventilation
-
-        # -- Set the Volume's Ventilation Properties
-        # -- to ensure that everything matches
-        _new_volume.ventilation = self.ventilation
-
         # -- Update the total numeric Volume (m3)
         self.volume += _new_volume.volume
 
         # -- Add the new Volume to Space's list
         self.volumes.append(_new_volume)
+
+        # -- Add the UD Ventilation Loads, if any
+        if self.ventilation_loads:
+            self.ventilation_loads = self.ventilation_loads.join(_new_volume.ventilation_loads)
+        else:
+            self.ventilation_loads = _new_volume.ventilation_loads
 
     def __str__(self):
         return "PHX_{}: {} ({} Volumes)".format(self.__class__.__name__, self.display_name, len(self.volumes))

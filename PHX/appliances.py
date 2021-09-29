@@ -587,3 +587,6 @@ class ApplianceSet(PHX._base._Base):
             return self
         else:
             return self.__add__(other)
+
+    def __str__(self):
+        return "{}: [{} appliances]".format(self.__class__.__name__, len(self.appliances))

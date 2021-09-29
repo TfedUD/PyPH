@@ -1,14 +1,14 @@
-import PHX.ventilation
-import PHX.loads
+import PHX.programs.ventilation
+import PHX.programs.loads
 
 
 def test_Load_Ventilation(reset_ventilation):
-    af1 = PHX.loads.Load_Ventilation()
+    af1 = PHX.programs.loads.Load_Ventilation()
     af1.supply = 200
     af1.extract = 300
     af1.transfer = 400
 
-    af2 = PHX.loads.Load_Ventilation()
+    af2 = PHX.programs.loads.Load_Ventilation()
     af2.supply = 500
     af2.extract = 600
     af2.transfer = 700
@@ -24,12 +24,12 @@ def test_Load_Ventilation(reset_ventilation):
 
 
 def test_add_Load_Ventilation(reset_ventilation):
-    af1 = PHX.loads.Load_Ventilation()
+    af1 = PHX.programs.loads.Load_Ventilation()
     af1.supply = 200
     af1.extract = 600
     af1.transfer = 400
 
-    af2 = PHX.loads.Load_Ventilation()
+    af2 = PHX.programs.loads.Load_Ventilation()
     af2.supply = 500
     af2.extract = 300
     af2.transfer = 700

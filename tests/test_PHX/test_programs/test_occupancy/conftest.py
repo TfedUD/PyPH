@@ -1,4 +1,4 @@
-import PHX.occupancy
+import PHX.programs.occupancy
 import pytest
 
 
@@ -6,14 +6,14 @@ import pytest
 def reset_occupancies():
     """Re-set the class _count variable in order to test incrementing properly"""
 
-    PHX.occupancy.ZoneOccupancy._count = 0
-    PHX.occupancy.BldgSegmentOccupancy._count = 0
-    PHX.occupancy.SpaceOccupancy._count = 0
-    PHX.occupancy.SpaceOccupancy._default = None
+    PHX.programs.occupancy.ZoneOccupancy._count = 0
+    PHX.programs.occupancy.BldgSegmentOccupancy._count = 0
+    PHX.programs.occupancy.SpaceOccupancy._count = 0
+    PHX.programs.occupancy.SpaceOccupancy._default = None
 
     yield
 
-    PHX.occupancy.ZoneOccupancy._count = 0
-    PHX.occupancy.BldgSegmentOccupancy._count = 0
-    PHX.occupancy.SpaceOccupancy._count = 0
-    PHX.occupancy.SpaceOccupancy._default = None
+    PHX.programs.occupancy.ZoneOccupancy._count = 0
+    PHX.programs.occupancy.BldgSegmentOccupancy._count = 0
+    PHX.programs.occupancy.SpaceOccupancy._count = 0
+    PHX.programs.occupancy.SpaceOccupancy._default = None

@@ -17,6 +17,8 @@ class AddToCollectionError(Exception):
 
 
 class Collection:
+    """Collection base class"""
+
     def __init__(self):
         super(Collection, self).__init__()
         self._items = {}
@@ -37,6 +39,19 @@ class Collection:
 
     def add_to_collection(self, _item, _key=None, _reset_count=False):
         # type: (object, str | None, bool) -> None
+        """Add a new Item (of allowed type) to the Collection.
+
+        Arguments:
+        ----------
+            * _item (Any): The new Object to add to the Collection
+            * _key (str | None): The key to use for the item dict
+            * _reset_count (bool): True=Reset the item's .id attr to match the Collection
+
+        Returns:
+        --------
+            * None
+        """
+
         if not isinstance(_item, self._allowed_types):
             raise AddToCollectionError(_item, self.__class__.__name__, self._allowed_types)
 

@@ -19,17 +19,17 @@ def test_Zone_ID(reset_bldg_segment_count):
     assert PHX.bldg_segment.Zone._count == 2
 
 
-def test_Zone_add_new_Space(reset_bldg_segment_count):
-    z1 = PHX.bldg_segment.Zone()
-    r1 = PHX.spaces.Space()
+def test_Room_add_new_Space(reset_bldg_segment_count):
+    r1 = PHX.bldg_segment.Room()
+    s1 = PHX.spaces.Space()
 
-    assert len(z1.spaces) == 0
-    z1.add_spaces(r1)
-    assert r1 in z1.spaces
-    assert len(z1.spaces) == 1
+    assert len(r1.spaces) == 0
+    r1.add_spaces(r1)
+    assert r1 in r1.spaces
+    assert len(r1.spaces) == 1
 
 
-def test_Zone_add_single_Space_sets_values(flr_seg_101_with_geometry):
+def test_Room_add_single_Space_sets_values(flr_seg_101_with_geometry):
     # -- Build Space
     flr = PHX.spaces.Floor()
     flr.add_new_floor_segment(flr_seg_101_with_geometry)
@@ -46,10 +46,15 @@ def test_Zone_add_single_Space_sets_values(flr_seg_101_with_geometry):
     space_1 = PHX.spaces.Space()
     space_1.add_new_volume(vol_1)
 
-    # -- Add Space to the Zone
-    z1 = PHX.bldg_segment.Zone()
-    z1.add_spaces(space_1)
+    # -- Add Space to the Room
+    r1 = PHX.bldg_segment.Room()
+    r1.add_spaces(space_1)
 
+    # -- Build Zone, add Room to Zone
+    z1 = PHX.bldg_segment.Zone()
+    z1.add_rooms(r1)
+
+    assert r1
     assert z1
     assert z1.volume_net == 250
     assert z1.volume_net_selection == 6  # user-defined
@@ -57,7 +62,7 @@ def test_Zone_add_single_Space_sets_values(flr_seg_101_with_geometry):
     assert z1.floor_area_selection == 6  # user-defined
 
 
-def test_Zone_add_multiple_Spaces_sets_values(flr_seg_101_with_geometry, flr_seg_102_with_geometry):
+def test_Room_add_multiple_Spaces_sets_values(flr_seg_101_with_geometry, flr_seg_102_with_geometry):
     # -- Build Space 1
     flr_1 = PHX.spaces.Floor()
     flr_1.add_new_floor_segment(flr_seg_101_with_geometry)
@@ -90,10 +95,15 @@ def test_Zone_add_multiple_Spaces_sets_values(flr_seg_101_with_geometry, flr_seg
     space_2 = PHX.spaces.Space()
     space_2.add_new_volume(vol_2)
 
-    # -- Add Space to the Zone
-    z1 = PHX.bldg_segment.Zone()
-    z1.add_spaces([space_1, space_2])
+    # -- Add Space to the Room
+    r1 = PHX.bldg_segment.Room()
+    r1.add_spaces([space_1, space_2])
 
+    # -- Build a Zone, Add the Room to the Zone
+    z1 = PHX.bldg_segment.Zone()
+    z1.add_rooms(r1)
+
+    assert r1
     assert z1
     assert z1.volume_net == 250 + 500
     assert z1.volume_net_selection == 6  # user-defined

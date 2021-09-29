@@ -11,7 +11,7 @@ from collections import defaultdict
 from collections import namedtuple
 
 import PHX.spaces
-import PHX.occupancy
+import PHX.programs.occupancy
 
 import honeybee.room
 
@@ -76,7 +76,7 @@ def get_room_attributes(_rooms):
 
         # -- Get units, bedrooms
         zn_occ_dict = room.user_data.get("phx", {}).get("zone_occupancy", {})
-        zn_occ = PHX.occupancy.ZoneOccupancy.from_dict(zn_occ_dict)
+        zn_occ = PHX.programs.occupancy.ZoneOccupancy.from_dict(zn_occ_dict)
 
         total_story_num_bedrooms += zn_occ.num_bedrooms
         total_story_num_dwelling_units += zn_occ.num_dwelling_units

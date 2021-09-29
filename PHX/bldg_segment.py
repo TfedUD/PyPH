@@ -12,16 +12,19 @@ from collections import defaultdict
 from functools import reduce
 
 import PHX._base
-import PHX.hvac
+import PHX.hvac_system
 import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
-import PHX.occupancy
+import PHX.programs.lighting
+import PHX.programs.occupancy
+import PHX.programs.ventilation
+import PHX.programs.equipment
 import PHX.infiltration
 import PHX.ground
 import PHX.appliances
 
-
+# ------------------------------------------------------------------------------
 class ZoneTypeError(Exception):
     def __init__(self, _in):
         self.message = 'Error: Expected input of type: "PHX.bldg_segment.Zone" Got: "{}"::"{}"?'.format(_in, type(_in))
@@ -34,6 +37,7 @@ class GroupTypeNotImplementedError(Exception):
         super(GroupTypeNotImplementedError, self).__init__(self.message)
 
 
+# ------------------------------------------------------------------------------
 class Geom(PHX._base._Base):
     """Geometry Collection"""
 
@@ -264,7 +268,67 @@ class ClimateLocation(PHX._base._Base):
         self.Unit_CO2concentration = 48
 
 
+# ------------------------------------------------------------------------------
+class Room(PHX._base._Base):
+    """A PHX-Room. Part of a PHX-Zone.
+
+    BldgSegment_1
+       +----Zone_1
+       |      +----Room_1  #<-----
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
+
+    Containts one or more PHX-Spaces and all the Program data (sched, loads) for the spaces
+    """
+
+    _count = 0
+
+    def __init__(self):
+        super(Room, self).__init__()
+        self.id = self._count
+        self.name = ""
+        self.volume_gross = 0.0
+        self.spaces = []
+
+        self.ventilation = PHX.programs.ventilation.RoomVentilation()
+        self.lighting = PHX.programs.lighting.SpaceLighting()
+        self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
+        self.equipment_set = PHX.programs.equipment.EquipmentSet()
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(Room, cls).__new__(cls, *args, **kwargs)
+
+    def add_spaces(self, _spaces):
+        # type: (list[PHX.spaces.Space]) -> None
+        """Adds new Rooms to the Zone"""
+
+        if not isinstance(_spaces, list):
+            _spaces = [_spaces]
+
+        for space in _spaces:
+            self.spaces.append(space)
+
+    def __str__(self):
+        return "PHX_{}: {}".format(self.__class__.__name__, self.name)
+
+
 class Zone(PHX._base._Base):
+    """A Thermal Zone. Contains one or more Rooms and relevant Zone-level attributes
+
+    BldgSegment_1
+       +----Zone_1  #<-----
+       |      +----Room_1
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
+    """
 
     _count = 0
 
@@ -273,6 +337,7 @@ class Zone(PHX._base._Base):
         self.id = self._count
         self.n = None
         self.typeZ = 1
+
         self.volume_gross = 0.0
         self.volume_gross_selection = 7
         self.volume_net = 0.0
@@ -283,32 +348,38 @@ class Zone(PHX._base._Base):
         self.clearance_height = 2.5
         self.spec_heat_cap_selection = 2
         self.spec_heat_cap = 132
-        self.spaces = []
+
+        self.rooms = []
         self.source_zone_identifiers = []
-        self.appliances = PHX.appliances.ApplianceSet()
+
+        self.appliance_set = PHX.appliances.ApplianceSet()
         self.summer_ventilation = PHX.summer_ventilation.SummerVent()
-        self.occupancy = PHX.occupancy.ZoneOccupancy()
+        self.occupancy = PHX.programs.occupancy.ZoneOccupancy()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Zone, cls).__new__(cls, *args, **kwargs)
 
-    def add_spaces(self, _new_spaces):
-        # type; (list[PHX.spaces.Space]): -> None
-        """Adds new Spaces to the Zone"""
+    def add_rooms(self, _new_rooms):
+        # type: (list[PHX.bldg_segment.Room]) -> None
+        """Adds new Rooms to the Zone"""
 
-        if not isinstance(_new_spaces, list):
-            _new_spaces = [_new_spaces]
+        if not isinstance(_new_rooms, list):
+            _new_rooms = [_new_rooms]
 
-        for space in _new_spaces:
-            self.spaces.append(space)
+        for room in _new_rooms:
+            self.rooms.append(room)
 
-            # -- Add to the zone totals
-            self.volume_net += space.volume
-            self.volume_net_selection = 6  # user-defined
-            self.floor_area += space.floor_area_weighted
-            self.floor_area_selection = 6  # user-defined
+            self.volume_gross += room.volume_gross
+            self.volume_gross_selection = 6  # user-defined
+
+            for space in room.spaces:
+                # -- Add to the zone totals
+                self.volume_net += space.volume
+                self.volume_net_selection = 6  # user-defined
+                self.floor_area += space.floor_area_weighted
+                self.floor_area_selection = 6  # user-defined
 
     @staticmethod
     def _floor_area_weighted_join(_a, _b, _attr_str):
@@ -350,14 +421,14 @@ class Zone(PHX._base._Base):
         )
 
         # -- Extend rooms ventilation
-        new_obj.spaces.extend(self.spaces)
-        new_obj.spaces.extend(other.spaces)
+        new_obj.rooms.extend(self.rooms)
+        new_obj.rooms.extend(other.rooms)
         new_obj.source_zone_identifiers.extend([self.identifier, other.identifier])
         new_obj.source_zone_identifiers.extend(self.source_zone_identifiers)
         new_obj.source_zone_identifiers.extend(other.source_zone_identifiers)
 
         # -- Combine ApplianceSets
-        new_obj.appliances = self.appliances + other.appliances
+        new_obj.appliance_set = self.appliance_set + other.appliance_set
 
         # -- Combine Occupancies
         new_obj.occupancy = self.occupancy + other.occupancy
@@ -372,7 +443,16 @@ class Zone(PHX._base._Base):
 
 
 class BldgSegment(PHX._base._Base):
-    """A Segment/Zone/Wing of a Project with one or more PHX-Zones inside.
+    """A Segment/Part/Wing of a Project with one or more PHX-Zones inside.
+
+    BldgSegment_1 #<-----
+       +----Zone_1
+       |      +----Room_1
+       |      |      +---Space_1
+       |      |      +---Space_1
+       |      +----Room_2
+       +----Zone_2
+       |      |
 
     A single Structure/Project can have one or more Building-Segments.
     For WUFI-Passive, this class basically maps to a 'Variant'/'Case' at the Project level
@@ -383,32 +463,30 @@ class BldgSegment(PHX._base._Base):
 
     def __init__(self):
         super(BldgSegment, self).__init__()
-        self.id = self._count
-        self.target_room_names = []
-        self.relative_variant = True  # WUFI shit
-        self.n = ""
-        self.remarks = ""
-        self.geom = Geom()
-        self.calcScope = 4
-        self.HaMT = {}
-        self.PHIUS_certification = PHIUSCertification()
-        self.occupancy = PHX.occupancy.BldgSegmentOccupancy()
-        self.infiltration = PHX.infiltration.Infiltration(self)
-        self.foundations = [PHX.ground.Foundation()]
-        self.DIN4108 = {}
-        self.cliLoc = ClimateLocation()
-        self.HVAC = PHX.hvac.HVAC()
-        self.res = None
-        self.plugin = None
-
-        self.components = []
-        self.zones = []
-
-        self.numerics = None
         self.airflow_model = None
+        self.calcScope = 4
+        self.cliLoc = ClimateLocation()
+        self.components = []
         self.count_generator = 0
-        self.has_been_generated = False
+        self.DIN4108 = {}
+        self.foundations = [PHX.ground.Foundation()]
+        self.geom = Geom()
+        self.HaMT = {}
         self.has_been_changed_since_last_gen = False
+        self.has_been_generated = False
+        self.HVAC_system = PHX.hvac_system.HVAC_System()
+        self.id = self._count
+        self.infiltration = PHX.infiltration.Infiltration(self)
+        self.n = ""
+        self.numerics = None
+        self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
+        self.PHIUS_certification = PHIUSCertification()
+        self.plugin = None
+        self.relative_variant = True  # WUFI shit
+        self.remarks = ""
+        self.res = None
+        self.target_room_names = []
+        self.zones = []
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -439,8 +517,17 @@ class BldgSegment(PHX._base._Base):
         return sum((_.volume_gross or 0) for _ in self.zones)
 
     def add_zones(self, _zones):
-        # type: (list[PHX.spaces.Zone]) -> None
-        """Adds new Zones to the BldgSegment."""
+        # type: (list[PHX.bldg_segment.Zone]) -> None
+        """Adds new PHX-Zones to the BldgSegment.
+
+        Arguments:
+        ----------
+            * _zones (list[PHX.bldg_segment.Zone]): The list of new PHX Zones to add to the Bldg Segment
+
+        Returns:
+        --------
+            * None
+        """
 
         if not isinstance(_zones, list):
             _zones = [_zones]
@@ -573,6 +660,7 @@ class BldgSegment(PHX._base._Base):
                 # -- Join all the Components in each group into single new Component
                 for compo_gr in compo_groups.values():
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
+                    compo_joined.n = "Component_Group"
                     new_compo_list.append(compo_joined)
 
             # -- Replace the Component List with the new one
@@ -587,21 +675,23 @@ class BldgSegment(PHX._base._Base):
         if len(self.zones) <= 1:
             return None
         else:
-            zones_joined = reduce(lambda a, b: a + b, self.zones)
-            zones_joined.id = 1
-            self.zones = [zones_joined]
+            merged_zone = reduce(lambda a, b: a + b, self.zones)
+            merged_zone.id = 1
+            self.zones = [merged_zone]
 
             # -- Set the appliance Reference Quantity
             # -- As per PHIUS, if the building is single Zone, all appliances
             # -- should be set to 'PH Case' quantity
-            for appliance in zones_joined.appliances.appliances:
+            for appliance in merged_zone.appliance_set:
                 if appliance.type in {1, 2, 3, 7}:
                     appliance.reference_quantity = 1  # PH-Case
 
             # -- Merge all the Components
-            # -- Update all the exposure names,
-            # -- Remove interior surfaces (?!)
             for compo in self.components:
                 compo.set_host_zone_name(self.zones[0])
+
+            # Not Implemented Yet:
+            # -- Update all the exposure names (for inter-zonal adjacencies)
+            # -- Remove interior surfaces (and/or convert to Internal Mass Objects?)
 
             return None

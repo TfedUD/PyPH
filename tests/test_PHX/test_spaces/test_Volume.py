@@ -1,5 +1,5 @@
 import PHX.spaces
-import PHX.ventilation
+import PHX.programs.ventilation
 import pytest
 
 
@@ -26,7 +26,7 @@ def test_Volume_attrs_from_Floor():
     assert v1.host_zone_identifier == None
     assert not v1.volume_geometry
 
-    # -- Add a Floor
+    # -- Add a Floors
     flr = PHX.spaces.Floor()
     flr.space_name = "test"
     flr.space_number = 101
@@ -37,28 +37,6 @@ def test_Volume_attrs_from_Floor():
     assert v1.space_number == 101
     assert v1.host_zone_identifier == flr.host_zone_identifier
     assert not v1.volume_geometry
-    assert flr.ventilation == v1.ventilation
-
-
-def test_set_Volume_ventilation():
-    v1 = PHX.spaces.Volume()
-    vent_1 = PHX.ventilation.SpaceVentilation()
-    v1.ventilation = vent_1
-
-    # -- Before adding, the vents are different
-    flr = PHX.spaces.Floor()
-    vent_2 = PHX.ventilation.SpaceVentilation()
-    flr.ventilation = vent_2
-    assert v1.ventilation != flr.ventilation
-
-    # -- After adding, the vents should be the same
-    v1.set_Floor(flr)
-    assert v1.ventilation == flr.ventilation
-
-    # -- Try when no Floor
-    v1.floor = None
-    with pytest.raises(PHX.spaces.VolumeMissingFloorError):
-        v1.ventilation = vent_1
 
 
 def test_Volume_gross_floor_areas(
@@ -135,11 +113,3 @@ def test_Volume_set_volume_error():
 
     with pytest.raises(PHX.spaces.VolumeMissingFloorAreaWarning):
         v1.volume = 2000
-
-
-def test_set_ventilation_error():
-    o = PHX.spaces.Volume()
-
-    # -- Set the ventilation at the Space level
-    with pytest.raises(PHX.spaces.SpaceVentilationInputError):
-        o.ventilation = "Not a SpaceVentilation Object"
