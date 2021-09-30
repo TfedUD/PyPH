@@ -6,12 +6,12 @@
     "rooms": [
         {
             "display_name": "FL_5_Laundry", 
-            "identifier": "FL_5_Laundry_67668010", 
+            "identifier": "FL_5_Laundry_f006a71a", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Laundry", 
-                    "identifier": "INT_FL_5_Laundry_ee7faf1e", 
+                    "identifier": "INT_FL_5_Laundry_12a85226", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -72,7 +72,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Laundry", 
-                    "identifier": "INT_FL_5_Laundry_686d6238", 
+                    "identifier": "INT_FL_5_Laundry_471165d8", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -119,8 +119,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_505_db26700d", 
-                            "FL_5_Unit_505_55d109f3"
+                            "INT_FL_5_Unit_505_603f4f8a", 
+                            "FL_5_Unit_505_1e1b4464"
                         ], 
                         "type": "Surface"
                     }, 
@@ -137,7 +137,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Laundry", 
-                    "identifier": "INT_FL_5_Laundry_3b443564", 
+                    "identifier": "INT_FL_5_Laundry_f121dd65", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -184,8 +184,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Stairwell_1eb32b68", 
-                            "FL_5_Stairwell_8fc11bda"
+                            "INT_FL_5_Stairwell_65e15597", 
+                            "FL_5_Stairwell_690df2be"
                         ], 
                         "type": "Surface"
                     }, 
@@ -202,7 +202,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Laundry", 
-                    "identifier": "INT_FL_5_Laundry_ac9e4750", 
+                    "identifier": "INT_FL_5_Laundry_edf4070a", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -249,8 +249,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_5f03b5b0", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_4930770e", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -267,7 +267,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Laundry", 
-                    "identifier": "INT_FL_5_Laundry_53cceddd", 
+                    "identifier": "INT_FL_5_Laundry_39482911", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -314,8 +314,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_8fc806ec", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_90f50412", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -332,7 +332,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Laundry", 
-                    "identifier": "EXT_FL_5_Laundry_d363a7f8", 
+                    "identifier": "EXT_FL_5_Laundry_1221c373", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -400,21 +400,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226298": {
+                        "295957": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "0e8abe30-8488-4a91-92f7-e8f768fe68d2", 
-                                    "host_zone_identifier": "FL_5_Laundry_67668010", 
+                                    "identifier": "caf40a68-b9ab-49f0-8f6f-b190f405b4bd", 
+                                    "host_zone_identifier": "FL_5_Laundry_f006a71a", 
                                     "_average_ceiling_height": 2.5000000000000071, 
                                     "floor": {
-                                        "identifier": "b5ef76ee-b9d8-46f4-b944-e3d604b2e13c", 
-                                        "host_zone_identifier": "FL_5_Laundry_67668010", 
+                                        "identifier": "37b856ac-3b1f-43cd-bf4f-92ec35bb91fa", 
+                                        "host_zone_identifier": "FL_5_Laundry_f006a71a", 
                                         "space_number": "507", 
                                         "space_name": "LAUNDRY", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "9f6400ea-1363-4a60-ab6c-6ef9e6359d86", 
-                                                "host_zone_identifier": "FL_5_Laundry_67668010", 
+                                                "identifier": "de118256-035c-4909-87bc-c552e2f0f8bc", 
+                                                "host_zone_identifier": "FL_5_Laundry_f006a71a", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -908,8 +908,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "89c3ea5f-db1b-4cb1-b0b9-99f50534ad6f", 
-                            "host_zone_identifier": "FL_5_Laundry_67668010", 
+                            "identifier": "e8b512d9-dd8c-42a3-bf6a-6871f7c55301", 
+                            "host_zone_identifier": "FL_5_Laundry_f006a71a", 
                             "space_number": "507", 
                             "space_name": "LAUNDRY", 
                             "volume": 18.511845534693737
@@ -929,7 +929,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -939,7 +939,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -1022,7 +1022,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -1038,12 +1038,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Laundry_67668010_infiltration"
+                        "identifier": "FL_5_Laundry_f006a71a_infiltration"
                     }, 
                     "program_type": "2019::SmallHotel::Laundry", 
-                    "hvac": "FL_5_Laundry_67668010 Ideal Loads Air System", 
+                    "hvac": "FL_5_Laundry_f006a71a Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -1052,12 +1052,12 @@
         }, 
         {
             "display_name": "FL_5_Corridor", 
-            "identifier": "FL_5_Corridor_95dd52a6", 
+            "identifier": "FL_5_Corridor_8f0aa808", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_b946730b", 
+                    "identifier": "INT_FL_5_Corridor_297eecf0", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1163,7 +1163,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_41ebbf42", 
+                    "identifier": "INT_FL_5_Corridor_212102ff", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1224,7 +1224,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_adcf542b", 
+                    "identifier": "INT_FL_5_Corridor_c3b3f3ff", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1271,8 +1271,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Stairwell_e1459f8d", 
-                            "FL_5_Stairwell_8fc11bda"
+                            "INT_FL_5_Stairwell_af30baaf", 
+                            "FL_5_Stairwell_690df2be"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1289,7 +1289,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_5f03b5b0", 
+                    "identifier": "INT_FL_5_Corridor_4930770e", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1336,8 +1336,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Laundry_ac9e4750", 
-                            "FL_5_Laundry_67668010"
+                            "INT_FL_5_Laundry_edf4070a", 
+                            "FL_5_Laundry_f006a71a"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1354,7 +1354,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_8fc806ec", 
+                    "identifier": "INT_FL_5_Corridor_90f50412", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1401,8 +1401,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Laundry_53cceddd", 
-                            "FL_5_Laundry_67668010"
+                            "INT_FL_5_Laundry_39482911", 
+                            "FL_5_Laundry_f006a71a"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1419,7 +1419,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_c4c51239", 
+                    "identifier": "INT_FL_5_Corridor_af8a22ed", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1466,8 +1466,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_505_71deaad0", 
-                            "FL_5_Unit_505_55d109f3"
+                            "INT_FL_5_Unit_505_611fbd20", 
+                            "FL_5_Unit_505_1e1b4464"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1484,7 +1484,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_018996fb", 
+                    "identifier": "INT_FL_5_Corridor_e59e2c70", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1545,7 +1545,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Corridor", 
-                    "identifier": "EXT_FL_5_Corridor_54d825f6", 
+                    "identifier": "EXT_FL_5_Corridor_3c202b3e", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1611,7 +1611,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_59bb0ea2", 
+                    "identifier": "INT_FL_5_Corridor_873e8763", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1678,8 +1678,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_506_89d2fc03", 
-                            "FL_5_Unit_506_888688b0"
+                            "INT_FL_5_Unit_506_c7424bbc", 
+                            "FL_5_Unit_506_f160703b"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1696,7 +1696,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_b538cfe2", 
+                    "identifier": "INT_FL_5_Corridor_021fb0fa", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1743,8 +1743,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_506_84bfd581", 
-                            "FL_5_Unit_506_888688b0"
+                            "INT_FL_5_Unit_506_a97e5232", 
+                            "FL_5_Unit_506_f160703b"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1761,7 +1761,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_81c53af6", 
+                    "identifier": "INT_FL_5_Corridor_3e4c3c95", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1822,7 +1822,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Corridor", 
-                    "identifier": "EXT_FL_5_Corridor_d6ea58de", 
+                    "identifier": "EXT_FL_5_Corridor_a671c090", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1933,7 +1933,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_a3d0748b", 
+                    "identifier": "INT_FL_5_Corridor_767f8b52", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -1980,8 +1980,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_504_e936ac49", 
-                            "FL_5_Unit_504_84ee29fb"
+                            "INT_FL_5_Unit_504_f414e97b", 
+                            "FL_5_Unit_504_3a4181c7"
                         ], 
                         "type": "Surface"
                     }, 
@@ -1998,7 +1998,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_84c1cc61", 
+                    "identifier": "INT_FL_5_Corridor_8d7e8379", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -2045,8 +2045,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_502_0e17fa72", 
-                            "FL_5_Unit_502_7323213b"
+                            "INT_FL_5_Unit_502_8965fbb6", 
+                            "FL_5_Unit_502_ab3efdf9"
                         ], 
                         "type": "Surface"
                     }, 
@@ -2063,7 +2063,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_61a4bd00", 
+                    "identifier": "INT_FL_5_Corridor_19ff32ff", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -2110,8 +2110,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_501_dfd534d4", 
-                            "FL_5_Unit_501_706b8e86"
+                            "INT_FL_5_Unit_501_f77381f8", 
+                            "FL_5_Unit_501_8c24771f"
                         ], 
                         "type": "Surface"
                     }, 
@@ -2128,7 +2128,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Corridor", 
-                    "identifier": "INT_FL_5_Corridor_8b24c0e9", 
+                    "identifier": "INT_FL_5_Corridor_f1f37bf8", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -2175,8 +2175,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_503_8232a724", 
-                            "FL_5_Unit_503_c9894812"
+                            "INT_FL_5_Unit_503_e03e4367", 
+                            "FL_5_Unit_503_1cf5415c"
                         ], 
                         "type": "Surface"
                     }, 
@@ -2195,21 +2195,361 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226293": {
+                        "295953": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "c27951cf-4fb5-430a-94e0-f326873314dd", 
-                                    "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
-                                    "_average_ceiling_height": 2.4999999999999973, 
+                                    "identifier": "45a9f4dd-e60e-46c6-92ac-25ea3b6e4ac2", 
+                                    "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
+                                    "_average_ceiling_height": 2.4999999999999942, 
                                     "floor": {
-                                        "identifier": "1cd3e9c3-f04b-4be5-8edc-0ff28c7247b0", 
-                                        "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
+                                        "identifier": "393c96d6-4c08-4026-956c-0422f67468d6", 
+                                        "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
+                                        "space_number": "508", 
+                                        "space_name": "UTILITY", 
+                                        "floor_segments": {
+                                            "0": {
+                                                "identifier": "9afba48e-5ee5-41f1-a12e-2e768894e536", 
+                                                "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
+                                                "geometry": {
+                                                    "0": {
+                                                        "type": "Face3D", 
+                                                        "plane": {
+                                                            "o": [
+                                                                11.911160229690406, 
+                                                                10.782039914844532, 
+                                                                13.487400000000036
+                                                            ], 
+                                                            "n": [
+                                                                0.0, 
+                                                                -0.0, 
+                                                                1.0
+                                                            ], 
+                                                            "type": "Plane", 
+                                                            "x": [
+                                                                0.24314612323601967, 
+                                                                0.96998967146835879, 
+                                                                0.0
+                                                            ]
+                                                        }, 
+                                                        "boundary": [
+                                                            [
+                                                                11.911160229690406, 
+                                                                10.782039914844532, 
+                                                                13.487400000000036
+                                                            ], 
+                                                            [
+                                                                12.447934056131116, 
+                                                                12.923406845283441, 
+                                                                13.487400000000036
+                                                            ], 
+                                                            [
+                                                                10.88565060052145, 
+                                                                13.315022526151704, 
+                                                                13.487400000000036
+                                                            ], 
+                                                            [
+                                                                10.348876774080738, 
+                                                                11.173655595712791, 
+                                                                13.487400000000036
+                                                            ]
+                                                        ]
+                                                    }
+                                                }, 
+                                                "_weighting_factor": 1.0, 
+                                                "_floor_area_gross": 3.5556311753282102, 
+                                                "space_number": "508", 
+                                                "space_name": "UTILITY"
+                                            }
+                                        }
+                                    }, 
+                                    "space_number": "508", 
+                                    "space_name": "UTILITY", 
+                                    "_volume": 8.8890779383205043, 
+                                    "volume_geometry": {
+                                        "0": {
+                                            "0": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        12.447934056131116, 
+                                                        12.923406845283441, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    "n": [
+                                                        -0.0, 
+                                                        -0.0, 
+                                                        -1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.96998967146835846, 
+                                                        -0.24314612323602078, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        13.487400000000036
+                                                    ]
+                                                ]
+                                            }, 
+                                            "1": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        12.447934056131116, 
+                                                        12.923406845283441, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    "n": [
+                                                        0.24314612323602169, 
+                                                        0.96998967146835824, 
+                                                        -0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -0.96998967146835824, 
+                                                        0.24314612323602169, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        15.987400000000036
+                                                    ]
+                                                ]
+                                            }, 
+                                            "2": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        10.88565060052145, 
+                                                        13.315022526151704, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    "n": [
+                                                        -0.96998967146835835, 
+                                                        0.24314612323602083, 
+                                                        -0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -0.24314612323602083, 
+                                                        -0.96998967146835835, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        15.987400000000036
+                                                    ]
+                                                ]
+                                            }, 
+                                            "3": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    "n": [
+                                                        -0.24314612323601811, 
+                                                        -0.96998967146835902, 
+                                                        0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.96998967146835902, 
+                                                        -0.24314612323601811, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        15.987400000000036
+                                                    ]
+                                                ]
+                                            }, 
+                                            "4": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        11.911160229690406, 
+                                                        10.782039914844532, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    "n": [
+                                                        0.96998967146835835, 
+                                                        -0.24314612323602083, 
+                                                        -0.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        0.24314612323602083, 
+                                                        0.96998967146835835, 
+                                                        -0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        13.487400000000036
+                                                    ], 
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        15.987400000000036
+                                                    ]
+                                                ]
+                                            }, 
+                                            "5": {
+                                                "type": "Face3D", 
+                                                "plane": {
+                                                    "o": [
+                                                        12.447934056131116, 
+                                                        12.923406845283441, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    "n": [
+                                                        0.0, 
+                                                        0.0, 
+                                                        1.0
+                                                    ], 
+                                                    "type": "Plane", 
+                                                    "x": [
+                                                        -0.24314612323602078, 
+                                                        -0.96998967146835846, 
+                                                        0.0
+                                                    ]
+                                                }, 
+                                                "boundary": [
+                                                    [
+                                                        12.447934056131114, 
+                                                        12.923406845283441, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        10.885650600521448, 
+                                                        13.315022526151703, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        10.348876774080738, 
+                                                        11.173655595712791, 
+                                                        15.987400000000036
+                                                    ], 
+                                                    [
+                                                        11.911160229690404, 
+                                                        10.782039914844532, 
+                                                        15.987400000000036
+                                                    ]
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }, 
+                            "identifier": "ee0357fd-9fff-4b92-a8bd-d70d6d0fe098", 
+                            "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
+                            "space_number": "508", 
+                            "space_name": "UTILITY", 
+                            "volume": 8.8890779383205043
+                        }, 
+                        "295952": {
+                            "volumes": {
+                                "0": {
+                                    "identifier": "c2e5b7e9-f18e-45d4-ab92-78e9a88fbddc", 
+                                    "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
+                                    "_average_ceiling_height": 2.4999999999999969, 
+                                    "floor": {
+                                        "identifier": "94fc961a-cb1a-4d0b-81b8-e0667a4efeb3", 
+                                        "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
                                         "space_number": "500", 
                                         "space_name": "CORRIDOR", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "c9c0fbdf-dde1-4d51-b631-a61424134c9b", 
-                                                "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
+                                                "identifier": "210034d2-d250-4ed3-ac41-db9cb2421138", 
+                                                "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -2314,7 +2654,7 @@
                                     }, 
                                     "space_number": "500", 
                                     "space_name": "CORRIDOR", 
-                                    "_volume": 88.335414977600124, 
+                                    "_volume": 88.335414977600109, 
                                     "volume_geometry": {
                                         "0": {
                                             "0": {
@@ -3109,351 +3449,11 @@
                                     }
                                 }
                             }, 
-                            "identifier": "957e8488-6129-48dd-9073-9ad4ac3a0b3b", 
-                            "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
+                            "identifier": "c86f2b7d-6d1b-41cc-ad36-e4bd71496028", 
+                            "host_zone_identifier": "FL_5_Corridor_8f0aa808", 
                             "space_number": "500", 
                             "space_name": "CORRIDOR", 
-                            "volume": 88.335414977600124
-                        }, 
-                        "226294": {
-                            "volumes": {
-                                "0": {
-                                    "identifier": "d532b82f-0f41-4e02-bee1-e7b718e96de5", 
-                                    "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
-                                    "_average_ceiling_height": 2.4999999999999942, 
-                                    "floor": {
-                                        "identifier": "09e61bd5-86be-435d-ad07-892500a72808", 
-                                        "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
-                                        "space_number": "508", 
-                                        "space_name": "UTILITY", 
-                                        "floor_segments": {
-                                            "0": {
-                                                "identifier": "9148b26f-2e11-4ed6-8307-bcdb8a036977", 
-                                                "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
-                                                "geometry": {
-                                                    "0": {
-                                                        "type": "Face3D", 
-                                                        "plane": {
-                                                            "o": [
-                                                                11.911160229690406, 
-                                                                10.782039914844532, 
-                                                                13.487400000000036
-                                                            ], 
-                                                            "n": [
-                                                                0.0, 
-                                                                -0.0, 
-                                                                1.0
-                                                            ], 
-                                                            "type": "Plane", 
-                                                            "x": [
-                                                                0.24314612323601967, 
-                                                                0.96998967146835879, 
-                                                                0.0
-                                                            ]
-                                                        }, 
-                                                        "boundary": [
-                                                            [
-                                                                11.911160229690406, 
-                                                                10.782039914844532, 
-                                                                13.487400000000036
-                                                            ], 
-                                                            [
-                                                                12.447934056131116, 
-                                                                12.923406845283441, 
-                                                                13.487400000000036
-                                                            ], 
-                                                            [
-                                                                10.88565060052145, 
-                                                                13.315022526151704, 
-                                                                13.487400000000036
-                                                            ], 
-                                                            [
-                                                                10.348876774080738, 
-                                                                11.173655595712791, 
-                                                                13.487400000000036
-                                                            ]
-                                                        ]
-                                                    }
-                                                }, 
-                                                "_weighting_factor": 1.0, 
-                                                "_floor_area_gross": 3.5556311753282102, 
-                                                "space_number": "508", 
-                                                "space_name": "UTILITY"
-                                            }
-                                        }
-                                    }, 
-                                    "space_number": "508", 
-                                    "space_name": "UTILITY", 
-                                    "_volume": 8.8890779383205043, 
-                                    "volume_geometry": {
-                                        "0": {
-                                            "0": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        12.447934056131116, 
-                                                        12.923406845283441, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    "n": [
-                                                        -0.0, 
-                                                        -0.0, 
-                                                        -1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.96998967146835846, 
-                                                        -0.24314612323602078, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        13.487400000000036
-                                                    ]
-                                                ]
-                                            }, 
-                                            "1": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        12.447934056131116, 
-                                                        12.923406845283441, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    "n": [
-                                                        0.24314612323602169, 
-                                                        0.96998967146835824, 
-                                                        -0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -0.96998967146835824, 
-                                                        0.24314612323602169, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        15.987400000000036
-                                                    ]
-                                                ]
-                                            }, 
-                                            "2": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        10.88565060052145, 
-                                                        13.315022526151704, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    "n": [
-                                                        -0.96998967146835835, 
-                                                        0.24314612323602083, 
-                                                        -0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -0.24314612323602083, 
-                                                        -0.96998967146835835, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        15.987400000000036
-                                                    ]
-                                                ]
-                                            }, 
-                                            "3": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    "n": [
-                                                        -0.24314612323601811, 
-                                                        -0.96998967146835902, 
-                                                        0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.96998967146835902, 
-                                                        -0.24314612323601811, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        15.987400000000036
-                                                    ]
-                                                ]
-                                            }, 
-                                            "4": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        11.911160229690406, 
-                                                        10.782039914844532, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    "n": [
-                                                        0.96998967146835835, 
-                                                        -0.24314612323602083, 
-                                                        -0.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        0.24314612323602083, 
-                                                        0.96998967146835835, 
-                                                        -0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        13.487400000000036
-                                                    ], 
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        15.987400000000036
-                                                    ]
-                                                ]
-                                            }, 
-                                            "5": {
-                                                "type": "Face3D", 
-                                                "plane": {
-                                                    "o": [
-                                                        12.447934056131116, 
-                                                        12.923406845283441, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    "n": [
-                                                        0.0, 
-                                                        0.0, 
-                                                        1.0
-                                                    ], 
-                                                    "type": "Plane", 
-                                                    "x": [
-                                                        -0.24314612323602078, 
-                                                        -0.96998967146835846, 
-                                                        0.0
-                                                    ]
-                                                }, 
-                                                "boundary": [
-                                                    [
-                                                        12.447934056131114, 
-                                                        12.923406845283441, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        10.885650600521448, 
-                                                        13.315022526151703, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        10.348876774080738, 
-                                                        11.173655595712791, 
-                                                        15.987400000000036
-                                                    ], 
-                                                    [
-                                                        11.911160229690404, 
-                                                        10.782039914844532, 
-                                                        15.987400000000036
-                                                    ]
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            }, 
-                            "identifier": "41dc231c-28bf-4601-9a23-6069b5287f4f", 
-                            "host_zone_identifier": "FL_5_Corridor_95dd52a6", 
-                            "space_number": "508", 
-                            "space_name": "UTILITY", 
-                            "volume": 8.8890779383205043
+                            "volume": 88.335414977600109
                         }
                     }, 
                     "summ_vent": {
@@ -3470,7 +3470,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -3480,7 +3480,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -3563,7 +3563,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -3579,12 +3579,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Corridor_95dd52a6_infiltration"
+                        "identifier": "FL_5_Corridor_8f0aa808_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Corridor", 
-                    "hvac": "FL_5_Corridor_95dd52a6 Ideal Loads Air System", 
+                    "hvac": "FL_5_Corridor_8f0aa808 Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -3593,12 +3593,12 @@
         }, 
         {
             "display_name": "FL_5_Stairwell", 
-            "identifier": "FL_5_Stairwell_8fc11bda", 
+            "identifier": "FL_5_Stairwell_690df2be", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Stairwell", 
-                    "identifier": "INT_FL_5_Stairwell_1eb32b68", 
+                    "identifier": "INT_FL_5_Stairwell_65e15597", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3645,8 +3645,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Laundry_3b443564", 
-                            "FL_5_Laundry_67668010"
+                            "INT_FL_5_Laundry_f121dd65", 
+                            "FL_5_Laundry_f006a71a"
                         ], 
                         "type": "Surface"
                     }, 
@@ -3663,7 +3663,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Stairwell", 
-                    "identifier": "INT_FL_5_Stairwell_e1459f8d", 
+                    "identifier": "INT_FL_5_Stairwell_af30baaf", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3710,8 +3710,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_adcf542b", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_c3b3f3ff", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -3728,7 +3728,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Stairwell", 
-                    "identifier": "EXT_FL_5_Stairwell_414d8030", 
+                    "identifier": "EXT_FL_5_Stairwell_2a9cf5a4", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3794,7 +3794,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Stairwell", 
-                    "identifier": "INT_FL_5_Stairwell_d4eac53b", 
+                    "identifier": "INT_FL_5_Stairwell_7ca0b766", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3841,8 +3841,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_506_52cdb14a", 
-                            "FL_5_Unit_506_888688b0"
+                            "INT_FL_5_Unit_506_8c64affe", 
+                            "FL_5_Unit_506_f160703b"
                         ], 
                         "type": "Surface"
                     }, 
@@ -3859,7 +3859,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Stairwell", 
-                    "identifier": "EXT_FL_5_Stairwell_c2ae1761", 
+                    "identifier": "EXT_FL_5_Stairwell_f5a507c0", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3925,7 +3925,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Stairwell", 
-                    "identifier": "INT_FL_5_Stairwell_2eeaedda", 
+                    "identifier": "INT_FL_5_Stairwell_8967b879", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -3972,8 +3972,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_505_35536b35", 
-                            "FL_5_Unit_505_55d109f3"
+                            "INT_FL_5_Unit_505_d6653115", 
+                            "FL_5_Unit_505_1e1b4464"
                         ], 
                         "type": "Surface"
                     }, 
@@ -3990,7 +3990,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Stairwell", 
-                    "identifier": "INT_FL_5_Stairwell_7736eabb", 
+                    "identifier": "INT_FL_5_Stairwell_cf9c369c", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -4053,21 +4053,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226296": {
+                        "295955": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "9d3e9d85-c454-4402-8017-1a71c10b7fc8", 
-                                    "host_zone_identifier": "FL_5_Stairwell_8fc11bda", 
+                                    "identifier": "c2adc2d0-00f7-4642-a23e-42b2d51b6a5e", 
+                                    "host_zone_identifier": "FL_5_Stairwell_690df2be", 
                                     "_average_ceiling_height": 2.4999999999999969, 
                                     "floor": {
-                                        "identifier": "6584e197-e87a-476d-b079-4cffc3e4eb73", 
-                                        "host_zone_identifier": "FL_5_Stairwell_8fc11bda", 
+                                        "identifier": "ab5ee0e1-fb23-4235-b480-5e480c829572", 
+                                        "host_zone_identifier": "FL_5_Stairwell_690df2be", 
                                         "space_number": "ES-5", 
                                         "space_name": "EGRESS STAIR", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "26c584ae-966b-45ad-9c69-6e4c338cef0d", 
-                                                "host_zone_identifier": "FL_5_Stairwell_8fc11bda", 
+                                                "identifier": "98f42528-2e94-4548-867a-b6848bc3be90", 
+                                                "host_zone_identifier": "FL_5_Stairwell_690df2be", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -4387,8 +4387,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "096e4449-07ad-4514-9af4-fb7e7daf011e", 
-                            "host_zone_identifier": "FL_5_Stairwell_8fc11bda", 
+                            "identifier": "e32f03c3-a2af-412f-9bc9-5e75dbc31f34", 
+                            "host_zone_identifier": "FL_5_Stairwell_690df2be", 
                             "space_number": "ES-5", 
                             "space_name": "EGRESS STAIR", 
                             "volume": 33.401863688076403
@@ -4408,7 +4408,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -4418,7 +4418,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -4501,7 +4501,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -4517,12 +4517,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Stairwell_8fc11bda_infiltration"
+                        "identifier": "FL_5_Stairwell_690df2be_infiltration"
                     }, 
                     "program_type": "2019::SmallHotel::Stair", 
-                    "hvac": "FL_5_Stairwell_8fc11bda Ideal Loads Air System", 
+                    "hvac": "FL_5_Stairwell_690df2be Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -4531,12 +4531,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_501", 
-            "identifier": "FL_5_Unit_501_706b8e86", 
+            "identifier": "FL_5_Unit_501_8c24771f", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_501", 
-                    "identifier": "INT_FL_5_Unit_501_a41e9ac3", 
+                    "identifier": "INT_FL_5_Unit_501_e90f3c9b", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -4597,7 +4597,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_501", 
-                    "identifier": "INT_FL_5_Unit_501_7b52a374", 
+                    "identifier": "INT_FL_5_Unit_501_208ebdc4", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -4644,8 +4644,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_502_35983ac4", 
-                            "FL_5_Unit_502_7323213b"
+                            "INT_FL_5_Unit_502_5d7433aa", 
+                            "FL_5_Unit_502_ab3efdf9"
                         ], 
                         "type": "Surface"
                     }, 
@@ -4662,7 +4662,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_501", 
-                    "identifier": "INT_FL_5_Unit_501_dfd534d4", 
+                    "identifier": "INT_FL_5_Unit_501_f77381f8", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -4709,8 +4709,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_61a4bd00", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_19ff32ff", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -4727,7 +4727,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_501", 
-                    "identifier": "INT_FL_5_Unit_501_d9d62fe9", 
+                    "identifier": "INT_FL_5_Unit_501_cda80a62", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -4788,11 +4788,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_501", 
-                    "identifier": "EXT_FL_5_Unit_501_d0be6523", 
+                    "identifier": "EXT_FL_5_Unit_501_f7a8b796", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_53cd4e71", 
-                            "identifier": "Aperture_53cd4e71", 
+                            "display_name": "Aperture_feb9d03f", 
+                            "identifier": "Aperture_feb9d03f", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -4857,8 +4857,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_b188c170", 
-                            "identifier": "Aperture_b188c170", 
+                            "display_name": "Aperture_4bbc284c", 
+                            "identifier": "Aperture_4bbc284c", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -4923,8 +4923,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_6e3e52e4", 
-                            "identifier": "Aperture_6e3e52e4", 
+                            "display_name": "Aperture_487b0bb1", 
+                            "identifier": "Aperture_487b0bb1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -4989,8 +4989,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_e47fa992", 
-                            "identifier": "Aperture_e47fa992", 
+                            "display_name": "Aperture_8d3c67f6", 
+                            "identifier": "Aperture_8d3c67f6", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -5120,7 +5120,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_501", 
-                    "identifier": "EXT_FL_5_Unit_501_c6f6e93d", 
+                    "identifier": "EXT_FL_5_Unit_501_305ee40c", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -5188,21 +5188,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226281": {
+                        "295940": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "f7ade061-9773-4eda-9d0e-a787cad699c9", 
-                                    "host_zone_identifier": "FL_5_Unit_501_706b8e86", 
+                                    "identifier": "e303581b-07c2-4c09-be4a-5b4bca8a61ea", 
+                                    "host_zone_identifier": "FL_5_Unit_501_8c24771f", 
                                     "_average_ceiling_height": 2.5, 
                                     "floor": {
-                                        "identifier": "e6860f4a-4c61-490b-93ff-2e120ae5a082", 
-                                        "host_zone_identifier": "FL_5_Unit_501_706b8e86", 
+                                        "identifier": "029c9a7e-e679-4604-a98a-5948e175b216", 
+                                        "host_zone_identifier": "FL_5_Unit_501_8c24771f", 
                                         "space_number": "501", 
                                         "space_name": "STUDIO A", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "4cc5ad69-0ea3-4faf-9e59-b22fb749cb1d", 
-                                                "host_zone_identifier": "FL_5_Unit_501_706b8e86", 
+                                                "identifier": "22179a7d-2461-4d59-a9f4-38597f5ec8b1", 
+                                                "host_zone_identifier": "FL_5_Unit_501_8c24771f", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -5870,8 +5870,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "e84febfe-487c-4bd1-9153-bc2a14846125", 
-                            "host_zone_identifier": "FL_5_Unit_501_706b8e86", 
+                            "identifier": "321abd83-7202-4768-a7d9-eb76d975dd21", 
+                            "host_zone_identifier": "FL_5_Unit_501_8c24771f", 
                             "space_number": "501", 
                             "space_name": "STUDIO A", 
                             "volume": 103.44860563107076
@@ -5891,7 +5891,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -5901,7 +5901,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -6119,7 +6119,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -6129,7 +6129,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "43a9c772-deda-4ee6-8d66-b71e1dd54c35"
+                        "identifier": "a3e40190-c608-40e2-8215-27b6da491872"
                     }
                 }
             }, 
@@ -6141,12 +6141,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_501_706b8e86_infiltration"
+                        "identifier": "FL_5_Unit_501_8c24771f_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_501_706b8e86 Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_501_8c24771f Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -6155,12 +6155,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_502", 
-            "identifier": "FL_5_Unit_502_7323213b", 
+            "identifier": "FL_5_Unit_502_ab3efdf9", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_502", 
-                    "identifier": "INT_FL_5_Unit_502_c3842909", 
+                    "identifier": "INT_FL_5_Unit_502_99ddb360", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -6221,7 +6221,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_502", 
-                    "identifier": "INT_FL_5_Unit_502_684ebc0d", 
+                    "identifier": "INT_FL_5_Unit_502_2332ea17", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -6268,8 +6268,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_503_69ddb1b7", 
-                            "FL_5_Unit_503_c9894812"
+                            "INT_FL_5_Unit_503_8be083e2", 
+                            "FL_5_Unit_503_1cf5415c"
                         ], 
                         "type": "Surface"
                     }, 
@@ -6286,7 +6286,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_502", 
-                    "identifier": "INT_FL_5_Unit_502_0e17fa72", 
+                    "identifier": "INT_FL_5_Unit_502_8965fbb6", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -6333,8 +6333,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_84c1cc61", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_8d7e8379", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -6351,7 +6351,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_502", 
-                    "identifier": "INT_FL_5_Unit_502_35983ac4", 
+                    "identifier": "INT_FL_5_Unit_502_5d7433aa", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -6398,8 +6398,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_501_7b52a374", 
-                            "FL_5_Unit_501_706b8e86"
+                            "INT_FL_5_Unit_501_208ebdc4", 
+                            "FL_5_Unit_501_8c24771f"
                         ], 
                         "type": "Surface"
                     }, 
@@ -6416,11 +6416,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_502", 
-                    "identifier": "EXT_FL_5_Unit_502_6af820dc", 
+                    "identifier": "EXT_FL_5_Unit_502_b5067df8", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_efd61566", 
-                            "identifier": "Aperture_efd61566", 
+                            "display_name": "Aperture_adf8175a", 
+                            "identifier": "Aperture_adf8175a", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -6485,8 +6485,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_e6329225", 
-                            "identifier": "Aperture_e6329225", 
+                            "display_name": "Aperture_5d0c3104", 
+                            "identifier": "Aperture_5d0c3104", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -6551,8 +6551,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_0980aba7", 
-                            "identifier": "Aperture_0980aba7", 
+                            "display_name": "Aperture_a218adb8", 
+                            "identifier": "Aperture_a218adb8", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -6617,8 +6617,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_48391250", 
-                            "identifier": "Aperture_48391250", 
+                            "display_name": "Aperture_554a890a", 
+                            "identifier": "Aperture_554a890a", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -6748,7 +6748,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_502", 
-                    "identifier": "EXT_FL_5_Unit_502_38dab1cf", 
+                    "identifier": "EXT_FL_5_Unit_502_a47b990e", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -6816,21 +6816,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226283": {
+                        "295942": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "567871b8-b919-40bc-aea6-48745d6e97f7", 
-                                    "host_zone_identifier": "FL_5_Unit_502_7323213b", 
+                                    "identifier": "2c15e2dd-612d-48da-ace4-637206d8d5f1", 
+                                    "host_zone_identifier": "FL_5_Unit_502_ab3efdf9", 
                                     "_average_ceiling_height": 2.5000000000000004, 
                                     "floor": {
-                                        "identifier": "04b836b2-9700-4a56-bc1b-91fbb74e3e12", 
-                                        "host_zone_identifier": "FL_5_Unit_502_7323213b", 
+                                        "identifier": "e8f28079-28fd-460b-a159-21a10fb5d9b1", 
+                                        "host_zone_identifier": "FL_5_Unit_502_ab3efdf9", 
                                         "space_number": "502", 
                                         "space_name": "STUDIO A", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "6811a4fa-1d55-4b88-b1c0-5f4cf1bba2af", 
-                                                "host_zone_identifier": "FL_5_Unit_502_7323213b", 
+                                                "identifier": "86c1bfab-725e-42d0-916f-1c5b90d926df", 
+                                                "host_zone_identifier": "FL_5_Unit_502_ab3efdf9", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -7150,8 +7150,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "0a8239ee-04c3-4140-9790-4a665c514ea5", 
-                            "host_zone_identifier": "FL_5_Unit_502_7323213b", 
+                            "identifier": "bb210d16-4e61-4f6f-b058-c0cad686397b", 
+                            "host_zone_identifier": "FL_5_Unit_502_ab3efdf9", 
                             "space_number": "502", 
                             "space_name": "STUDIO A", 
                             "volume": 98.581010319117951
@@ -7171,7 +7171,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -7181,7 +7181,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -7399,7 +7399,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -7409,7 +7409,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "a7512611-86fd-456d-bb80-f22e05635deb"
+                        "identifier": "fc0e826b-04ca-484f-b80f-234f95557c73"
                     }
                 }
             }, 
@@ -7421,12 +7421,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_502_7323213b_infiltration"
+                        "identifier": "FL_5_Unit_502_ab3efdf9_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_502_7323213b Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_502_ab3efdf9 Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -7435,12 +7435,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_503", 
-            "identifier": "FL_5_Unit_503_c9894812", 
+            "identifier": "FL_5_Unit_503_1cf5415c", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_503", 
-                    "identifier": "INT_FL_5_Unit_503_6c74f5dc", 
+                    "identifier": "INT_FL_5_Unit_503_ffc80729", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -7501,7 +7501,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_503", 
-                    "identifier": "INT_FL_5_Unit_503_45b9b5fe", 
+                    "identifier": "INT_FL_5_Unit_503_8a2689aa", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -7548,8 +7548,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_504_501f75a9", 
-                            "FL_5_Unit_504_84ee29fb"
+                            "INT_FL_5_Unit_504_9f0dd4e7", 
+                            "FL_5_Unit_504_3a4181c7"
                         ], 
                         "type": "Surface"
                     }, 
@@ -7566,7 +7566,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_503", 
-                    "identifier": "INT_FL_5_Unit_503_8232a724", 
+                    "identifier": "INT_FL_5_Unit_503_e03e4367", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -7613,8 +7613,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_8b24c0e9", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_f1f37bf8", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -7631,7 +7631,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_503", 
-                    "identifier": "INT_FL_5_Unit_503_69ddb1b7", 
+                    "identifier": "INT_FL_5_Unit_503_8be083e2", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -7678,8 +7678,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_502_684ebc0d", 
-                            "FL_5_Unit_502_7323213b"
+                            "INT_FL_5_Unit_502_2332ea17", 
+                            "FL_5_Unit_502_ab3efdf9"
                         ], 
                         "type": "Surface"
                     }, 
@@ -7696,11 +7696,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_503", 
-                    "identifier": "EXT_FL_5_Unit_503_b2683f18", 
+                    "identifier": "EXT_FL_5_Unit_503_778dcb97", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_c7262c77", 
-                            "identifier": "Aperture_c7262c77", 
+                            "display_name": "Aperture_6a4fa58e", 
+                            "identifier": "Aperture_6a4fa58e", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -7765,8 +7765,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_d69ff978", 
-                            "identifier": "Aperture_d69ff978", 
+                            "display_name": "Aperture_62428174", 
+                            "identifier": "Aperture_62428174", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -7831,8 +7831,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_e69caa38", 
-                            "identifier": "Aperture_e69caa38", 
+                            "display_name": "Aperture_d7db6156", 
+                            "identifier": "Aperture_d7db6156", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -7897,8 +7897,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_5a0c0f02", 
-                            "identifier": "Aperture_5a0c0f02", 
+                            "display_name": "Aperture_1ca5f27f", 
+                            "identifier": "Aperture_1ca5f27f", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -8028,7 +8028,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_503", 
-                    "identifier": "EXT_FL_5_Unit_503_2e8d0a85", 
+                    "identifier": "EXT_FL_5_Unit_503_1e167093", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -8096,21 +8096,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226285": {
+                        "295944": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "fe99593f-3bc1-4584-a04c-c1bb8d85ad67", 
-                                    "host_zone_identifier": "FL_5_Unit_503_c9894812", 
+                                    "identifier": "4a855426-a785-4b67-b869-5cefa4780f25", 
+                                    "host_zone_identifier": "FL_5_Unit_503_1cf5415c", 
                                     "_average_ceiling_height": 2.4999999999999902, 
                                     "floor": {
-                                        "identifier": "9b04f469-6896-48ba-bcbf-9c5a054d2077", 
-                                        "host_zone_identifier": "FL_5_Unit_503_c9894812", 
+                                        "identifier": "1df12816-6549-4aea-bfa7-e71ff1b5e3fb", 
+                                        "host_zone_identifier": "FL_5_Unit_503_1cf5415c", 
                                         "space_number": "503", 
                                         "space_name": "STUDIO A", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "93e33d63-c57a-4176-aaf4-b6dabd6b2126", 
-                                                "host_zone_identifier": "FL_5_Unit_503_c9894812", 
+                                                "identifier": "c4db5d89-a3ba-45b0-b3a0-5b5cdc0473ee", 
+                                                "host_zone_identifier": "FL_5_Unit_503_1cf5415c", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -8430,8 +8430,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "e55a1482-b323-4070-9531-4f39f411ec55", 
-                            "host_zone_identifier": "FL_5_Unit_503_c9894812", 
+                            "identifier": "f4e41df7-375d-4b90-b0d2-0bb03a83da9a", 
+                            "host_zone_identifier": "FL_5_Unit_503_1cf5415c", 
                             "space_number": "503", 
                             "space_name": "STUDIO A", 
                             "volume": 99.240469326122096
@@ -8451,7 +8451,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -8461,7 +8461,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -8679,7 +8679,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -8689,7 +8689,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "5502083e-b48d-4ad2-9594-96e7d14d251d"
+                        "identifier": "3fd0d4f7-2336-4d57-9567-9dbaecec0eeb"
                     }
                 }
             }, 
@@ -8701,12 +8701,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_503_c9894812_infiltration"
+                        "identifier": "FL_5_Unit_503_1cf5415c_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_503_c9894812 Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_503_1cf5415c Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -8715,12 +8715,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_504", 
-            "identifier": "FL_5_Unit_504_84ee29fb", 
+            "identifier": "FL_5_Unit_504_3a4181c7", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_504", 
-                    "identifier": "INT_FL_5_Unit_504_cd8d8664", 
+                    "identifier": "INT_FL_5_Unit_504_4f0ecaca", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -8786,7 +8786,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_504", 
-                    "identifier": "INT_FL_5_Unit_504_e936ac49", 
+                    "identifier": "INT_FL_5_Unit_504_f414e97b", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -8833,8 +8833,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_a3d0748b", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_767f8b52", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -8851,7 +8851,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_504", 
-                    "identifier": "INT_FL_5_Unit_504_501f75a9", 
+                    "identifier": "INT_FL_5_Unit_504_9f0dd4e7", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -8898,8 +8898,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_503_45b9b5fe", 
-                            "FL_5_Unit_503_c9894812"
+                            "INT_FL_5_Unit_503_8a2689aa", 
+                            "FL_5_Unit_503_1cf5415c"
                         ], 
                         "type": "Surface"
                     }, 
@@ -8916,11 +8916,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_504", 
-                    "identifier": "EXT_FL_5_Unit_504_af740971", 
+                    "identifier": "EXT_FL_5_Unit_504_27a03b45", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_84d03319", 
-                            "identifier": "Aperture_84d03319", 
+                            "display_name": "Aperture_964e4586", 
+                            "identifier": "Aperture_964e4586", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -8985,8 +8985,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_97524f8d", 
-                            "identifier": "Aperture_97524f8d", 
+                            "display_name": "Aperture_4be96cf4", 
+                            "identifier": "Aperture_4be96cf4", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9051,8 +9051,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_09521ef2", 
-                            "identifier": "Aperture_09521ef2", 
+                            "display_name": "Aperture_d3bbccd4", 
+                            "identifier": "Aperture_d3bbccd4", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9117,8 +9117,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_e1415086", 
-                            "identifier": "Aperture_e1415086", 
+                            "display_name": "Aperture_671b5a10", 
+                            "identifier": "Aperture_671b5a10", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9183,8 +9183,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_0f6c6ddb", 
-                            "identifier": "Aperture_0f6c6ddb", 
+                            "display_name": "Aperture_60d1eed8", 
+                            "identifier": "Aperture_60d1eed8", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9249,8 +9249,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_bcbf5afb", 
-                            "identifier": "Aperture_bcbf5afb", 
+                            "display_name": "Aperture_1f3dc9b5", 
+                            "identifier": "Aperture_1f3dc9b5", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9315,8 +9315,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_b78c970f", 
-                            "identifier": "Aperture_b78c970f", 
+                            "display_name": "Aperture_63da3b97", 
+                            "identifier": "Aperture_63da3b97", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9446,11 +9446,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_504", 
-                    "identifier": "EXT_FL_5_Unit_504_5d56a405", 
+                    "identifier": "EXT_FL_5_Unit_504_27011d3b", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_371b670f", 
-                            "identifier": "Aperture_371b670f", 
+                            "display_name": "Aperture_c5263d3b", 
+                            "identifier": "Aperture_c5263d3b", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9515,8 +9515,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_ae870b52", 
-                            "identifier": "Aperture_ae870b52", 
+                            "display_name": "Aperture_fba87b91", 
+                            "identifier": "Aperture_fba87b91", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9581,8 +9581,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_76594d4f", 
-                            "identifier": "Aperture_76594d4f", 
+                            "display_name": "Aperture_bfdbafd2", 
+                            "identifier": "Aperture_bfdbafd2", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -9712,7 +9712,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_504", 
-                    "identifier": "INT_FL_5_Unit_504_bfdcc435", 
+                    "identifier": "INT_FL_5_Unit_504_72e4f037", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -9759,8 +9759,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_505_5384069e", 
-                            "FL_5_Unit_505_55d109f3"
+                            "INT_FL_5_Unit_505_da6c3d23", 
+                            "FL_5_Unit_505_1e1b4464"
                         ], 
                         "type": "Surface"
                     }, 
@@ -9777,7 +9777,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_504", 
-                    "identifier": "EXT_FL_5_Unit_504_922c61b1", 
+                    "identifier": "EXT_FL_5_Unit_504_81682bf9", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -9850,21 +9850,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226287": {
+                        "295946": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "0755568d-ad42-4152-ad3a-fdaaf4af2bbd", 
-                                    "host_zone_identifier": "FL_5_Unit_504_84ee29fb", 
+                                    "identifier": "b974eb3b-3b81-4d36-a08d-8a1577bc2bb0", 
+                                    "host_zone_identifier": "FL_5_Unit_504_3a4181c7", 
                                     "_average_ceiling_height": 2.5000000000000004, 
                                     "floor": {
-                                        "identifier": "6ed0361c-a62b-46de-8b23-8c15319f9163", 
-                                        "host_zone_identifier": "FL_5_Unit_504_84ee29fb", 
+                                        "identifier": "19592ae0-2991-4096-86c8-6046d5e7a575", 
+                                        "host_zone_identifier": "FL_5_Unit_504_3a4181c7", 
                                         "space_number": "504", 
                                         "space_name": "1BR", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "4b61b42f-561d-488c-9f01-568511586fc1", 
-                                                "host_zone_identifier": "FL_5_Unit_504_84ee29fb", 
+                                                "identifier": "bfe822b8-0df6-48e0-b618-2696cf24b4af", 
+                                                "host_zone_identifier": "FL_5_Unit_504_3a4181c7", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -10358,8 +10358,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "f0c4ea27-7c51-49a9-a9b3-3c93a623daf7", 
-                            "host_zone_identifier": "FL_5_Unit_504_84ee29fb", 
+                            "identifier": "7b54196e-040c-4b47-887a-da96b50743e4", 
+                            "host_zone_identifier": "FL_5_Unit_504_3a4181c7", 
                             "space_number": "504", 
                             "space_name": "1BR", 
                             "volume": 152.10574376213935
@@ -10379,7 +10379,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -10389,7 +10389,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -10607,7 +10607,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -10617,7 +10617,7 @@
                         "num_occupants": 2, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 1, 
-                        "identifier": "32d1c026-de7c-4b64-9dff-7dcd7b5906f9"
+                        "identifier": "11699e3e-2e25-4a7d-8e39-ad5d77b493c3"
                     }
                 }
             }, 
@@ -10629,12 +10629,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_504_84ee29fb_infiltration"
+                        "identifier": "FL_5_Unit_504_3a4181c7_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_504_84ee29fb Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_504_3a4181c7 Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -10643,12 +10643,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_506", 
-            "identifier": "FL_5_Unit_506_888688b0", 
+            "identifier": "FL_5_Unit_506_f160703b", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_506", 
-                    "identifier": "INT_FL_5_Unit_506_46296377", 
+                    "identifier": "INT_FL_5_Unit_506_bd68a18d", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -10714,7 +10714,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_506", 
-                    "identifier": "INT_FL_5_Unit_506_84bfd581", 
+                    "identifier": "INT_FL_5_Unit_506_a97e5232", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -10761,8 +10761,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_b538cfe2", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_021fb0fa", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -10779,7 +10779,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_506", 
-                    "identifier": "EXT_FL_5_Unit_506_feaa87d6", 
+                    "identifier": "EXT_FL_5_Unit_506_21fa5acd", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -10845,11 +10845,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_506", 
-                    "identifier": "EXT_FL_5_Unit_506_f8671bf3", 
+                    "identifier": "EXT_FL_5_Unit_506_1cf8fbf9", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_42fe3980", 
-                            "identifier": "Aperture_42fe3980", 
+                            "display_name": "Aperture_7cfee4d1", 
+                            "identifier": "Aperture_7cfee4d1", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -10914,8 +10914,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_b52d6f53", 
-                            "identifier": "Aperture_b52d6f53", 
+                            "display_name": "Aperture_efb366f5", 
+                            "identifier": "Aperture_efb366f5", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -10980,8 +10980,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_41764e62", 
-                            "identifier": "Aperture_41764e62", 
+                            "display_name": "Aperture_0977a026", 
+                            "identifier": "Aperture_0977a026", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -11046,8 +11046,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_aa9a057d", 
-                            "identifier": "Aperture_aa9a057d", 
+                            "display_name": "Aperture_fdba0aaa", 
+                            "identifier": "Aperture_fdba0aaa", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -11177,7 +11177,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_506", 
-                    "identifier": "INT_FL_5_Unit_506_89d2fc03", 
+                    "identifier": "INT_FL_5_Unit_506_c7424bbc", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -11224,8 +11224,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_59bb0ea2", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_873e8763", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -11242,7 +11242,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_506", 
-                    "identifier": "EXT_FL_5_Unit_506_b622f216", 
+                    "identifier": "EXT_FL_5_Unit_506_d29edaad", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -11313,7 +11313,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_506", 
-                    "identifier": "INT_FL_5_Unit_506_d1d570a7", 
+                    "identifier": "INT_FL_5_Unit_506_ee1ee763", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -11374,7 +11374,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_506", 
-                    "identifier": "INT_FL_5_Unit_506_52cdb14a", 
+                    "identifier": "INT_FL_5_Unit_506_8c64affe", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -11421,8 +11421,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Stairwell_d4eac53b", 
-                            "FL_5_Stairwell_8fc11bda"
+                            "INT_FL_5_Stairwell_7ca0b766", 
+                            "FL_5_Stairwell_690df2be"
                         ], 
                         "type": "Surface"
                     }, 
@@ -11441,21 +11441,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226289": {
+                        "295948": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "b52c3639-8b93-4e9e-9810-8a546b5ebb34", 
-                                    "host_zone_identifier": "FL_5_Unit_506_888688b0", 
+                                    "identifier": "4261c2f4-bf88-4ede-b896-b176fca0bda9", 
+                                    "host_zone_identifier": "FL_5_Unit_506_f160703b", 
                                     "_average_ceiling_height": 2.4999999999999978, 
                                     "floor": {
-                                        "identifier": "d40c30ba-40b8-4d62-ae90-62758a4b418e", 
-                                        "host_zone_identifier": "FL_5_Unit_506_888688b0", 
+                                        "identifier": "07ae9e37-27d7-41f5-92a2-af287def6227", 
+                                        "host_zone_identifier": "FL_5_Unit_506_f160703b", 
                                         "space_number": "506", 
                                         "space_name": "STUDIO B", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "e9e926b4-4aa9-439b-8bd1-bca8618da397", 
-                                                "host_zone_identifier": "FL_5_Unit_506_888688b0", 
+                                                "identifier": "ac29f0d7-576a-4553-9802-36324ca0b340", 
+                                                "host_zone_identifier": "FL_5_Unit_506_f160703b", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -11949,8 +11949,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "d0ec168d-be0c-4a8e-a1e3-8dc066a74d16", 
-                            "host_zone_identifier": "FL_5_Unit_506_888688b0", 
+                            "identifier": "f3985364-d0b4-4364-a1c4-b93c33f16cbd", 
+                            "host_zone_identifier": "FL_5_Unit_506_f160703b", 
                             "space_number": "506", 
                             "space_name": "STUDIO B", 
                             "volume": 109.88478557340778
@@ -11970,7 +11970,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -11980,7 +11980,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -12198,7 +12198,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -12208,7 +12208,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "39724406-2f74-4ddf-9a1e-874e62c1ef81"
+                        "identifier": "205b0c80-b6c5-4ce7-b760-32f938ce133d"
                     }
                 }
             }, 
@@ -12220,12 +12220,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_506_888688b0_infiltration"
+                        "identifier": "FL_5_Unit_506_f160703b_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_506_888688b0 Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_506_f160703b Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -12234,12 +12234,12 @@
         }, 
         {
             "display_name": "FL_5_Unit_505", 
-            "identifier": "FL_5_Unit_505_55d109f3", 
+            "identifier": "FL_5_Unit_505_1e1b4464", 
             "story": "LEVEL_5", 
             "faces": [
                 {
                     "display_name": "INT_FL_5_Unit_505", 
-                    "identifier": "INT_FL_5_Unit_505_7cd971c9", 
+                    "identifier": "INT_FL_5_Unit_505_45e6eed4", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -12305,7 +12305,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_505", 
-                    "identifier": "INT_FL_5_Unit_505_5384069e", 
+                    "identifier": "INT_FL_5_Unit_505_da6c3d23", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -12352,8 +12352,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Unit_504_bfdcc435", 
-                            "FL_5_Unit_504_84ee29fb"
+                            "INT_FL_5_Unit_504_72e4f037", 
+                            "FL_5_Unit_504_3a4181c7"
                         ], 
                         "type": "Surface"
                     }, 
@@ -12370,7 +12370,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_505", 
-                    "identifier": "EXT_FL_5_Unit_505_81dceff0", 
+                    "identifier": "EXT_FL_5_Unit_505_bc115be3", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -12436,11 +12436,11 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_505", 
-                    "identifier": "EXT_FL_5_Unit_505_1435926c", 
+                    "identifier": "EXT_FL_5_Unit_505_bc3e8968", 
                     "apertures": [
                         {
-                            "display_name": "Aperture_4f7961b3", 
-                            "identifier": "Aperture_4f7961b3", 
+                            "display_name": "Aperture_99f32414", 
+                            "identifier": "Aperture_99f32414", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12505,8 +12505,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_645f8903", 
-                            "identifier": "Aperture_645f8903", 
+                            "display_name": "Aperture_c648a697", 
+                            "identifier": "Aperture_c648a697", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12571,8 +12571,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_fbd3001b", 
-                            "identifier": "Aperture_fbd3001b", 
+                            "display_name": "Aperture_76a13caa", 
+                            "identifier": "Aperture_76a13caa", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12637,8 +12637,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_13e8e77d", 
-                            "identifier": "Aperture_13e8e77d", 
+                            "display_name": "Aperture_7c0b2bdd", 
+                            "identifier": "Aperture_7c0b2bdd", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12703,8 +12703,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_19a0d6ee", 
-                            "identifier": "Aperture_19a0d6ee", 
+                            "display_name": "Aperture_9ad40b3d", 
+                            "identifier": "Aperture_9ad40b3d", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12769,8 +12769,8 @@
                             }
                         }, 
                         {
-                            "display_name": "Aperture_57d05400", 
-                            "identifier": "Aperture_57d05400", 
+                            "display_name": "Aperture_22f57076", 
+                            "identifier": "Aperture_22f57076", 
                             "geometry": {
                                 "type": "Face3D", 
                                 "plane": {
@@ -12900,7 +12900,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_505", 
-                    "identifier": "EXT_FL_5_Unit_505_b3df7053", 
+                    "identifier": "EXT_FL_5_Unit_505_c0265be8", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -12966,7 +12966,7 @@
                 }, 
                 {
                     "display_name": "EXT_FL_5_Unit_505", 
-                    "identifier": "EXT_FL_5_Unit_505_eccf22c4", 
+                    "identifier": "EXT_FL_5_Unit_505_b1e471dc", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -13037,7 +13037,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_505", 
-                    "identifier": "INT_FL_5_Unit_505_35536b35", 
+                    "identifier": "INT_FL_5_Unit_505_d6653115", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -13084,8 +13084,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Stairwell_2eeaedda", 
-                            "FL_5_Stairwell_8fc11bda"
+                            "INT_FL_5_Stairwell_8967b879", 
+                            "FL_5_Stairwell_690df2be"
                         ], 
                         "type": "Surface"
                     }, 
@@ -13102,7 +13102,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_505", 
-                    "identifier": "INT_FL_5_Unit_505_71deaad0", 
+                    "identifier": "INT_FL_5_Unit_505_611fbd20", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -13149,8 +13149,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Corridor_c4c51239", 
-                            "FL_5_Corridor_95dd52a6"
+                            "INT_FL_5_Corridor_af8a22ed", 
+                            "FL_5_Corridor_8f0aa808"
                         ], 
                         "type": "Surface"
                     }, 
@@ -13167,7 +13167,7 @@
                 }, 
                 {
                     "display_name": "INT_FL_5_Unit_505", 
-                    "identifier": "INT_FL_5_Unit_505_db26700d", 
+                    "identifier": "INT_FL_5_Unit_505_603f4f8a", 
                     "geometry": {
                         "type": "Face3D", 
                         "plane": {
@@ -13214,8 +13214,8 @@
                     "face_type": "Wall", 
                     "boundary_condition": {
                         "boundary_condition_objects": [
-                            "INT_FL_5_Laundry_686d6238", 
-                            "FL_5_Laundry_67668010"
+                            "INT_FL_5_Laundry_471165d8", 
+                            "FL_5_Laundry_f006a71a"
                         ], 
                         "type": "Surface"
                     }, 
@@ -13234,21 +13234,21 @@
             "user_data": {
                 "phx": {
                     "spaces": {
-                        "226291": {
+                        "295950": {
                             "volumes": {
                                 "0": {
-                                    "identifier": "2cc40228-1d7c-4eb2-bc1b-77ec66edf2a0", 
-                                    "host_zone_identifier": "FL_5_Unit_505_55d109f3", 
+                                    "identifier": "cbf41b15-a879-4123-a500-82174c8a2567", 
+                                    "host_zone_identifier": "FL_5_Unit_505_1e1b4464", 
                                     "_average_ceiling_height": 2.5000000000000013, 
                                     "floor": {
-                                        "identifier": "b07b16df-14f2-4615-91ca-13168a468fc3", 
-                                        "host_zone_identifier": "FL_5_Unit_505_55d109f3", 
+                                        "identifier": "521c97a7-936d-49fd-8c51-e55a98ad3667", 
+                                        "host_zone_identifier": "FL_5_Unit_505_1e1b4464", 
                                         "space_number": "505", 
                                         "space_name": "STUDIO C", 
                                         "floor_segments": {
                                             "0": {
-                                                "identifier": "7e514b28-7d79-4489-96e4-636fed4994dc", 
-                                                "host_zone_identifier": "FL_5_Unit_505_55d109f3", 
+                                                "identifier": "ab4bd2d0-f114-46b3-b2a7-79897f379a5a", 
+                                                "host_zone_identifier": "FL_5_Unit_505_1e1b4464", 
                                                 "geometry": {
                                                     "0": {
                                                         "type": "Face3D", 
@@ -13742,8 +13742,8 @@
                                     }
                                 }
                             }, 
-                            "identifier": "eb7fdec8-93b7-4624-8095-c93d94ad81ec", 
-                            "host_zone_identifier": "FL_5_Unit_505_55d109f3", 
+                            "identifier": "edf3fd0e-cf83-45d0-93da-2de39ac2f7b5", 
+                            "host_zone_identifier": "FL_5_Unit_505_1e1b4464", 
                             "space_number": "505", 
                             "space_name": "STUDIO C", 
                             "volume": 106.00564027678496
@@ -13763,7 +13763,7 @@
                     "bldg_segment_id": {
                         "id": 1, 
                         "name": "Residential", 
-                        "identifier": "f382365b-519b-4c65-9d83-29a5131a6258"
+                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
                     }, 
                     "ph_certification": {
                         "building_status": 1, 
@@ -13773,7 +13773,7 @@
                         "building_type": 1, 
                         "localization_selection_type": 2, 
                         "PHIUS2021_heating_demand": 20, 
-                        "identifier": "c7c86dbc-209e-484b-99fe-4609e4519121", 
+                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
                         "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
@@ -13991,7 +13991,7 @@
                         }
                     }, 
                     "segment_occupancy": {
-                        "identifier": "c8272f8b-ddaf-4741-8222-af32858d65ac", 
+                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -14001,7 +14001,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "be28a476-c688-4438-91d4-1a4a15522191"
+                        "identifier": "62e437d3-e9b9-4bf5-9e80-d9c6e44561ab"
                     }
                 }
             }, 
@@ -14013,12 +14013,12 @@
                 "energy": {
                     "infiltration": {
                         "flow_per_exterior_area": 5.9023413549881792e-05, 
-                        "schedule": "Infilt_Const_Sched_1cfa4640", 
+                        "schedule": "Infilt_Const_Sched_d3254538", 
                         "type": "InfiltrationAbridged", 
-                        "identifier": "FL_5_Unit_505_55d109f3_infiltration"
+                        "identifier": "FL_5_Unit_505_1e1b4464_infiltration"
                     }, 
                     "program_type": "2019::MidriseApartment::Apartment", 
-                    "hvac": "FL_5_Unit_505_55d109f3 Ideal Loads Air System", 
+                    "hvac": "FL_5_Unit_505_1e1b4464 Ideal Loads Air System", 
                     "type": "RoomEnergyPropertiesAbridged", 
                     "construction_set": "Type_A_Wood_Stud"
                 }, 
@@ -14327,7 +14327,7 @@
             ], 
             "hvacs": [
                 {
-                    "identifier": "FL_5_Laundry_67668010 Ideal Loads Air System", 
+                    "identifier": "FL_5_Laundry_f006a71a Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14343,7 +14343,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Corridor_95dd52a6 Ideal Loads Air System", 
+                    "identifier": "FL_5_Corridor_8f0aa808 Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14359,7 +14359,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Stairwell_8fc11bda Ideal Loads Air System", 
+                    "identifier": "FL_5_Stairwell_690df2be Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14375,7 +14375,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_501_706b8e86 Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_501_8c24771f Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14391,7 +14391,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_502_7323213b Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_502_ab3efdf9 Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14407,7 +14407,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_503_c9894812 Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_503_1cf5415c Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14423,7 +14423,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_504_84ee29fb Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_504_3a4181c7 Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14439,7 +14439,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_506_888688b0 Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_506_f160703b Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -14455,7 +14455,7 @@
                     "type": "IdealAirSystemAbridged"
                 }, 
                 {
-                    "identifier": "FL_5_Unit_505_55d109f3 Ideal Loads Air System", 
+                    "identifier": "FL_5_Unit_505_1e1b4464 Ideal Loads Air System", 
                     "economizer_type": "DifferentialDryBulb", 
                     "cooling_air_temperature": 13.0, 
                     "sensible_heat_recovery": 0.0, 
@@ -15863,29 +15863,6 @@
                     ]
                 }, 
                 {
-                    "display_name": "Infilt_Const_Sched", 
-                    "identifier": "Infilt_Const_Sched_1cfa4640", 
-                    "default_day_schedule": "Infilt_Const_Sched_1cfa4640_Day Schedule", 
-                    "schedule_type_limit": "Fractional", 
-                    "type": "ScheduleRulesetAbridged", 
-                    "day_schedules": [
-                        {
-                            "identifier": "Infilt_Const_Sched_1cfa4640_Day Schedule", 
-                            "times": [
-                                [
-                                    0, 
-                                    0
-                                ]
-                            ], 
-                            "values": [
-                                1.0
-                            ], 
-                            "type": "ScheduleDay", 
-                            "interpolate": false
-                        }
-                    ]
-                }, 
-                {
                     "identifier": "HotelSmall CommonArea_HtgSP_Sch", 
                     "default_day_schedule": "HotelSmall CommonArea_HtgSP_Sch_Default", 
                     "summer_designday_schedule": "HotelSmall CommonArea_HtgSP_Sch_SmrDsn", 
@@ -16793,6 +16770,29 @@
                             ], 
                             "values": [
                                 0.0
+                            ], 
+                            "type": "ScheduleDay", 
+                            "interpolate": false
+                        }
+                    ]
+                }, 
+                {
+                    "display_name": "Infilt_Const_Sched", 
+                    "identifier": "Infilt_Const_Sched_d3254538", 
+                    "default_day_schedule": "Infilt_Const_Sched_d3254538_Day Schedule", 
+                    "schedule_type_limit": "Fractional", 
+                    "type": "ScheduleRulesetAbridged", 
+                    "day_schedules": [
+                        {
+                            "identifier": "Infilt_Const_Sched_d3254538_Day Schedule", 
+                            "times": [
+                                [
+                                    0, 
+                                    0
+                                ]
+                            ], 
+                            "values": [
+                                1.0
                             ], 
                             "type": "ScheduleDay", 
                             "interpolate": false

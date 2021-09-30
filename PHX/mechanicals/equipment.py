@@ -39,6 +39,7 @@ class EquipmentSet(PHX._base._Base):
         --------
             * None
         """
+
         if not isinstance(_devices, list):
             _devices = [_devices]
 
@@ -47,7 +48,16 @@ class EquipmentSet(PHX._base._Base):
 
     def get_all_devices_by_type(self, _type_number=1):
         # type: (int) -> list[HVAC_Device]
-        """Get all the devices in the Set of the designated type number"""
+        """Returns a list of all the devices in the EquipmentSet with the designated type number.
+
+        Arguments:
+        ----------
+            * _type_number (int): The type-number to search for.
+
+        Returns:
+        --------
+            * (list): A list of equipment of the specified type.
+        """
 
         return [d for d in self.equipment if d.device_type == _type_number]
 
@@ -130,13 +140,15 @@ class HVAC_Ventilator(HVAC_Device):
 
     @classmethod
     def default(cls, *args, **kwargs):
-        """Returns a new Device for a default Ventilator (HRV/ERV)"""
+        """Returns a new HVAC_Device for a default Ventilator (HRV/ERV)"""
+
         if cls._default:
             return cls._default
 
         new_obj = cls()
 
         new_obj.name = "__default_ventilator__"
+        new_obj.device_type = 1
 
         cls._default = new_obj
         return new_obj

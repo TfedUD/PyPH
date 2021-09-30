@@ -34,7 +34,7 @@
 			<Month>9</Month>
 			<Day>30</Day>
 			<Hour>15</Hour>
-			<Minutes>39</Minutes>
+			<Minutes>55</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -4624,10 +4624,10 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">11.64</DesignFlowInterzonalUserDef>
 							</RoomVentilation>
 							<RoomVentilation index="1">
-								<Name>500-CORRIDOR</Name>
+								<Name>508-UTILITY</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">35.33</AreaRoom>
+								<AreaRoom unit="m²">3.56</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>2</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
@@ -4636,10 +4636,10 @@
 								<DesignFlowInterzonalUserDef unit="m³/h">0.0</DesignFlowInterzonalUserDef>
 							</RoomVentilation>
 							<RoomVentilation index="2">
-								<Name>508-UTILITY</Name>
+								<Name>500-CORRIDOR</Name>
 								<Quantity>1</Quantity>
 								<Type choice="User defined">99</Type>
-								<AreaRoom unit="m²">3.56</AreaRoom>
+								<AreaRoom unit="m²">35.33</AreaRoom>
 								<ClearRoomHeight unit="m">2.5</ClearRoomHeight>
 								<IdentNrUtilizationPatternVent>2</IdentNrUtilizationPatternVent>
 								<IdentNrVentilationUnit>1</IdentNrVentilationUnit>
