@@ -4,6 +4,7 @@
 """Rhino/Grasshopper functions for buiding PHX Ventilation Systems, Ducts."""
 
 import PyPH_Rhino.gh_io
+import PHX.mechanicals.distribution
 
 
 class DuctInputError(Exception):
@@ -15,16 +16,16 @@ class DuctInputError(Exception):
 
 
 def create_duct(IGH, _inputs, _input_node_name):
-    # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.hvac_components.HVAC_Duct
-    """Handle user-input of Ventilation ducts at the Ventilation-System level.
+    # type: (PyPH_Rhino.gh_io.IGH, list[Any], str) -> PHX.mechanicals.distribution.HVAC_Duct
+    """Return PHX-Duct based on various possible user-inputs.
 
-    Input could be:
+    '_inputs' could be a list of:
         * Duct Object
         * A Duct Segment (?)
-        * Text / float
-        * Rhino Geom with attibutes
-        * Rhono Geom without Attributes
-        * Grasshopper Geom
+        * Text / float value for the total length
+        * Rhino Geom with attibutes for insulation, thickness
+        * Rhono Geom without any Attributes
+        * Grasshopper Geom without any Attributes
 
     Arguments:
     ----------
@@ -34,17 +35,17 @@ def create_duct(IGH, _inputs, _input_node_name):
 
     Returns:
     --------
-        * (PHX.hvac_components.HVAC_Duct): The new Ventilation Duct Object.
+        * (PHX.mechanicals.distribution.HVAC_Duct): The new Ventilation PHX-Duct Object.
     """
 
     try:
         # -- If its RH/GH-Geom, Str, Float - handle all that
         clean_inputs = PyPH_Rhino.gh_io.handle_inputs(IGH, _inputs, _input_node_name)
-        new_duct = PHX.hvac_components.HVAC_Duct()
+        new_duct = PHX.mechanicals.distribution.HVAC_Duct()
 
         for _in in clean_inputs:
             # -- Build new Duct Segments
-            new_duct_seg = PHX.hvac_components.HVAC_Duct_Segment()
+            new_duct_seg = PHX.mechanicals.distribution.HVAC_Duct_Segment()
 
             # -- Basic Duct Segment Params
             new_duct_seg.diameter = _in.get("ductDiameter", 0.0)
@@ -79,6 +80,6 @@ def create_duct(IGH, _inputs, _input_node_name):
             else:
                 raise DuctInputError(_in)
 
-        new_duct = sum(new_ducts, start=PHX.hvac_components.HVAC_Duct())
+        new_duct = sum(new_ducts, start=PHX.mechanicals.distribution.HVAC_Duct())
 
         return new_duct
