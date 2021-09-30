@@ -1,8 +1,9 @@
 import PHX.programs.ventilation
 import PHX.programs.loads
 import PHX.programs.schedules
-import PHX.hvac_components
 import PHX.bldg_segment
+import PHX.mechanicals.systems
+import PHX.mechanicals.equipment
 import LBT_Utils.program
 
 import honeybee.room
@@ -10,7 +11,7 @@ import honeybee.room
 
 def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
     """
-    Returns a PHX-Ventilation Object, with attributes based on an input Honeybee Ventilation Object
+    Returns a PHX-Ventilation Program Object, with attributes based on an input Honeybee Ventilation Object
 
     Arguments:
     ---------
@@ -92,17 +93,20 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
     return phx_Ventilation
 
 
-def get_ventilator_from_hb_room(_hb_room: honeybee.room.Room):
-    # -- Assing the Default Ventilator
-    ventilator = PHX.hvac_components.HVAC_Ventilator.default()
-    ventilator.Name = "Room Ventilator"
-    ventilator.UsedFor_Ventilation = True
+def create_system_from_hb_room(_hb_room: honeybee.room.Room):
+    # -- Get the Default Ventilator
+    ventilator = PHX.mechanicals.equipment.HVAC_Ventilator.default()
+    ventilator.name = "Room Ventilator"
 
-    # -- Get and assign any user-defined Ventilator found at the Room level
+    # -- Create the Default Ventilation System, Add the default Ventilator
+    vent_sys = PHX.mechanicals.systems.MechanicalSystem.default_ventilation()
+    vent_sys.equipment.add_new_device_to_equipment_set(ventilator)
+
+    # -- Get and assign any user-defined Ventilator / System info found at the Room level
     #
     #
     # TODO
     #
     #
 
-    return ventilator
+    return vent_sys

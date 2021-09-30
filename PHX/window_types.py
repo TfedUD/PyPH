@@ -25,7 +25,7 @@ class WindowType(PHX._base._Base):
         super(WindowType, self).__init__()
         self.id = self._count
         self.idDB = None
-        self.n = "default_window_type"
+        self.name = "default_window_type"
         self.detU = True
         self.detGd = False
         self.Uw = 2.5

@@ -13,6 +13,10 @@ import PyPH_WUFI.xml_object_data
 
 from xml.dom.minidom import Document, Element
 
+import logging
+
+logging.basicConfig(filename="sample/EM_logs/example.log", filemode="w", encoding="utf-8", level=logging.DEBUG)
+
 
 def _xml_str(_) -> str:
     """Util: Handle converting Boolean values to xml text format properly"""
@@ -71,10 +75,12 @@ def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
 
     if isinstance(_item, PyPH_WUFI.xml_node.XML_Node):
         # -- Basic Node, write out the value
+        logging.debug(f"Adding child node:      {_item.node_name} - {_item.node_value}")
         _add_text_node(_doc, _parent_node, _item)
 
     elif isinstance(_item, PyPH_WUFI.xml_node.XML_Object):
         # -- Add a new node for the object, then try and add all its fields
+        logging.debug(f"Adding Object node: {_item.node_name}")
         _new_parent_node = _doc.createElementNS(None, _xml_str(_item.node_name))
         _add_node_attributes(_item, _new_parent_node)
         _parent_node.appendChild(_new_parent_node)
@@ -103,7 +109,7 @@ def create_project_xml_text(_project: PHX.project.Project) -> str:
     --------
         * (str) The XML Nodes as Text
     """
-
+    logging.debug("Creating document header")
     doc = Document()
 
     root = doc.createElementNS(None, "WUFIplusProject")
@@ -123,6 +129,9 @@ def write_Project_to_wp_xml_file(_file_address, _Project) -> None:
         * _file_address (str): The file path to save to
         * _Project (PHX.project.Project): The Project Object to write to XML
     """
+
+    t = datetime.now()
+    logging.debug(f"Start Export to XML File: {t.month}_{t.day}_{t.hour}_{t.minute}_{t.second}")
 
     def clean_filename(_file_address):
         old_file_name, old_file_extension = os.path.splitext(_file_address)

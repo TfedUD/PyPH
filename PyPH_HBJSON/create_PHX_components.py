@@ -76,7 +76,7 @@ def create_new_opaque_component_from_hb_face(
     """
 
     compo = PHX.component.Component()
-    compo.n = _hb_face.display_name
+    compo.name = _hb_face.display_name
 
     # -- Pack any polygons input onto the new Component
     if not isinstance(_hb_face, list):
@@ -225,7 +225,7 @@ def create_new_window_component_from_hb_aperture(
     window_compo = PHX.component.Component()
 
     # -- Basic Component Attributes
-    window_compo.n = _hb_Aperture.display_name
+    window_compo.name = _hb_Aperture.display_name
     window_compo.type = 2  # Transparent
     window_compo.int_color_id = 4
     window_compo.ext_color_id = 4

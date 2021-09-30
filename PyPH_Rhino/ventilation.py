@@ -16,7 +16,7 @@ class DuctInputError(Exception):
         super(DuctInputError, self).__init__(self.message)
 
 
-def handle_duct_input(IGH, _inputs, _input_node_name):
+def create_duct(IGH, _inputs, _input_node_name):
     # type: (PyPH_Rhino.gh_io.IGH, list, str) -> PHX.hvac_components.HVAC_Duct
     """Handle user-input of Ventilation ducts at the Ventilation-System level.
 

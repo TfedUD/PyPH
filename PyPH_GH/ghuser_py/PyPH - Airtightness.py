@@ -68,7 +68,7 @@ import PyPH_Rhino.airtightness
 # --- 
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Airtightness"
+ghenv.Component.name = "PyPH - Airtightness"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 20, 2021')
 

@@ -12,14 +12,14 @@ from collections import defaultdict
 from functools import reduce
 
 import PHX._base
-import PHX.hvac_system
 import PHX.component
 import PHX.spaces
 import PHX.summer_ventilation
 import PHX.programs.lighting
 import PHX.programs.occupancy
 import PHX.programs.ventilation
-import PHX.programs.equipment
+import PHX.mechanicals.equipment
+import PHX.mechanicals.systems
 import PHX.infiltration
 import PHX.ground
 import PHX.appliances
@@ -296,7 +296,8 @@ class Room(PHX._base._Base):
         self.ventilation = PHX.programs.ventilation.RoomVentilation()
         self.lighting = PHX.programs.lighting.SpaceLighting()
         self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
-        self.equipment_set = PHX.programs.equipment.EquipmentSet()
+
+        self.mechanicals = PHX.mechanicals.systems.Mechanicals()
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -335,7 +336,7 @@ class Zone(PHX._base._Base):
     def __init__(self):
         super(Zone, self).__init__()
         self.id = self._count
-        self.n = None
+        self.name = None
         self.typeZ = 1
 
         self.volume_gross = 0.0
@@ -360,6 +361,11 @@ class Zone(PHX._base._Base):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
         return super(Zone, cls).__new__(cls, *args, **kwargs)
+
+    @property
+    def mechanicals(self):
+        """Return a single Mechanical Object which is a sum of all the Room Mechanicals"""
+        return sum(room.mechanicals for room in self.rooms)
 
     def add_rooms(self, _new_rooms):
         # type: (list[PHX.bldg_segment.Room]) -> None
@@ -402,7 +408,7 @@ class Zone(PHX._base._Base):
         new_obj = self.__class__()
 
         # -- Add basic parameters
-        new_obj.n = "Merged Zone"
+        new_obj.name = "Merged Zone"
         # -- Protect from None
         new_obj.volume_gross = (self.volume_gross or 0) + (other.volume_gross or 0)
         new_obj.volume_net = (self.volume_net or 0) + (other.volume_net or 0)
@@ -474,10 +480,9 @@ class BldgSegment(PHX._base._Base):
         self.HaMT = {}
         self.has_been_changed_since_last_gen = False
         self.has_been_generated = False
-        self.HVAC_system = PHX.hvac_system.HVAC_System()
         self.id = self._count
         self.infiltration = PHX.infiltration.Infiltration(self)
-        self.n = ""
+        self.name = ""
         self.numerics = None
         self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
         self.PHIUS_certification = PHIUSCertification()
@@ -499,7 +504,7 @@ class BldgSegment(PHX._base._Base):
             return cls._default
 
         new_obj = cls()
-        new_obj.n = "Default Building Segment"
+        new_obj.name = "Default Building Segment"
 
         cls._default = new_obj
         return new_obj
@@ -515,6 +520,11 @@ class BldgSegment(PHX._base._Base):
     @property
     def total_volume_gross(self):
         return sum((_.volume_gross or 0) for _ in self.zones)
+
+    @property
+    def mechanicals(self):
+        """Return a single Mechanical Object which is a sum of all the Zone Mechanicals"""
+        return sum(zone.mechanicals for zone in self.zones)
 
     def add_zones(self, _zones):
         # type: (list[PHX.bldg_segment.Zone]) -> None
@@ -660,7 +670,7 @@ class BldgSegment(PHX._base._Base):
                 # -- Join all the Components in each group into single new Component
                 for compo_gr in compo_groups.values():
                     compo_joined = reduce(lambda a, b: a + b, compo_gr)
-                    compo_joined.n = "Component_Group"
+                    compo_joined.name = "Component_Group"
                     new_compo_list.append(compo_joined)
 
             # -- Replace the Component List with the new one

@@ -37,7 +37,7 @@ class Material(PHX._base._Base):
         super(Material, self).__init__()
         self.id = self._count
         self.idDB = None
-        self.n = None
+        self.name = None
         self.tConD = None
         self.densB = None
         self.poros = 0.95
@@ -106,7 +106,7 @@ class Assembly(PHX._base._Base):
 
     def __init__(self):
         self.id = self._count
-        self.n = "default_assembly"
+        self.name = "default_assembly"
         self.Order_Layers = 2
         self.Grid_Kind = 2
         self.Layers = []

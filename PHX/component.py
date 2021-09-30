@@ -19,7 +19,7 @@ class ComponentTypeError(Exception):
 
 class WindowHostNotFoundError(Exception):
     def __init__(self, _p, _c):
-        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.n)
+        self.message = 'Error: No window host polygon with ID: "{}" found on Component: "{}"'.format(_p.id, _c.name)
         super(WindowHostNotFoundError, self).__init__(self.message)
 
 
@@ -40,7 +40,7 @@ class Component(PHX._base._Base):
         super(Component, self).__init__()
         self.id = self._count
         self.idSKP = self._count
-        self.n = "No Name"
+        self.name = "No Name"
         self.visC = True
         self.type = 1
         self.int_exposure_zone_id = 1
@@ -80,7 +80,7 @@ class Component(PHX._base._Base):
 
     def set_host_zone_name(self, _zone):
         self.int_exposure_zone_id = _zone.id
-        self.int_exposure_zone_name = "Zone {}: {}".format(_zone.id, _zone.n)
+        self.int_exposure_zone_name = "Zone {}: {}".format(_zone.id, _zone.name)
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""

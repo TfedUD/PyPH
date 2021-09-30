@@ -84,7 +84,7 @@ import PyPH_Rhino.gh_utils
 import PyPH_GH._component_info_
 
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Apply Vent. Schedule"
+ghenv.Component.name = "PyPH - Apply Vent. Schedule"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev="SEP_14_2021")
 

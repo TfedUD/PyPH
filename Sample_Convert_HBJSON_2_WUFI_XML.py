@@ -55,7 +55,6 @@ for room in hb_model.rooms:
             window_type_collection.add_new_window_type_to_collection(new_window_type)
 
 
-# --- Set up the new Project
 # ------------------------------------------------------------------------------
 project_1 = PHX.project.Project()
 
@@ -68,15 +67,12 @@ for room in hb_model.rooms:
     phx_Room = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Room_from_HB_room(room)
     phx_Spaces = PyPH_HBJSON.create_PHX_Spaces.create_PHX_Spaces_from_HB_room(room)
 
+    # -- Add Mechanicals (Ventilation)
+    phx_Room.mechanicals = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Mechanicals_from_HB_room(room)
+
     phx_Room.add_spaces(phx_Spaces)
     phx_Zone.add_rooms(phx_Room)
     phx_BldgSegment.add_zones(phx_Zone)
-
-    # -- Mechanicals
-    phx_BldgSegment.HVAC_system.add_zone_to_system_coverage(phx_Zone)
-    ventilator = PyPH_HBJSON.create_PHX_Ventilation.get_ventilator_from_hb_room(phx_Room)
-    phx_Room.equipment_set.ventilator = ventilator
-    phx_BldgSegment.HVAC_system.add_devices_to_system(ventilator)
 
     # -- Infiltration Airflow (n50, q50)
     room_infiltration_m3s = PyPH_HBJSON.infiltration.calc_HB_room_infiltration(room)

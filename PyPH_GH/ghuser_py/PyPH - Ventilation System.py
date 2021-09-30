@@ -59,7 +59,7 @@ import PyPH_Rhino.gh_io
 import PyPH_GH._component_info_
 
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Ventilation System"
+ghenv.Component.name = "PyPH - Ventilation System"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 25, 2021")
 

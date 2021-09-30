@@ -25,7 +25,7 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
     """
 
     zone = PHX.bldg_segment.Zone()
-    zone.n = _hb_room.display_name
+    zone.name = _hb_room.display_name
     zone.identifier = _hb_room.identifier
     zone.source_zone_identifiers.append(_hb_room.identifier)
 

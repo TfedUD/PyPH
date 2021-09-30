@@ -16,6 +16,7 @@ def __Base(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # ------- PROGRAMS --------
 def _SpaceLighting(_obj):
     d = {}
@@ -74,6 +75,7 @@ def _ZoneOccupancy(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # ------- Schedules and Utilization Rates  -------
 def _Vent_UtilRate(_obj):
     d = {}
@@ -134,6 +136,7 @@ def _Schedule_Lighting(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # ------- Loads  -------
 def _Load_Lighting(_obj):
     d = {}
@@ -165,6 +168,7 @@ def _Load_Occupancy(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # ------- GEOMETRY --------
 def _Vector(_obj):
     d = {}
@@ -207,98 +211,77 @@ def _Polygon(_obj):
     return d
 
 
-# -- HVAC: System / General
+# ------------------------------------------------------------------------------
+# ------- HVAC --------
+# -- HVAC: System
+def _Mechanicals(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+
+    system_dicts = []
+    for system in _obj.systems:
+        system_dicts.append(system.to_dict())
+    d.update({"_systems": system_dicts})
+
+    return d
+
+
+def _MechanicalSystem(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"system_group_type_number": _obj.system_group_type_number})
+    d.update({"type_number": _obj.type_number})
+    d.update({"lZoneCover": _obj.lZoneCover})
+    # d.update({"equipment_set": _obj.equipment_set.to_dict()})
+    # d.update({"distribution": _obj.distribution.to_dict()})
+    # d.update({"system_usage": _obj.system_usage.to_dict()})
+
+    return d
+
+
+# -- HVAC: Equipment
+def _EquipmentSet(_obj):
+    d = {}
+
+    d.update({"id": _obj.id})
+    d.update({"identifier": str(_obj.identifier)})
+
+    equipment_dicts = []
+    for equipment in _obj.equipment:
+        equipment_dicts.append(equipment.to_dict())
+    d.update({"equipment": equipment_dicts})
+
+    return d
+
+
 def _HVAC_Device(_obj):
     d = {}
 
     d.update({"id": _obj.id})
     d.update({"identifier": str(_obj.identifier)})
-    d.update({"Name": _obj.Name})
-    d.update({"SystemType": _obj.SystemType})
-    d.update({"TypeDevice": _obj.TypeDevice})
-    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
-    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
-    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
-    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
-    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
-    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
-    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
-    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
+    d.update({"name": _obj.name})
+    d.update({"device_type": _obj.device_type})
 
     return d
 
 
-def _HVAC_System(_obj):
+def _HVAC_Ventilator(_obj):
     d = {}
 
-    d.update({"identifier": str(_obj.identifier)})
     d.update({"id": _obj.id})
-    d.update({"n": _obj.n})
-    d.update({"typeSys": _obj.typeSys})
-    d.update({"lZoneCover": _obj.lZoneCover})
-    d.update({"_device_dict": _obj._device_dict})
-    d.update({"distrib": _obj.distrib})
-    d.update({"suppDev": _obj.suppDev})
-    d.update({"PHdistrib": _obj.PHdistrib})
-
-    return d
-
-
-# -- HVAC: Ventilation
-def _SummerVent(_obj):
-    d = {}
-
-    d.update({"avg_mech_ach": _obj.avg_mech_ach})
-    d.update({"day_window_ach": _obj.day_window_ach})
-    d.update({"night_window_ach": _obj.night_window_ach})
-    d.update({"additional_mech_ach": _obj.additional_mech_ach})
-    d.update({"additional_mech_spec_power": _obj.additional_mech_spec_power})
-    d.update({"exhaust_ach": _obj.exhaust_ach})
-    d.update({"exhaust_spec_power": _obj.exhaust_spec_power})
-    d.update({"additional_mech_control_mode": _obj.additional_mech_control_mode})
-    d.update({"avg_mech_control_mode": _obj.avg_mech_control_mode})
-
-    return d
-
-
-def _HVAC_Duct_Segment(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"length": _obj.length})
-    d.update({"diameter": _obj.diameter})
-    d.update({"width": _obj.width})
-    d.update({"height": _obj.height})
-    d.update({"insulation_thickness": _obj.insulation_thickness})
-    d.update({"insulation_conductivity": _obj.insulation_conductivity})
-
-    return d
-
-
-def _HVAC_Duct(_obj):
-    d = {}
-
-    d.update({"identifier": str(_obj.identifier)})
-    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
-
-    return d
-
-
-def _Ventilation_System(_obj):
-    d = {}
-
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
-    d.update({"type": _obj.type})
-    d.update({"ventilator": _obj.ventilator.to_dict()})
-    d.update({"duct_01": _obj.duct_01.to_dict()})
-    d.update({"duct_02": _obj.duct_02.to_dict()})
+    d.update({"device_type": _obj.device_type})
+    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
 
     return d
 
 
-def _Ventilator_PH_Parameters(_obj):
+def _HVAC_Ventilator_PH_Parameters(_obj):
     d = {}
 
     d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
@@ -328,28 +311,47 @@ def _Ventilator_PH_Parameters(_obj):
     return d
 
 
-def _HVAC_Ventilator(_obj):
+def _HVAC_Duct_Segment(_obj):
     d = {}
 
-    d.update({"id": _obj.id})
     d.update({"identifier": str(_obj.identifier)})
-    d.update({"Name": _obj.Name})
-    d.update({"SystemType": _obj.SystemType})
-    d.update({"TypeDevice": _obj.TypeDevice})
-    d.update({"UsedFor_Heating": _obj.UsedFor_Heating})
-    d.update({"UsedFor_DHW": _obj.UsedFor_DHW})
-    d.update({"UsedFor_Cooling": _obj.UsedFor_Cooling})
-    d.update({"UsedFor_Ventilation": _obj.UsedFor_Ventilation})
-    d.update({"UsedFor_Humidification": _obj.UsedFor_Humidification})
-    d.update({"UsedFor_Dehumidification": _obj.UsedFor_Dehumidification})
-    # d.update({"Ventilation_Parameters": _obj.Ventilation_Parameters})
-    d.update({"UseOptionalClimate": _obj.UseOptionalClimate})
-    d.update({"IdentNr_OptionalClimate": _obj.IdentNr_OptionalClimate})
-    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
+    d.update({"length": _obj.length})
+    d.update({"diameter": _obj.diameter})
+    d.update({"width": _obj.width})
+    d.update({"height": _obj.height})
+    d.update({"insulation_thickness": _obj.insulation_thickness})
+    d.update({"insulation_conductivity": _obj.insulation_conductivity})
 
     return d
 
 
+def _HVAC_Duct(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"segments": [seg.to_dict() for seg in _obj.segments]})
+
+    return d
+
+
+# -- HVAC: SummerVent
+def _SummerVent(_obj):
+    d = {}
+
+    d.update({"avg_mech_ach": _obj.avg_mech_ach})
+    d.update({"day_window_ach": _obj.day_window_ach})
+    d.update({"night_window_ach": _obj.night_window_ach})
+    d.update({"additional_mech_ach": _obj.additional_mech_ach})
+    d.update({"additional_mech_spec_power": _obj.additional_mech_spec_power})
+    d.update({"exhaust_ach": _obj.exhaust_ach})
+    d.update({"exhaust_spec_power": _obj.exhaust_spec_power})
+    d.update({"additional_mech_control_mode": _obj.additional_mech_control_mode})
+    d.update({"avg_mech_control_mode": _obj.avg_mech_control_mode})
+
+    return d
+
+
+# ------------------------------------------------------------------------------
 # -- Spaces
 def _FloorSegment(_obj):
     d = {}
@@ -455,6 +457,7 @@ def _PHIUSCertification(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # -- Ground
 def _Foundation(_obj):
     d = {}
@@ -462,6 +465,7 @@ def _Foundation(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # -- Assemblies
 def _Material(_obj):
     d = {}
@@ -481,6 +485,7 @@ def _Assembly(_obj):
     return d
 
 
+# ------------------------------------------------------------------------------
 # -- Appliances
 def _ApplianceSet(_obj):
     d = {}

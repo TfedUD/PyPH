@@ -70,7 +70,7 @@ import PyPH_Rhino.space_io
 import PyPH_GH._component_info_
 
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Create PHX Spaces"
+ghenv.Component.name = "PyPH - Create PHX Spaces"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev="SEP_28_2021")
 

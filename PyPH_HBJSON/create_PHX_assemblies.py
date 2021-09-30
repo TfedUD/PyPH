@@ -30,7 +30,7 @@ def create_new_NoMassMaterial_from_hb_mat(
     """
 
     new_material = PHX.assemblies.Material()
-    new_material.n = _hb_material.display_name
+    new_material.name = _hb_material.display_name
 
     new_material.r_value = _hb_material.r_value
     new_material.tConD = (1 / new_material.r_value) * _thickness
@@ -54,7 +54,7 @@ def create_new_StandardMaterial_from_hb_mat(
 
     new_material = PHX.assemblies.Material()
 
-    new_material.n = _hb_material.display_name
+    new_material.name = _hb_material.display_name
     new_material.tConD = _hb_material.conductivity
     new_material.densB = _hb_material.density
     new_material.hCapS = _hb_material.specific_heat
@@ -108,7 +108,7 @@ def create_new_assembly_from_hb_face(
     """
 
     assembly = PHX.assemblies.Assembly()
-    assembly.n = _face.properties.energy.construction.display_name
+    assembly.name = _face.properties.energy.construction.display_name
     assembly.identifier = _face.properties.energy.construction.identifier
 
     # --- Build A Material dict { 'mat_name_1':idex_num, 'mat_name_2':index_num,... }
@@ -149,7 +149,7 @@ def create_new_window_type_from_hb_face(
 
     new_window_type = PHX.window_types.WindowType()
 
-    new_window_type.n = _face.properties.energy.construction.display_name
+    new_window_type.name = _face.properties.energy.construction.display_name
     new_window_type.identifier = _face.properties.energy.construction.identifier
 
     new_window_type.Uw = _face.properties.energy.construction.u_factor

@@ -32,7 +32,7 @@ def create_PHX_BldgSegment_from_HB_Room(_hb_room: honeybee.room.Room) -> PHX.bld
     host_bldg_segment = PHX.bldg_segment.BldgSegment()
     host_bldg_segment.identifier = var_ident
     host_bldg_segment.id = var_id
-    host_bldg_segment.n = var_name
+    host_bldg_segment.name = var_name
 
     # -- Set the Segment Occupancy
     occupancy_dict = _hb_room.user_data.get("phx", {}).get("segment_occupancy", {})

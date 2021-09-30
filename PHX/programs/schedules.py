@@ -130,7 +130,7 @@ class Schedule_Ventilation(PHX._base._Base):
 
         new_obj = cls()
 
-        new_obj.n = "_default_schedule_ventilation_"
+        new_obj.name = "_default_schedule_ventilation_"
 
         new_obj.utilization_rates.maximum.daily_op_sched = 0
         new_obj.utilization_rates.maximum.frac_of_design_airflow = 1.00

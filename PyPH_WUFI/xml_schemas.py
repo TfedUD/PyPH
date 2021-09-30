@@ -11,7 +11,7 @@ Note: each function here should have the exact same name as its 'parent' but
 with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
-from collections import namedtuple
+from collections import defaultdict, namedtuple
 
 import PyPH_WUFI.xml_node
 import PyPH_WUFI.selection
@@ -23,7 +23,7 @@ TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
 def _WindowType(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("Uw_Detailed", _obj.detU),
         PyPH_WUFI.xml_node.XML_Node("GlazingFrameDetailed", _obj.detGd),
         PyPH_WUFI.xml_node.XML_Node("U_Value", _obj.Uw),
@@ -44,7 +44,7 @@ def _WindowType(_obj):
 # - Utilization Patterns
 def _UtilizationPattern_Vent(_obj):
     def _fix_the_bullshit(_obj):
-        # Fix the god damn > 24 bullshit    
+        # Fix the god damn > 24 bullshit
         a = round(_obj.utilization_rates.maximum.daily_op_sched, TOL)
         b = round(_obj.utilization_rates.standard.daily_op_sched, TOL)
         c = round(_obj.utilization_rates.basic.daily_op_sched, TOL)
@@ -112,7 +112,7 @@ def _UtilizationPattern_NonRes(_obj):
 # - Constructions
 def _Material(_obj):
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("ThermalConductivity", _obj.tConD),
         PyPH_WUFI.xml_node.XML_Node("BulkDensity", _obj.densB),
         PyPH_WUFI.xml_node.XML_Node("Porosity", _obj.poros),
@@ -132,7 +132,7 @@ def _Layer(_obj):
 def _Assembly(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Assembly::Order_Layers", _obj.Order_Layers).xml_data
         ),
@@ -213,7 +213,7 @@ def _WP_Color(_obj):
 def _Component(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("Visual", _obj.visC),
         PyPH_WUFI.xml_node.XML_Node(
             "InnerAttachment", _obj.int_exposure_zone_id, "choice", _obj.int_exposure_zone_name
@@ -237,6 +237,14 @@ def _Component(_obj):
 
 
 def _RoomVentilation(_obj):
+    # Find the Mechanical Ventilator ID number, if any
+    def _find_ventilator_id(_obj):
+        vent_id = -1  # default
+        for mech_sys in _obj.mechanicals.systems:
+            for d in mech_sys.equipment_set.get_all_devices_by_type(1):
+                vent_id = d.id
+        return vent_id
+
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
@@ -244,7 +252,7 @@ def _RoomVentilation(_obj):
         PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_obj.floor_area_weighted, TOL), "unit", "m²"),
         PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_obj.clear_height, TOL), "unit", "m"),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _obj.ventilation.schedule.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _obj.equipment_set.ventilator.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _find_ventilator_id(_obj)),
         PyPH_WUFI.xml_node.XML_Node(
             "DesignVolumeFlowRateSupply",
             round(_obj.ventilation.loads.supply, TOL),
@@ -305,7 +313,7 @@ def _Zone(_obj):
                 space.ventilation = room.ventilation
                 space.lighting = room.lighting
                 space.occupancy = room.occupancy
-                space.equipment_set = room.equipment_set
+                space.mechanicals = room.mechanicals
 
                 # -- Reset the Space's Ventilation Loads using the detailed Space-level info
                 # -- instead of the Room level data
@@ -319,7 +327,7 @@ def _Zone(_obj):
         return spaces
 
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Zone::GrossVolume_Selection", _obj.volume_gross_selection).xml_data
@@ -611,7 +619,108 @@ def _Foundation(_obj):
 
 # ------------------------------------------------------------------------------
 # -- HVAC
-def _Ventilator_PH_Parameters(_obj):
+
+
+class MechanicalSystemGroup:
+    """Temporary MechSystem-Group class cus' WUFI structure is weird"""
+    
+    def __init__(self):
+        self.group_type_number = 1
+        self.systems = []
+
+
+def _Mechanicals(_obj):
+    # Sort the Mechanical Systems into groups by group-type
+    system_dict = defaultdict(list)
+    for sys in _obj.systems:
+        system_dict[sys.system_group_type_number].append(sys)
+
+    mech_groups = []
+    for group_type_num, systems in system_dict.items():
+        new_Mech_Group = MechanicalSystemGroup()
+        new_Mech_Group.group_type_number = group_type_num
+        new_Mech_Group.systems = systems
+        mech_groups.append(new_Mech_Group)
+
+    return [
+        PyPH_WUFI.xml_node.XML_List(
+            "Systems",
+            [
+                PyPH_WUFI.xml_node.XML_Object("System", _, "index", i, _schema_name="_MechanicalSystemGroup")
+                for i, _ in enumerate(mech_groups)
+            ],
+        ),
+    ]
+
+
+def _MechanicalSystemGroup(_obj):
+    # type: (MechanicalSystemGroup) -> list
+    # -- In WUFI, a list of multiple systems are allowed. By default, only a single system is implemented right now
+
+    def create_PHDistribution(_obj):
+        # -- Build the PHDistribution Attributes
+        if _obj.systems:
+            def_values = _obj.systems[0].distribution.use_default_values
+            in_cond_space = _obj.systems[0].distribution.device_in_conditioned_space
+
+        PHDistribution = namedtuple("tPHDistribution", ["use_default_values", "device_in_conditioned_space"])
+        return PHDistribution(def_values, in_cond_space)
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", "System Group {}".format(_obj.group_type_number)),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_System::Type", _obj.group_type_number).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.group_type_number),
+        PyPH_WUFI.xml_node.XML_List(
+            "Devices",
+            [
+                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_MechanicalSystem")
+                for i, _ in enumerate(_obj.systems)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_Object("PHDistribution", create_PHDistribution(_obj), _schema_name="_PHDistribution"),
+        # PyPH_WUFI.xml_node.XML_Node("Distribution", _obj.distrib),
+    ]
+
+
+def _PHDistribution(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("UseDefaultValues", _obj.use_default_values),
+        PyPH_WUFI.xml_node.XML_Node("DeviceInConditionedSpace", _obj.device_in_conditioned_space),
+    ]
+
+
+def _MechanicalSystem(_obj):
+    # type(PHX.mechanicals.systems.MechanicalSystem) -> list
+
+    node_items = [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.type_number).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.type_number).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.system_usage.used_for_heating),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.system_usage.used_for_DHW),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.system_usage.used_for_cooling),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.system_usage.used_for_ventilation),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.system_usage.used_for_humidification),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.system_usage.used_for_dehumidification),
+        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.system_usage.used_optional_climate),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.system_usage.optional_climate_id_number),
+    ]
+
+    if _obj.type_number == 1:
+        # -- Ventilator
+        node_items.extend(_HVAC_Ventilator(_obj))
+
+    return node_items
+
+
+def _HVAC_Ventilator_PH_Parameters(_obj):
     return [
         PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.Quantity),
         PyPH_WUFI.xml_node.XML_Node(
@@ -659,97 +768,30 @@ def _Ventilator_PH_Parameters(_obj):
 
 
 def _HVAC_Ventilator(_obj):
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.SystemType).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.TypeDevice).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.UsedFor_Heating),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.UsedFor_DHW),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.UsedFor_Cooling),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
-        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
-        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.PH_Parameters),
-        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "MoistureRecovery",
-            _obj.PH_Parameters.HumidityRecoveryEfficiency,
-            "unit",
-            "-",
-        ),
-    ]
+    # type: (PHX.mechanicals.systems.MechanicalSystem) -> list
 
+    def _get_ventilator_from_system(_system):
+        # -- Get the Ventilator from the Mech System, if any
+        ventilators = _system.equipment_set.get_all_devices_by_type(1)
+        if ventilators:
+            return ventilators[0]
+        else:
+            return None
 
-def _HVAC_Device(_obj):
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.Name),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.SystemType).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.TypeDevice).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.UsedFor_Heating),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.UsedFor_DHW),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.UsedFor_Cooling),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.UsedFor_Ventilation),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.UsedFor_Humidification),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.UsedFor_Dehumidification),
-        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.UseOptionalClimate),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.IdentNr_OptionalClimate),
-    ]
-
-
-def _HVAC_System_ZoneCover(_obj):
-    return [
-        PyPH_WUFI.xml_node.XML_Node("IdentNrZone", _obj.idZoneCovered),
-        PyPH_WUFI.xml_node.XML_Node("CoverageHeating", _obj.cover_heating),
-        PyPH_WUFI.xml_node.XML_Node("CoverageCooling", _obj.cover_cooling),
-        PyPH_WUFI.xml_node.XML_Node("CoverageVentilation", _obj.cover_ventilation),
-        PyPH_WUFI.xml_node.XML_Node("CoverageHumidification", _obj.cover_humidification),
-        PyPH_WUFI.xml_node.XML_Node("CoverageDehumidification", _obj.cover_dehumidification),
-    ]
-
-
-def _HVAC_System(_obj):
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
-        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("HVAC_System::Type", _obj.typeSys).xml_data),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_List(
-            "ZonesCoverage",
-            [PyPH_WUFI.xml_node.XML_Object("ZoneCoverage", _, "index", i) for i, _ in enumerate(_obj.lZoneCover)],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "Devices",
-            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.devices)],
-        ),
-        PyPH_WUFI.xml_node.XML_Node("Distribution", _obj.distrib),
-        PyPH_WUFI.xml_node.XML_Node("PHDistribution", _obj.PHdistrib),
-    ]
-
-
-def _HVAC(_obj):
-    # -- In WUIF, a list of multiple systems are allowed. By default, only a single system is
-    # -- implemented right now.
-
-    if not isinstance(_obj, list):
-        _obj = [_obj]
-
-    return [
-        PyPH_WUFI.xml_node.XML_List(
-            "Systems",
-            [PyPH_WUFI.xml_node.XML_Object("System", _, "index", i) for i, _ in enumerate(_obj)],
-        ),
-    ]
+    ventilator = _get_ventilator_from_system(_obj)
+    if ventilator:
+        return [
+            PyPH_WUFI.xml_node.XML_Object("PH_Parameters", ventilator.PH_Parameters),
+            PyPH_WUFI.xml_node.XML_Node("HeatRecovery", ventilator.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
+            PyPH_WUFI.xml_node.XML_Node(
+                "MoistureRecovery",
+                ventilator.PH_Parameters.HumidityRecoveryEfficiency,
+                "unit",
+                "-",
+            ),
+        ]
+    else:
+        return []
 
 
 # ------------------------------------------------------------------------------
@@ -877,14 +919,14 @@ def _BldgSegment(_obj):
     # --- Build the final output list
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.n),
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("Remarks", _obj.remarks),
         PyPH_WUFI.xml_node.XML_Object("Graphics_3D", _obj.geom),
         PyPH_WUFI.xml_node.XML_Object("Building", tbuilding_container),
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
         PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
-        PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.HVAC_system, _schema_name="_HVAC"),
+        PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.mechanicals, _schema_name="_Mechanicals"),
     ]
 
 

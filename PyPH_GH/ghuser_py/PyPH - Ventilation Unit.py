@@ -44,7 +44,7 @@ import PHX.hvac_components
 import PyPH_GH._component_info_
 
 reload(PyPH_GH._component_info_)
-ghenv.Component.Name = "PyPH - Ventilation Unit"
+ghenv.Component.name = "PyPH - Ventilation Unit"
 DEV = True
 PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 25, 2021")
 
@@ -66,12 +66,12 @@ def validate_efficiency(_in):
 unit_ = PHX.hvac_components.Ventilator()
 
 # -- Basic Parameters for Ventilation Systems
-unit_.SystemType = 1
-unit_.TypeDevice = 1
+unit_.system_type = 1
+unit_.device_type = 1
 unit_.UsedFor_Ventilation = True
 
 # -- Custom Attributes
-unit_.Name = unit_name_ or "Unnamed Vent. Unit"
+unit_.name = unit_name_ or "Unnamed Vent. Unit"
 unit_.PH_Parameters.HeatRecoveryEfficiency = (
     validate_efficiency(heat_recovery_eff_) or unit_.PH_Parameters.HeatRecoveryEfficiency
 )

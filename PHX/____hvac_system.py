@@ -36,7 +36,7 @@ class HVAC_System(PHX._base._Base):
 
     def __init__(self):
         super(HVAC_System, self).__init__()
-        self.n = ""
+        self.name = ""
         self.typeSys = 1
         self.id = self._count
         self.lZoneCover = []
@@ -57,7 +57,7 @@ class HVAC_System(PHX._base._Base):
             _devices = [_devices]
 
         for d in _devices:
-            if not isinstance(d, PHX.hvac_components.HVAC_Device):
+            if not isinstance(d, PHX.hvac_components.HVAC_Ventilator):
                 raise HVACSystemAddError(d)
 
             # -- Ensure no duplicates

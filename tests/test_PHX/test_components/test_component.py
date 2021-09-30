@@ -118,12 +118,12 @@ def test_add_window_as_child():
 def test_host_zone_name():
     c1 = PHX.component.Component()
     zn1 = PHX.bldg_segment.Zone()
-    zn1.n = "test name"
+    zn1.name = "test name"
 
     c1.set_host_zone_name(zn1)
 
     assert zn1.id == c1.int_exposure_zone_id
-    assert zn1.n in c1.int_exposure_zone_name
+    assert zn1.name in c1.int_exposure_zone_name
 
 
 # -- Test Exposed Area
