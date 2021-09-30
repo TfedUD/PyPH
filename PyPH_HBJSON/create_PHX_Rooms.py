@@ -20,10 +20,11 @@ def create_PHX_Mechanicals_from_HB_room(_hb_room):
     ud_mech_system_dict = (_hb_room.user_data or {}).get("phx", {}).get("mechanicals", {})
 
     if ud_mech_system_dict:
-        print("Making UD mechanical system....")
-        print("Not implemented yet")
+        # -- Rebuild the MechSystem from the user-input
         mech = PHX.mechanicals.systems.Mechanicals()
+        mech.add_system(PHX.mechanicals.systems.MechanicalSystem.from_dict(ud_mech_system_dict))
     else:
+        # -- No detailed User Input, add the default system with a default ventilator
         mech = PHX.mechanicals.systems.Mechanicals()
 
         # -- Build the default ventilation, and ventilator. Add to the system

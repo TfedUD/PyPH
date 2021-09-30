@@ -915,6 +915,56 @@
                             "volume": 18.511845534693737
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -925,22 +975,6 @@
                         "day_window_ach": 0.17707499460905371, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17707499460905371
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "Custom_Electric_per_Year": {
@@ -1021,8 +1055,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -3456,6 +3501,56 @@
                             "volume": 88.335414977600109
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -3466,22 +3561,6 @@
                         "day_window_ach": 0.0, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.0
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "Custom_Electric_per_Year": {
@@ -3562,8 +3641,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -4394,6 +4484,56 @@
                             "volume": 33.401863688076403
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -4404,22 +4544,6 @@
                         "day_window_ach": 0.16647398843930741, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.16647398843930741
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "Custom_Electric_per_Year": {
@@ -4500,8 +4624,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -5877,6 +6012,56 @@
                             "volume": 103.44860563107076
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -5887,22 +6072,6 @@
                         "day_window_ach": 0.17499999999999999, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999999
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -6118,8 +6287,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -6129,7 +6309,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "a3e40190-c608-40e2-8215-27b6da491872"
+                        "identifier": "955a2965-21b9-4b32-b9fb-f3b7a4e0a55f"
                     }
                 }
             }, 
@@ -7157,6 +7337,56 @@
                             "volume": 98.581010319117951
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -7167,22 +7397,6 @@
                         "day_window_ach": 0.17499999999999999, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999999
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -7398,8 +7612,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -7409,7 +7634,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "fc0e826b-04ca-484f-b80f-234f95557c73"
+                        "identifier": "a7486464-8e5b-4003-9fdc-9319cf4f528c"
                     }
                 }
             }, 
@@ -8437,6 +8662,56 @@
                             "volume": 99.240469326122096
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -8447,22 +8722,6 @@
                         "day_window_ach": 0.17499999999999999, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999999
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -8678,8 +8937,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -8689,7 +8959,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "3fd0d4f7-2336-4d57-9567-9dbaecec0eeb"
+                        "identifier": "bb25b7c9-7111-4729-b804-9aa5ab9c6969"
                     }
                 }
             }, 
@@ -10365,6 +10635,56 @@
                             "volume": 152.10574376213935
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -10375,22 +10695,6 @@
                         "day_window_ach": 0.17499999999999999, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999999
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -10606,8 +10910,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -10617,7 +10932,7 @@
                         "num_occupants": 2, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 1, 
-                        "identifier": "11699e3e-2e25-4a7d-8e39-ad5d77b493c3"
+                        "identifier": "f90bbee3-b82e-4aa8-8951-3dd7f1132954"
                     }
                 }
             }, 
@@ -11956,6 +12271,56 @@
                             "volume": 109.88478557340778
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -11966,22 +12331,6 @@
                         "day_window_ach": 0.17499999999999996, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999996
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -12197,8 +12546,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -12208,7 +12568,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "205b0c80-b6c5-4ce7-b760-32f938ce133d"
+                        "identifier": "efc00b4c-e090-4c37-a0bb-e09f99e7ce29"
                     }
                 }
             }, 
@@ -13749,6 +14109,56 @@
                             "volume": 106.00564027678496
                         }
                     }, 
+                    "mechanicals": {
+                        "identifier": "73a186d5-51cf-4443-aae9-54b916a6fe79", 
+                        "type_number": 1, 
+                        "name": "A First Vent System", 
+                        "id": 1, 
+                        "equipment_set": {
+                            "id": 1, 
+                            "equipment": [
+                                {
+                                    "identifier": "192b7e01-2e8b-40de-8a63-85d81c10413e", 
+                                    "name": "", 
+                                    "id": 1, 
+                                    "device_type": 1, 
+                                    "PH_Parameters": {
+                                        "NoSummerBypass": false, 
+                                        "Minimum_PP": 0, 
+                                        "InConditionedSpace": true, 
+                                        "DefrostRequired": true, 
+                                        "HRVCalculatorData": null, 
+                                        "Standard_PP": 0, 
+                                        "Standard_VOS": 0, 
+                                        "AuxiliaryEnergy": 0.0, 
+                                        "Basic_VOS": 0, 
+                                        "VolumeFlowRateTo": 0.0, 
+                                        "Basic_PP": 0, 
+                                        "Maximum_PP": 100, 
+                                        "HumidityRecoveryEfficiency": 0.0, 
+                                        "Quantity": 1, 
+                                        "TemperatureBelowDefrostUsed": -5, 
+                                        "VolumeFlowRateFrom": 0.0, 
+                                        "HeatRecoveryEfficiency": 0.65000000000000002, 
+                                        "SubsoilHeatExchangeEfficiency": 0.0, 
+                                        "FrostProtection": true, 
+                                        "AuxiliaryEnergyDHW": 0.0, 
+                                        "Minimum_VOS": 0, 
+                                        "Maximum_VOS": 0, 
+                                        "ElectricEfficiency": 0.5
+                                    }
+                                }
+                            ], 
+                            "identifier": "31f5f078-3718-43d1-bb29-23cfc4f442b7"
+                        }, 
+                        "lZoneCover": [], 
+                        "system_group_type_number": 1
+                    }, 
+                    "bldg_segment_id": {
+                        "id": 1, 
+                        "name": "Residential", 
+                        "identifier": "adbe4e2f-3aab-4d33-8ef5-1b1f0f09cc57"
+                    }, 
                     "summ_vent": {
                         "avg_mech_control_mode": 1, 
                         "exhaust_ach": 0.0, 
@@ -13759,22 +14169,6 @@
                         "day_window_ach": 0.17499999999999999, 
                         "additional_mech_spec_power": 0.0, 
                         "night_window_ach": 0.17499999999999999
-                    }, 
-                    "bldg_segment_id": {
-                        "id": 1, 
-                        "name": "Residential", 
-                        "identifier": "76c6e698-21e4-453b-aad6-c1e475f6e339"
-                    }, 
-                    "ph_certification": {
-                        "building_status": 1, 
-                        "PHIUS2021_heating_load": 22, 
-                        "certification_criteria": 3, 
-                        "PHIUS2021_cooling_demand": 21, 
-                        "building_type": 1, 
-                        "localization_selection_type": 2, 
-                        "PHIUS2021_heating_demand": 20, 
-                        "identifier": "5bcef2d7-ad4e-479f-a4de-c49ff9a3fd4b", 
-                        "PHIUS2021_cooling_load": 23
                     }, 
                     "zone_appliances": {
                         "clothes_dryer": {
@@ -13990,8 +14384,19 @@
                             }
                         }
                     }, 
+                    "ph_certification": {
+                        "building_status": 1, 
+                        "PHIUS2021_heating_load": 22, 
+                        "certification_criteria": 3, 
+                        "PHIUS2021_cooling_demand": 21, 
+                        "building_type": 1, 
+                        "localization_selection_type": 2, 
+                        "PHIUS2021_heating_demand": 20, 
+                        "identifier": "984ba211-3ac4-4b75-8ba0-197e5a2727d0", 
+                        "PHIUS2021_cooling_load": 23
+                    }, 
                     "segment_occupancy": {
-                        "identifier": "76b2a4ae-313c-4a13-a548-316f09d2943d", 
+                        "identifier": "13abbf25-ccac-4739-a3ae-825b81190ee5", 
                         "num_stories": 3, 
                         "num_units": 18, 
                         "usage_type": 1, 
@@ -14001,7 +14406,7 @@
                         "num_occupants": 1, 
                         "num_dwelling_units": 1, 
                         "num_bedrooms": 0, 
-                        "identifier": "62e437d3-e9b9-4bf5-9e80-d9c6e44561ab"
+                        "identifier": "6bb9a7b7-69a7-4e75-9294-e8fd9d5c2437"
                     }
                 }
             }, 

@@ -251,6 +251,7 @@ def _MechanicalSystem(_cls, _input_dict):
     new_obj.system_group_type_number = _input_dict.get("system_group_type_number")
     new_obj.typtype_numbereSys = _input_dict.get("type_number")
     new_obj.lZoneCover = _input_dict.get("lZoneCover")
+    new_obj.equipment_set = PHX.mechanicals.equipment.EquipmentSet.from_dict(_input_dict.get("equipment_set", {}))
 
     return new_obj
 
@@ -304,6 +305,7 @@ def _HVAC_Ventilator(_cls, _input_dict):
 def _HVAC_Ventilator_PH_Parameters(_cls, _input_dict):
     new_obj = _cls()
 
+    new_obj.HeatRecoveryEfficiency = _input_dict.get("HeatRecoveryEfficiency")
     new_obj.ElectricEfficiency = _input_dict.get("ElectricEfficiency")
     new_obj.FrostProtection = _input_dict.get("FrostProtection")
     new_obj.Quantity = _input_dict.get("Quantity")

@@ -236,7 +236,7 @@ def _MechanicalSystem(_obj):
     d.update({"system_group_type_number": _obj.system_group_type_number})
     d.update({"type_number": _obj.type_number})
     d.update({"lZoneCover": _obj.lZoneCover})
-    # d.update({"equipment_set": _obj.equipment_set.to_dict()})
+    d.update({"equipment_set": _obj.equipment_set.to_dict()})
     # d.update({"distribution": _obj.distribution.to_dict()})
     # d.update({"system_usage": _obj.system_usage.to_dict()})
 
@@ -284,12 +284,12 @@ def _HVAC_Ventilator(_obj):
 def _HVAC_Ventilator_PH_Parameters(_obj):
     d = {}
 
+    d.update({"HeatRecoveryEfficiency": _obj.HeatRecoveryEfficiency})
     d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
     d.update({"ElectricEfficiency": _obj.ElectricEfficiency})
     d.update({"FrostProtection": _obj.FrostProtection})
     d.update({"Quantity": _obj.Quantity})
     d.update({"SubsoilHeatExchangeEfficiency": _obj.SubsoilHeatExchangeEfficiency})
-    d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
     d.update({"VolumeFlowRateFrom": _obj.VolumeFlowRateFrom})
     d.update({"VolumeFlowRateTo": _obj.VolumeFlowRateTo})
     d.update({"TemperatureBelowDefrostUsed": _obj.TemperatureBelowDefrostUsed})
