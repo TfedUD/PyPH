@@ -1,11 +1,77 @@
 import PHX._base
+import PHX.serialization.from_dict
 
 
 class Distribution(PHX._base._Base):
+    """Collection Class for Mechanical Distribution items (ducts, pipes,...)"""
+
+    _count = 0
+
     def __init__(self):
         super(Distribution, self).__init__()
         self.use_default_values = True
         self.device_in_conditioned_space = True
+        self._elements = {}
+
+    def __new__(cls, *args, **kwargs):
+        cls._count += 1
+        return super(Distribution, cls).__new__(cls, *args, **kwargs)
+
+    @property
+    def elements(self):
+        return self._elements.values()
+
+    def add_new_element_to_distribution(self, _elements):
+        # type: (DistributionElement) -> None
+        """Adds a DistributionElement to the set. Will disregard duplicates.
+
+        Arguments:
+        ----------
+            * _elements (list[DistributionElement])
+
+        Returns:
+        --------
+            * None
+        """
+
+        if not isinstance(_elements, list):
+            _elements = [_elements]
+
+        for el in _elements:
+            self._elements[el.identifier] = el
+
+    def get_all_elements_by_type(self, _type_number=1):
+        # type: (int) -> list[DistributionElement]
+        """Returns a list of all the elements in the Distribution with the designated type number.
+
+        Arguments:
+        ----------
+            * _type_number (int): The type-number to search for.
+
+        Returns:
+        --------
+            * (list): A list of elements of the specified type.
+        """
+
+        return [d for d in self.elements if d.element_type == _type_number]
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Distribution(cls, _dict)
+
+
+class DistributionElement(PHX._base._Base):
+    """Base Class for all Distribution Elements (duct, pipe, ...)"""
+
+    _count = 0
+
+    def __init__(self):
+        super(DistributionElement, self).__init__()
+        self.element_type = -1
+
+    def __new__(cls, *args, **kwargs):
+        cls._count += 1
+        return super(DistributionElement, cls).__new__(cls, *args, **kwargs)
 
 
 # ------------------------------------------------------------------------------
