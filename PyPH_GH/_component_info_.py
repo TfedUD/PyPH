@@ -92,12 +92,6 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
-    "PyPH - Apply Vent. Schedule": {
-        "NickName": "PHX Ventilation Schedules",
-        "Message": RELEASE_VERSION,
-        "Category": CATEGORY,
-        "SubCategory": 4,
-    },
     "PyPH - Summer Ventilation": {
         "NickName": "PHX Summer Ventilation",
         "Message": RELEASE_VERSION,
@@ -105,7 +99,15 @@ component_params = {
         "SubCategory": 4,
     },
     # ---------------------------------------------------------------------------
-    # Section 01.XX | Programs
+    # Section 01.XX | Loads
+    "PyPH - Load Lighting": {
+        "NickName": "PHX Lighting",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    # ---------------------------------------------------------------------------
+    # Section 01.1 | Schedules
     "PyPH - Sched Occupancy": {
         "NickName": "PHX Sched: Occupancy",
         "Message": RELEASE_VERSION,
@@ -118,8 +120,8 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
-    "PyPH - Load Lighting": {
-        "NickName": "PHX Lighting",
+    "PyPH - Sched Ventilation": {
+        "NickName": "PHX Sched: Ventilation",
         "Message": RELEASE_VERSION,
         "Category": CATEGORY,
         "SubCategory": 4,

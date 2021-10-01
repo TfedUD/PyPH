@@ -19,17 +19,36 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
     """
 
     phx_Ventilation = PHX.programs.ventilation.RoomVentilation()
-    phx_Ventilation.name = _hb_room.properties.energy.ventilation.display_name
+
+    # -- Sort out the Names (Obj, Load, Schedule)
+    phx_Ventilation.name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.ventilation.display_name)
+    phx_Ventilation.loads.name = LBT_Utils.program.clean_HB_program_name(
+        _hb_room.properties.energy.ventilation.display_name
+    )
+    if _hb_room.properties.energy.ventilation.schedule is not None:
+        phx_Ventilation.schedule.name = LBT_Utils.program.clean_HB_program_name(
+            _hb_room.properties.energy.ventilation.schedule.display_name
+        )
+    else:
+        phx_Ventilation.schedule.name = LBT_Utils.program.clean_HB_program_name(
+            _hb_room.properties.energy.ventilation.display_name
+        )
+
+    # -- Sort out the Identifiers (Obj, Load, Schedule)
     phx_Ventilation.identifier = _hb_room.properties.energy.ventilation.identifier
     phx_Ventilation.loads.identifier = _hb_room.properties.energy.ventilation.identifier
-    phx_Ventilation.schedule.identifier = _hb_room.properties.energy.ventilation.identifier
+
+    if _hb_room.properties.energy.ventilation.schedule is not None:
+        phx_Ventilation.schedule.identifier = _hb_room.properties.energy.ventilation.schedule.identifier
+    else:
+        phx_Ventilation.schedule.identifier = _hb_room.properties.energy.ventilation.identifier
 
     # --------------------------------------------------------------------------
-    # -- Convert the Loads
+    # -- Convert the Ventilation Loads rom HB to PH
     if getattr(_hb_room.properties.energy.ventilation, "user_data", None):
         # -- Try and get any user-determined inputs
         ud_loads = (_hb_room.properties.energy.ventilation.user_data or {}).get("phx", {}).get("loads", None)
-        print("trying to use UD Vent. Loads, but that isnt written yet....")
+        print("trying to use UD Vent. Loads (.user_data), but that isnt written yet....")
 
         #
         #
@@ -47,10 +66,10 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         phx_Ventilation.loads.transfer = hb_room_vent_flow_m3h
 
     # --------------------------------------------------------------------------
-    # -- Convert the Schedule
+    # -- Convert the Ventilation Schedule from HB to PH
     if getattr(_hb_room.properties.energy.ventilation, "user_data", None):
         # -- Try and just use simplified user-input values
-        print("trying to use the UD Vent Schedule, but I haven't written this part yet")
+        print("trying to use the UD Vent Schedule (.user_data), but I haven't written this part yet")
 
         #
         #
@@ -85,7 +104,6 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         new_util_rates.minimum.daily_op_sched = 24.0 - daily_use_hours  # Enforce max 24 hr
         new_util_rates.minimum.frac_of_design_airflow = values_minimum.get("value_frac_of_max", 0)
 
-        phx_Ventilation.schedule.name = LBT_Utils.program.clean_HB_program_name(phx_Ventilation.name)
         phx_Ventilation.schedule.operating_days = 7
         phx_Ventilation.schedule.operating_weeks = 52
         phx_Ventilation.schedule.utilization_rates = new_util_rates

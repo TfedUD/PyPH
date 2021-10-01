@@ -1,22 +1,22 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-#
+# 
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-#
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
-# PyPH is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published
-# by the Free Software Foundation; either version 3 of the License,
-# or (at your option) any later version.
-#
+# 
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
+# PyPH is free software; you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation; either version 3 of the License, 
+# or (at your option) any later version. 
+# 
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details.
-#
+# 
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-#
+# 
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
@@ -55,11 +55,10 @@ import PyPH_Rhino.lighting
 
 # --
 import PyPH_GH._component_info_
-
 reload(PyPH_GH._component_info_)
-ghenv.Component.name = "PyPH - Non-Res Program"
+ghenv.Component.Name = "PyPH - Non-Res Program"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 26, 2021")
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 26, 2021')
 
 if DEV:
     reload(PHX)
@@ -74,10 +73,9 @@ if DEV:
 # -- Set the Occpancy and Lighting on the spaces
 HB_rooms_ = []
 for room in _HB_rooms:
-    if not room:
-        continue
+    if not room: continue
     new_hb_room = room.duplicate()
-
+    
     #
     #
     #
@@ -85,27 +83,28 @@ for room in _HB_rooms:
     #
     #
     #
-
+    
+    
+    
     # -- Calc a new PHX Style occupancy from the HB Room
     hb_occ = room.properties.energy.people
     hb_lighting = room.properties.energy.lighting
     new_phx_occupany = PyPH_Rhino.occupancy.phx_occupancy_from_hb(hb_occ)
     new_phx_lighting = PyPH_Rhino.lighting.phx_lighting_from_hb(hb_lighting)
-
+    
     # -- Build a new Occupancy based on the HB Zone,
     # -- Apply it to each space in the Zone
-    space_dicts = room.user_data.get("phx", {}).get("spaces", {})
+    space_dicts = room.user_data.get('phx',{}).get('spaces',{})
     new_spaces = []
     for space_dict in space_dicts.values():
         new_space = PHX.spaces.Space.from_dict(space_dict)
         new_space.occupancy = new_phx_occupany
         new_space.lighting = new_phx_lighting
         new_spaces.append(new_space)
-
+    
     # -- pack new dict onto HB Room
-    space_dict = {id(space): space.to_dict() for space in new_spaces}
-    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(
-        new_hb_room, space_dict, "spaces", _write_mode="overwrite"
-    )
-
+    space_dict = {id(space):space.to_dict() for space in new_spaces}
+    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
+                                    space_dict, 'spaces', _write_mode='overwrite')
+    
     HB_rooms_.append(new_hb_room)

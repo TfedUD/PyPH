@@ -1,22 +1,22 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-#
+# 
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-#
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
-# PyPH is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published
-# by the Free Software Foundation; either version 3 of the License,
-# or (at your option) any later version.
-#
+# 
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
+# PyPH is free software; you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation; either version 3 of the License, 
+# or (at your option) any later version. 
+# 
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details.
-#
+# 
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-#
+# 
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
@@ -59,13 +59,12 @@ import LBT_Utils
 import PHX
 import PHX.summer_ventilation
 
-# ---
+# --- 
 import PyPH_GH._component_info_
-
 reload(PyPH_GH._component_info_)
-ghenv.Component.name = "PyPH - Summer Ventilation"
+ghenv.Component.Name = "PyPH - Summer Ventilation"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 11, 2021")
+PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
 
 if DEV:
     reload(PHX.summer_ventilation)
@@ -77,45 +76,38 @@ if DEV:
 
 HB_rooms_ = []
 for hb_room in _HB_rooms:
-    # -------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------
     # Build the SummerVent Object
     summ_vent_obj = PHX.summer_ventilation.SummerVent()
-
+    
     if use_defaults_:
         avg_annual_vent_ach = LBT_Utils.program.calc_HB_room_avg_ventilation_ach(hb_room)
         summ_vent_obj.day_window_ach = avg_annual_vent_ach * 0.5
         summ_vent_obj.night_window_ach = avg_annual_vent_ach * 0.5
-
-    # -- Basic HRV Ventilation
-    if mech_ach_ is not None:
-        summ_vent_obj.avg_mech_ach = mech_ach_
-    if mech_control_ is not None:
-        summ_vent_obj.avg_mech_control_mode = mech_control_
-
-    # -- Window Ventilation
-    if window_day_ach_ is not None:
-        summ_vent_obj.day_window_ach = window_day_ach_
-    if window_night_ach_ is not None:
-        summ_vent_obj.night_window_ach = window_night_ach_
-
-    # -- Additional Ventilation
-    if addnl_mech_ach_ is not None:
-        summ_vent_obj.additional_mech_ach = addnl_mech_ach_
-    if addnl_mech_fan_pwr_ is not None:
-        summ_vent_obj.additional_mech_spec_power = addnl_mech_fan_pwr_
-    if addnl_mech_control_ is not None:
-        summ_vent_obj.additional_mech_control_mode = addnl_mech_control_
-    if exhaust_ach_ is not None:
-        summ_vent_obj.exhaust_ach = exhaust_ach_
-    if exhaust_fan_pwr_ is not None:
-        summ_vent_obj.exhaust_spec_power = exhaust_fan_pwr_
+    
+    #-- Basic HRV Ventilation
+    if mech_ach_ is not None: summ_vent_obj.avg_mech_ach = mech_ach_
+    if mech_control_ is not None: summ_vent_obj.avg_mech_control_mode = mech_control_
+    
+    #-- Window Ventilation
+    if window_day_ach_ is not None: summ_vent_obj.day_window_ach = window_day_ach_
+    if window_night_ach_ is not None: summ_vent_obj.night_window_ach = window_night_ach_
+    
+    #-- Additional Ventilation
+    if addnl_mech_ach_ is not None: summ_vent_obj.additional_mech_ach = addnl_mech_ach_
+    if addnl_mech_fan_pwr_ is not None: summ_vent_obj.additional_mech_spec_power = addnl_mech_fan_pwr_
+    if addnl_mech_control_ is not None: summ_vent_obj.additional_mech_control_mode = addnl_mech_control_
+    if exhaust_ach_ is not None: summ_vent_obj.exhaust_ach = exhaust_ach_
+    if exhaust_fan_pwr_ is not None: summ_vent_obj.exhaust_spec_power = exhaust_fan_pwr_
 
     d = summ_vent_obj.to_dict()
-
-    # -------------------------------------------------------------------------------
+    
+    
+    #-------------------------------------------------------------------------------
     # Add the Summ-Vent objects onto the Honeybee Rooms
-
+    
     new_hb_room = hb_room.duplicate()
-    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room, d, "summ_vent", _write_mode="overwrite")
-
-    HB_rooms_.append(new_hb_room)
+    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
+                                        d, 'summ_vent', _write_mode='overwrite')
+    
+    HB_rooms_.append( new_hb_room )

@@ -113,54 +113,6 @@ def calc_HB_room_avg_ventilation_ach(_hb_room):
     return avg_annual_flow_m3h / _hb_room.volume
 
 
-# def _generate_histogram(_data, _num_bins):
-#     # type: (Iterator[float], int) -> Dict[int,float]
-#     """Creates a Histogram of input data, in n-bins.
-
-#     Arguments:
-#     ----------
-#         * _data (Iterable[float]): Iterable sequence of float values to use as the source.
-#         * _num_bins (int): Number of bins to split the data into.
-
-#     Returns:
-#     --------
-#         * dict: ie: {0:{'average_value':12, 'count':3, 'frequency':0.25}, 1:{...}, ...}
-#     """
-
-#     min_val = min(_data)
-#     max_val = max(_data)
-#     spread = max_val - min_val
-#     data_length = len(_data)
-#     binned_data = defaultdict(list)
-
-#     # -- Bin the full data set
-#     for d in _data:
-#         if spread:
-#             normalized_value = (d - min_val) / (max_val - min_val)
-#         else:
-#             normalized_value = d - min_val
-
-#         value = normalized_value * (_num_bins - 1)
-#         bin_number = round(value)
-#         binned_data[bin_number].append(round(d, 8))
-
-#     # -- Calc Frequency and Avg-Value for each bin
-#     for k, v in binned_data.items():
-#         binned_data[k] = {
-#             "average_value": sum(v) / len(v) if len(v) > 0 else 0,
-#             "count": len(v),
-#             "frequency": len(v) / data_length,
-#         }
-
-#     for k, v in binned_data.items():
-#         binned_data[k].update({"value_frac_of_max": v["average_value"] / (max_val or 1)})
-
-#     binned_data["max_value"] = max_val
-#     binned_data["min_value"] = min_val
-
-#     return binned_data
-
-
 def _generate_histogram(_data, _num_bins):
     # type: (Iterator[float], int) -> dict
     """Creates a Histogram of input data, in n-bins.

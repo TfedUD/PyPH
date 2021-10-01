@@ -1,28 +1,28 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-#
+# 
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-#
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
-# PyPH is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published
-# by the Free Software Foundation; either version 3 of the License,
-# or (at your option) any later version.
-#
+# 
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
+# PyPH is free software; you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation; either version 3 of the License, 
+# or (at your option) any later version. 
+# 
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details.
-#
+# 
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-#
+# 
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
 Collects and organizes data for a duct for a Ventilation System.
 -
-EM August 25, 2021
+EM September 30, 2021
     Args:
         _duct_length: List<Float | Curve> Input either a number for the length of 
             the duct from the Ventilation Unit to the building enclusure, or geometry 
@@ -46,21 +46,21 @@ import rhinoscriptsyntax as rs
 import ghpythonlib.components as ghc
 import Grasshopper as gh
 
-import PyPH_Rhino.ventilation_io
+import PyPH_Rhino.ventilation
 import PyPH_Rhino.gh_io
+import PyPH_Rhino.gh_utils
 
 # --
 import PyPH_GH._component_info_
-
 reload(PyPH_GH._component_info_)
-ghenv.Component.name = "PyPH - Ventilation Duct"
+ghenv.Component.Name = "PyPH - Ventilation Duct"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev="AUG 25, 2021")
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_30_2021')
 
 if DEV:
-    reload(PyPH_Rhino.ventilation_io)
+    reload( PyPH_Rhino.ventilation )
     reload(PyPH_Rhino.gh_io)
-
+    reload(PyPH_Rhino.gh_utils)
 
 def clean(input_list, i):
     try:
@@ -71,15 +71,14 @@ def clean(input_list, i):
         except IndexError:
             return None
 
+#-- Interface Object
+#-------------------------------------------------------------------------------
+IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
 
-# -- Interface Object
-# -------------------------------------------------------------------------------
-IGH = PyPH_Rhino.gh_io.IGH(ghdoc, ghenv, sc, rh, rs, ghc, gh)
 
-
-# -- Get user inputs
-# -------------------------------------------------------------------------------
-duct_ = PyPH_Rhino.ventilation_io.handle_duct_input(IGH, _duct_length, "_duct_length")
+#-- Get user inputs
+#-------------------------------------------------------------------------------
+duct_ = PyPH_Rhino.ventilation.create_duct(IGH, _duct_length, '_duct_length')
 
 for i, segment in enumerate(duct_.segments):
     segment.width = clean(duct_width_, i) or segment.width
@@ -87,3 +86,5 @@ for i, segment in enumerate(duct_.segments):
     segment.diameter = clean(duct_diameter_, i) or segment.diameter
     segment.insulation_thickness = clean(insulation_thickness_, i) or segment.insulation_thickness
     segment.insulation_conductivity = clean(insulation_conductivity_, i) or segment.insulation_conductivity
+
+PyPH_Rhino.gh_utils.object_preview(duct_)

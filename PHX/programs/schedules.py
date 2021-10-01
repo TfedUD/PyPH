@@ -123,6 +123,44 @@ class Schedule_Ventilation(PHX._base._Base):
                 total_operating_hours
             )
 
+    @property
+    def annual_utilization_days(self):
+        if self.operating_weeks == 52 and self.operating_days == 7:
+            return 365
+        else:
+            return self.operating_days * self.operating_weeks
+
+    @property
+    def annual_utilization_factor(self):
+        """Returns the total annual utilization factor (0-1) based on the four-part flowrate schedules"""
+
+        daily_util_hours_at_max = (
+            self.utilization_rates.maximum.daily_op_sched * self.utilization_rates.maximum.frac_of_design_airflow
+        )
+        daily_util_hours_at_standard = (
+            self.utilization_rates.standard.daily_op_sched * self.utilization_rates.standard.frac_of_design_airflow
+        )
+        daily_util_hours_at_basic = (
+            self.utilization_rates.basic.daily_op_sched * self.utilization_rates.basic.frac_of_design_airflow
+        )
+        daily_util_hours_at_min = (
+            self.utilization_rates.minimum.daily_op_sched * self.utilization_rates.minimum.frac_of_design_airflow
+        )
+
+        annual_util_hours_at_max = daily_util_hours_at_max * self.annual_utilization_days
+        annual_util_hours_at_standard = daily_util_hours_at_standard * self.annual_utilization_days
+        annual_util_hours_at_basic = daily_util_hours_at_basic * self.annual_utilization_days
+        annual_util_hours_at_min = daily_util_hours_at_min * self.annual_utilization_days
+
+        annual_util_hours_total = (
+            annual_util_hours_at_max
+            + annual_util_hours_at_standard
+            + annual_util_hours_at_basic
+            + annual_util_hours_at_min
+        )
+
+        return annual_util_hours_total / 8760
+
     @classmethod
     def default(cls):
         if cls._default:

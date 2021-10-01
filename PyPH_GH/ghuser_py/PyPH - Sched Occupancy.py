@@ -1,22 +1,22 @@
 #
 # PyPH: A Plugin for aadding Passive-House data to LadybugTools Models
-#
+# 
 # This component is part of the PH-Tools toolkit <https://github.com/PH-Tools>.
-#
-# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com>
-# PyPH is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published
-# by the Free Software Foundation; either version 3 of the License,
-# or (at your option) any later version.
-#
+# 
+# Copyright (c) 2021, PH-Tools and bldgtyp, llc <phtools@bldgtyp.com> 
+# PyPH is free software; you can redistribute it and/or modify 
+# it under the terms of the GNU General Public License as published 
+# by the Free Software Foundation; either version 3 of the License, 
+# or (at your option) any later version. 
+# 
 # PyPH is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
 # GNU General Public License for more details.
-#
+# 
 # For a copy of the GNU General Public License
 # see <https://github.com/PH-Tools/PyPH/blob/main/LICENSE>.
-#
+# 
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
@@ -49,18 +49,17 @@ import PyPH_Rhino.gh_utils
 
 # --
 import PyPH_GH._component_info_
-
 reload(PyPH_GH._component_info_)
-ghenv.Component.name = "PyPH - Sched Occupancy"
+ghenv.Component.Name = "PyPH - Sched Occupancy"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev="SEP_28_2021")
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
 
 if DEV:
     reload(LBT_Utils.hb_schedules)
     reload(PHX.programs.schedules)
     reload(PyPH_Rhino.occupancy)
     reload(PyPH_Rhino.gh_utils)
-
+    
 if _name:
     # -- Create the PHX Occupancy Schedules
     phx_occupancy_schedule = PHX.programs.schedules.Schedule_Occupancy()
@@ -68,16 +67,14 @@ if _name:
     phx_occupancy_schedule.end_hour = end_hour_ or 24
     phx_occupancy_schedule.annual_utilization_days = annual_use_days_ or 0
     phx_occupancy_schedule.relative_utilization_factor = 1 - (absence_factor_ or 0.0)
-
+    
+    
     # -- Create the HB Occupancy Schedule
-    HB_occupancy_sched_ = LBT_Utils.hb_schedules.create_hb_constant_schedule(
-        _name, _value=phx_occupancy_schedule.annual_utilization_factor
-    )
-
+    HB_occupancy_sched_ = LBT_Utils.hb_schedules.create_hb_constant_schedule(_name, _value=phx_occupancy_schedule.annual_utilization_factor)
+    
     # -- Add the PHX Occupancy to the HB Occucpancy
-    HB_occupancy_sched_ = LBT_Utils.user_data.add_to_HB_Obj_user_data(
-        HB_occupancy_sched_, phx_occupancy_schedule.to_dict(), "schedule", _write_mode="overwrite"
-    )
-
+    HB_occupancy_sched_ = LBT_Utils.user_data.add_to_HB_Obj_user_data(HB_occupancy_sched_, 
+                         phx_occupancy_schedule.to_dict(), 'schedule', _write_mode='overwrite')
+    
     # -- Preview
     PyPH_Rhino.gh_utils.object_preview(phx_occupancy_schedule)
