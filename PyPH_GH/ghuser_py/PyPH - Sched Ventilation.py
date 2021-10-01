@@ -21,7 +21,12 @@
 #
 """
 This component is used to create a simplified Passive-House Style Ventilation Schedule for 
-a Space or HB-Room.
+a Space or HB-Room. Note that this schedule will applied to the 'Ventilation' loads only
+(flow-per-area, flow-per-zone, and room-ach). This schedule will NOT be applied to the flow-per-person
+loads. To control the flow-per-person, adjust the Occupancy Schedule accordingly.
+> Note: In order to match the PH output format, it is recommened to set the Ventilation Loads
+as well as the Schedule. In particular, you should zero-out the flow-per-person, otherwise
+you will get unexpected results due to the effect of the Occupancy Schedule.
 > Input values here for time of operation and fan speed for HIGH | MED | LOW | MINIMUM modes. 
 > Once this schedule is created, either use it as part of a 
 Honeybee 'Program' and/or apply it directly to rooms using the Honeybee 'Apply Room Schedules' component.
