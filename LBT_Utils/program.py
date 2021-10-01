@@ -26,6 +26,7 @@ def clean_HB_program_name(_name):
     clean = str(_name).split("::")[-1]
     clean = str(clean).replace("_People", "")
     clean = str(clean).replace("_Lighting", "")
+    clean = str(clean).replace("_Ventilation", "")
 
     return clean
 
@@ -132,6 +133,7 @@ def _generate_histogram(_data, _num_bins):
     maximum = max(_data)
     minimum = min(_data)
     range = maximum - minimum
+
     if range == 0:
         binned_data[0] = _data
     else:
@@ -143,68 +145,87 @@ def _generate_histogram(_data, _num_bins):
     # -- Format the data for output
     output = {}
     for k, v in binned_data.items():
-        frac_of_max = (((sum(v) / len(v)) if len(v) > 0 else 0) / maximum) if maximum else 0
-        if frac_of_max > 1.0:
-            frac_of_max = 1.0
-
         output[k] = {
-            "count": len(v),
             "average_value": (sum(v) / len(v)) if len(v) > 0 else 0,
             "frequency": len(v) / len(_data),
-            "value_frac_of_max": frac_of_max,
         }
     return output
 
 
-def calc_four_part_vent_sched_values_from_hb_room(_hb_room):
+def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=False):
+    # type: (honeybee.room.Room, bool) -> dict
     """Returns a PH-Style four_part schedule values for the Ventilation airflow, based on the HB Room.
 
     Arguments:
     ----------
         * _hb_room (): The Honyebee Room to build the schedule for.
+        * _dcv (bool): Demand-Controled Ventilation. default=False. Set True in
+            order to take the Occupancy Schedule and Airflow-per-person loads into account
 
     Returns:
     --------
-        * dict: The four_part Sched vaues. * dict: ie: {0:{'average_value (m3s)':12, 'count':3, 'frequency':0.25}, 1:{...}, ...}
+        * dict: The four_part Sched values. * dict: ie: {0:{'average_value (m3s)':12, 'frequency':0.25}, 1:{...}, ...}
     """
 
-    # -- Calc the hourly airflow rates based on both Occupancy and Ventilation Schedules
-    # -- Sort out the right data to use if Schedules or Loads are missing
-    # -- Occupancy --
-    if _hb_room.properties.energy.people and _hb_room.properties.energy.people.occupancy_schedule:
-        hourly_occ_rates = _hb_room.properties.energy.people.occupancy_schedule.data_collection()
-        people_per_area = _hb_room.properties.energy.people.people_per_area
+    # 1) Get the Peak Occupancy Loads
+    if _hb_room.properties.energy.people is not None:
+        people_per_m2 = _hb_room.properties.energy.people.people_per_area
+        num_ppl = people_per_m2 * _hb_room.floor_area
     else:
-        # If no Occupancy, means no People in the space
-        hourly_occ_rates = (1 for _ in range(8760))
-        people_per_area = 0
-    # -- Design (Peak) Airflow Rate
-    design_airflow_rate_m3s = _hb_room.properties.energy.ventilation.flow_per_person * people_per_area
-    hourly_airflow_rate_m3s_for_occupancy = (design_airflow_rate_m3s * _ for _ in hourly_occ_rates)
+        num_ppl = 0
 
-    # -- Ventilation --
-    if _hb_room.properties.energy.ventilation and _hb_room.properties.energy.ventilation.schedule:
-        hourly_vent_rates = _hb_room.properties.energy.ventilation.schedule.data_collection()
+    # 2) Get/Calc the Peak Airflow Loads from Ventilation
+    if _hb_room.properties.energy.ventilation is not None:
+        vent_m3s_for_zone = _hb_room.properties.energy.ventilation.flow_per_zone
+        vent_m3s_for_area = _hb_room.properties.energy.ventilation.flow_per_area * _hb_room.floor_area
+        vent_m3h_for_ach = (_hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume) / 3600
+        vent_m3s_total = vent_m3s_for_zone + vent_m3s_for_area + vent_m3h_for_ach
+
+        occ_m3s_total = _hb_room.properties.energy.ventilation.flow_per_person * num_ppl
     else:
-        # If no Ventilation Sched, means constant operation
-        hourly_vent_rates = (1 for _ in range(8760))
-    # -- Design (Peak) Airflow Rate
-    design_airflow_rate_m3s = (_hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume) / 3600
-    design_airflow_rate_m3s += _hb_room.properties.energy.ventilation.flow_per_area * _hb_room.floor_area
-    design_airflow_rate_m3s += _hb_room.properties.energy.ventilation.flow_per_zone
-    hourly_airflow_rate_m3s_for_ventilation = (design_airflow_rate_m3s * _ for _ in hourly_vent_rates)
+        vent_m3s_total = 0
+        occ_m3s_total = 0
 
-    # -- Combine the Occupancy-Sched-airflow and the Ventilation-Sched-airflow
-    total_hourly_airflow_rates_m3s = (
-        a + b for a, b in zip(hourly_airflow_rate_m3s_for_occupancy, hourly_airflow_rate_m3s_for_ventilation)
-    )
-    four_part_sched_dict = _generate_histogram(_data=list(total_hourly_airflow_rates_m3s), _num_bins=4)
+    # 3) Get the Ventilation Schedules
+    if (
+        _hb_room.properties.energy.people is not None
+        and _hb_room.properties.energy.people.occupancy_schedule is not None
+    ):
+        schd_occ_values = _hb_room.properties.energy.people.occupancy_schedule.data_collection()
+    else:
+        # If there is no Occupancy Schedule, assume constant airflow (?)
+        schd_occ_values = (1 for _ in range(8760))
 
-    # -- Clean the schedule. WUFI doesn't allow total FOD airflow to be zero for some reason. Sigh.
-    total_frac_airflows = sum(
-        v.get("value_frac_of_max") for k, v in four_part_sched_dict.items() if k in {0, 1, 2, 3, 4}
+    # 4) Get the Ventilation Schedules
+    if (
+        _hb_room.properties.energy.ventilation is not None
+        and _hb_room.properties.energy.ventilation.schedule is not None
+    ):
+        schd_vent_values = _hb_room.properties.energy.ventilation.schedule.data_collection()
+    else:
+        # If there is no Ventilation Schedule, that means constant airflow
+        schd_vent_values = (1 for _ in range(8760))
+
+    # 3) Calc the Hourly Airflows, taking the Schedules into account
+    hourly_m3s_for_vent = (vent_m3s_total * _ for _ in schd_vent_values)
+    if _use_dcv:
+        hourly_m3s_for_occ = (occ_m3s_total * _ for _ in schd_occ_values)
+    else:
+        hourly_m3s_for_occ = (occ_m3s_total * 0 for _ in schd_occ_values)
+
+    # 4) Calc the Percentage of Peak airflow for each hourly value
+    peak_total_m3s = vent_m3s_total + occ_m3s_total
+    if peak_total_m3s == 0:
+        return {0: {"average_value": 1.0, "frequency": 1.0}}
+
+    hourly_total_vent_percentage_rate = (
+        (a + b) / peak_total_m3s for a, b in zip(hourly_m3s_for_vent, hourly_m3s_for_occ)
     )
-    if total_frac_airflows == 0:
-        four_part_sched_dict[0]["value_frac_of_max"] = 1.0
+
+    # 5) Histogram that shit
+    four_part_sched_dict = _generate_histogram(
+        _data=list(hourly_total_vent_percentage_rate),
+        _num_bins=4,
+    )
 
     return four_part_sched_dict

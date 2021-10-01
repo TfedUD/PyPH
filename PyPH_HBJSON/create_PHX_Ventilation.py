@@ -34,6 +34,10 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
             _hb_room.properties.energy.ventilation.display_name
         )
 
+    phx_Ventilation.name = phx_Ventilation.name + "_vent"
+    phx_Ventilation.loads.name = phx_Ventilation.name + "_vent_loads"
+    phx_Ventilation.schedule.name = phx_Ventilation.schedule.name + "_vent_sched"
+
     # -- Sort out the Identifiers (Obj, Load, Schedule)
     phx_Ventilation.identifier = _hb_room.properties.energy.ventilation.identifier
     phx_Ventilation.loads.identifier = _hb_room.properties.energy.ventilation.identifier
@@ -44,7 +48,7 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
         phx_Ventilation.schedule.identifier = _hb_room.properties.energy.ventilation.identifier
 
     # --------------------------------------------------------------------------
-    # -- Convert the Ventilation Loads rom HB to PH
+    # -- Convert the Ventilation Loads from HB to PH
     if getattr(_hb_room.properties.energy.ventilation, "user_data", None):
         # -- Try and get any user-determined inputs
         ud_loads = (_hb_room.properties.energy.ventilation.user_data or {}).get("phx", {}).get("loads", None)
@@ -87,22 +91,22 @@ def PHX_ventilation_from_hb_room(_hb_room: honeybee.room.Room):
 
         values_high = four_part_sched_values.get(0, {})
         new_util_rates.maximum.daily_op_sched = values_high.get("frequency", 0) * 24
-        new_util_rates.maximum.frac_of_design_airflow = values_high.get("value_frac_of_max", 0)
+        new_util_rates.maximum.frac_of_design_airflow = values_high.get("average_value", 0)
         daily_use_hours += new_util_rates.maximum.daily_op_sched
 
         values_standard = four_part_sched_values.get(1, {})
         new_util_rates.standard.daily_op_sched = values_standard.get("frequency", 0) * 24
-        new_util_rates.standard.frac_of_design_airflow = values_standard.get("value_frac_of_max", 0)
+        new_util_rates.standard.frac_of_design_airflow = values_standard.get("average_value", 0)
         daily_use_hours += new_util_rates.standard.daily_op_sched
 
         values_basic = four_part_sched_values.get(2, {})
         new_util_rates.basic.daily_op_sched = values_basic.get("frequency", 0) * 24
-        new_util_rates.basic.frac_of_design_airflow = values_basic.get("value_frac_of_max", 0)
+        new_util_rates.basic.frac_of_design_airflow = values_basic.get("average_value", 0)
         daily_use_hours += new_util_rates.basic.daily_op_sched
 
         values_minimum = four_part_sched_values.get(3, {})
         new_util_rates.minimum.daily_op_sched = 24.0 - daily_use_hours  # Enforce max 24 hr
-        new_util_rates.minimum.frac_of_design_airflow = values_minimum.get("value_frac_of_max", 0)
+        new_util_rates.minimum.frac_of_design_airflow = values_minimum.get("average_value", 0)
 
         phx_Ventilation.schedule.operating_days = 7
         phx_Ventilation.schedule.operating_weeks = 52
