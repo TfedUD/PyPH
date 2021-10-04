@@ -5,6 +5,7 @@
 WIP: Example workflow for importing and exising HBJSON file, building the PHX 
 model objects, and exporting the PHX_Project out to a WUFI XML file.
 """
+import pathlib
 
 import PHX.project
 import PHX.bldg_segment
@@ -31,9 +32,14 @@ import PyPH_HBJSON.create_PHX_Spaces
 import PyPH_HBJSON.create_PHX_Ventilation
 import PyPH_HBJSON.infiltration
 
-# --- Note: Path format in MAC OS (forward slash)
-SOURCE_FILE = "sample/EM_sample_input_HBJSON/Sample_Input.hbjson"
-TARGET_FILE_XML = "sample/EM_sample_output_WUFI_XML/Sample_Output.xml"
+# -- Startup the Logging
+import logging_2WUFI
+
+logging_2WUFI.configure()
+
+# --- Input / Output file Paths
+SOURCE_FILE = pathlib.PurePath("sample", "EM_sample_input_HBJSON", "Sample_Input.hbjson")
+TARGET_FILE_XML = pathlib.PurePath("sample", "EM_sample_output_WUFI_XML", "Sample_Output.xml")
 
 # ------------------------------------------------------------------------------
 # --- Read in an existing HB_JSON and re-build the HB Objects

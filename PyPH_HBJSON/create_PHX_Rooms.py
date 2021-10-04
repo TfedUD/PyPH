@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 3.9 -*-
+
+"""Functions used to build PHX Rooms from Honeybee Rooms"""
+
 import PHX.bldg_segment
 import honeybee.room
 import PyPH_HBJSON.create_PHX_Ventilation

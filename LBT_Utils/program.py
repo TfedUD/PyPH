@@ -152,79 +152,156 @@ def _generate_histogram(_data, _num_bins):
     return output
 
 
-def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=False):
-    # type: (honeybee.room.Room, bool) -> dict
-    """Returns a PH-Style four_part schedule values for the Ventilation airflow, based on the HB Room.
+def hb_room_peak_occupancy(_hb_room):
+    # type: (honeybee.room.Room) ->  float
+    """Returns a Honeybee room's peak occupancy (number of people).
 
     Arguments:
     ----------
-        * _hb_room (): The Honyebee Room to build the schedule for.
-        * _dcv (bool): Demand-Controled Ventilation. default=False. Set True in
-            order to take the Occupancy Schedule and Airflow-per-person loads into account
+        * _hb_room (honeybee.room.Room): The honeyebee room to calculate values for.
 
     Returns:
     --------
-        * dict: The four_part Sched values. * dict: ie: {0:{'average_value (m3s)':12, 'frequency':0.25}, 1:{...}, ...}
+        * (float): The Room's peak occupancy (number of people)
     """
 
-    # 1) Get the Peak Occupancy Loads
     if _hb_room.properties.energy.people is not None:
         people_per_m2 = _hb_room.properties.energy.people.people_per_area
-        num_ppl = people_per_m2 * _hb_room.floor_area
+        return people_per_m2 * _hb_room.floor_area
     else:
-        num_ppl = 0
+        return 0
 
-    # 2) Get/Calc the Peak Airflow Loads from Ventilation
-    if _hb_room.properties.energy.ventilation is not None:
-        vent_m3s_for_zone = _hb_room.properties.energy.ventilation.flow_per_zone
-        vent_m3s_for_area = _hb_room.properties.energy.ventilation.flow_per_area * _hb_room.floor_area
-        vent_m3h_for_ach = (_hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume) / 3600
-        vent_m3s_total = vent_m3s_for_zone + vent_m3s_for_area + vent_m3h_for_ach
 
-        occ_m3s_total = _hb_room.properties.energy.ventilation.flow_per_person * num_ppl
-    else:
-        vent_m3s_total = 0
-        occ_m3s_total = 0
+def _get_schedules_as_values(_hb_room):
+    # type: (honeybee.room.Room) -> tuple[Generator, Generator]
+    """Returns the Honebee room's Occupancy and Ventilation schedules as 8760 values.
 
-    # 3) Get the Ventilation Schedules
-    if (
-        _hb_room.properties.energy.people is not None
-        and _hb_room.properties.energy.people.occupancy_schedule is not None
-    ):
-        schd_occ_values = _hb_room.properties.energy.people.occupancy_schedule.data_collection()
-    else:
-        # If there is no Occupancy Schedule, assume constant airflow (?)
-        schd_occ_values = (1 for _ in range(8760))
+    Arguments:
+    ----------
+        * _hb_room (honeybee.room.Room): The Honeybee Room to convert the schedules for.
 
-    # 4) Get the Ventilation Schedules
+    Returns:
+    --------
+        * tuple[Generator, Generator]
+            * 0: (Generator) 8760 hourly values of the Ventilation Schedule.
+            * 1: (Generator) 8760 hourly values of the Occupancy Schedule.
+    """
+
+    # -- Ventilation Schedule
     if (
         _hb_room.properties.energy.ventilation is not None
         and _hb_room.properties.energy.ventilation.schedule is not None
     ):
         schd_vent_values = _hb_room.properties.energy.ventilation.schedule.data_collection()
     else:
-        # If there is no Ventilation Schedule, that means constant airflow
+        # If there is no Ventilation Schedule, that means constant airflow, so return 1 for all
         schd_vent_values = (1 for _ in range(8760))
 
-    # 3) Calc the Hourly Airflows, taking the Schedules into account
+    # -- Occupancy Schedule
+    if (
+        _hb_room.properties.energy.people is not None
+        and _hb_room.properties.energy.people.occupancy_schedule is not None
+    ):
+        schd_occ_values = _hb_room.properties.energy.people.occupancy_schedule.data_collection()
+    else:
+        # If there is no Occupancy Schedule, that means constant airflow, so return 1 for all
+        schd_occ_values = (1 for _ in range(8760))
+
+    return (schd_vent_values, schd_occ_values)
+
+
+def hb_room_peak_airflows(_hb_room, _peak_occupancy):
+    # type: (honeybee.room.Room, float) -> tuple[float, float]
+    """Returns a tuple of the peak airflow rates (m3/s) for basic Ventilaton and Occupancy-based Ventilation
+
+    Arguments:
+    ----------
+        * _hb_room (honeybee.room.Room): The honeyebee room to calculate values for.
+        * _peak_occupancy (float): The peak number of people in the room.
+
+    Returns:
+    --------
+        * tuple[float, float]
+            * 0 : Total airflow  (m3/s) For the Ventilation based airflow (per zone, per area, ach).
+            * 1 : Total airflow  (m3/s) For the Occupancy based airflow (per person).
+    """
+
+    if _hb_room.properties.energy.ventilation is not None:
+        vent_m3s_for_zone = _hb_room.properties.energy.ventilation.flow_per_zone
+        vent_m3s_for_area = _hb_room.properties.energy.ventilation.flow_per_area * _hb_room.floor_area
+        vent_m3h_for_ach = (_hb_room.properties.energy.ventilation.air_changes_per_hour * _hb_room.volume) / 3600
+
+        vent_m3s_total = vent_m3s_for_zone + vent_m3s_for_area + vent_m3h_for_ach
+        occ_m3s_total = _hb_room.properties.energy.ventilation.flow_per_person * _peak_occupancy
+    else:
+        vent_m3s_total = 0
+        occ_m3s_total = 0
+
+    return (vent_m3s_total, occ_m3s_total)
+
+
+def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True, _logger=None):
+    # type: (honeybee.room.Room, bool, logging.FileHandler) -> dict
+    """Returns a PH-Style four_part schedule values for the Ventilation airflow, based on the HB Room.
+
+    Arguments:
+    ----------
+        * _hb_room (): The Honyebee Room to build the schedule for.
+        * _dcv (bool): Demand-Controled Ventilation. default=True. Set True in
+            order to take the Occupancy Schedule and Airflow-per-person loads into account.
+            If False, will asssume constant airflow for occupancy-related ventilation loads.
+        * _logger (logging.FileHandler): Optional logger for debugging.
+
+    Returns:
+    --------
+        * dict: The four_part Sched values. * dict: ie: {0:{'average_value (m3s)':12, 'frequency':0.25}, 1:{...}, ...}
+    """
+    if _logger:
+        _logger.debug(
+            "func-- calc_four_part_vent_sched_values_from_hb_room({}, {}, {})".format(_hb_room, _use_dcv, _logger)
+        )
+
+    # -------------------------------------------------------------------------
+    # 1) Calc the Peak Occupancy Loads
+    # 2) Calc the Peak Airflow Loads (for Ventilation, for Occupancy)
+    # 3) Convert the Occupancy Schedule to Values
+    num_ppl = hb_room_peak_occupancy(_hb_room)
+    vent_m3s_total, occ_m3s_total = hb_room_peak_airflows(_hb_room, num_ppl)
+    schd_vent_values, schd_occ_values = _get_schedules_as_values(_hb_room)
+
+    if _logger:
+        _logger.debug("  Num of People: {}".format(num_ppl))
+        _logger.debug("  Total m3s for Vent: {}".format(vent_m3s_total))
+        _logger.debug("  Total m3s for Occ: {}".format(occ_m3s_total))
+
+    # -------------------------------------------------------------------------
+    # 4) Calc the Hourly Airflows, taking the Schedules into account
     hourly_m3s_for_vent = (vent_m3s_total * _ for _ in schd_vent_values)
     if _use_dcv:
+        # -- Modulate the flow rates based on occupancy level
         hourly_m3s_for_occ = (occ_m3s_total * _ for _ in schd_occ_values)
     else:
-        hourly_m3s_for_occ = (occ_m3s_total * 0 for _ in schd_occ_values)
+        # -- Use constant flow rate, regardless of occupancy level
+        hourly_m3s_for_occ = (occ_m3s_total * 1 for _ in schd_occ_values)
 
-    # 4) Calc the Percentage of Peak airflow for each hourly value
+    #  -------------------------------------------------------------------------
+    # 5) Calc the Percentage of Peak airflow for each hourly value
     peak_total_m3s = vent_m3s_total + occ_m3s_total
     if peak_total_m3s == 0:
         return {0: {"average_value": 1.0, "frequency": 1.0}}
 
-    hourly_total_vent_percentage_rate = (
+    hourly_total_vent_percentage_rate = [
         (a + b) / peak_total_m3s for a, b in zip(hourly_m3s_for_vent, hourly_m3s_for_occ)
-    )
+    ]
+    if _logger:
+        _logger.debug(
+            "  hourly_total_vent_percentage_rate (slice): {}....".format(hourly_total_vent_percentage_rate[0:24])
+        )
 
-    # 5) Histogram that shit
+    #  -------------------------------------------------------------------------
+    # 6) Histogram that shit
     four_part_sched_dict = _generate_histogram(
-        _data=list(hourly_total_vent_percentage_rate),
+        _data=hourly_total_vent_percentage_rate,
         _num_bins=4,
     )
 
