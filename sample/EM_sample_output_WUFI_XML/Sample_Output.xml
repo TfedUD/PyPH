@@ -32,9 +32,9 @@
 		<Date_Project>
 			<Year>2021</Year>
 			<Month>10</Month>
-			<Day>1</Day>
-			<Hour>16</Hour>
-			<Minutes>49</Minutes>
+			<Day>4</Day>
+			<Hour>17</Hour>
+			<Minutes>13</Minutes>
 		</Date_Project>
 		<WhiteBackgroundPictureBuilding>true</WhiteBackgroundPictureBuilding>
 	</ProjectData>
@@ -428,14 +428,14 @@
 			<Name>Kitchen_vent_sched</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>24.0</Maximum_DOS>
-			<Maximum_PDF>0.55</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>0.0</Minimum_DOS>
-			<Minimum_PDF>0.0</Minimum_PDF>
+			<Maximum_DOS>7.7</Maximum_DOS>
+			<Maximum_PDF>0.95</Maximum_PDF>
+			<Standard_DOS>4.59</Standard_DOS>
+			<Standard_PDF>0.86</Standard_PDF>
+			<Basic_DOS>4.72</Basic_DOS>
+			<Basic_PDF>0.76</Basic_PDF>
+			<Minimum_DOS>6.99</Minimum_DOS>
+			<Minimum_PDF>0.65</Minimum_PDF>
 		</UtilizationPatternVent>
 		<UtilizationPatternVent index="4">
 			<IdentNr>5</IdentNr>
@@ -456,14 +456,14 @@
 			<Name>GuestLounge_vent_sched</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>24.0</Maximum_DOS>
-			<Maximum_PDF>0.21</Maximum_PDF>
+			<Maximum_DOS>3.71</Maximum_DOS>
+			<Maximum_PDF>0.76</Maximum_PDF>
 			<Standard_DOS>0.0</Standard_DOS>
 			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>0.0</Minimum_DOS>
-			<Minimum_PDF>0.0</Minimum_PDF>
+			<Basic_DOS>13.0</Basic_DOS>
+			<Basic_PDF>0.39</Basic_PDF>
+			<Minimum_DOS>7.29</Minimum_DOS>
+			<Minimum_PDF>0.29</Minimum_PDF>
 		</UtilizationPatternVent>
 		<UtilizationPatternVent index="6">
 			<IdentNr>7</IdentNr>
@@ -498,14 +498,14 @@
 			<Name>Lobby_vent_sched</Name>
 			<OperatingDays>7</OperatingDays>
 			<OperatingWeeks>52</OperatingWeeks>
-			<Maximum_DOS>24.0</Maximum_DOS>
-			<Maximum_PDF>0.21</Maximum_PDF>
-			<Standard_DOS>0.0</Standard_DOS>
-			<Standard_PDF>0.0</Standard_PDF>
-			<Basic_DOS>0.0</Basic_DOS>
-			<Basic_PDF>0.0</Basic_PDF>
-			<Minimum_DOS>0.0</Minimum_DOS>
-			<Minimum_PDF>0.0</Minimum_PDF>
+			<Maximum_DOS>7.7</Maximum_DOS>
+			<Maximum_PDF>0.91</Maximum_PDF>
+			<Standard_DOS>4.59</Standard_DOS>
+			<Standard_PDF>0.75</Standard_PDF>
+			<Basic_DOS>4.72</Basic_DOS>
+			<Basic_PDF>0.58</Basic_PDF>
+			<Minimum_DOS>6.99</Minimum_DOS>
+			<Minimum_PDF>0.39</Minimum_PDF>
 		</UtilizationPatternVent>
 	</UtilisationPatternsVentilation>
 	<UtilizationPatternsPH count="1">
