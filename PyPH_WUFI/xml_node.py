@@ -2,6 +2,7 @@
 # -*- Python Version: 3.9 -*-
 
 """Classes used to build XML Node Objects which are used during XML Output"""
+from typing import Union
 
 
 class XML_Node:
@@ -46,8 +47,8 @@ class XML_Object:
             * _node_object (object): The PHX Object to write
             * _attr_name (str): Optional XML node attribue name
             * _attr_value (str): Optional XML node attribute value
-            * _schema_name (str): Optional explict name for xml_schema function.
-                If none is passed, uses the class name preceded by and underscore.
+            * _schema_name (str): Optional explict name for xml_schema function to use when writing to XML.
+                If None is passed, uses the class name preceded by and underscore.
         """
 
         self.node_name = _node_name
@@ -55,3 +56,7 @@ class XML_Object:
         self.attr_name = _attr_name
         self.attr_value = _attr_value
         self.schema_name = _schema_name
+
+
+# For type hints...
+xml_writable = Union[XML_Node, XML_List, XML_Object]

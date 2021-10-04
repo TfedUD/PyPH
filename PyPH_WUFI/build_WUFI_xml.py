@@ -9,7 +9,8 @@ import os
 
 import PHX.project
 import PyPH_WUFI.xml_node
-import PyPH_WUFI.xml_object_data
+import PyPH_WUFI.xml_converters
+import PyPH_WUFI.xml_node
 
 from xml.dom.minidom import Document, Element
 
@@ -30,27 +31,28 @@ def _xml_str(_) -> str:
         return str(_)
 
 
-def _add_node_attributes(_data, _element) -> None:
+def _add_node_attributes(_data: PyPH_WUFI.xml_node.xml_writable, _element: Element) -> None:
     """Adds in any Node Attribure data, if any is found.
 
     Arguments:
     ----------
-        * _data (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object | PyPH_WUFI.xml_node.XML_List): The XML Data object to use as the source
-        * _elememt (xml.dom.minidom.Element): The element to set the Attributes for
+        * _data (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object
+            | PyPH_WUFI.xml_node.XML_List): The XML Data object to use as the source
+        * _elememt (xml.dom.minidom.Element): The XML Element to set the Attributes for.
     """
 
     if _data.attr_value is not None:
         _element.setAttributeNS(None, str(_data.attr_name), str(_data.attr_value))
 
 
-def _add_text_node(_doc, _parent_node, _data) -> None:
-    """Adds a basic text-node ie: <node_name>node_value</node_name> to the XML doc
+def _add_text_node(_doc: Document, _parent_node: Element, _data: PyPH_WUFI.xml_node.XML_Node) -> None:
+    """Adds a basic text-node ie: <node_name>node_value</node_name> to the XML Parent Node.
 
     Arguments:
     ----------
-        * _doc (xml.dom.minidom.doc): The XML document to operate on.
-        * _parent_node (xml.dom.minidom.Element): The element to use as the 'parent' node.
-        * _data (PyPH_WUFI.xml_node.XML_Node): The data object to add.
+        * _doc (xml.dom.minidom.Document): The XML document to operate on.
+        * _parent_node (xml.dom.minidom.Element): The XML element to use as the 'parent' node.
+        * _data (PyPH_WUFI.xml_node.XML_Node): The new XML_Node object to add to the 'parent' node.
     """
 
     txt = _doc.createTextNode(_xml_str(_data.node_value))  # 1) Create the new text-node
@@ -60,17 +62,18 @@ def _add_text_node(_doc, _parent_node, _data) -> None:
     _parent_node.appendChild(el)  # 5) Add the Element to the parent
 
 
-def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
+def _add_children(_doc: Document, _parent_node: Element, _item: PyPH_WUFI.xml_node.xml_writable) -> None:
     """Adds 'child' nodes to the document recursively.
 
-    Will call the 'to_xml' property on any input objects and will walk through all the
-    results including any lists or other Objects
+    Will call PyPH_WUFI.xml_converters..get_object_as_xml_list() function on any input
+    objects and will walk through all the resulting lists or Objects recursively.
 
     Arguments:
     ----------
         * _doc (xml.dom.minidom.doc): The XML document to operate on.
         * _parent_node (xml.dom.minidom.Element): The element to use as the 'parent' node.
-        * _item (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object | PyPH_WUFI.xml_node.XML_List): The XML Data object to walk through
+        * _item (PyPH_WUFI.xml_node.XML_Node | PyPH_WUFI.xml_node.XML_Object |
+            PyPH_WUFI.xml_node.XML_List): The XML Data object to walk through.
     """
 
     if isinstance(_item, PyPH_WUFI.xml_node.XML_Node):
@@ -85,7 +88,10 @@ def _add_children(_doc: Document, _parent_node: Element, _item) -> None:
         _add_node_attributes(_item, _new_parent_node)
         _parent_node.appendChild(_new_parent_node)
 
-        for item in PyPH_WUFI.xml_object_data.xml_data(_item.node_object, _item.schema_name):
+        _item.node_object, _item.schema_name = PyPH_WUFI.xml_converters.prepare_obj_for_WUFI(
+            _item.node_object, _item.schema_name
+        )
+        for item in PyPH_WUFI.xml_converters.get_object_as_xml_list(_item.node_object, _item.schema_name):
             _add_children(_doc, _new_parent_node, item)
 
     elif isinstance(_item, PyPH_WUFI.xml_node.XML_List):
@@ -115,7 +121,7 @@ def create_project_xml_text(_project: PHX.project.Project) -> str:
     root = doc.createElementNS(None, "WUFIplusProject")
     doc.appendChild(root)
 
-    for item in PyPH_WUFI.xml_object_data.xml_data(_project):
+    for item in PyPH_WUFI.xml_converters.get_object_as_xml_list(_project):
         _add_children(doc, root, item)
 
     return doc.toprettyxml()
