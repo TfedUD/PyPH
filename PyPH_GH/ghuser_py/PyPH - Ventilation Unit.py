@@ -23,7 +23,7 @@
 Collects and organizes data for a Ventilator Unit (HRV/ERV). Used to build up a 
 PH-Style Ventilation System.
 -
-EM September 30, 2021
+EM October 05, 2021
     Args:
         unit_name_: <Optional> The name of the Ventilator Unit
         heat_recovery_eff_: <Optional> Input the Ventialtion Unit's Heat Recovery %. Default is 75% 
@@ -45,7 +45,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Unit"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_30_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
 
 if DEV:
     reload(PHX.mechanicals.equipment)
@@ -59,20 +59,36 @@ def validate_efficiency(_in):
     else:
         return float(_in)
 
-unit_ = PHX.mechanicals.equipment.HVAC_Ventilator()
+def default_list_item(_list, _index):
+    #type: (list, int) -> Any
+    if not _list:
+        return None
+        
+    try:
+        return _list[_index]
+    except IndexError:
+        return _list[0]
 
-# -- Basic Parameters for Ventilation Systems
-unit_.SystemType = 1
-unit_.TypeDevice = 1
-unit_.UsedFor_Ventilation = True
 
-# -- Custom Attributes
-unit_.Name = unit_name_ or 'Unnamed Vent. Unit'
-unit_.PH_Parameters.HeatRecoveryEfficiency = validate_efficiency(heat_recovery_eff_) or unit_.PH_Parameters.HeatRecoveryEfficiency
-unit_.PH_Parameters.HumidityRecoveryEfficiency = validate_efficiency(moisture_recovery_eff_) or unit_.PH_Parameters.HumidityRecoveryEfficiency
-
-unit_.PH_Parameters.ElectricEfficiency = electrical_eff_ or unit_.PH_Parameters.ElectricEfficiency
-unit_.PH_Parameters.TemperatureBelowDefrostUsed = frost_temp_ or unit_.PH_Parameters.TemperatureBelowDefrostUsed
-unit_.PH_Parameters.InConditionedSpace = install_location_ or unit_.PH_Parameters.InConditionedSpace
-
-PyPH_Rhino.gh_utils.object_preview(unit_)
+unit_ = []
+for i, name in enumerate(unit_name_):
+    
+    unit = PHX.mechanicals.equipment.HVAC_Ventilator()
+    
+    # -- Basic Parameters for Ventilation Systems
+    unit.SystemType = 1
+    unit.TypeDevice = 1
+    unit.UsedFor_Ventilation = True
+    
+    # -- Custom Attributes
+    unit.Name = name or 'Unnamed Vent. Unit'
+    unit.PH_Parameters.HeatRecoveryEfficiency = validate_efficiency(default_list_item(heat_recovery_eff_, i)) or unit.PH_Parameters.HeatRecoveryEfficiency
+    unit.PH_Parameters.HumidityRecoveryEfficiency = validate_efficiency(default_list_item(moisture_recovery_eff_, i)) or unit.PH_Parameters.HumidityRecoveryEfficiency
+    
+    unit.PH_Parameters.ElectricEfficiency = default_list_item(electrical_eff_, i) or unit.PH_Parameters.ElectricEfficiency
+    unit.PH_Parameters.TemperatureBelowDefrostUsed = default_list_item(frost_temp_, i) or unit.PH_Parameters.TemperatureBelowDefrostUsed
+    unit.PH_Parameters.InConditionedSpace = default_list_item(install_location_, i) or unit.PH_Parameters.InConditionedSpace
+    
+    unit_.append(unit)
+    
+    PyPH_Rhino.gh_utils.object_preview(unit)

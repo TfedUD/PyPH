@@ -71,17 +71,16 @@ class EquipmentSet(PHX._base._Base):
 class HVAC_Device(PHX._base._Base):
     """Base Class for all HVAC Devices / Equipment"""
 
-    _count = 0
-
     def __init__(self):
         super(HVAC_Device, self).__init__()
-        self.id = self._count
         self.name = ""
         self.device_type = None
 
     def __new__(cls, *args, **kwargs):
-        """Used so I can keep a running tally for the id variable"""
-        cls._count += 1
+        """
+        Developer Note: _count and .id is NOT implemented in this base class but should be implemented
+        by all sublcasses directly instead. Otherwise you will end up with funny results.
+        """
         return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
@@ -136,7 +135,7 @@ class HVAC_Ventilator(HVAC_Device):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(HVAC_Device, cls).__new__(cls, *args, **kwargs)
+        return super(HVAC_Ventilator, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
     def default(cls, *args, **kwargs):

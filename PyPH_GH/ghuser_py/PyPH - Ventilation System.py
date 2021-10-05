@@ -23,7 +23,7 @@
 Collects and organizes data for a simple fresh-air ventilation system (HRV/ERV). 
 Outputs a 'ventilation' class object to apply to a HB Zone.
 -
-EM September 30, 2021
+EM October 05, 2021
     Args:
         system_name_: <Optional> A name for the overall system. ie: 'ERV-1', 
             etc.. Will show up in the 'Additional Ventilation' worksheet as the 
@@ -55,12 +55,16 @@ import LBT_Utils
 
 import PyPH_Rhino.ventilation
 import PyPH_Rhino.gh_io
+from Grasshopper import DataTree
+from Grasshopper.Kernel.Data import GH_Path
+from System import Object
+
 
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation System"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_30_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
 
 if DEV:
     reload(PHX)
@@ -75,6 +79,19 @@ if DEV:
     reload(PyPH_Rhino.gh_io)
 
 
+def default_list_item(_list, _branch_num):
+    #type: (list, int) -> Any
+    """Try and return default list item if IndexError"""
+    
+    if not _list:
+        return None
+    
+    try:
+        return _list[_branch_num]
+    except IndexError as e:
+        
+        return _list[0]
+
 #-- Interface Object
 #-------------------------------------------------------------------------------
 IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
@@ -82,24 +99,28 @@ IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
 
 #-- Build the new Vent System
 #-------------------------------------------------------------------------------
-new_system = PHX.mechanicals.systems.MechanicalSystem()
-new_system.name = system_name_ or 'Unnamed Ventilation System'
-
-new_system.equipment_set.add_new_device_to_equipment_set( vent_unit_ or PHX.mechanicals.equipment.HVAC_Ventilator() )
-#new_system.duct_01 = PyPH_Rhino.ventilation.create_duct(IGH, duct_01_, 'duct_01_')
-#new_system.duct_02 = PyPH_Rhino.ventilation.create_duct(IGH, duct_02_, 'duct_02_')
-
-
-#-- Add the HVAC-System to the Honeybee-Rooms
-#-------------------------------------------------------------------------------
-HB_rooms_ = []
-for hb_room in _HB_rooms:
-    new_hb_room = hb_room.duplicate()
+HB_rooms_ = DataTree[Object]()
+for i, branch in enumerate(_HB_rooms.Branches):
     
-    # -- Add the Mechanical System to the Room
-    new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                    new_system.to_dict(), 'mechanicals', _write_mode='overwrite')
+    new_system = PHX.mechanicals.systems.MechanicalSystem()
+    new_system.name = default_list_item(system_name_, i) or 'Unnamed Ventilation System'
     
-    HB_rooms_.append( new_hb_room )
-
-PyPH_Rhino.gh_utils.object_preview(new_system)
+    vent_unit = default_list_item(vent_unit_, i) or PHX.mechanicals.equipment.HVAC_Ventilator()
+    new_system.equipment_set.add_new_device_to_equipment_set( vent_unit )
+    #new_system.duct_01 = PyPH_Rhino.ventilation.create_duct(IGH, duct_01_, 'duct_01_')
+    #new_system.duct_02 = PyPH_Rhino.ventilation.create_duct(IGH, duct_02_, 'duct_02_')
+    
+    
+    #-- Add the HVAC-System to the Honeybee-Rooms
+    #-------------------------------------------------------------------------------
+    #branch_HB_rooms_ = []
+    for hb_room in branch:
+        new_hb_room = hb_room.duplicate()
+        
+        # -- Add the Mechanical System to the Room
+        new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
+                                        new_system.to_dict(), 'mechanicals', _write_mode='overwrite')
+        
+        HB_rooms_.Add( new_hb_room, GH_Path(i) )
+    
+    PyPH_Rhino.gh_utils.object_preview(new_system)
