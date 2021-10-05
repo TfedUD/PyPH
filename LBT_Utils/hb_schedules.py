@@ -14,9 +14,15 @@ def calc_utilization_factor(_HB_sched):
     """Return annual utilization factor based on HB annual schedule.
     (0=always absent, 1=always present)
 
-    Argumemnts:
+    Arguments:
     ----------
-        * _HB_sched (honeybee_energy.schedule.ruleset.ScheduleRuleset)
+        * _HB_sched (honeybee_energy.schedule.ruleset.ScheduleRuleset): The Honeybee
+            ScheduleRuleset object to calculate the values for.
+
+    Returns:
+    --------
+        * (float): 0.0-1.0 value representing the average utilization factor.
+
     """
 
     return sum(_ for _ in _HB_sched.values()) / len(_HB_sched.values())
@@ -46,14 +52,14 @@ def create_hb_constant_schedule(_name, _type_limit="Fractional", _value=1):
     return schedule
 
 
-def hb_schedule_to_data(_schedule_object):
-    """Get the Honeybee Schedule values as Data, using default inputs"""
+# def hb_schedule_to_data(_schedule_object):
+#     """Get the Honeybee Schedule values as Data, using default inputs"""
 
-    if not _schedule_object:
-        return None
+#     if not _schedule_object:
+#         return None
 
-    week_start_day = "Sunday"
-    start_date, end_date, timestep = Date(1, 1), Date(12, 31), 1
-    holidays = None
+#     week_start_day = "Sunday"
+#     start_date, end_date, timestep = Date(1, 1), Date(12, 31), 1
+#     holidays = None
 
-    return _schedule_object.data_collection(timestep, start_date, end_date, week_start_day, holidays, leap_year=False)
+#     return _schedule_object.data_collection(timestep, start_date, end_date, week_start_day, holidays, leap_year=False)

@@ -29,7 +29,8 @@ import PyPH_HBJSON.create_PHX_BldgSegments
 import PyPH_HBJSON.create_PHX_Zones
 import PyPH_HBJSON.create_PHX_Rooms
 import PyPH_HBJSON.create_PHX_Spaces
-import PyPH_HBJSON.create_PHX_Ventilation
+import PyPH_HBJSON.create_PHX_Mechanicals
+import PyPH_HBJSON.create_PHX_programs
 import PyPH_HBJSON.infiltration
 
 # -- Startup the Logging
@@ -73,8 +74,13 @@ for room in hb_model.rooms:
     phx_Room = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Room_from_HB_room(room)
     phx_Spaces = PyPH_HBJSON.create_PHX_Spaces.create_PHX_Spaces_from_HB_room(room)
 
-    # -- Add Mechanicals (Ventilation)
-    phx_Room.mechanicals = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Mechanicals_from_HB_room(room)
+    # -- Set the Programs based on the HB Room
+    phx_Room.ventilation = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomVentilation_from_hb_room(room)
+    phx_Room.occupancy = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomOccupancy_from_HB_room(room)
+    phx_Room.lighting = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomLighting_from_HB_room(room)
+
+    # -- Add Mechanical Equipment
+    phx_Room.mechanicals = PyPH_HBJSON.create_PHX_Mechanicals.create_PHX_Mechanicals_from_HB_room(room)
 
     phx_Room.add_spaces(phx_Spaces)
     phx_Zone.add_rooms(phx_Room)

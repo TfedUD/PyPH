@@ -8,12 +8,12 @@ def reset_occupancies():
 
     PHX.programs.occupancy.ZoneOccupancy._count = 0
     PHX.programs.occupancy.BldgSegmentOccupancy._count = 0
-    PHX.programs.occupancy.SpaceOccupancy._count = 0
-    PHX.programs.occupancy.SpaceOccupancy._default = None
+    PHX.programs.occupancy.RoomOccupancy._count = 0
+    PHX.programs.occupancy.RoomOccupancy._default = None
 
     yield
 
     PHX.programs.occupancy.ZoneOccupancy._count = 0
     PHX.programs.occupancy.BldgSegmentOccupancy._count = 0
-    PHX.programs.occupancy.SpaceOccupancy._count = 0
-    PHX.programs.occupancy.SpaceOccupancy._default = None
+    PHX.programs.occupancy.RoomOccupancy._count = 0
+    PHX.programs.occupancy.RoomOccupancy._default = None

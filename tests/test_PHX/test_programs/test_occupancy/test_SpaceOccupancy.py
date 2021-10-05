@@ -4,22 +4,22 @@ import PHX.programs.schedules
 
 
 def test_SpaceOccupancy(reset_occupancies):
-    o1 = PHX.programs.occupancy.SpaceOccupancy()
-    o2 = PHX.programs.occupancy.SpaceOccupancy()
+    o1 = PHX.programs.occupancy.RoomOccupancy()
+    o2 = PHX.programs.occupancy.RoomOccupancy()
 
     assert o1.id != o2.id
 
 
 def test_default_SpaceOccupancy(reset_occupancies):
-    o1 = PHX.programs.occupancy.SpaceOccupancy.default()
-    o2 = PHX.programs.occupancy.SpaceOccupancy.default()
+    o1 = PHX.programs.occupancy.RoomOccupancy.default()
+    o2 = PHX.programs.occupancy.RoomOccupancy.default()
 
     assert o1.id == o2.id
 
 
 def test_SpaceOccupancy_unique_key(reset_occupancies):
-    o1 = PHX.programs.occupancy.SpaceOccupancy()
-    o2 = PHX.programs.occupancy.SpaceOccupancy()
+    o1 = PHX.programs.occupancy.RoomOccupancy()
+    o2 = PHX.programs.occupancy.RoomOccupancy()
 
     assert o1.unique_key == o2.unique_key
 

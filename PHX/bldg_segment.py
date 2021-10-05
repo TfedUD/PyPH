@@ -294,8 +294,8 @@ class Room(PHX._base._Base):
         self.spaces = []
 
         self.ventilation = PHX.programs.ventilation.RoomVentilation()
-        self.lighting = PHX.programs.lighting.SpaceLighting()
-        self.occupancy = PHX.programs.occupancy.SpaceOccupancy()
+        self.lighting = PHX.programs.lighting.RoomLighting()
+        self.occupancy = PHX.programs.occupancy.RoomOccupancy()
 
         self.mechanicals = PHX.mechanicals.systems.Mechanicals()
 

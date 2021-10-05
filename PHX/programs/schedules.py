@@ -207,6 +207,7 @@ class Schedule_Occupancy(PHX._base._Base):
 
     @property
     def annual_utilization_factor(self):
+        # type: () -> float
         """Return the annual Utilition Rate (0-1) relative to the entire year (8760 hours)"""
         operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
 
@@ -214,6 +215,7 @@ class Schedule_Occupancy(PHX._base._Base):
 
     @annual_utilization_factor.setter
     def annual_utilization_factor(self, _in):
+        # type: (Schedule_Occupancy, float) -> None
         if _in:
             self._annual_utilization_factor = _in
 

@@ -973,7 +973,7 @@ def _ProjectData(_obj):
 def _Project(_obj):
     util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_Vent_Schdeules_from_zones(_obj.zones)
     util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_schedules_from_zones(_obj.zones)
-
+    
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
         PyPH_WUFI.xml_node.XML_Node("UnitSystem", _obj.unit_system),

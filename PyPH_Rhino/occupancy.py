@@ -11,10 +11,10 @@ import LBT_Utils.hb_schedules
 
 
 def phx_occupancy_from_hb(_hb_occupancy, _name=None):
-    # type: (honeybee_energy.load.people.People | None, str) -> PHX.programs.occupancy.SpaceOccupancy
-    """Returns a new PHX-SpaceOccupancy based on a Honeybee Occupancy"""
+    # type: (honeybee_energy.load.people.People | None, str) -> PHX.programs.occupancy.RoomOccupancy
+    """Returns a new PHX-RoomOccupancy based on a Honeybee Occupancy"""
 
-    occ = PHX.programs.occupancy.SpaceOccupancy()
+    occ = PHX.programs.occupancy.RoomOccupancy()
 
     if _hb_occupancy:
 

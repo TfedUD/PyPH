@@ -35,7 +35,7 @@ def _setattr_filter(_obj, _attr_name, _attr_val, _filter=True):
 
 # ------------------------------------------------------------------------------
 # ------- PROGRAMS --------
-def _SpaceLighting(_cls, _input_dict):
+def _RoomLighting(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
@@ -57,7 +57,7 @@ def _RoomVentilation(_cls, _input_dict):
     return new_obj
 
 
-def _SpaceOccupancy(_cls, _input_dict):
+def _RoomOccupancy(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.id = _input_dict.get("id")

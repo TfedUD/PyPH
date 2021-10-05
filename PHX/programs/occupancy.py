@@ -11,7 +11,19 @@ import PHX.programs.loads
 
 
 class BldgSegmentOccupancy(PHX._base._Base):
-    """Building Segmenmt-level Occupncy Parameters"""
+    """Building Segmenmt-level Occupncy Parameters
+
+    Bldg_Segment #<------
+       |
+       +---Zone 1
+            +---Room 1
+            |      |
+            |      +--- Space 1
+            |      +--- Space 2
+            +---Room 2
+            |      |
+            :      :
+    """
 
     _count = 0
 
@@ -118,18 +130,19 @@ class ZoneOccupancy(PHX._base._Base):
         return self
 
 
-class SpaceOccupancy(PHX._base._Base):
-    """Room-Level Occupancy Parameters
+class RoomOccupancy(PHX._base._Base):
+    """Room-Level Occupancy Parameters. Inherited by all Spaces within the Room.
 
     Bldg_Segment
        |
-       +---Room 1 #<------
-       |      |
-       |      +--- Space 1
-       |      +--- Space 2
-       +---Room 2
-       |      |
-       :      :
+       +---Zone 1
+            +---Room 1 #<------
+            |      |
+            |      +--- Space 1
+            |      +--- Space 2
+            +---Room 2
+            |      |
+            :      :
     """
 
     _count = 0
@@ -137,7 +150,7 @@ class SpaceOccupancy(PHX._base._Base):
 
     def __init__(self):
         self.id = self._count
-        super(SpaceOccupancy, self).__init__()
+        super(RoomOccupancy, self).__init__()
         self.name = ""
         self.schedule = PHX.programs.schedules.Schedule_Occupancy()
         self.loads = PHX.programs.loads.Load_Occupancy()
@@ -145,7 +158,7 @@ class SpaceOccupancy(PHX._base._Base):
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
         cls._count += 1
-        return super(SpaceOccupancy, cls).__new__(cls, *args, **kwargs)
+        return super(RoomOccupancy, cls).__new__(cls, *args, **kwargs)
 
     @classmethod
     def default(cls):
@@ -167,7 +180,7 @@ class SpaceOccupancy(PHX._base._Base):
 
     @classmethod
     def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._SpaceOccupancy(cls, _dict)
+        return PHX.serialization.from_dict._RoomOccupancy(cls, _dict)
 
     @property
     def unique_key(self):

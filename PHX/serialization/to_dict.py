@@ -18,7 +18,7 @@ def __Base(_obj):
 
 # ------------------------------------------------------------------------------
 # ------- PROGRAMS --------
-def _SpaceLighting(_obj):
+def _RoomLighting(_obj):
     d = {}
 
     d.update({"identifier": str(_obj.identifier)})
@@ -40,7 +40,7 @@ def _RoomVentilation(_obj):
     return d
 
 
-def _SpaceOccupancy(_obj):
+def _RoomOccupancy(_obj):
     d = {}
 
     d.update({"id": _obj.id})

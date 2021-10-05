@@ -114,7 +114,7 @@ def calc_HB_room_avg_ventilation_ach(_hb_room):
     return avg_annual_flow_m3h / _hb_room.volume
 
 
-def _generate_histogram(_data, _num_bins):
+def generate_histogram(_data, _num_bins):
     # type: (Iterator[float], int) -> dict
     """Creates a Histogram of input data, in n-bins.
 
@@ -240,8 +240,8 @@ def hb_room_peak_airflows(_hb_room, _peak_occupancy):
     return (vent_m3s_total, occ_m3s_total)
 
 
-def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True, _logger=None):
-    # type: (honeybee.room.Room, bool, logging.FileHandler) -> dict
+def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True):
+    # type: (honeybee.room.Room, bool) -> dict
     """Returns a PH-Style four_part schedule values for the Ventilation airflow, based on the HB Room.
 
     Arguments:
@@ -250,16 +250,11 @@ def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True, _logg
         * _dcv (bool): Demand-Controled Ventilation. default=True. Set True in
             order to take the Occupancy Schedule and Airflow-per-person loads into account.
             If False, will asssume constant airflow for occupancy-related ventilation loads.
-        * _logger (logging.FileHandler): Optional logger for debugging.
 
     Returns:
     --------
         * dict: The four_part Sched values. * dict: ie: {0:{'average_value (m3s)':12, 'frequency':0.25}, 1:{...}, ...}
     """
-    if _logger:
-        _logger.debug(
-            "func-- calc_four_part_vent_sched_values_from_hb_room({}, {}, {})".format(_hb_room, _use_dcv, _logger)
-        )
 
     # -------------------------------------------------------------------------
     # 1) Calc the Peak Occupancy Loads
@@ -268,11 +263,6 @@ def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True, _logg
     num_ppl = hb_room_peak_occupancy(_hb_room)
     vent_m3s_total, occ_m3s_total = hb_room_peak_airflows(_hb_room, num_ppl)
     schd_vent_values, schd_occ_values = _get_schedules_as_values(_hb_room)
-
-    if _logger:
-        _logger.debug("  Num of People: {}".format(num_ppl))
-        _logger.debug("  Total m3s for Vent: {}".format(vent_m3s_total))
-        _logger.debug("  Total m3s for Occ: {}".format(occ_m3s_total))
 
     # -------------------------------------------------------------------------
     # 4) Calc the Hourly Airflows, taking the Schedules into account
@@ -293,14 +283,10 @@ def calc_four_part_vent_sched_values_from_hb_room(_hb_room, _use_dcv=True, _logg
     hourly_total_vent_percentage_rate = [
         (a + b) / peak_total_m3s for a, b in zip(hourly_m3s_for_vent, hourly_m3s_for_occ)
     ]
-    if _logger:
-        _logger.debug(
-            "  hourly_total_vent_percentage_rate (slice): {}....".format(hourly_total_vent_percentage_rate[0:24])
-        )
 
     #  -------------------------------------------------------------------------
     # 6) Histogram that shit
-    four_part_sched_dict = _generate_histogram(
+    four_part_sched_dict = generate_histogram(
         _data=hourly_total_vent_percentage_rate,
         _num_bins=4,
     )

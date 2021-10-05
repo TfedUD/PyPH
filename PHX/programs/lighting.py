@@ -11,12 +11,12 @@ import PHX.programs.loads
 import PHX.serialization.from_dict
 
 
-class SpaceLighting(PHX._base._Base):
+class RoomLighting(PHX._base._Base):
 
     _default = None
 
     def __init__(self):
-        super(SpaceLighting, self).__init__()
+        super(RoomLighting, self).__init__()
         self.name = ""
         self.schedule = PHX.programs.schedules.Schedule_Lighting()
         self.loads = PHX.programs.loads.Load_Lighting()
@@ -38,7 +38,7 @@ class SpaceLighting(PHX._base._Base):
 
     @classmethod
     def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._SpaceLighting(cls, _dict)
+        return PHX.serialization.from_dict._RoomLighting(cls, _dict)
 
     @property
     def unique_key(self):

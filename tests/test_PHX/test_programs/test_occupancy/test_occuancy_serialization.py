@@ -11,10 +11,10 @@ def test_BldgSegmentOccupancy_serialization(reset_occupancies):
 
 
 def test_SpaceOccupancy_serialization(reset_occupancies):
-    o1 = PHX.programs.occupancy.SpaceOccupancy()
+    o1 = PHX.programs.occupancy.RoomOccupancy()
     d = o1.to_dict()
 
-    o2 = PHX.programs.occupancy.SpaceOccupancy.from_dict(d)
+    o2 = PHX.programs.occupancy.RoomOccupancy.from_dict(d)
 
     assert d == o2.to_dict()
 
