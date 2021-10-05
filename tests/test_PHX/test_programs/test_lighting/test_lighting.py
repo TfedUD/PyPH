@@ -25,17 +25,17 @@ def test_lighting_unique_key():
 
     # -- When illumination values are different
     l1 = PHX.programs.lighting.RoomLighting()
-    l1.loads.space_illumination = 1
+    l1.loads.target_lux = 1
     l2 = PHX.programs.lighting.RoomLighting()
-    l2.loads.space_illumination = 2
+    l2.loads.target_lux = 2
 
     assert l1.unique_key != l2.unique_key
 
     # -- When power-density values are different
     l1 = PHX.programs.lighting.RoomLighting()
-    l1.loads.installed_power_density = 1
+    l1.loads.watts_per_area = 1
     l2 = PHX.programs.lighting.RoomLighting()
-    l2.loads.installed_power_density = 2
+    l2.loads.watts_per_area = 2
 
     assert l1.unique_key != l2.unique_key
 

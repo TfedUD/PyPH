@@ -90,8 +90,8 @@ def _UtilizationPattern_NonRes(_obj):
         PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.schedule.annual_utilization_days),
         PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", absent_fac),
         # -- Lighting
-        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.loads.space_illumination),
-        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.loads.installed_power_density),
+        PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", _obj.lighting.loads.target_lux),
+        PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", _obj.lighting.loads.watts_per_area),
         PyPH_WUFI.xml_node.XML_Node(
             "PartUseFactorPeriodForLighting", _obj.lighting.schedule.annual_utilization_factor
         ),
@@ -623,7 +623,7 @@ def _Foundation(_obj):
 
 class MechanicalSystemGroup:
     """Temporary MechSystem-Group class cus' WUFI structure is weird"""
-    
+
     def __init__(self):
         self.group_type_number = 1
         self.systems = []
@@ -973,7 +973,7 @@ def _ProjectData(_obj):
 def _Project(_obj):
     util_patter_collection_ventilation = PyPH_WUFI.prepare_data.build_Vent_Schdeules_from_zones(_obj.zones)
     util_pattern_collection_NonRes = PyPH_WUFI.prepare_data.build_NonRes_schedules_from_zones(_obj.zones)
-    
+
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
         PyPH_WUFI.xml_node.XML_Node("UnitSystem", _obj.unit_system),

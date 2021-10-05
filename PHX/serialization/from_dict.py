@@ -161,8 +161,8 @@ def _Load_Lighting(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.name = _input_dict.get("name")
-    new_obj.space_illumination = _input_dict.get("space_illumination")
-    new_obj.installed_power_density = _input_dict.get("installed_power_density")
+    new_obj.target_lux = _input_dict.get("target_lux")
+    new_obj.watts_per_area = _input_dict.get("watts_per_area")
 
     return new_obj
 

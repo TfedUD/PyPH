@@ -58,8 +58,8 @@ if _name and _base:
     # -- Create the new PHX Load, Schedule and Lighting object
     phx_lighting_load = PHX.programs.loads.Load_Lighting()
     phx_lighting_load.name = "LOAD_{}".format(_name)
-    phx_lighting_load.space_illumination = illumination_level_ or 0
-    phx_lighting_load.installed_power_density = illumination_height_ or 0
+    phx_lighting_load.target_lux = illumination_level_ or 0
+    phx_lighting_load.watts_per_area = illumination_height_ or 0
 
     phx_lighting = PHX.programs.lighting.RoomLighting()
     phx_lighting.name = _name

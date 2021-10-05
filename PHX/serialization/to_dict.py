@@ -142,8 +142,8 @@ def _Load_Lighting(_obj):
     d = {}
 
     d.update({"name": _obj.name})
-    d.update({"space_illumination": _obj.space_illumination})
-    d.update({"installed_power_density": _obj.installed_power_density})
+    d.update({"target_lux": _obj.target_lux})
+    d.update({"watts_per_area": _obj.watts_per_area})
 
     return d
 

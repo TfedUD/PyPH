@@ -167,6 +167,7 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
 
     phx_occ_program = PHX.programs.occupancy.RoomOccupancy()
 
+    # --------------------------------------------------------------------------
     # -- Sort out the Loads, if any
     if _hb_room.properties.energy.people is None:
         clean_name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.program_type.display_name)
@@ -180,14 +181,16 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
     phx_occ_program.loads.name = phx_occ_program.name
     phx_occ_program.loads.people_per_area = _hb_room.properties.energy.people.people_per_area
 
+    # --------------------------------------------------------------------------
     # -- Sort out the Schedule, if any
     if _hb_room.properties.energy.people.occupancy_schedule is None:
         phx_occ_program.schedule.name = phx_occ_program.name
         phx_occ_program.schedule.annual_utilization_factor = 1.0
-    else:
-        hb_sched = _hb_room.properties.energy.people.occupancy_schedule
-        phx_occ_program.schedule.name = hb_sched.display_name
-        phx_occ_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
+        return phx_occ_program
+
+    hb_sched = _hb_room.properties.energy.people.occupancy_schedule
+    phx_occ_program.schedule.name = hb_sched.display_name
+    phx_occ_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
 
     return phx_occ_program
 
@@ -207,10 +210,32 @@ def create_PHX_RoomLighting_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.pr
 
     phx_lighting_program = PHX.programs.lighting.RoomLighting()
 
-    # -- Sort out the names
+    # --------------------------------------------------------------------------
+    # -- Sort out the Loads, if any
+    if _hb_room.properties.energy.lighting is None:
+        clean_name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.program_type.display_name)
+        no_occupancy_name = "{}_[no_HB_lght]".format(clean_name)
+        phx_lighting_program.name = no_occupancy_name
+        phx_lighting_program.loads.name = phx_lighting_program.name
+        phx_lighting_program.schedule.name = phx_lighting_program.name
+        return phx_lighting_program
 
-    # -- Sort out the Loads
+    phx_lighting_program.name = LBT_Utils.program.clean_HB_program_name(
+        _hb_room.properties.energy.lighting.display_name
+    )
+    phx_lighting_program.loads.name = phx_lighting_program.name
+    phx_lighting_program.loads.target_lux = 300  # default
+    phx_lighting_program.loads.watts_per_area = _hb_room.properties.energy.lighting.watts_per_area
 
-    # -- Sort out the Schedule
+    # --------------------------------------------------------------------------
+    # -- Sort out the Schedule, if any
+    if _hb_room.properties.energy.lighting.schedule is None:
+        phx_lighting_program.schedule.name = phx_lighting_program.name
+        phx_lighting_program.schedule.annual_utilization_factor = 1.0
+        return phx_lighting_program
+
+    hb_sched = _hb_room.properties.energy.lighting.schedule
+    phx_lighting_program.schedule.name = hb_sched.display_name
+    phx_lighting_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
 
     return phx_lighting_program
