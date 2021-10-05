@@ -25,7 +25,7 @@ as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM September 28, 2021
+EM October 05, 2021
     Args:
         segment_name_: Name for the building-segment
         
@@ -47,22 +47,13 @@ EM September 28, 2021
             input For residential, this is the total number of dwelling units
             in the group of HB-Room. For non-residential, leave this set to "1".
         
-        bldg_status_: Input either -
-            "1-In planning" (default)
-            "2-Under construction"
-            "3-Completed"
-        
-        bldg_type_: Input either -
-            "1-New construction" (default)
-            "2-Retrofit"
-            "3-Mixed - new construction/retrofit"
-            
         winter_set_temp_: default = 20C [68F]
         
         summer_set_temp_: default = 25C [77F]
         
         ----------
         _HB_rooms: The Honeybee rooms to include in this Building Segment
+    
     Returns:
         HB_rooms_: The Honeybee rooms assigned to this Building Segment
 """
@@ -87,14 +78,14 @@ import PyPH_Rhino.gh_io
 import PyPH_Rhino.bldg_segment_id
 import PyPH_Rhino.occupancy
 import PyPH_Rhino.lighting
-
+import PyPH_Rhino.gh_utils
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -127,10 +118,14 @@ occupancy.num_units = PyPH_Rhino.gh_io.input_to_int(IGH, num_units_, 1)
 IGH.warning(occupancy.validate())
 
 #-- PH Params
-new_PH_params = PHX.bldg_segment.PHIUSCertification()
-new_PH_params.building_status = PyPH_Rhino.gh_io.input_to_int(IGH, bldg_status_, 1)
-new_PH_params.building_type = PyPH_Rhino.gh_io.input_to_int(IGH, bldg_type_, 1)
+if _PHIUS_certification:
+    new_PH_params = _PHIUS_certification
+else:
+    new_PH_params = PHX.bldg_segment.PHIUSCertification()
 
+PyPH_Rhino.gh_utils.object_preview(new_bldg_segment)
+PyPH_Rhino.gh_utils.object_preview(occupancy)
+PyPH_Rhino.gh_utils.object_preview(new_PH_params)
 
 #-- Add the data to all the input HB Rooms
 HB_rooms_ = []

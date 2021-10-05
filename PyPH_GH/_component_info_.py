@@ -16,6 +16,12 @@ sub_catagories = {
 }
 
 component_params = {
+    "PyPH - PHIUS Certification": {
+        "NickName": "PHIUS Certification",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
     "PyPH - Create Bldg Segment": {
         "NickName": "PHX Bldg Segment",
         "Message": RELEASE_VERSION,
