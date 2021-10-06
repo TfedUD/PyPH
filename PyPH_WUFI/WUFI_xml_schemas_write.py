@@ -216,10 +216,7 @@ def _Component(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _RoomVentilation(
-    _temp_space: temp_Space,
-    _wufi_obj: temp_RoomVentilation,
-) -> list[xml_writable]:
+def _RoomVentilation(_temp_space: temp_Space, _wufi_obj: temp_RoomVentilation) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
         PyPH_WUFI.xml_node.XML_Node("Quantity", _temp_space.space.quantity),
@@ -249,16 +246,40 @@ def _RoomVentilation(
     ]
 
 
-def _RoomLoads_Occupancy(
-    _temp_space: temp_Space,
-    _wufi_obj: temp_RoomVentilation,
-) -> list[xml_writable]:
+def _RoomLoads_Occupancy(_temp_space: temp_Space, _wufi_obj: temp_RoomVentilation) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
         PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _temp_space.occupancy.id),
         PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
         PyPH_WUFI.xml_node.XML_Node("NumberOccupants", round(_temp_space.peak_occupancy, TOL), "unit", "-")
         # PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", round(_temp_space.space.floor_area_weighted, TOL)),
+    ]
+
+
+def _RoomLoads_Lighting(_temp_space: temp_Space, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceLightTransmissionGlazing", 1, "choice", "Triple low-e glazing: 0.69"),
+        PyPH_WUFI.xml_node.XML_Node("LightingControl", 1, "choice", "Manually"),
+        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
+        PyPH_WUFI.xml_node.XML_Node("MotionDetector", False),
+        PyPH_WUFI.xml_node.XML_Node("FacadeIncludingWindows", False),
+        PyPH_WUFI.xml_node.XML_Node(
+            "FractionTreatedFloorArea", round(_temp_space.space_percent_floor_area_total, 4), "unit", "-"
+        ),
+        PyPH_WUFI.xml_node.XML_Node("DeviationFromNorth", 0, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("RoomDepth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("RoomWidth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("RoomHeight", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("LintelHeight", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("WindowWidth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "InstalledLightingPower", round(_temp_space.lighting.loads.watts_per_area, TOL), "unit", "W/m²"
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "LightingFullLoadHours", round(_temp_space.lighting.schedule.EFLH, TOL), "unit", "hrs/a"
+        ),
     ]
 
 
@@ -292,6 +313,8 @@ def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
             ).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", round(_obj.spec_heat_cap, 0), "unit", "Wh/m²K"),
+        # -- Room Loads (Occupancy, Ventilation, Lighting)
+        # ----------------------------------------------------------------------
         PyPH_WUFI.xml_node.XML_List(
             "RoomsVentilation",
             [
@@ -300,9 +323,16 @@ def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
+            "LoadsLightingsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("LoadsLighting", _, "index", i, "_RoomLoads_Lighting")
+                for i, _ in enumerate(_wufi_obj.spaces)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
             "LoadsPersonsPH",
             [
-                PyPH_WUFI.xml_node.XML_Object("LoadPerson", _, "index", i, "_RoomLoads_Occupancy")
+                PyPH_WUFI.xml_node.XML_Object("LoadsPerson", _, "index", i, "_RoomLoads_Occupancy")
                 for i, _ in enumerate(_wufi_obj.spaces)
             ],
         ),

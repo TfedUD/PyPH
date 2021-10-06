@@ -6,8 +6,13 @@
 from dataclasses import dataclass, field
 from typing import Union
 
+import PHX.spaces
 import PHX.programs.schedules
+import PHX.programs.lighting
+import PHX.programs.occupancy
+import PHX.programs.ventilation
 import PHX.bldg_segment
+import PHX.mechanicals.systems
 import PyPH_WUFI.utilization_patterns
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -74,11 +79,12 @@ def _UtilizationPattern_Vent(
 class temp_Space:
     """Space, but with the Room level Programs"""
 
-    space = None
-    ventilation = None
-    lighting = None
-    occupancy = None
-    mechanicals = None
+    space: PHX.spaces.Space
+    ventilation: PHX.programs.ventilation.RoomVentilation
+    lighting: PHX.programs.lighting.RoomLighting
+    occupancy: PHX.programs.occupancy.RoomOccupancy
+    mechanicals: PHX.mechanicals.systems.Mechanicals
+    space_percent_floor_area_total: float
 
     @property
     def peak_occupancy(self) -> float:
@@ -90,23 +96,26 @@ class temp_Zone:
     spaces: list[temp_Space] = field(default_factory=list)
 
 
-def _Zone(_phx_object: PHX.bldg_segment.Zone) -> temp_Zone:
+def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
     """Since Program and Equipment are only present at the 'Room' level, need to add
     that info to the spaces so that can be written out properly to WUFI.
     """
 
     temp_zone = temp_Zone()
 
-    for room in _phx_object.rooms:
+    for room in _phx_zone.rooms:
         for base_space in room.spaces:
-            new_space = temp_Space()
-            new_space.space = base_space
+            # Calc % of total floor area, for lighting. What the fuck WUFI????
+            space_percent_floor_area_total = base_space.floor_area_weighted / _phx_zone.floor_area
 
-            # -- Inherit Programs from Room
-            new_space.ventilation = room.ventilation
-            new_space.lighting = room.lighting
-            new_space.occupancy = room.occupancy
-            new_space.mechanicals = room.mechanicals
+            new_space = temp_Space(
+                space=base_space,
+                ventilation=room.ventilation,
+                lighting=room.lighting,
+                occupancy=room.occupancy,
+                mechanicals=room.mechanicals,
+                space_percent_floor_area_total=space_percent_floor_area_total,
+            )
 
             # Preserve the Space-level flow rates, if they exist
             if new_space.space.ventilation_loads:

@@ -278,6 +278,11 @@ class Schedule_Lighting(PHX._base._Base):
         self.name = ""
         self.annual_utilization_factor = 1.0
 
+    @property
+    def EFLH(self):
+        "Equivalent full-load hours"
+        return self.annual_utilization_factor * 8760
+
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._Schedule_Lighting(cls, _dict)
