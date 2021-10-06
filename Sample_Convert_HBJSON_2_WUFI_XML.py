@@ -10,7 +10,8 @@ import pathlib
 import PHX.project
 import PHX.bldg_segment
 import PyPH_WUFI.type_collections
-import PyPH_WUFI.build_WUFI_xml
+import PyPH_WUFI.WUFI_xml_build
+import PyPH_WUFI.WUFI_xml_write
 
 from PyPH_HBJSON.read_HBJSON_file import read_hb_json
 from PyPH_HBJSON.create_PHX_components import (
@@ -133,4 +134,5 @@ project_1.add_window_types_from_collection(window_type_collection)
 # # --- Output the new Project to an XML file for WUFI
 # # ----------------------------------------------------------------------------
 print("> Writing out the XML file...")
-PyPH_WUFI.build_WUFI_xml.write_Project_to_wp_xml_file(TARGET_FILE_XML, project_1)
+project_xml_text = PyPH_WUFI.WUFI_xml_build.create_project_xml_text(project_1)
+PyPH_WUFI.WUFI_xml_write.write_XML_text_file(TARGET_FILE_XML, project_xml_text)

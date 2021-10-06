@@ -43,11 +43,11 @@ class XML_Object:
         """
         Arguments:
         ----------
-            * _node_name (str): The XML name for the node
-            * _node_object (object): The PHX Object to write
-            * _attr_name (str): Optional XML node attribue name
-            * _attr_value (str): Optional XML node attribute value
-            * _schema_name (str): Optional explict name for xml_schema function to use when writing to XML.
+            * _node_name (str): The XML name for the node.
+            * _node_object (object): The PHX Object to write to the node.
+            * _attr_name (str | None): Optional XML node attribue name.
+            * _attr_value (str | None): Optional XML node attribute value.
+            * _schema_name (str | None): Optional explict name for xml_schema function to use when writing to XML.
                 If None is passed, uses the class name preceded by and underscore.
         """
 

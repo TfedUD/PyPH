@@ -175,6 +175,10 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
         phx_occ_program.name = no_occupancy_name
         phx_occ_program.loads.name = phx_occ_program.name
         phx_occ_program.schedule.name = phx_occ_program.name
+
+        phx_occ_program.loads.people_per_area = 0
+        phx_occ_program.schedule.annual_utilization_factor = 0
+
         return phx_occ_program
 
     phx_occ_program.name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.people.display_name)

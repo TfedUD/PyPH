@@ -11,6 +11,8 @@ import PHX.serialization.to_dict
 
 
 class _Base(object):
+    """PHX Object Base class."""
+
     def __init__(self):
         self.identifier = uuid.uuid4()
         self.user_data = {}

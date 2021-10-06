@@ -216,7 +216,7 @@ class Schedule_Occupancy(PHX._base._Base):
     @annual_utilization_factor.setter
     def annual_utilization_factor(self, _in):
         # type: (Schedule_Occupancy, float) -> None
-        if _in:
+        if _in is not None:
             self._annual_utilization_factor = _in
 
             # -- Re-Set the relative utilization factor as well
