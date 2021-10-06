@@ -283,10 +283,22 @@ def _RoomLoads_Lighting(_temp_space: temp_Space, _wufi_obj=None) -> list[xml_wri
     ]
 
 
+def _RoomLoads_ElecEquipment(_temp_space: temp_Space, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
+        PyPH_WUFI.xml_node.XML_Node("ApplicationType", 7, "choice", "User defined"),
+        PyPH_WUFI.xml_node.XML_Node("Quantity", 1),
+        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
+        PyPH_WUFI.xml_node.XML_Node("PowerRating", round(_temp_space.total_space_elec_wattage, TOL), "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "UtilizationHoursYear", round(_temp_space.elec_equipment.schedule.EFLH, TOL), "unit", "hrs/a"
+        ),
+    ]
+
+
 # ------------------------------------------------------------------------------
 # -- Zones, Rooms
-
-
 def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -333,6 +345,13 @@ def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
             "LoadsPersonsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("LoadsPerson", _, "index", i, "_RoomLoads_Occupancy")
+                for i, _ in enumerate(_wufi_obj.spaces)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "LoadsOfficeEquipmentsPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("LoadsOfficeEquipment", _, "index", i, "_RoomLoads_ElecEquipment")
                 for i, _ in enumerate(_wufi_obj.spaces)
             ],
         ),
