@@ -309,3 +309,47 @@ class Schedule_Lighting(PHX._base._Base):
     def unique_key(self):
         """Return a key uniqu to this 'type' (collection of values) of pattern"""
         return "{}_".format(self.annual_utilization_factor)
+
+
+class Schedule_ElecEquip(PHX._base._Base):
+
+    _count = 0
+    _default = None
+
+    def __init__(self):
+        super(Schedule_ElecEquip, self).__init__()
+        self.id = self._count
+        self.name = ""
+        self.annual_utilization_factor = 1.0
+
+    @property
+    def EFLH(self):
+        "Equivalent full-load hours"
+        return self.annual_utilization_factor * 8760
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Schedule_ElecEquip(cls, _dict)
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(Schedule_ElecEquip, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls):
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "_default_schedule_elec_equipment_"
+        new_obj.annual_utilization_factor = 1.0
+
+        cls._default = new_obj
+        return new_obj
+
+    @property
+    def unique_key(self):
+        """Return a key unique to this 'type' (collection of values) of pattern"""
+        return "{}_".format(self.annual_utilization_factor)

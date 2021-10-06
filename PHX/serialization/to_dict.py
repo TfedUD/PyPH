@@ -29,6 +29,17 @@ def _RoomLighting(_obj):
     return d
 
 
+def _RoomElectricEquipment(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"schedule": _obj.schedule.to_dict()})
+    d.update({"loads": _obj.loads.to_dict()})
+
+    return d
+
+
 def _RoomVentilation(_obj):
     d = {}
 
@@ -136,6 +147,17 @@ def _Schedule_Lighting(_obj):
     return d
 
 
+def _Schedule_ElecEquip(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
 # ------------------------------------------------------------------------------
 # ------- Loads  -------
 def _Load_Lighting(_obj):
@@ -164,6 +186,15 @@ def _Load_Occupancy(_obj):
 
     d.update({"name": _obj.name})
     d.update({"people_per_area": _obj.people_per_area})
+
+    return d
+
+
+def _Load_ElecEquip(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"watts_per_area": _obj.watts_per_area})
 
     return d
 

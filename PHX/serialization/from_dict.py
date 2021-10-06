@@ -69,6 +69,18 @@ def _RoomOccupancy(_cls, _input_dict):
     return new_obj
 
 
+def _RoomElectricEquipment(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.id = _input_dict.get("id")
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.schedule = PHX.programs.schedules.Schedule_ElecEquip.from_dict(_input_dict.get("schedule", {}))
+    new_obj.loads = PHX.programs.loads.Load_ElecEquip.from_dict(_input_dict.get("loads", {}))
+
+    return new_obj
+
+
 def _BldgSegmentOccupancy(_cls, _input_dict):
     new_obj = _cls()
 
@@ -155,6 +167,17 @@ def _Schedule_Lighting(_cls, _input_dict):
     return new_obj
 
 
+def _Schedule_ElecEquip(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.name = _input_dict.get("name")
+    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+
+    return new_obj
+
+
 # ------------------------------------------------------------------------------
 # ------- Loads  -------
 def _Load_Lighting(_cls, _input_dict):
@@ -183,6 +206,15 @@ def _Load_Occupancy(_cls, _input_dict):
 
     new_obj.name = _input_dict.get("name")
     new_obj.people_per_area = _input_dict.get("people_per_area")
+
+    return new_obj
+
+
+def _Load_ElecEquip(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.name = _input_dict.get("name")
+    new_obj.watts_per_area = _input_dict.get("watts_per_area")
 
     return new_obj
 

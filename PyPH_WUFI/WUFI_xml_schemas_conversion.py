@@ -11,6 +11,7 @@ import PHX.programs.schedules
 import PHX.programs.lighting
 import PHX.programs.occupancy
 import PHX.programs.ventilation
+import PHX.programs.electric_equipment
 import PHX.bldg_segment
 import PHX.mechanicals.systems
 import PyPH_WUFI.utilization_patterns
@@ -83,12 +84,17 @@ class temp_Space:
     ventilation: PHX.programs.ventilation.RoomVentilation
     lighting: PHX.programs.lighting.RoomLighting
     occupancy: PHX.programs.occupancy.RoomOccupancy
+    elec_equipment: PHX.programs.electric_equipment.RoomElectricEquipment
     mechanicals: PHX.mechanicals.systems.Mechanicals
     space_percent_floor_area_total: float
 
     @property
     def peak_occupancy(self) -> float:
         return self.space.floor_area_weighted * self.occupancy.loads.people_per_area
+
+    @property
+    def total_space_elec_wattage(self) -> float:
+        return self.space.floor_area_weighted * self.elec_equipment.loads.watts_per_area
 
 
 @dataclass
@@ -105,7 +111,7 @@ def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
 
     for room in _phx_zone.rooms:
         for base_space in room.spaces:
-            # Calc % of total floor area, for lighting. What the fuck WUFI????
+            # Calc % of total floor area, for lighting. What the fuck WUFI???? can't just use floor area?
             space_percent_floor_area_total = base_space.floor_area_weighted / _phx_zone.floor_area
 
             new_space = temp_Space(
@@ -113,6 +119,7 @@ def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
                 ventilation=room.ventilation,
                 lighting=room.lighting,
                 occupancy=room.occupancy,
+                elec_equipment=room.electric_equipment,
                 mechanicals=room.mechanicals,
                 space_percent_floor_area_total=space_percent_floor_area_total,
             )

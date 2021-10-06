@@ -2,6 +2,7 @@ import PHX.programs.ventilation
 import PHX.programs.occupancy
 import PHX.programs.lighting
 import PHX.programs.schedules
+import PHX.programs.electric_equipment
 import LBT_Utils.program
 import LBT_Utils.hb_schedules
 
@@ -243,3 +244,41 @@ def create_PHX_RoomLighting_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.pr
     phx_lighting_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
 
     return phx_lighting_program
+
+
+def create_PHX_RoomElectricEquipment_from_HB_room(
+    _hb_room: honeybee.room.Room,
+) -> PHX.programs.electric_equipment.RoomElectricEquipment:
+
+    phx_elec_equip_program = PHX.programs.electric_equipment.RoomElectricEquipment()
+
+    # --------------------------------------------------------------------------
+    # -- Sort out the Loads, if any
+    if _hb_room.properties.energy.electric_equipment is None:
+        clean_name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.program_type.display_name)
+        no_occupancy_name = "{}_[no_HB_elec_equip]".format(clean_name)
+        phx_elec_equip_program.name = no_occupancy_name
+        phx_elec_equip_program.loads.name = phx_elec_equip_program.name
+        phx_elec_equip_program.schedule.name = phx_elec_equip_program.name
+        return phx_elec_equip_program
+
+    phx_elec_equip_program.name = LBT_Utils.program.clean_HB_program_name(
+        _hb_room.properties.energy.electric_equipment.display_name
+    )
+    phx_elec_equip_program.loads.name = phx_elec_equip_program.name
+    phx_elec_equip_program.loads.watts_per_area = _hb_room.properties.energy.electric_equipment.watts_per_area
+
+    # --------------------------------------------------------------------------
+    # -- Sort out the Schedule, if any
+    if _hb_room.properties.energy.electric_equipment.schedule is None:
+        phx_elec_equip_program.schedule.name = phx_elec_equip_program.name
+        phx_elec_equip_program.schedule.annual_utilization_factor = 1.0
+        return phx_elec_equip_program
+
+    hb_sched = _hb_room.properties.energy.electric_equipment.schedule
+    phx_elec_equip_program.schedule.name = hb_sched.display_name
+    phx_elec_equip_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(
+        hb_sched
+    )
+
+    return phx_elec_equip_program

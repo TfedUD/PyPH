@@ -18,6 +18,7 @@ import PHX.summer_ventilation
 import PHX.programs.lighting
 import PHX.programs.occupancy
 import PHX.programs.ventilation
+import PHX.programs.electric_equipment
 import PHX.mechanicals.equipment
 import PHX.mechanicals.systems
 import PHX.infiltration
@@ -296,6 +297,7 @@ class Room(PHX._base._Base):
         self.ventilation = PHX.programs.ventilation.RoomVentilation()
         self.lighting = PHX.programs.lighting.RoomLighting()
         self.occupancy = PHX.programs.occupancy.RoomOccupancy()
+        self.electric_equipment = PHX.programs.electric_equipment.RoomElectricEquipment()
         self.mechanicals = PHX.mechanicals.systems.Mechanicals()
 
     def __new__(cls, *args, **kwargs):

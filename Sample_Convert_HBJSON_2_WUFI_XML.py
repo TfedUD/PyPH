@@ -79,6 +79,7 @@ for room in hb_model.rooms:
     phx_Room.ventilation = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomVentilation_from_hb_room(room)
     phx_Room.occupancy = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomOccupancy_from_HB_room(room)
     phx_Room.lighting = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomLighting_from_HB_room(room)
+    phx_Room.electric_equipment = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomElectricEquipment_from_HB_room(room)
 
     # -- Add Mechanical Equipment
     phx_Room.mechanicals = PyPH_HBJSON.create_PHX_Mechanicals.create_PHX_Mechanicals_from_HB_room(room)

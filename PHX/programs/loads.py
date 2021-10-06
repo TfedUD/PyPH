@@ -143,3 +143,35 @@ class Load_Ventilation(PHX._base._Base):
 
     def __str__(self):
         return self.__repr__()
+
+
+class Load_ElecEquip(PHX._base._Base):
+
+    _default = None
+
+    def __init__(self):
+        super(Load_ElecEquip, self).__init__()
+        self.name = ""
+        self.watts_per_area = 0  # installed power density (W/m2)
+
+    @classmethod
+    def default(cls):
+        if cls._default is not None:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "_default_load_elec_equip_"
+        new_obj.watts_per_area = 10
+
+        cls._default = new_obj
+
+        return new_obj
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Load_ElecEquip(cls, _dict)
+
+    @property
+    def unique_key(self):
+        return "{}_{}_{}_".format(self.name, self.watts_per_area)
