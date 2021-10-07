@@ -4,78 +4,13 @@
 """Functions to oganize and prepare PHX Objects for WUFI-XML export"""
 
 from typing import Optional
-from PyPH_WUFI.type_collections import UtilizationPatternCollection_PH_NonRes, UtilPat_Collection_Ventilation
-from PyPH_WUFI.utilization_patterns import UtilizationPattern_NonRes, UtilizationPattern_Vent
-import PHX.bldg_segment
 import PyPH_WUFI.WUFI_xml_schemas_write
-import PyPH_WUFI.WUFI_xml_schemas_conversion
-from PyPH_WUFI.WUFI_xml_schemas_conversion import temp_WUFI
+import PyPH_WUFI.WUFI_xml_conversion_functions
+from PyPH_WUFI.WUFI_xml_conversion_classes import temp_WUFI
 from PyPH_WUFI.xml_node import xml_writable
 from PHX._base import _Base as PHX_Base
 
-# --
-def build_NonRes_schedules_from_zones(_zones: list[PHX.bldg_segment.Zone]) -> UtilizationPatternCollection_PH_NonRes:
-    """Collects and builds the Non-Res Utilization Patterns (occupancy, lighting) found on the Zone's Rooms
 
-    Arguments:
-    ----------
-        _zones (list[PHX.bldg_segment.Zone]): A list of the PHX-Zones to collect the
-            utilization patterns from.
-
-    Returns:
-    --------
-        * (PyPH_WUFI.type_collections.UtilizationPatternCollection_PH_NonRes)
-    """
-    util_collection = UtilizationPatternCollection_PH_NonRes()
-
-    for zone in _zones:
-        for room in zone.rooms:
-            util_pattern = UtilizationPattern_NonRes()
-            util_pattern.occupancy = room.occupancy
-            util_pattern.lighting = room.lighting
-            pattern_id = util_pattern.occupancy.unique_key + util_pattern.lighting.unique_key
-
-            util_collection.add_to_collection(util_pattern, _key=pattern_id, _reset_count=True)
-            room.occupancy.id = util_pattern.id
-            room.lighting.id = util_pattern.id
-
-    return util_collection
-
-
-def build_Vent_Schdeules_from_zones(_zones: list[PHX.bldg_segment.Zone]) -> UtilPat_Collection_Ventilation:
-    """Collects and builds the Ventilation Utilization Patterns found on the Zone's Rooms
-
-    Arguments:
-    ----------
-        _zones (list[PHX.bldg_segment.Zone]): A list of the PHX-Zones to collect the
-            utilization patterns from.
-
-    Returns:
-    --------
-        * (PyPH_WUFI.type_collections.UtilizationPattern_Vent)
-    """
-
-    # Create the new Util Pattern Collection
-    util_collection = UtilPat_Collection_Ventilation()
-
-    for zone in _zones:
-        for room in zone.rooms:
-            # Build the UtilizationPattern based on the Space, add it to the collection
-            util_pattern = UtilizationPattern_Vent()
-
-            util_pattern.name = room.ventilation.schedule.name
-            util_pattern.operating_days = room.ventilation.schedule.operating_days
-            util_pattern.operating_weeks = room.ventilation.schedule.operating_weeks
-            util_pattern.utilization_rates = room.ventilation.schedule.utilization_rates
-
-            key = room.ventilation.schedule.identifier
-            util_collection.add_to_collection(util_pattern, _key=key, _reset_count=True)
-            room.ventilation.schedule.id = util_pattern.id  # Reset the Room Vent id to match
-
-    return util_collection
-
-
-# --
 def create_WUFI_object_from_phx(_phx_object: PHX_Base, _schema_nm: str = None) -> Optional[temp_WUFI]:
     """Returns a new temporary object with WUFI-specific data and attributes, or None
     if no converter is found for the Object. These converter functions are used when
@@ -94,7 +29,7 @@ def create_WUFI_object_from_phx(_phx_object: PHX_Base, _schema_nm: str = None) -
 
     Returns:
     --------
-        * Optional[PyPH_WUFI.WUFI_xml_schemas_conversion.temp_WUFI]: A WUFI dataclass
+        * Optional[PyPH_WUFI.WUFI_xml_conversion_functions.temp_WUFI]: A WUFI dataclass
             object with custom attributes to supplement the PHX object.
     """
 
@@ -104,7 +39,7 @@ def create_WUFI_object_from_phx(_phx_object: PHX_Base, _schema_nm: str = None) -
         _schema_nm = f"_{phx_obj_name}"
 
     # -- Get and execute the conversion function
-    converter_function = getattr(PyPH_WUFI.WUFI_xml_schemas_conversion, _schema_nm, None)
+    converter_function = getattr(PyPH_WUFI.WUFI_xml_conversion_functions, _schema_nm, None)
     if converter_function:
         wufi_object = converter_function(_phx_object)
         return wufi_object

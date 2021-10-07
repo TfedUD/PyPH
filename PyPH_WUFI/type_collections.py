@@ -5,7 +5,6 @@
 
 import PHX.assemblies
 import PHX.window_types
-import PyPH_WUFI.utilization_patterns
 
 
 class AddToCollectionError(Exception):
@@ -68,18 +67,6 @@ class Collection:
 
         else:
             self._items[id(_item)] = _item
-
-
-class UtilPat_Collection_Ventilation(Collection):
-    def __init__(self):
-        super(UtilPat_Collection_Ventilation, self).__init__()
-        self._allowed_types = PyPH_WUFI.utilization_patterns.UtilizationPattern_Vent
-
-
-class UtilizationPatternCollection_PH_NonRes(Collection):
-    def __init__(self):
-        super(UtilizationPatternCollection_PH_NonRes, self).__init__()
-        self._allowed_types = PyPH_WUFI.utilization_patterns.UtilizationPattern_NonRes
 
 
 class WindowTypeCollection:

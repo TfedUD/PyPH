@@ -17,12 +17,11 @@ import PyPH_WUFI.xml_node
 from PyPH_WUFI.xml_node import xml_writable
 import PyPH_WUFI.selection
 import PyPH_WUFI.WUFI_xml_convert_phx
-from PyPH_WUFI.WUFI_xml_schemas_conversion import (
-    temp_UtilizationPattern_Vent,
-    temp_UtilizationPattern_NonRes,
+from PyPH_WUFI.WUFI_xml_conversion_functions import (
     temp_Zone,
     temp_Space,
     temp_RoomVentilation,
+    temp_Project,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -50,7 +49,7 @@ def _WindowType(_obj, _wufi_obj=None) -> list[xml_writable]:
 
 # ------------------------------------------------------------------------------
 # - Utilization Patterns
-def _UtilizationPattern_Vent(_obj, _wufi_obj: temp_UtilizationPattern_Vent) -> list[xml_writable]:
+def _UtilizationPattern_Vent(_obj, _wufi_obj=None) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -64,12 +63,12 @@ def _UtilizationPattern_Vent(_obj, _wufi_obj: temp_UtilizationPattern_Vent) -> l
         ),
         PyPH_WUFI.xml_node.XML_Node("Basic_DOS", round(_obj.utilization_rates.basic.daily_op_sched, TOL)),
         PyPH_WUFI.xml_node.XML_Node("Basic_PDF", round(_obj.utilization_rates.basic.frac_of_design_airflow, TOL)),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_wufi_obj.remainder, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_DOS", round(_obj.utilization_rates.minimum.daily_op_sched, TOL)),
         PyPH_WUFI.xml_node.XML_Node("Minimum_PDF", round(_obj.utilization_rates.minimum.frac_of_design_airflow, TOL)),
     ]
 
 
-def _UtilizationPattern_NonRes(_obj, _wufi_obj: temp_UtilizationPattern_NonRes) -> list[xml_writable]:
+def _UtilizationPattern_NonRes(_obj, _wufi_obj=None) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
@@ -77,14 +76,14 @@ def _UtilizationPattern_NonRes(_obj, _wufi_obj: temp_UtilizationPattern_NonRes) 
         PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.schedule.start_hour),
         PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.schedule.end_hour),
         PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.schedule.annual_utilization_days),
-        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", round(_wufi_obj.absent_fac, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", round(_obj.annual_absence_factor, TOL)),
         # -- Lighting
         PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", round(_obj.lighting.loads.target_lux, 0)),
         PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", round(_obj.lighting.loads.watts_per_area, TOL)),
         PyPH_WUFI.xml_node.XML_Node(
             "PartUseFactorPeriodForLighting", round(_obj.lighting.schedule.annual_utilization_factor, TOL)
         ),
-        # PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", round(_wufi_obj.m2_per_person, TOL)),
+        # PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", round(_obj.m2_per_person, TOL)),
     ]
 
 
@@ -953,10 +952,12 @@ def _ProjectData(_obj, _wufi_obj=None):
     ]
 
 
-def _Project(_obj, _wufi_obj=None):
-    util_patter_collection_ventilation = PyPH_WUFI.WUFI_xml_convert_phx.build_Vent_Schdeules_from_zones(_obj.zones)
-    util_pattern_collection_NonRes = PyPH_WUFI.WUFI_xml_convert_phx.build_NonRes_schedules_from_zones(_obj.zones)
-
+def _Project(_obj, _wufi_obj=temp_Project):
+    """
+    Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
+    This is done for PHIUS modeling and allows for Non-Res and Res. sections
+    of a building to be modeled in the same WUFI file, in different 'Cases'
+    """
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
         PyPH_WUFI.xml_node.XML_Node("UnitSystem", _obj.unit_system),
@@ -977,19 +978,16 @@ def _Project(_obj, _wufi_obj=None):
             "UtilisationPatternsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPatternVent", _, "index", i)
-                for i, _ in enumerate(util_patter_collection_ventilation)
+                for i, _ in enumerate(_wufi_obj.util_pattern_collection_ventilation)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "UtilizationPatternsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPattern", _, "index", i)
-                for i, _ in enumerate(util_pattern_collection_NonRes)
+                for i, _ in enumerate(_wufi_obj.util_pattern_collection_non_residential)
             ],
         ),
-        # Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
-        # This is done for PHIUS modeling and allows for Non-Res and Res. sections
-        # of a building to be modeled in the same WUFI file, in different 'Cases'
         PyPH_WUFI.xml_node.XML_List(
             "Variants",
             [PyPH_WUFI.xml_node.XML_Object("Variant", _, "index", i) for i, _ in enumerate(_obj.building_segments)],
