@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 # -*- Python Version: 3.9 -*-
 
-"""Functions to collect / correct / convert data from PHX objects into WUFI-specific format"""
+"""Functions to convert data from PHX objects into WUFI-specific format.
+
+These functions get called before the object is passed to the XML-Schema
+and will construct all the required 'temp' objects needed in order to 
+re-organize the PHX objects into WUFI-compatible shape.
+
+Each function here should have a name which matches the PHX class name, 
+preceeded by an undrscore: "_" ie: Room --> "_Room".
+"""
 
 from dataclasses import dataclass, field
 from typing import Union
@@ -14,7 +22,7 @@ import PHX.programs.ventilation
 import PHX.programs.electric_equipment
 import PHX.bldg_segment
 import PHX.mechanicals.systems
-import PyPH_WUFI.utilization_patterns
+from PyPH_WUFI.utilization_patterns import UtilizationPattern_NonRes, UtilizationPattern_Vent
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
 
@@ -25,6 +33,8 @@ class temp_RoomVentilation:
 
 
 def _RoomVentilation(_phx_object: PHX.bldg_segment.Room) -> temp_RoomVentilation:
+    """Find the Fresh-air Ventilator ID number which serves the PHX-Room"""
+
     wufi_object = temp_RoomVentilation()
 
     for mech_sys in _phx_object.mechanicals.systems:
@@ -41,9 +51,9 @@ class temp_UtilizationPattern_NonRes:
     m2_per_person: float = 0
 
 
-def _UtilizationPattern_NonRes(
-    _phx_object: PyPH_WUFI.utilization_patterns.UtilizationPattern_NonRes,
-) -> temp_UtilizationPattern_NonRes:
+def _UtilizationPattern_NonRes(_phx_object: UtilizationPattern_NonRes) -> temp_UtilizationPattern_NonRes:
+    """Calculate the m2_per_person from the people_per_area for the PHX-Room"""
+
     wufi_object = temp_UtilizationPattern_NonRes()
 
     present_factor = float(_phx_object.occupancy.schedule.annual_utilization_factor)
@@ -60,12 +70,11 @@ class temp_UtilizationPattern_Vent:
     remainder: float = 0
 
 
-def _UtilizationPattern_Vent(
-    _phx_object: PyPH_WUFI.utilization_patterns.UtilizationPattern_Vent,
-) -> temp_UtilizationPattern_Vent:
+def _UtilizationPattern_Vent(_phx_object: UtilizationPattern_Vent) -> temp_UtilizationPattern_Vent:
+    """Enforce 24 hour maximum DOS no matter what values are input."""
+
     wufi_object = temp_UtilizationPattern_Vent()
 
-    # -- Enforce a 24 hour maximum, no matter what
     a = round(_phx_object.utilization_rates.maximum.daily_op_sched, TOL)
     b = round(_phx_object.utilization_rates.standard.daily_op_sched, TOL)
     c = round(_phx_object.utilization_rates.basic.daily_op_sched, TOL)
@@ -78,7 +87,7 @@ def _UtilizationPattern_Vent(
 
 @dataclass
 class temp_Space:
-    """Space, but with the Room level Programs"""
+    """PHX-Space, but with the Room level Programs"""
 
     space: PHX.spaces.Space
     ventilation: PHX.programs.ventilation.RoomVentilation
@@ -99,19 +108,22 @@ class temp_Space:
 
 @dataclass
 class temp_Zone:
+    """PHX-Zone with temp_Space objects"""
+
     spaces: list[temp_Space] = field(default_factory=list)
 
 
 def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
     """Since Program and Equipment are only present at the 'Room' level, need to add
-    that info to the spaces so that can be written out properly to WUFI.
+    that info to the Spaces so that can be written out properly to WUFI.
     """
 
     temp_zone = temp_Zone()
 
     for room in _phx_zone.rooms:
         for base_space in room.spaces:
-            # Calc % of total floor area, for lighting. What the fuck WUFI???? can't just use floor area?
+            # Calc % of total floor area, for lighting.
+            # What the fuck WUFI???? You can't just use floor area?
             space_percent_floor_area_total = base_space.floor_area_weighted / _phx_zone.floor_area
 
             new_space = temp_Space(
@@ -125,6 +137,7 @@ def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
             )
 
             # Preserve the Space-level flow rates, if they exist
+            # instead of the Room-level flow rates
             if new_space.space.ventilation_loads:
                 new_space.ventilation.loads.supply = base_space.ventilation_loads.supply
                 new_space.ventilation.loads.extract = base_space.ventilation_loads.extract
@@ -135,4 +148,5 @@ def _Zone(_phx_zone: PHX.bldg_segment.Zone) -> temp_Zone:
     return temp_zone
 
 
+# Type Alias
 temp_WUFI = Union[temp_RoomVentilation, temp_UtilizationPattern_NonRes, temp_UtilizationPattern_Vent, temp_Zone]

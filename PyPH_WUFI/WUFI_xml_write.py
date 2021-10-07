@@ -8,22 +8,24 @@ Functions for writing a Text XML file out to disk.
 from datetime import datetime
 import os
 import shutil
+from pathlib import Path
 
 
-def write_XML_text_file(_file_address, _xml_text) -> None:
-    """Write the PHX 'Project' object out to a file as WUFI-XML.
+def write_XML_text_file(_file_address: Path, _xml_text: str) -> None:
+    """Write the PHX 'Project' xml string out to a file.
 
     Arguments:
     ----------
-        * _file_address (str): The file path to save to
-        * _xml_text: The XML text to write out to file
-    """
+        * _file_address (pathlib.Path): The file path object to save to.
+        * _xml_text (str): The XML text to write out to file.
 
-    t = datetime.now()
+    Returns:
+    --------
+        * None
+    """
 
     def clean_filename(_file_address):
         old_file_name, old_file_extension = os.path.splitext(_file_address)
-        # old_file_name = _file_address.split(".xml")[0]
         t = datetime.now()
         return f"{old_file_name}_{t.month}_{t.day}_{t.hour}_{t.minute}_{t.second}{old_file_extension}"
 

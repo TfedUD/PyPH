@@ -4,7 +4,7 @@
 """Functions used to create the full WUFI XML file"""
 
 import logging
-
+from typing import Union
 from xml.dom.minidom import Document, Element
 
 import PHX.project
@@ -14,7 +14,7 @@ import PyPH_WUFI.WUFI_xml_convert_phx
 logging.basicConfig(filename="sample/EM_logs/example.log", filemode="w", encoding="utf-8", level=logging.DEBUG)
 
 
-def _xml_str(_) -> str:
+def _xml_str(_: Union[str, bool]) -> str:
     """Util: Handle converting Boolean values to xml text format properly"""
 
     if isinstance(_, bool):
@@ -27,7 +27,7 @@ def _xml_str(_) -> str:
 
 
 def _add_node_attributes(_data: PyPH_WUFI.xml_node.xml_writable, _element: Element) -> None:
-    """Adds in any Node Attribure data, if any is found.
+    """Sets in any Node Attribute data on the Element, if any is found.
 
     Arguments:
     ----------
@@ -40,7 +40,7 @@ def _add_node_attributes(_data: PyPH_WUFI.xml_node.xml_writable, _element: Eleme
 
 
 def _add_text_node(_doc: Document, _parent_node: Element, _data: PyPH_WUFI.xml_node.XML_Node) -> None:
-    """Adds a basic text-node ie: <node_name>node_value</node_name> to the XML Parent Node.
+    """Adds a basic text-node ie: "<node_name>node_value</node_name>" to the XML Parent Node.
 
     Arguments:
     ----------
@@ -105,7 +105,7 @@ def create_project_xml_text(_project: PHX.project.Project) -> str:
 
     Returns:
     --------
-        * (str) The XML Nodes as Text.
+        * (str) The XML Nodes as text.
     """
     doc = Document()
 

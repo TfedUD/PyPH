@@ -40,8 +40,8 @@ import logging_2WUFI
 logging_2WUFI.configure()
 
 # --- Input / Output file Paths
-SOURCE_FILE = pathlib.PurePath("sample", "EM_sample_input_HBJSON", "Sample_Input.hbjson")
-TARGET_FILE_XML = pathlib.PurePath("sample", "EM_sample_output_WUFI_XML", "Sample_Output.xml")
+SOURCE_FILE = pathlib.Path("sample", "EM_sample_input_HBJSON", "Sample_Input.hbjson")
+TARGET_FILE_XML = pathlib.Path("sample", "EM_sample_output_WUFI_XML", "Sample_Output.xml")
 
 # ------------------------------------------------------------------------------
 # --- Read in an existing HB_JSON and re-build the HB Objects

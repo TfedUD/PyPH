@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+# -*- Python Version: 3.9 -*-
+
 """Collections / Organizations of data in WUFI-specific format"""
+
 import PHX.programs.schedules
 
 

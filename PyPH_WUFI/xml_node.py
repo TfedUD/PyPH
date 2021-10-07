@@ -2,13 +2,19 @@
 # -*- Python Version: 3.9 -*-
 
 """Classes used to build XML Node Objects which are used during XML Output"""
-from typing import Union
+from typing import Union, Iterable
+from PHX._base import _Base as PHX_Base
+
+# Type Alias
+xml_writable = Union[str, float, int, bool, None]
 
 
 class XML_Node:
     """A single node text/numeric item. Optional Attribute data"""
 
-    def __init__(self, _node_name, _node_value, _attr_name=None, _attr_value=None):
+    def __init__(
+        self, _node_name: str, _node_value: xml_writable, _attr_name: str = None, _attr_value: xml_writable = None
+    ):
         self.node_name = _node_name
         self.node_value = _node_value
         self.attr_name = _attr_name
@@ -18,7 +24,9 @@ class XML_Node:
 class XML_List:
     """A List of XML Writable objects. Used to add 'count' info to the list parent node"""
 
-    def __init__(self, _node_name, _node_items, _attr_name="count", _attr_value=None):
+    def __init__(
+        self, _node_name: str, _node_items: Iterable, _attr_name: str = "count", _attr_value: xml_writable = None
+    ):
         self.node_name = _node_name
         self.node_items = _node_items
         self.attr_name = _attr_name
@@ -29,6 +37,7 @@ class XML_List:
         if self._attr_value is not None:
             return self._attr_value
         else:
+            # -- Used to automate the 'Index' node attr on List items
             return len(self.node_items)
 
     @attr_value.setter
@@ -39,12 +48,19 @@ class XML_List:
 class XML_Object:
     """XML Writable Object. Object fields will be writen out as child nodes"""
 
-    def __init__(self, _node_name, _node_object, _attr_name=None, _attr_value=None, _schema_name=None):
+    def __init__(
+        self,
+        _node_name: str,
+        _node_object: PHX_Base,
+        _attr_name: str = None,
+        _attr_value: xml_writable = None,
+        _schema_name: str = None,
+    ):
         """
         Arguments:
         ----------
             * _node_name (str): The XML name for the node.
-            * _node_object (object): The PHX Object to write to the node.
+            * _node_object (PHX_Base): The PHX Object to write to the node.
             * _attr_name (str | None): Optional XML node attribue name.
             * _attr_value (str | None): Optional XML node attribute value.
             * _schema_name (str | None): Optional explict name for xml_schema function to use when writing to XML.
