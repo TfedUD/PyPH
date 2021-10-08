@@ -17,6 +17,7 @@ class Load_Lighting(PHX._base._Base):
         super(Load_Lighting, self).__init__()
         self.name = ""
         self.target_lux = 0  # Lux
+        self.target_lux_height = 0  # meters above floor
         self.watts_per_area = 0  # installed power density (W/m2)
 
     @classmethod
@@ -28,6 +29,7 @@ class Load_Lighting(PHX._base._Base):
 
         new_obj.name = "_default_load_lighting_"
         new_obj.target_lux = 300
+        new_obj.target_lux_height = 0.8
         new_obj.watts_per_area = 10
 
         cls._default = new_obj
@@ -40,7 +42,7 @@ class Load_Lighting(PHX._base._Base):
 
     @property
     def unique_key(self):
-        return "{}_{}_{}_".format(self.name, self.target_lux, self.watts_per_area)
+        return "{}_{}_{}_{}_".format(self.name, self.target_lux, self.target_lux_height, self.watts_per_area)
 
 
 class Load_Occupancy(PHX._base._Base):

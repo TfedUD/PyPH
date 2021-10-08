@@ -1,8 +1,9 @@
 import PHX.programs.ventilation
 import PHX.programs.occupancy
 import PHX.programs.lighting
-import PHX.programs.schedules
 import PHX.programs.electric_equipment
+import PHX.programs.schedules
+import PHX.programs.loads
 import LBT_Utils.program
 import LBT_Utils.hb_schedules
 
@@ -169,8 +170,9 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
     phx_occ_program = PHX.programs.occupancy.RoomOccupancy()
 
     # --------------------------------------------------------------------------
-    # -- Sort out the Loads, if any
+    # -- Sort out the HB Loads, if any
     if _hb_room.properties.energy.people is None:
+        # -- Build the default Occupancy, based on the Program name
         clean_name = LBT_Utils.program.clean_HB_program_name(_hb_room.properties.energy.program_type.display_name)
         no_occupancy_name = "{}_[no_HB_occ]".format(clean_name)
         phx_occ_program.name = no_occupancy_name
@@ -187,7 +189,7 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
     phx_occ_program.loads.people_per_area = _hb_room.properties.energy.people.people_per_area
 
     # --------------------------------------------------------------------------
-    # -- Sort out the Schedule, if any
+    # -- Sort out the HB Schedule, if any
     if _hb_room.properties.energy.people.occupancy_schedule is None:
         phx_occ_program.schedule.name = phx_occ_program.name
         phx_occ_program.schedule.annual_utilization_factor = 1.0
@@ -196,6 +198,15 @@ def create_PHX_RoomOccupancy_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.p
     hb_sched = _hb_room.properties.energy.people.occupancy_schedule
     phx_occ_program.schedule.name = hb_sched.display_name
     phx_occ_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
+
+    # --------------------------------------------------------------------------
+    # -- Override Schedule with UD custom from user_data, if it exists
+    ud_sched_dict = (
+        (_hb_room.properties.energy.people.occupancy_schedule.user_data or {}).get("phx", {}).get("schedule_occupancy")
+    )
+    if ud_sched_dict:
+        phx_schedule = PHX.programs.schedules.Schedule_Occupancy.from_dict(ud_sched_dict)
+        phx_occ_program.schedule = phx_schedule
 
     return phx_occ_program
 
@@ -230,6 +241,7 @@ def create_PHX_RoomLighting_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.pr
     )
     phx_lighting_program.loads.name = phx_lighting_program.name
     phx_lighting_program.loads.target_lux = 300  # default
+    phx_lighting_program.loads.target_lux_height = 0.8  # meters. default
     phx_lighting_program.loads.watts_per_area = _hb_room.properties.energy.lighting.watts_per_area
 
     # --------------------------------------------------------------------------
@@ -242,6 +254,18 @@ def create_PHX_RoomLighting_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.pr
     hb_sched = _hb_room.properties.energy.lighting.schedule
     phx_lighting_program.schedule.name = hb_sched.display_name
     phx_lighting_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(hb_sched)
+
+    # --------------------------------------------------------------------------
+    # -- Override Load with UD custom from user_data, if it exists
+    ud_load_dict = (_hb_room.properties.energy.lighting.user_data or {}).get("phx", {}).get("load_lighting")
+    ud_sched_dict = (
+        (_hb_room.properties.energy.lighting.schedule.user_data or {}).get("phx", {}).get("schedule_lighting")
+    )
+    if ud_load_dict:
+        phx_lighting_program.loads = PHX.programs.loads.Load_Lighting.from_dict(ud_load_dict)
+
+    if ud_sched_dict:
+        phx_lighting_program.schedule = PHX.programs.schedules.Schedule_Lighting.from_dict(ud_sched_dict)
 
     return phx_lighting_program
 
@@ -280,5 +304,21 @@ def create_PHX_RoomElectricEquipment_from_HB_room(
     phx_elec_equip_program.schedule.annual_utilization_factor = LBT_Utils.hb_schedules.calc_utilization_factor(
         hb_sched
     )
+
+    # --------------------------------------------------------------------------
+    # -- Override Load with UD custom from user_data, if it exists
+    ud_load_dict = (
+        (_hb_room.properties.energy.electric_equipment.user_data or {}).get("phx", {}).get("load_elec_equipment")
+    )
+    ud_sched_dict = (
+        (_hb_room.properties.energy.electric_equipment.schedule.user_data or {})
+        .get("phx", {})
+        .get("schedule_elec_equipment")
+    )
+    if ud_load_dict:
+        phx_elec_equip_program.loads = PHX.programs.loads.Load_ElecEquip.from_dict(ud_load_dict)
+
+    if ud_sched_dict:
+        phx_elec_equip_program.schedule = PHX.programs.schedules.Schedule_ElecEquip.from_dict(ud_sched_dict)
 
     return phx_elec_equip_program

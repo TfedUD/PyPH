@@ -131,7 +131,6 @@ def _Schedule_Occupancy(_obj):
     d.update({"end_hour": _obj.end_hour})
     d.update({"annual_utilization_days": _obj.annual_utilization_days})
     d.update({"relative_utilization_factor": _obj.relative_utilization_factor})
-    d.update({"_annual_utilization_factor": _obj._annual_utilization_factor})
 
     return d
 
@@ -142,7 +141,9 @@ def _Schedule_Lighting(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"id": _obj.id})
     d.update({"name": _obj.name})
-    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+    d.update({"daily_operating_hours": _obj.daily_operating_hours})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"relative_utilization_factor": _obj.relative_utilization_factor})
 
     return d
 
@@ -165,6 +166,7 @@ def _Load_Lighting(_obj):
 
     d.update({"name": _obj.name})
     d.update({"target_lux": _obj.target_lux})
+    d.update({"target_lux_height": _obj.target_lux_height})
     d.update({"watts_per_area": _obj.watts_per_area})
 
     return d

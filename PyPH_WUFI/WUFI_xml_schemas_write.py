@@ -76,12 +76,12 @@ def _UtilizationPattern_NonRes(_obj, _wufi_obj=None) -> list[xml_writable]:
         PyPH_WUFI.xml_node.XML_Node("BeginUtilization", _obj.occupancy.schedule.start_hour),
         PyPH_WUFI.xml_node.XML_Node("EndUtilization", _obj.occupancy.schedule.end_hour),
         PyPH_WUFI.xml_node.XML_Node("AnnualUtilizationDays", _obj.occupancy.schedule.annual_utilization_days),
-        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", round(_obj.annual_absence_factor, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("RelativeAbsenteeism", round(_obj.relative_absence_factor, TOL)),
         # -- Lighting
         PyPH_WUFI.xml_node.XML_Node("IlluminationLevel", round(_obj.lighting.loads.target_lux, 0)),
         PyPH_WUFI.xml_node.XML_Node("HeightUtilizationLevel", round(_obj.lighting.loads.watts_per_area, TOL)),
         PyPH_WUFI.xml_node.XML_Node(
-            "PartUseFactorPeriodForLighting", round(_obj.lighting.schedule.annual_utilization_factor, TOL)
+            "PartUseFactorPeriodForLighting", round(_obj.lighting.schedule.relative_utilization_factor, TOL)
         ),
         # PyPH_WUFI.xml_node.XML_Node("AverageOccupancy", round(_obj.m2_per_person, TOL)),
     ]

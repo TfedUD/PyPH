@@ -206,9 +206,8 @@ class IGH:
 
         if not isinstance(_inputs, list):
             _inputs = [_inputs]
-
         lbt_geometry = []
-        for _ in _inputs:
+        for i, _ in enumerate(_inputs):
             if isinstance(_, list):
                 for __ in _:
                     result = self.convert_to_LBT_geom(__)
@@ -388,7 +387,7 @@ def handle_inputs(IGH, _input_objects, _input_name, _branch_num=0):
     """
 
     if not isinstance(_input_objects, list):
-        _input_objects = [_input_objects]
+        _input_objects = list(_input_objects)
 
     # -- Get the Input Object Attribute UserText values (if any)
     input_index_number = IGH.gh_compo_find_input_index_by_name(_input_name)

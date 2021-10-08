@@ -16,6 +16,12 @@ sub_catagories = {
 }
 
 component_params = {
+    "PyPH - Get PHIUS Program": {
+        "NickName": "Get PHIUS Program",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
     "PyPH - PHIUS Certification": {
         "NickName": "PHIUS Certification",
         "Message": RELEASE_VERSION,

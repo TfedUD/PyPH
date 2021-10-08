@@ -32,10 +32,10 @@ class UtilizationPattern_NonRes:
         self.lighting = None
 
     @property
-    def annual_absence_factor(self):
+    def relative_absence_factor(self):
         if self.occupancy is None or self.occupancy.schedule is None:
             return 1
-        return 1.0 - float(self.occupancy.schedule.annual_utilization_factor)
+        return 1.0 - float(self.occupancy.schedule.relative_utilization_factor)
 
     @property
     def m2_per_person(self):

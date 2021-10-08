@@ -20,12 +20,10 @@
 # @license GPL-3.0+ <http://spdx.org/licenses/GPL-3.0+>
 #
 """
-Sets up the Non-Residential attributes needed for Passive House models. In WUFI passive
-these attributes are set in the "Internal Loads/Occupancy" tab when 'Non-Residential' is 
-set as the building type at the 'Case' level.
+Create a new Honeybee Occupancy Schedule using Passive-House style inputs.
 -----
 -
-EM September 28, 2021
+EM October 07, 2021
     Args:
         start_hour_: (hour) 1-24. default=0 (midnight)
         end_hour_: (hour) 1-24. default = 24 (midnight)
@@ -38,7 +36,11 @@ EM September 28, 2021
         illumination_height_: (m) The height of the target illumination plane
             above floor level.
     Returns:
-        HB_occupancy_sched_: 
+        HB_occupancy_sched_: The new Honeybee Occupancy Schedule with attributes
+            based on the Passive House style inputs. This schedule can be applied to 
+            honeybee rooms directly, using the 'HB Apply Room Schedules' component, or
+            used to create a Program by connecting it to am 'HB People' component in
+            the '_occupancy_sch' input.
 """
 
 import LBT_Utils.hb_schedules
@@ -52,7 +54,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Sched Occupancy"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_07_2021')
 
 if DEV:
     reload(LBT_Utils.hb_schedules)
@@ -74,7 +76,7 @@ if _name:
     
     # -- Add the PHX Occupancy to the HB Occucpancy
     HB_occupancy_sched_ = LBT_Utils.user_data.add_to_HB_Obj_user_data(HB_occupancy_sched_, 
-                         phx_occupancy_schedule.to_dict(), 'schedule', _write_mode='overwrite')
+                         phx_occupancy_schedule.to_dict(), 'schedule_occupancy', _write_mode='overwrite')
     
     # -- Preview
     PyPH_Rhino.gh_utils.object_preview(phx_occupancy_schedule)

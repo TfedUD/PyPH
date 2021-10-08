@@ -203,12 +203,12 @@ class Schedule_Occupancy(PHX._base._Base):
         self.end_hour = 1
         self.annual_utilization_days = 0
         self.relative_utilization_factor = 0.0  # Relative to the Operating Period Above
-        self._annual_utilization_factor = 0.0  # Relative to the Entire Year
 
     @property
     def annual_utilization_factor(self):
         # type: () -> float
         """Return the annual Utilition Rate (0-1) relative to the entire year (8760 hours)"""
+
         operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
 
         return operating_period_utilization_factor * self.relative_utilization_factor
@@ -216,10 +216,9 @@ class Schedule_Occupancy(PHX._base._Base):
     @annual_utilization_factor.setter
     def annual_utilization_factor(self, _in):
         # type: (Schedule_Occupancy, float) -> None
-        if _in is not None:
-            self._annual_utilization_factor = _in
 
-            # -- Re-Set the relative utilization factor as well
+        if _in is not None:
+            # -- Re-Set the relative utilization factor to match
             self.start_hour = 0
             self.end_hour = 24
             self.annual_utilization_days = 365
@@ -227,7 +226,7 @@ class Schedule_Occupancy(PHX._base._Base):
 
     @property
     def daily_operating_hours(self):
-        return self.end_hour - self.start_hour
+        return abs(self.end_hour - self.start_hour)
 
     @property
     def annual_operating_hours(self):
@@ -276,7 +275,29 @@ class Schedule_Lighting(PHX._base._Base):
         super(Schedule_Lighting, self).__init__()
         self.id = self._count
         self.name = ""
-        self.annual_utilization_factor = 1.0
+        self.daily_operating_hours = 0
+        self.annual_utilization_days = 0
+        self.relative_utilization_factor = 0.0  # Relative to the Operating Period Above
+
+    @property
+    def annual_utilization_factor(self):
+        # type: () -> float
+        """Return the annual Utilition Rate (0-1) relative to the entire year (8760 hours)"""
+        operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
+
+        return operating_period_utilization_factor * self.relative_utilization_factor
+
+    @annual_utilization_factor.setter
+    def annual_utilization_factor(self, _in):
+        if _in is not None:
+            # -- Re-Set the relative utilization factor to match
+            self.daily_operating_hours = 24
+            self.annual_utilization_days = 365
+            self.relative_utilization_factor = _in
+
+    @property
+    def annual_operating_hours(self):
+        return self.annual_utilization_days * self.daily_operating_hours
 
     @property
     def EFLH(self):

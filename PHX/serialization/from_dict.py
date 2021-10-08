@@ -151,7 +151,6 @@ def _Schedule_Occupancy(_cls, _input_dict):
     new_obj.end_hour = _input_dict.get("end_hour")
     new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
     new_obj.relative_utilization_factor = _input_dict.get("relative_utilization_factor")
-    new_obj._annual_utilization_factor = _input_dict.get("_annual_utilization_factor")
 
     return new_obj
 
@@ -162,7 +161,9 @@ def _Schedule_Lighting(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.id = _input_dict.get("id")
     new_obj.name = _input_dict.get("name")
-    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+    new_obj.daily_operating_hours = _input_dict.get("daily_operating_hours")
+    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
+    new_obj.relative_utilization_factor = _input_dict.get("relative_utilization_factor")
 
     return new_obj
 
@@ -185,6 +186,7 @@ def _Load_Lighting(_cls, _input_dict):
 
     new_obj.name = _input_dict.get("name")
     new_obj.target_lux = _input_dict.get("target_lux")
+    new_obj.target_lux_height = _input_dict.get("target_lux_height")
     new_obj.watts_per_area = _input_dict.get("watts_per_area")
 
     return new_obj
