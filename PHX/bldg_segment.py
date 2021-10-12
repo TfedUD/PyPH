@@ -564,7 +564,7 @@ class BldgSegment(PHX._base._Base):
             * None
         """
 
-        if not isinstance(_components, list):
+        if not hasattr(_components, "__iter__"):
             _components = [_components]
 
         for c in _components:
@@ -699,6 +699,9 @@ class BldgSegment(PHX._base._Base):
 
             # -- Merge all the Components
             for compo in self.components:
+                if compo.ext_exposure_zone_id == -1 and compo.int_exposure_zone_id == -1:
+                    # -- It is a Shade, so don't reset its exposure
+                    continue
                 compo.set_host_zone_name(self.zones[0])
 
             # Not Implemented Yet:

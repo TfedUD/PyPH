@@ -20,6 +20,7 @@ from PyPH_HBJSON.create_PHX_components import (
     set_compo_colors_by_hb_face,
     set_compo_assembly_from_hb_face,
     create_new_window_component_from_hb_aperture,
+    create_new_shade_component,
 )
 from PyPH_HBJSON.create_PHX_assemblies import (
     create_new_assembly_from_hb_face,
@@ -118,6 +119,12 @@ for room in hb_model.rooms:
 
         # -- Pack the new Polygons & Components onto the BldgSegment.
         phx_BldgSegment.add_components(opaque_compo)
+
+# ----------------------------------------------------------------------------
+# -- Add all the Orphaned shades to the Bldg Segments
+for bldg_segment in project_1.building_segments:
+    phx_shades = (create_new_shade_component(shade) for shade in hb_model.orphaned_shades)
+    bldg_segment.add_components(phx_shades)
 
 
 # --- Clean up the BuildingSegments

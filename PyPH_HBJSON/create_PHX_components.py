@@ -3,22 +3,23 @@
 
 """Functions to create 'Components' (surfaces / windows) from HB-JSON"""
 
+from ladybug_geometry.geometry3d.pointvector import Point3D
+from ladybug_geometry.geometry3d.face import Face3D
 import honeybee.face
+import honeybee.shade
 import honeybee.aperture
 import PHX.geometry
 import PHX.bldg_segment
 import PHX.component
 
-# --- Opaque Components
+# --- Geometry Converters
 # ------------------------------------------------------------------------------
-def create_vertices_from_face(
-    _hb_face: honeybee.face.Face,
-) -> list[PHX.geometry.Vertex]:
-    """Creates new Verts for each of the Vertices that make up a single Honeybee Face
+def convert_LBT_Point3d_to_PHX_Vertices(_hb_verts: list[Point3D]) -> list[PHX.geometry.Vertex]:
+    """Creates new PHX-Vertex for each of the Vertices that make up a single Honeybee Face
 
     Arguments:
     ----------
-        * _hb_face (honeybee.face.Face): The Honeybee Face to use as the source
+        * list[Point3D]: The list of Ladybug Point3D objects to convert to PHX Vertex objects
 
     Returns:
     -------_
@@ -27,15 +28,37 @@ def create_vertices_from_face(
     """
 
     verts = []
-    for vert in _hb_face.vertices:
+    for lbt_p3d in _hb_verts:
         new_vert = PHX.geometry.Vertex()
-        new_vert.x = vert.x
-        new_vert.y = vert.y
-        new_vert.z = vert.z
+        new_vert.x = lbt_p3d.x
+        new_vert.y = lbt_p3d.y
+        new_vert.z = lbt_p3d.z
 
         verts.append(new_vert)
 
     return verts
+
+
+def convert_LBT_Face3D_toPHX_Poly(_lbt_face: Face3D) -> PHX.geometry.Polygon:
+    """Returns a new PHX-Polygon, based on a single LBT Face3D
+
+    Arguments:
+    ---------
+        * _lbt_face (Face3D): The input Ladybug Face3D to use as the source for
+            the new PHX-Polygon.
+
+    Returns:
+    --------
+        * (PHX.geometry.Polygon)
+    """
+    if not _lbt_face:
+        return None
+
+    phx_Poly = PHX.geometry.Polygon()
+    phx_Poly.vertices = convert_LBT_Point3d_to_PHX_Vertices(_lbt_face.vertices)
+    phx_Poly.nVec = _lbt_face.normal  # convert?
+
+    return phx_Poly
 
 
 def create_poly_from_HB_face(_hb_face: honeybee.face.Face) -> PHX.geometry.Polygon:
@@ -50,17 +73,18 @@ def create_poly_from_HB_face(_hb_face: honeybee.face.Face) -> PHX.geometry.Polyg
         * (PHX.geometry.Polygon): A new Poly object, based on the input Honeybee Face
     """
 
-    # --- Create the new Poly bits and pieces from the HB Face
     if not _hb_face:
         return None
 
     poly = PHX.geometry.Polygon()
-    poly.vertices = create_vertices_from_face(_hb_face)
-    poly.nVec = _hb_face.normal
+    poly.vertices = convert_LBT_Point3d_to_PHX_Vertices(_hb_face.vertices)
+    poly.nVec = _hb_face.normal  # convert?
 
     return poly
 
 
+# --- Opaque Components
+# ------------------------------------------------------------------------------
 def create_new_opaque_component_from_hb_face(
     _hb_face: honeybee.face.Face,
 ) -> PHX.component.Component:
@@ -206,7 +230,7 @@ def set_compo_assembly_from_hb_face(
 
 
 # --- Window Components
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 def create_new_window_component_from_hb_aperture(
     _hb_Aperture: honeybee.aperture.Aperture, _zone: PHX.bldg_segment.Zone
 ) -> PHX.component.Component:
@@ -238,3 +262,47 @@ def create_new_window_component_from_hb_aperture(
     window_compo.add_polygons(create_poly_from_HB_face(_hb_Aperture.geometry))
 
     return window_compo
+
+
+# --- Shade Components
+# ------------------------------------------------------------------------------
+def set_exposures_for_shade(_shade_compo: PHX.component.Component) -> PHX.component.Component:
+    """Sets a Component's indoor and outdoor exposure to 'Outer-air', which means: shading
+
+    Arguments:
+    ---------
+        * _shade_compo (PHX.component.Component): The shade component to edit.
+    Returns:
+    --------
+        * (PHX.component.Component) The Component with the values changed.
+    """
+
+    _shade_compo.ext_exposure_zone_id = -1
+    _shade_compo.ext_exposure_zone_name = "Outer air"
+
+    _shade_compo.int_exposure_zone_id = -1
+    _shade_compo.int_exposure_zone_name = "Outer air"
+
+    return _shade_compo
+
+
+def create_new_shade_component(_HB_shade: honeybee.shade.Shade):
+    """Creates a new 'Shade' PHX-Component Object, based on a honeybee.shade.Shade
+
+    Arguments:
+    ----------
+        * _HB_shade (honeybee.shade.Shade): The Honeybee Shade to use as the source.
+
+    Returns:
+    --------
+        * PHX.component.Component): The new PHX Component with 'shade' properties.
+    """
+
+    shade_compo = PHX.component.Component()
+    shade_compo.name = _HB_shade.display_name
+
+    # -- Pack the shade Polygon onto the new Component
+    shade_compo.polygons = [convert_LBT_Face3D_toPHX_Poly(_HB_shade.geometry)]
+    shade_compo = set_exposures_for_shade(shade_compo)
+
+    return shade_compo
