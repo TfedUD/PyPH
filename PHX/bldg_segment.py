@@ -658,7 +658,10 @@ class BldgSegment(PHX._base._Base):
 
                 # -- Group by Assembly Number
                 for compo in zone_compos:
-                    if compo.assembly_id_num != -1:
+                    if compo.ext_exposure_zone_id == -1 and compo.int_exposure_zone_id == -1:
+                        # -- Its a Shade
+                        compo_groups["shades"].append(compo)
+                    elif compo.assembly_id_num != -1:
                         # -- Its a normal Opaque Component
                         compo_groups[compo.assembly_id_num].append(compo)
                     elif compo.win_type_id_num != -1:
