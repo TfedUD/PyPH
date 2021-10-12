@@ -24,17 +24,22 @@ class HVAC_System_Usage(PHX._base._Base):
         self.used_optional_climate = False
         self.optional_climate_id_number = -1
 
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HVAC_System_Usage(cls, _dict)
+
 
 # ------------------------------------------------------------------------------
 class Mechanicals(PHX._base._Base):
-    """Container class to collect all the Mechanical Systems on the Room"""
+    """Container to collect all the Mechanical Systems on the Room"""
 
     def __init__(self):
         super(Mechanicals, self).__init__()
         self._systems = defaultdict(list)
 
-    def add_system(self, _system):
-        self._systems[_system.identifier] = _system
+    def add_system(self, _system_to_add):
+        if _system_to_add:
+            self._systems[_system_to_add.identifier] = _system_to_add
 
     @property
     def systems(self):
@@ -60,17 +65,18 @@ class Mechanicals(PHX._base._Base):
 
 
 class MechanicalSystem(PHX._base._Base):
-    """An individual Mechanical System (Vent, DHW, etc...) class"""
+    """An individual Mechanical System such as Ventilation, heating, DHW, etc..."""
 
     _count = 0
     _default_ventilation = None
+    _default_hot_water = None
 
     def __init__(self):
         super(MechanicalSystem, self).__init__()
         self.id = self._count
         self.name = ""
-        self.system_group_type_number = 1  # Ideal Air
-        self.type_number = 1
+        self.system_group_type_number = 1  # __Mech_System :: Type :: Ideal Air
+        self.type_number = 1  # __HVAC_Device :: SystemType :: Mechanical ventilation
         self.lZoneCover = []
 
         self.equipment_set = PHX.mechanicals.equipment.EquipmentSet()
@@ -88,10 +94,23 @@ class MechanicalSystem(PHX._base._Base):
 
         new_obj = cls()
         new_obj.name = "Default Ventilation System"
-        new_obj.type_number = 1
+        new_obj.type_number = 1  # __Mech_Device :: SystemType :: Mechanical ventilation
         new_obj.system_usage.used_for_ventilation = True
 
         cls._default_ventilation = new_obj
+        return new_obj
+
+    @classmethod
+    def default_hot_water(cls):
+        if cls._default_hot_water:
+            return cls._default_hot_water
+
+        new_obj = cls()
+        new_obj.name = "Default Hot Water System"
+        new_obj.type_number = 2  # __HVAC_Device :: SystemType :: Electric resistance space heat / DHW
+        new_obj.system_usage.used_for_DHW = True
+
+        cls._default_hot_water = new_obj
         return new_obj
 
     @classmethod

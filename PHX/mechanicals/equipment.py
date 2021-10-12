@@ -159,3 +159,81 @@ class HVAC_Ventilator(HVAC_Device):
 
 # ------------------------------------------------------------------------------
 # -- DHW
+class HW_Tank(HVAC_Device):
+
+    _count = 0
+    _default = None
+
+    def __init__(self):
+        super(HW_Tank, self).__init__()
+        self.name = ""
+        self.id = self._count
+        self.device_type = 1
+        # self.PH_Parameters = HVAC_Ventilator_PH_Parameters()
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(HW_Tank, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls, *args, **kwargs):
+        """Returns a new HVAC_Device for a default HW Tank"""
+
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "__default_HW_tank__"
+        new_obj.device_type = 8  # Water storage
+
+        cls._default = new_obj
+        return new_obj
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HW_Tank(cls, _dict)
+
+
+class HW_Heater_Direct_Elec(HVAC_Device):
+    _count = 0
+    _default = None
+
+    def __init__(self):
+        super(HW_Heater_Direct_Elec, self).__init__()
+        self.name = ""
+        self.id = self._count
+        self.device_type = 2
+        self.watts = 0
+        # self.PH_Parameters = HVAC_Ventilator_PH_Parameters()
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(HW_Heater_Direct_Elec, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def default(cls, *args, **kwargs):
+        """Returns a new HVAC_Device for a default HW Direct Electtric Heater"""
+
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "__default_HW_tank__"
+        new_obj.device_type = 2  # Electric resistance space heat / DHW
+        new_obj.watts = 2000
+
+        cls._default = new_obj
+        return new_obj
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HW_Heater_Direct_Elec(cls, _dict)
+
+    def __str__(self):
+        return "PHX_{}(name={!r}, device_type={!r}, watts={!r})".format(
+            self.__class__.__name__, self.name, self.device_type, self.watts
+        )

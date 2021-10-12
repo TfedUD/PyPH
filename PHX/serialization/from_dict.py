@@ -266,11 +266,12 @@ def _Polygon(_cls, _input_dict):
 # ------- HVAC --------
 # -- HVAC: System
 def _Mechanicals(_cls, _input_dict):
+    print("getting mechanicals")
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
     system_dicts = _input_dict.get("_systems", {})
-    for system_dict in system_dicts:
+    for system_dict in system_dicts.values():
         new_obj.add_system(PHX.mechanicals.systems.MechanicalSystem.from_dict(system_dict))
 
     return new_obj
@@ -283,9 +284,25 @@ def _MechanicalSystem(_cls, _input_dict):
     new_obj.id = _input_dict.get("id")
     new_obj.name = _input_dict.get("name")
     new_obj.system_group_type_number = _input_dict.get("system_group_type_number")
-    new_obj.typtype_numbereSys = _input_dict.get("type_number")
+    new_obj.type_number = _input_dict.get("type_number")
     new_obj.lZoneCover = _input_dict.get("lZoneCover")
     new_obj.equipment_set = PHX.mechanicals.equipment.EquipmentSet.from_dict(_input_dict.get("equipment_set", {}))
+    new_obj.system_usage = PHX.mechanicals.systems.HVAC_System_Usage.from_dict(_input_dict.get("system_usage", {}))
+
+    return new_obj
+
+
+def _HVAC_System_Usage(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.used_for_heating = _input_dict.get("used_for_heating")
+    new_obj.used_for_DHW = _input_dict.get("used_for_DHW")
+    new_obj.used_for_cooling = _input_dict.get("used_for_cooling")
+    new_obj.used_for_ventilation = _input_dict.get("used_for_ventilation")
+    new_obj.used_for_humidification = _input_dict.get("used_for_humidification")
+    new_obj.used_for_dehumidification = _input_dict.get("used_for_dehumidification")
+    new_obj.used_optional_climate = _input_dict.get("used_optional_climate")
+    new_obj.optional_climate_id_number = _input_dict.get("optional_climate_id_number")
 
     return new_obj
 
@@ -403,6 +420,28 @@ def _SummerVent(_cls, _input_dict):
     new_obj.exhaust_spec_power = _input_dict.get("exhaust_spec_power")
     new_obj.additional_mech_control_mode = _input_dict.get("additional_mech_control_mode")
     new_obj.avg_mech_control_mode = _input_dict.get("avg_mech_control_mode")
+
+    return new_obj
+
+
+# -- HW: Equipment
+def _HW_Tank(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.device_type = _input_dict.get("device_type")
+
+    return new_obj
+
+
+def _HW_Heater_Direct_Elec(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.name = _input_dict.get("name")
+    new_obj.device_type = _input_dict.get("device_type")
+    new_obj.watts = _input_dict.get("watts")
 
     return new_obj
 

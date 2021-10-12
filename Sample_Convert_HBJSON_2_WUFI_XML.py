@@ -68,8 +68,9 @@ for room in hb_model.rooms:
 project_1 = PHX.project.Project()
 
 # ------------------------------------------------------------------------------
-# --- Build all the Rooms and Thermal-Zones first. The Thermal-Zones need to all be in place so that the Component's exterior
-# --- exposures for any adjacent-surfaces can be set with the proper ID number when building Components.
+# --- Build all the Rooms and Thermal-Zones first. The Thermal-Zones need to all
+# --- be in place so that the Component's exterior exposures for any adjacent-surfaces
+# --- can be set with the proper ID number when building Components.
 for room in hb_model.rooms:
     phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
@@ -83,7 +84,8 @@ for room in hb_model.rooms:
     phx_Room.electric_equipment = PyPH_HBJSON.create_PHX_programs.create_PHX_RoomElectricEquipment_from_HB_room(room)
 
     # -- Add Mechanical Equipment
-    phx_Room.mechanicals = PyPH_HBJSON.create_PHX_Mechanicals.create_PHX_Mechanicals_from_HB_room(room)
+    phx_Room.mechanicals.add_system(PyPH_HBJSON.create_PHX_Mechanicals.PHX_Mech_Ventilation_from_HB_room(room))
+    phx_Room.mechanicals.add_system(PyPH_HBJSON.create_PHX_Mechanicals.PHX_Mech_HotWater_from_HB_room(room))
 
     phx_Room.add_spaces(phx_Spaces)
     phx_Zone.add_rooms(phx_Room)

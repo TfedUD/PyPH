@@ -4,7 +4,7 @@
 """Selection Options. Make sure that the dict name here matches the XML Node Name"""
 
 # -- HVAC
-__HVAC_System = {
+__Mech_System = {
     "Type": {
         "attr_name": "choice",
         "enum": {
@@ -13,7 +13,7 @@ __HVAC_System = {
     },
 }
 
-__HVAC_Device = {
+__Mech_Device = {
     "SystemType": {
         "attr_name": "choice",
         "enum": {
@@ -31,8 +31,15 @@ __HVAC_Device = {
     "TypeDevice": {
         "attr_name": "choice",
         "enum": {
-            1: "Mechanical ventilation unit",
+            1: "Mechanical ventilation",
+            2: "Electric resistance space heat / DHW",
             3: "Boiler",
+            4: "District heating",
+            5: "Heat pump",
+            6: "Solar collector",
+            8: "Water storage",
+            10: "Photovoltaic / renewable energy",
+            13: "Drain water heat recovery",
         },
     },
 }

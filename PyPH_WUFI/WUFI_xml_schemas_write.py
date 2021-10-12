@@ -655,7 +655,7 @@ def _MechanicalSystemGroup(_obj, _wufi_obj=None) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", "System Group {}".format(_obj.group_type_number)),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_System::Type", _obj.group_type_number).xml_data
+            *PyPH_WUFI.selection.Selection("Mech_System::Type", _obj.group_type_number).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.group_type_number),
         PyPH_WUFI.xml_node.XML_List(
@@ -682,10 +682,10 @@ def _MechanicalSystem(_obj, _wufi_obj=None):
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::SystemType", _obj.type_number).xml_data
+            *PyPH_WUFI.selection.Selection("Mech_Device::SystemType", _obj.type_number).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("HVAC_Device::TypeDevice", _obj.type_number).xml_data
+            *PyPH_WUFI.selection.Selection("Mech_Device::TypeDevice", _obj.type_number).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.system_usage.used_for_heating),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.system_usage.used_for_DHW),

@@ -3,48 +3,69 @@
 
 """Functions for building PHX Mechanicals from Honeybee Rooms"""
 
-import PHX.mechanicals.systems
+from PHX.mechanicals.systems import MechanicalSystem
 import PHX.mechanicals.equipment
 
-import honeybee.room
+from honeybee.room import Room
 
 
-def create_PHX_Mechanicals_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.mechanicals.systems.Mechanicals:
-    ud_mech_system_dict = (_hb_room.user_data or {}).get("phx", {}).get("mechanicals", {})
+def PHX_Mech_Ventilation_from_HB_room(_hb_room: Room, _default: bool = False) -> MechanicalSystem:
+    """Will return the user_data Mechanical Ventilation system, if any.
+        If no user_data, will return default Ventiation System.
 
+    Arguments:
+    ----------
+        * _hb_room (honeybee.room.Room): The Honeybee room to use as the source.
+        * _default (bool): default=False. If True, will return a default Ventilation System if no
+            user_data is found. If False, will return None is no user_data is found.
+
+    Returns:
+    --------
+        * (PHX.mechanicals.systems.MechanicalSystem | None): The PHX MechanicalSystem (Ventilation)
+    """
+
+    ud_mech_system_dict = (_hb_room.user_data or {}).get("phx", {}).get("mech_system_ventilation", None)
     if ud_mech_system_dict:
-        # -- Rebuild the MechSystem from the user-input
-        mech = PHX.mechanicals.systems.Mechanicals()
-        mech.add_system(PHX.mechanicals.systems.MechanicalSystem.from_dict(ud_mech_system_dict))
-    else:
-        # -- No detailed User Input, add the default system with a default ventilator
-        mech = PHX.mechanicals.systems.Mechanicals()
+        # 1) -- Rebuild the MechSystem from the user-input
+        return MechanicalSystem.from_dict(ud_mech_system_dict)
+    elif _default:
+        # 2) -- OK, no detailed User Input, Return the default ventilation, with default ventilator
 
-        # -- Build the default ventilation, and ventilator. Add to the system
+        ventilation_sys = MechanicalSystem.default_ventilation()
         ventilator = PHX.mechanicals.equipment.HVAC_Ventilator.default()
-        ventilation_sys = PHX.mechanicals.systems.MechanicalSystem.default_ventilation()
         ventilation_sys.equipment_set.add_new_device_to_equipment_set(ventilator)
 
-        # -- Add the Vent sytstem to the Mechanicals Object
-        mech.add_system(ventilation_sys)
+        return ventilation_sys
+    else:
+        return None
 
-    return mech
 
+def PHX_Mech_HotWater_from_HB_room(_hb_room: Room, _default: bool = False) -> MechanicalSystem:
+    """Will return the user_data Mechanical DHW system, if any.
+        If no user_data, will return default DHW System.
 
-def create_system_from_hb_room(_hb_room: honeybee.room.Room) -> PHX.mechanicals.systems.MechanicalSystem:
-    # -- Get the Default Ventilator
-    ventilator = PHX.mechanicals.equipment.HVAC_Ventilator.default()
-    ventilator.name = "Room Ventilator"
+    Arguments:
+    ----------
+        * _hb_room (honeybee.room.Room): The Honeybee room to use as the source.
+        * _default (bool): default=False. If True, will return a default HW System if no
+            user_data is found. If False, will return None is no user_data is found.
 
-    # -- Create the Default Ventilation System, Add the default Ventilator
-    vent_sys = PHX.mechanicals.systems.MechanicalSystem.default_ventilation()
-    vent_sys.equipment.add_new_device_to_equipment_set(ventilator)
+    Returns:
+    --------
+        * (PHX.mechanicals.systems.MechanicalSystem | None): The PHX MechanicalSystem (DHW)
+    """
 
-    # -- Get and assign any user-defined Ventilator / System info found at the Room level
-    #
-    #
-    # TODO
-    #
-    #
+    ud_mech_system_dict = (_hb_room.user_data or {}).get("phx", {}).get("mech_system_dhw", None)
+    if ud_mech_system_dict:
+        # 1) -- Rebuild the MechSystem from the user-input
+        return MechanicalSystem.from_dict(ud_mech_system_dict)
+    elif _default:
+        # 2) -- OK, no detailed User Input, Return the default DHW System with tank
 
-    return vent_sys
+        dhw_sys = MechanicalSystem.default_hot_water()
+        elec_heater = PHX.mechanicals.equipment.HW_Heater_Direct_Elec.default()
+        dhw_sys.equipment_set.add_new_device_to_equipment_set(elec_heater)
+
+        return dhw_sys
+    else:
+        return None

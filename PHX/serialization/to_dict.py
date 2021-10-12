@@ -271,7 +271,22 @@ def _MechanicalSystem(_obj):
     d.update({"lZoneCover": _obj.lZoneCover})
     d.update({"equipment_set": _obj.equipment_set.to_dict()})
     # d.update({"distribution": _obj.distribution.to_dict()})
-    # d.update({"system_usage": _obj.system_usage.to_dict()})
+    d.update({"system_usage": _obj.system_usage.to_dict()})
+
+    return d
+
+
+def _HVAC_System_Usage(_obj):
+    d = {}
+
+    d.update({"used_for_heating": _obj.used_for_heating})
+    d.update({"used_for_DHW": _obj.used_for_DHW})
+    d.update({"used_for_cooling": _obj.used_for_cooling})
+    d.update({"used_for_ventilation": _obj.used_for_ventilation})
+    d.update({"used_for_humidification": _obj.used_for_humidification})
+    d.update({"used_for_dehumidification": _obj.used_for_dehumidification})
+    d.update({"used_optional_climate": _obj.used_optional_climate})
+    d.update({"optional_climate_id_number": _obj.optional_climate_id_number})
 
     return d
 
@@ -380,6 +395,28 @@ def _SummerVent(_obj):
     d.update({"exhaust_spec_power": _obj.exhaust_spec_power})
     d.update({"additional_mech_control_mode": _obj.additional_mech_control_mode})
     d.update({"avg_mech_control_mode": _obj.avg_mech_control_mode})
+
+    return d
+
+
+# -- HW: Equipment
+def _HW_Tank(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"device_type": _obj.device_type})
+
+    return d
+
+
+def _HW_Heater_Direct_Elec(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"name": _obj.name})
+    d.update({"device_type": _obj.device_type})
+    d.update({"watts": _obj.watts})
 
     return d
 
