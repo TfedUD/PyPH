@@ -33,12 +33,15 @@ class EquipmentSet(PHX._base._Base):
 
         Arguments:
         ----------
-            * _devices (list[HVAC_Device])
+            * _devices (list[HVAC_Device] | None)
 
         Returns:
         --------
             * None
         """
+
+        if not _devices:
+            return
 
         if not isinstance(_devices, list):
             _devices = [_devices]
@@ -66,15 +69,28 @@ class EquipmentSet(PHX._base._Base):
         return PHX.serialization.from_dict._EquipmentSet(cls, _dict)
 
 
+class HVAC_Device_Properties(PHX._base._Base):
+    """A super simple class to hold onto property data"""
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._HVAC_Device_Properties(cls, _dict)
+
+
 # ------------------------------------------------------------------------------
 # -- HVAC
 class HVAC_Device(PHX._base._Base):
     """Base Class for all HVAC Devices / Equipment"""
 
+    _default_properties = {}
+
     def __init__(self):
         super(HVAC_Device, self).__init__()
         self.name = ""
+        self.id = None
         self.device_type = None
+        self.system_type = None
+        self.properties = HVAC_Device_Properties()
 
     def __new__(cls, *args, **kwargs):
         """
@@ -88,49 +104,48 @@ class HVAC_Device(PHX._base._Base):
         return PHX.serialization.from_dict._HVAC_Device(cls, _dict)
 
 
-class HVAC_Ventilator_PH_Parameters(PHX._base._Base):
-    def __init__(self):
-        super(HVAC_Ventilator_PH_Parameters, self).__init__()
-        self.ElectricEfficiency = 0.45  # W/m3h
-        self.FrostProtection = True
-        self.Quantity = 1
-        self.SubsoilHeatExchangeEfficiency = 0.0
-        self.HumidityRecoveryEfficiency = 0.0
-        self.HeatRecoveryEfficiency = 0.75
-        self.VolumeFlowRateFrom = 0.0
-        self.VolumeFlowRateTo = 0.0
-        self.TemperatureBelowDefrostUsed = -5  # C
-        self.DefrostRequired = True
-        self.NoSummerBypass = False
-        self.HRVCalculatorData = None
-        self.Maximum_VOS = 0
-        self.Maximum_PP = 100
-        self.Standard_VOS = 0
-        self.Standard_PP = 0
-        self.Basic_VOS = 0
-        self.Basic_PP = 0
-        self.Minimum_VOS = 0
-        self.Minimum_PP = 0
-        self.AuxiliaryEnergy = 0.0
-        self.AuxiliaryEnergyDHW = 0.0
-        self.InConditionedSpace = True
-
-    @classmethod
-    def from_dict(cls, _dict):
-        return PHX.serialization.from_dict._HVAC_Ventilator_PH_Parameters(cls, _dict)
-
-
 class HVAC_Ventilator(HVAC_Device):
 
     _count = 0
     _default = None
+    _default_properties = {
+        "electric_efficiency": {"base": 0, "default": 0.45},
+        "frost_protection": {"base": True, "default": 0},
+        "quantity": {"base": 1, "default": 0},
+        "subsoil_heat_exchange_efficiency": {"base": 0, "default": 0},
+        "humidity_recovery_efficiency": {"base": 0, "default": 0},
+        "heat_recovery_efficiency": {"base": 0, "default": 0.75},
+        "volume_flowrate_from": {"base": 0, "default": 0},
+        "volume_flow_rate_to": {"base": 0, "default": 0},
+        "temperature_below_defrost_used": {"base": 0, "default": -5},
+        "defrost_required": {"base": False, "default": 0},
+        "no_summer_bypass": {"base": False, "default": 0},
+        "hrv_calculator_data": {"base": None, "default": 0},
+        "maximum_vos": {"base": 0, "default": 0},
+        "maximum_pp": {"base": 100, "default": 0},
+        "standard_vos": {"base": 0, "default": 0},
+        "standard_pp": {"base": 0, "default": 0},
+        "basic_vos": {"base": 0, "default": 0},
+        "basic_pp": {"base": 0, "default": 0},
+        "minimum_vos": {"base": 0, "default": 0},
+        "minimum_pp": {"base": 0, "default": 0},
+        "auxiliary_energy": {"base": 0, "default": 0},
+        "auxiliary_energy_dhw": {"base": 0, "default": 0},
+        "in_conditioned_space": {"base": True, "default": 0},
+    }
 
     def __init__(self):
         super(HVAC_Ventilator, self).__init__()
         self.name = ""
         self.id = self._count
         self.device_type = 1
-        self.PH_Parameters = HVAC_Ventilator_PH_Parameters()
+        self.system_type = 1
+        self.properties = HVAC_Device_Properties()
+        self._set_property_fields("base")
+
+    def _set_property_fields(self, _type="base"):
+        for k, v in self._default_properties.items():
+            setattr(self.properties, k, v.get(_type))
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -148,6 +163,10 @@ class HVAC_Ventilator(HVAC_Device):
 
         new_obj.name = "__default_ventilator__"
         new_obj.device_type = 1
+        new_obj.system_type = 1
+
+        # -- Set default properties
+        new_obj._set_property_fields("default")
 
         cls._default = new_obj
         return new_obj
@@ -163,13 +182,23 @@ class HW_Tank(HVAC_Device):
 
     _count = 0
     _default = None
+    _default_properties = {
+        "volume": {"base": 0, "default": 300},  # 300L == 80 Gallon
+        "standby_loses": {"base": 0, "default": 4},
+    }
 
     def __init__(self):
         super(HW_Tank, self).__init__()
         self.name = ""
         self.id = self._count
-        self.device_type = 1
-        # self.PH_Parameters = HVAC_Ventilator_PH_Parameters()
+        self.device_type = 8  # water storage
+        self.system_type = 8
+        self.properties = HVAC_Device_Properties()
+        self._set_property_fields("base")
+
+    def _set_property_fields(self, _type="base"):
+        for k, v in self._default_properties.items():
+            setattr(self.properties, k, v.get(_type))
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -187,6 +216,10 @@ class HW_Tank(HVAC_Device):
 
         new_obj.name = "__default_HW_tank__"
         new_obj.device_type = 8  # Water storage
+        new_obj.system_type = 8
+
+        # -- Set default properties
+        new_obj._set_property_fields("default")
 
         cls._default = new_obj
         return new_obj
@@ -199,14 +232,22 @@ class HW_Tank(HVAC_Device):
 class HW_Heater_Direct_Elec(HVAC_Device):
     _count = 0
     _default = None
+    _default_properties = {
+        "watts": {"base": 0, "default": 2000},
+    }
 
     def __init__(self):
         super(HW_Heater_Direct_Elec, self).__init__()
         self.name = ""
         self.id = self._count
-        self.device_type = 2
-        self.watts = 0
-        # self.PH_Parameters = HVAC_Ventilator_PH_Parameters()
+        self.device_type = 2  # Electric resistance space heat / DHW
+        self.system_type = 2
+        self.properties = HVAC_Device_Properties()
+        self._set_property_fields("base")
+
+    def _set_property_fields(self, _type="base"):
+        for k, v in self._default_properties.items():
+            setattr(self.properties, k, v.get(_type))
 
     def __new__(cls, *args, **kwargs):
         """Used so I can keep a running tally for the id variable"""
@@ -224,7 +265,9 @@ class HW_Heater_Direct_Elec(HVAC_Device):
 
         new_obj.name = "__default_HW_tank__"
         new_obj.device_type = 2  # Electric resistance space heat / DHW
-        new_obj.watts = 2000
+        new_obj.system_type = 2
+
+        new_obj._set_property_fields("default")
 
         cls._default = new_obj
         return new_obj
@@ -234,6 +277,4 @@ class HW_Heater_Direct_Elec(HVAC_Device):
         return PHX.serialization.from_dict._HW_Heater_Direct_Elec(cls, _dict)
 
     def __str__(self):
-        return "PHX_{}(name={!r}, device_type={!r}, watts={!r})".format(
-            self.__class__.__name__, self.name, self.device_type, self.watts
-        )
+        return "PHX_{}(name={!r}, device_type={!r})".format(self.__class__.__name__, self.name, self.device_type)

@@ -22,7 +22,7 @@
 """
 Builds new PHX-Spaces within the Honyebee-Rooms/Zones.
 -
-EM September 28, 2021
+EM September 30, 2021
     Args:
         _floor_surfaces (list[Surface]) The individual space floor surfaces represting 
             each individual 'space' inside the Honeybee Room (zone).
@@ -50,8 +50,6 @@ import LBT_Utils
 
 import PHX
 import PHX._base
-import PHX.hvac_system
-import PHX.ventilation_components
 import PHX.geometry
 import PHX.spaces
 import PHX.serialization.to_dict
@@ -71,15 +69,13 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create PHX Spaces"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_28_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_30_2021')
 
 if DEV:
     reload(LBT_Utils)
     
     reload(PHX)
     reload(PHX._base)
-    reload(PHX.hvac_system)
-    reload(PHX.ventilation_components)
     reload(PHX.geometry)
     reload(PHX.spaces)
     reload(PHX.serialization.to_dict)

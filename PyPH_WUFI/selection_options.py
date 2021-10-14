@@ -31,7 +31,7 @@ __Mech_Device = {
     "TypeDevice": {
         "attr_name": "choice",
         "enum": {
-            1: "Mechanical ventilation",
+            1: "Mechanical ventilation unit",
             2: "Electric resistance space heat / DHW",
             3: "Boiler",
             4: "District heating",

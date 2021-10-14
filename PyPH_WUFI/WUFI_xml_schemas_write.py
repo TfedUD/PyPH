@@ -11,17 +11,21 @@ Note: each function here should have the exact same name as its 'parent' but
 with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
-from collections import defaultdict, namedtuple
+from collections import namedtuple
+import PHX.mechanicals.systems
 
 import PyPH_WUFI.xml_node
 from PyPH_WUFI.xml_node import xml_writable
 import PyPH_WUFI.selection
 import PyPH_WUFI.WUFI_xml_convert_phx
-from PyPH_WUFI.WUFI_xml_conversion_functions import (
+from PyPH_WUFI.WUFI_xml_conversion_classes import (
     temp_Zone,
     temp_Space,
     temp_RoomVentilation,
     temp_Project,
+    temp_MechanicalSystemsGroup,
+    temp_Mechanicals,
+    temp_MechanicalDevice,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -608,49 +612,20 @@ def _Foundation(_obj, _wufi_obj=None):
 
 # ------------------------------------------------------------------------------
 # -- HVAC
-class MechanicalSystemGroup:
-    """Temporary MechSystem-Group class cus' WUFI structure is weird"""
-
-    def __init__(self):
-        self.group_type_number = 1
-        self.systems = []
-
-
-def _Mechanicals(_obj, _wufi_obj=None) -> list[xml_writable]:
-    # Sort the Mechanical Systems into groups by group-type
-    system_dict = defaultdict(list)
-    for sys in _obj.systems:
-        system_dict[sys.system_group_type_number].append(sys)
-
-    mech_groups = []
-    for group_type_num, systems in system_dict.items():
-        new_Mech_Group = MechanicalSystemGroup()
-        new_Mech_Group.group_type_number = group_type_num
-        new_Mech_Group.systems = systems
-        mech_groups.append(new_Mech_Group)
+def _Mechanicals(_obj: PHX.mechanicals.systems.Mechanicals, _wufi_obj: temp_Mechanicals) -> list[xml_writable]:
 
     return [
         PyPH_WUFI.xml_node.XML_List(
             "Systems",
             [
                 PyPH_WUFI.xml_node.XML_Object("System", _, "index", i, _schema_name="_MechanicalSystemGroup")
-                for i, _ in enumerate(mech_groups)
+                for i, _ in enumerate(_wufi_obj.mech_groups)  # -- temp_MechanicalSystemsGroup objects
             ],
         ),
     ]
 
 
-def _MechanicalSystemGroup(_obj, _wufi_obj=None) -> list[xml_writable]:
-    # -- In WUFI, a list of multiple systems are allowed. By default, only a single system is implemented right now
-
-    def create_PHDistribution(_obj, _wufi_obj=None):
-        # -- Build the PHDistribution Attributes
-        if _obj.systems:
-            def_values = _obj.systems[0].distribution.use_default_values
-            in_cond_space = _obj.systems[0].distribution.device_in_conditioned_space
-
-        PHDistribution = namedtuple("tPHDistribution", ["use_default_values", "device_in_conditioned_space"])
-        return PHDistribution(def_values, in_cond_space)
+def _MechanicalSystemGroup(_obj: temp_MechanicalSystemsGroup, _wufi_obj=None) -> list[xml_writable]:
 
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", "System Group {}".format(_obj.group_type_number)),
@@ -661,31 +636,22 @@ def _MechanicalSystemGroup(_obj, _wufi_obj=None) -> list[xml_writable]:
         PyPH_WUFI.xml_node.XML_List(
             "Devices",
             [
-                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_MechanicalSystem")
-                for i, _ in enumerate(_obj.systems)
+                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_HVAC_Device")
+                for i, _ in enumerate(_obj.wufi_devices)
             ],
         ),
-        PyPH_WUFI.xml_node.XML_Object("PHDistribution", create_PHDistribution(_obj), _schema_name="_PHDistribution"),
-        # PyPH_WUFI.xml_node.XML_Node("Distribution", _obj.distrib),
     ]
 
 
-def _PHDistribution(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("UseDefaultValues", _obj.use_default_values),
-        PyPH_WUFI.xml_node.XML_Node("DeviceInConditionedSpace", _obj.device_in_conditioned_space),
-    ]
-
-
-def _MechanicalSystem(_obj, _wufi_obj=None):
+def _HVAC_Device(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
     node_items = [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Mech_Device::SystemType", _obj.type_number).xml_data
+            *PyPH_WUFI.selection.Selection("Mech_Device::SystemType", _obj.system_type).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Mech_Device::TypeDevice", _obj.type_number).xml_data
+            *PyPH_WUFI.selection.Selection("Mech_Device::TypeDevice", _obj.device_type).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.system_usage.used_for_heating),
         PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.system_usage.used_for_DHW),
@@ -697,83 +663,152 @@ def _MechanicalSystem(_obj, _wufi_obj=None):
         PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.system_usage.optional_climate_id_number),
     ]
 
-    if _obj.type_number == 1:
+    # -- For the different types of devices, add in their specific properties
+    if _obj.device_type == 1:
         # -- Ventilator
         node_items.extend(_HVAC_Ventilator(_obj))
+    elif _obj.device_type == 2:
+        # -- Elec Space Heat / DHW
+        node_items.extend(_HVAC_Elec_Heat_DHW(_obj))
+    elif _obj.device_type == 8:
+        # -- Water Storage
+        node_items.extend(_HVAC_Water_Tank(_obj))
 
     return node_items
 
 
-def _HVAC_Ventilator_PH_Parameters(_obj, _wufi_obj=None) -> list[xml_writable]:
+# -- HVAC Device | Ventilator
+def _HVAC_Ventilator(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
     return [
-        PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.Quantity),
+        PyPH_WUFI.xml_node.XML_Object(
+            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properities_Ventilation_PH"
+        ),
+        PyPH_WUFI.xml_node.XML_Object(
+            "Ventilation_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Ventilation"
+        ),
+        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.properties.heat_recovery_efficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MoistureRecovery",
+            _obj.properties.humidity_recovery_efficiency,
+            "unit",
+            "-",
+        ),
+    ]
+
+
+def _HVAC_Properities_Ventilation_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Quantity", 1),
         PyPH_WUFI.xml_node.XML_Node(
             "ElectricEfficiency",
-            _obj.ElectricEfficiency,
+            _obj.electric_efficiency,
             "unit",
             "Wh/m³",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "SubsoilHeatExchangeEfficiency",
-            _obj.SubsoilHeatExchangeEfficiency,
+            _obj.subsoil_heat_exchange_efficiency,
             "unit",
             "-",
         ),
         PyPH_WUFI.xml_node.XML_Node(
             "HumidityRecoveryEfficiency",
-            _obj.HumidityRecoveryEfficiency,
+            _obj.humidity_recovery_efficiency,
             "unit",
             "-",
         ),
-        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateFrom", _obj.VolumeFlowRateFrom, "unit", "m³/h"),
-        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateTo", _obj.VolumeFlowRateTo, "unit", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateFrom", _obj.volume_flowrate_from, "unit", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateTo", _obj.volume_flow_rate_to, "unit", "m³/h"),
         PyPH_WUFI.xml_node.XML_Node(
             "TemperatureBelowDefrostUsed",
-            _obj.TemperatureBelowDefrostUsed,
+            _obj.temperature_below_defrost_used,
             "unit",
             "°C",
         ),
-        PyPH_WUFI.xml_node.XML_Node("FrostProtection", _obj.FrostProtection),
-        PyPH_WUFI.xml_node.XML_Node("DefrostRequired", _obj.DefrostRequired),
-        PyPH_WUFI.xml_node.XML_Node("NoSummerBypass", _obj.NoSummerBypass),
-        PyPH_WUFI.xml_node.XML_Node("HRVCalculatorData", _obj.HRVCalculatorData),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_VOS", _obj.Maximum_VOS),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PP", _obj.Maximum_PP),
-        PyPH_WUFI.xml_node.XML_Node("Standard_VOS", _obj.Standard_VOS),
-        PyPH_WUFI.xml_node.XML_Node("Standard_PP", _obj.Standard_PP),
-        PyPH_WUFI.xml_node.XML_Node("Basic_VOS", _obj.Basic_VOS),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PP", _obj.Basic_PP),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_VOS", _obj.Minimum_VOS),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PP", _obj.Minimum_PP),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", _obj.AuxiliaryEnergy, "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", _obj.AuxiliaryEnergyDHW, "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.InConditionedSpace),
+        PyPH_WUFI.xml_node.XML_Node("FrostProtection", _obj.frost_protection),
+        PyPH_WUFI.xml_node.XML_Node("DefrostRequired", _obj.defrost_required),
+        PyPH_WUFI.xml_node.XML_Node("NoSummerBypass", _obj.no_summer_bypass),
+        PyPH_WUFI.xml_node.XML_Node("HRVCalculatorData", _obj.hrv_calculator_data),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_VOS", _obj.maximum_vos),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PP", _obj.maximum_pp),
+        PyPH_WUFI.xml_node.XML_Node("Standard_VOS", _obj.standard_vos),
+        PyPH_WUFI.xml_node.XML_Node("Standard_PP", _obj.standard_pp),
+        PyPH_WUFI.xml_node.XML_Node("Basic_VOS", _obj.basic_vos),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PP", _obj.basic_pp),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_VOS", _obj.minimum_vos),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PP", _obj.minimum_pp),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", _obj.auxiliary_energy, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", _obj.auxiliary_energy_dhw, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
     ]
 
 
-def _HVAC_Ventilator(_obj, _wufi_obj=None) -> list[xml_writable]:
-    def _get_ventilator_from_system(_system):
-        # -- Get the Ventilator from the Mech System, if any
-        ventilators = _system.equipment_set.get_all_devices_by_type(1)
-        if ventilators:
-            return ventilators[0]
-        else:
-            return None
+def _HVAC_Properties_Ventilation(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 51, "choice", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]
 
-    ventilator = _get_ventilator_from_system(_obj)
-    if ventilator:
-        return [
-            PyPH_WUFI.xml_node.XML_Object("PH_Parameters", ventilator.PH_Parameters),
-            PyPH_WUFI.xml_node.XML_Node("HeatRecovery", ventilator.PH_Parameters.HeatRecoveryEfficiency, "unit", "-"),
-            PyPH_WUFI.xml_node.XML_Node(
-                "MoistureRecovery",
-                ventilator.PH_Parameters.HumidityRecoveryEfficiency,
-                "unit",
-                "-",
-            ),
-        ]
-    else:
-        return []
+
+# -- HVAC Device | Elect Heater / DHW
+def _HVAC_Elec_Heat_DHW(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Object(
+            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW_PH"
+        ),
+        PyPH_WUFI.xml_node.XML_Object(
+            "DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW"
+        ),
+    ]
+
+
+def _HVAC_Properties_Elec_Heat_DHW_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
+    ]
+
+
+def _HVAC_Properties_Elec_Heat_DHW(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]
+
+
+# -- HVAC Device | Hot Water Tank
+def _HVAC_Water_Tank(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank_PH"),
+        PyPH_WUFI.xml_node.XML_Object("DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank"),
+    ]
+
+
+def _HVAC_Properties_Water_Tank_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("SolarThermalStorageCapacity", _obj.volume, "unit", "Liter"),
+        PyPH_WUFI.xml_node.XML_Node("StorageLossesStandby", "unit", "W/K"),
+        PyPH_WUFI.xml_node.XML_Node("TotalSolarThermalStorageLosses", _obj.standby_loses, "unit", "W/K"),
+        PyPH_WUFI.xml_node.XML_Node("InputOption", 1, "choice", "Specific total losses"),
+        PyPH_WUFI.xml_node.XML_Node("AverageHeatReleaseStorage", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("TankRoomTemp", "unit", "°C"),
+        PyPH_WUFI.xml_node.XML_Node("TypicalStorageWaterTemperature", "unit", "°C"),
+        PyPH_WUFI.xml_node.XML_Node("QauntityWS", 1),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
+    ]
+
+
+def _HVAC_Properties_Water_Tank(_obj, _wufi_obj=None) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]
 
 
 # ------------------------------------------------------------------------------

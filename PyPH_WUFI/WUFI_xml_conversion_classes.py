@@ -6,6 +6,7 @@
 These classes also allow for the reorganization of the PHX model elements into WUFI structure.
 """
 
+from collections import defaultdict
 from typing import Union
 from dataclasses import dataclass, field
 
@@ -140,5 +141,37 @@ class temp_Project:
     util_pattern_collection_ventilation: UtilizationPatternCollection_Vent = UtilizationPatternCollection_Vent()
 
 
+class temp_Mechanicals:
+    def __init__(self):
+        self._mech_groups = defaultdict(list)
+
+    @property
+    def mech_groups(self):
+        return self._mech_groups.values()
+
+
+@dataclass
+class temp_MechanicalSystemsGroup:
+    """Reorganize Mechanicals into groups, so it matches the WUFI format"""
+
+    wufi_devices: list = field(default_factory=list)
+    group_type_number: int = 1
+
+
+@dataclass
+class temp_MechanicalDevice:
+    """A WUFI 'Device' which is one part of a larger 'SystemGroup'"""
+
+    name: str = ""
+    id: int = 1
+    device: None = None
+    device_type: int = 1
+    system_type: int = 1
+    system_usage: PHX.mechanicals.systems.HVAC_System_Usage = PHX.mechanicals.systems.HVAC_System_Usage()
+    properties: None = None
+
+
 # Type Alias
-temp_WUFI = Union[temp_Project, temp_RoomVentilation, temp_Zone, temp_Space]
+temp_WUFI = Union[
+    temp_Project, temp_RoomVentilation, temp_Zone, temp_Space, temp_MechanicalSystemsGroup, temp_MechanicalDevice
+]

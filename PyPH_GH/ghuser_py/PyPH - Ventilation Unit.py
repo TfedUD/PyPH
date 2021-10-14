@@ -23,7 +23,7 @@
 Collects and organizes data for a Ventilator Unit (HRV/ERV). Used to build up a 
 PH-Style Ventilation System.
 -
-EM October 05, 2021
+EM October 14, 2021
     Args:
         unit_name_: <Optional> The name of the Ventilator Unit
         heat_recovery_eff_: <Optional> Input the Ventialtion Unit's Heat Recovery %. Default is 75% 
@@ -45,7 +45,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation Unit"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_14_2021')
 
 if DEV:
     reload(PHX.mechanicals.equipment)
@@ -81,13 +81,15 @@ for i, name in enumerate(unit_name_):
     unit.UsedFor_Ventilation = True
     
     # -- Custom Attributes
-    unit.Name = name or 'Unnamed Vent. Unit'
-    unit.PH_Parameters.HeatRecoveryEfficiency = validate_efficiency(default_list_item(heat_recovery_eff_, i)) or unit.PH_Parameters.HeatRecoveryEfficiency
-    unit.PH_Parameters.HumidityRecoveryEfficiency = validate_efficiency(default_list_item(moisture_recovery_eff_, i)) or unit.PH_Parameters.HumidityRecoveryEfficiency
+    unit.name = name or 'Unnamed Vent. Unit'
+    unit.properties.heat_recovery_efficiency = validate_efficiency(default_list_item(heat_recovery_eff_, i)) or unit.properties.heat_recovery_efficiency
+    unit.properties.humidity_recovery_efficiency = validate_efficiency(default_list_item(moisture_recovery_eff_, i)) or unit.properties.humidity_recovery_efficiency
     
-    unit.PH_Parameters.ElectricEfficiency = default_list_item(electrical_eff_, i) or unit.PH_Parameters.ElectricEfficiency
-    unit.PH_Parameters.TemperatureBelowDefrostUsed = default_list_item(frost_temp_, i) or unit.PH_Parameters.TemperatureBelowDefrostUsed
-    unit.PH_Parameters.InConditionedSpace = default_list_item(install_location_, i) or unit.PH_Parameters.InConditionedSpace
+    unit.properties.electric_efficiency = default_list_item(electrical_eff_, i) or unit.properties.electric_efficiency
+    unit.properties.temperature_below_defrost_used = default_list_item(frost_temp_, i) or unit.properties.temperature_below_defrost_used
+    unit.properties.in_conditioned_space = default_list_item(install_location_, i) or unit.properties.in_conditioned_space
+    
+    unit.properties.to_dict()
     
     unit_.append(unit)
     

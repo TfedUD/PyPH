@@ -138,6 +138,26 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
+    # ---------------------------------------------------------------------------
+    # Section 01.xx | DHW
+    "PyPH - DHW Storage Tank": {
+        "NickName": "PHX DHW: Tank",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - DHW Elec Heater": {
+        "NickName": "PHX DHW: Elec. Heater",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - DHW System": {
+        "NickName": "PHX DHW: System",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
 }
 
 

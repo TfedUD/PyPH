@@ -23,7 +23,7 @@
 Collects and organizes data for a simple fresh-air ventilation system (HRV/ERV). 
 Outputs a 'ventilation' class object to apply to a HB Zone.
 -
-EM October 05, 2021
+EM October 14, 2021
     Args:
         system_name_: <Optional> A name for the overall system. ie: 'ERV-1', 
             etc.. Will show up in the 'Additional Ventilation' worksheet as the 
@@ -64,7 +64,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Ventilation System"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_14_2021')
 
 if DEV:
     reload(PHX)
@@ -75,6 +75,7 @@ if DEV:
     reload(LBT_Utils)
     reload(PHX.serialization)
     reload(PHX.serialization.to_dict)
+    reload(PHX.serialization.from_dict)
     reload(PyPH_Rhino.ventilation) 
     reload(PyPH_Rhino.gh_io)
 
@@ -107,6 +108,7 @@ for i, branch in enumerate(_HB_rooms.Branches):
     
     vent_unit = default_list_item(vent_unit_, i) or PHX.mechanicals.equipment.HVAC_Ventilator()
     new_system.equipment_set.add_new_device_to_equipment_set( vent_unit )
+    new_system.system_usage.used_for_ventilation = True
     #new_system.duct_01 = PyPH_Rhino.ventilation.create_duct(IGH, duct_01_, 'duct_01_')
     #new_system.duct_02 = PyPH_Rhino.ventilation.create_duct(IGH, duct_02_, 'duct_02_')
     
@@ -119,7 +121,7 @@ for i, branch in enumerate(_HB_rooms.Branches):
         
         # -- Add the Mechanical System to the Room
         new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
-                                        new_system.to_dict(), 'mechanicals', _write_mode='overwrite')
+                                        new_system.to_dict(), 'mech_system_ventilation', _write_mode='overwrite')
         
         HB_rooms_.Add( new_hb_room, GH_Path(i) )
     

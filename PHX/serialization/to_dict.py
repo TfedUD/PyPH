@@ -6,6 +6,8 @@ Functions for converting PHX Objects to serializable text dictionaries. All PHX 
 should be able to be converted to fully text represenations.
 """
 
+import json
+
 # -- Base
 def __Base(_obj):
     d = {}
@@ -267,7 +269,6 @@ def _MechanicalSystem(_obj):
     d.update({"id": _obj.id})
     d.update({"name": _obj.name})
     d.update({"system_group_type_number": _obj.system_group_type_number})
-    d.update({"type_number": _obj.type_number})
     d.update({"lZoneCover": _obj.lZoneCover})
     d.update({"equipment_set": _obj.equipment_set.to_dict()})
     # d.update({"distribution": _obj.distribution.to_dict()})
@@ -313,10 +314,27 @@ def _HVAC_Device(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
     d.update({"device_type": _obj.device_type})
+    d.update({"system_type": _obj.system_type})
+    d.update({"_class_name_": _obj.__class__.__name__})
+    d.update({"properties": _obj.properties.to_dict()})
 
     return d
 
 
+def _HVAC_Device_Properties(_obj):
+    d = {}
+
+    for k, v in _obj.__dict__.items():
+        try:
+            json.dumps({k: v})
+            d.update({k: v})
+        except TypeError:
+            d.update({k: str(v)})
+
+    return d
+
+
+# -- HVAC: Equipment : Ventilation
 def _HVAC_Ventilator(_obj):
     d = {}
 
@@ -324,37 +342,9 @@ def _HVAC_Ventilator(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
     d.update({"device_type": _obj.device_type})
-    d.update({"PH_Parameters": _obj.PH_Parameters.to_dict()})
-
-    return d
-
-
-def _HVAC_Ventilator_PH_Parameters(_obj):
-    d = {}
-
-    d.update({"HeatRecoveryEfficiency": _obj.HeatRecoveryEfficiency})
-    d.update({"HumidityRecoveryEfficiency": _obj.HumidityRecoveryEfficiency})
-    d.update({"ElectricEfficiency": _obj.ElectricEfficiency})
-    d.update({"FrostProtection": _obj.FrostProtection})
-    d.update({"Quantity": _obj.Quantity})
-    d.update({"SubsoilHeatExchangeEfficiency": _obj.SubsoilHeatExchangeEfficiency})
-    d.update({"VolumeFlowRateFrom": _obj.VolumeFlowRateFrom})
-    d.update({"VolumeFlowRateTo": _obj.VolumeFlowRateTo})
-    d.update({"TemperatureBelowDefrostUsed": _obj.TemperatureBelowDefrostUsed})
-    d.update({"DefrostRequired": _obj.DefrostRequired})
-    d.update({"NoSummerBypass": _obj.NoSummerBypass})
-    d.update({"HRVCalculatorData": _obj.HRVCalculatorData})
-    d.update({"Maximum_VOS": _obj.Maximum_VOS})
-    d.update({"Maximum_PP": _obj.Maximum_PP})
-    d.update({"Standard_VOS": _obj.Standard_VOS})
-    d.update({"Standard_PP": _obj.Standard_PP})
-    d.update({"Basic_VOS": _obj.Basic_VOS})
-    d.update({"Basic_PP": _obj.Basic_PP})
-    d.update({"Minimum_VOS": _obj.Minimum_VOS})
-    d.update({"Minimum_PP": _obj.Minimum_PP})
-    d.update({"AuxiliaryEnergy": _obj.AuxiliaryEnergy})
-    d.update({"AuxiliaryEnergyDHW": _obj.AuxiliaryEnergyDHW})
-    d.update({"InConditionedSpace": _obj.InConditionedSpace})
+    d.update({"system_type": _obj.system_type})
+    d.update({"_class_name_": _obj.__class__.__name__})
+    d.update({"properties": _obj.properties.to_dict()})
 
     return d
 
@@ -400,12 +390,18 @@ def _SummerVent(_obj):
 
 
 # -- HW: Equipment
+
+
 def _HW_Tank(_obj):
     d = {}
 
+    d.update({"id": _obj.id})
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
     d.update({"device_type": _obj.device_type})
+    d.update({"system_type": _obj.system_type})
+    d.update({"_class_name_": _obj.__class__.__name__})
+    d.update({"properties": _obj.properties.to_dict()})
 
     return d
 
@@ -413,10 +409,13 @@ def _HW_Tank(_obj):
 def _HW_Heater_Direct_Elec(_obj):
     d = {}
 
+    d.update({"id": _obj.id})
     d.update({"identifier": str(_obj.identifier)})
     d.update({"name": _obj.name})
     d.update({"device_type": _obj.device_type})
-    d.update({"watts": _obj.watts})
+    d.update({"system_type": _obj.system_type})
+    d.update({"_class_name_": _obj.__class__.__name__})
+    d.update({"properties": _obj.properties.to_dict()})
 
     return d
 

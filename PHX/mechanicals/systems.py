@@ -28,6 +28,19 @@ class HVAC_System_Usage(PHX._base._Base):
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._HVAC_System_Usage(cls, _dict)
 
+    def __str__(self):
+        return "{}(Htg:{}, DHW:{}, Clg:, Vent:{}, Hum:{}, Dehum: {})".format(
+            self.__class__.__name__,
+            self.used_for_heating,
+            self.used_for_DHW,
+            self.used_for_ventilation,
+            self.used_for_humidification,
+            self.used_for_dehumidification,
+        )
+
+    def __repr__(self):
+        return str(self)
+
 
 # ------------------------------------------------------------------------------
 class Mechanicals(PHX._base._Base):
@@ -76,7 +89,6 @@ class MechanicalSystem(PHX._base._Base):
         self.id = self._count
         self.name = ""
         self.system_group_type_number = 1  # __Mech_System :: Type :: Ideal Air
-        self.type_number = 1  # __HVAC_Device :: SystemType :: Mechanical ventilation
         self.lZoneCover = []
 
         self.equipment_set = PHX.mechanicals.equipment.EquipmentSet()
@@ -94,7 +106,6 @@ class MechanicalSystem(PHX._base._Base):
 
         new_obj = cls()
         new_obj.name = "Default Ventilation System"
-        new_obj.type_number = 1  # __Mech_Device :: SystemType :: Mechanical ventilation
         new_obj.system_usage.used_for_ventilation = True
 
         cls._default_ventilation = new_obj
@@ -107,7 +118,6 @@ class MechanicalSystem(PHX._base._Base):
 
         new_obj = cls()
         new_obj.name = "Default Hot Water System"
-        new_obj.type_number = 2  # __HVAC_Device :: SystemType :: Electric resistance space heat / DHW
         new_obj.system_usage.used_for_DHW = True
 
         cls._default_hot_water = new_obj
@@ -116,3 +126,11 @@ class MechanicalSystem(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._MechanicalSystem(cls, _dict)
+
+    def __str__(self):
+        return "{!r}(name={!r}, id={!r}, system_group_type_number={!r})".format(
+            self.__class__.__name__, self.name, self.id, self.system_group_type_number
+        )
+
+    def __repr__(self):
+        return str(self)

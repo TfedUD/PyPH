@@ -284,7 +284,6 @@ def _MechanicalSystem(_cls, _input_dict):
     new_obj.id = _input_dict.get("id")
     new_obj.name = _input_dict.get("name")
     new_obj.system_group_type_number = _input_dict.get("system_group_type_number")
-    new_obj.type_number = _input_dict.get("type_number")
     new_obj.lZoneCover = _input_dict.get("lZoneCover")
     new_obj.equipment_set = PHX.mechanicals.equipment.EquipmentSet.from_dict(_input_dict.get("equipment_set", {}))
     new_obj.system_usage = PHX.mechanicals.systems.HVAC_System_Usage.from_dict(_input_dict.get("system_usage", {}))
@@ -316,11 +315,14 @@ def _EquipmentSet(_cls, _input_dict):
 
     equipment_dicts = _input_dict.get("equipment", [])
     for equipment_dict in equipment_dicts:
-        device_type = equipment_dict.get("device_type", -1)
 
-        if device_type == 1:
-            new_equipment = PHX.mechanicals.equipment.HVAC_Ventilator.from_dict(equipment_dict)
-        else:
+        # -- Try and get the right 'Type' of Device from_dict() constructor.
+        # -- Will default to generic "HVAC Device" if no constructor is found or if error
+        try:
+            device_type_name = equipment_dict.get("_class_name_", "HVAC_Device")
+            from_dict_constructor = "PHX.mechanicals.equipment.{}.from_dict(equipment_dict)".format(device_type_name)
+            new_equipment = eval(from_dict_constructor)
+        except Exception:
             new_equipment = PHX.mechanicals.equipment.HVAC_Device.from_dict(equipment_dict)
 
         new_obj.add_new_device_to_equipment_set(new_equipment)
@@ -335,10 +337,22 @@ def _HVAC_Device(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
     new_obj.device_type = _input_dict.get("device_type")
+    new_obj.system_type = _input_dict.get("system_type")
+    new_obj.properties = PHX.mechanicals.equipment.HVAC_Device_Properties.from_dict(_input_dict.get("properties", {}))
 
     return new_obj
 
 
+def _HVAC_Device_Properties(_cls, _input_dict):
+    new_obj = _cls()
+
+    for k, v in _input_dict.items():
+        setattr(new_obj, k, v)
+
+    return new_obj
+
+
+# -- HVAC: Equipment : Ventilation
 def _HVAC_Ventilator(_cls, _input_dict):
     new_obj = _cls()
 
@@ -346,39 +360,8 @@ def _HVAC_Ventilator(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
     new_obj.device_type = _input_dict.get("device_type")
-    new_obj.PH_Parameters = PHX.mechanicals.equipment.HVAC_Ventilator_PH_Parameters.from_dict(
-        _input_dict.get("PH_Parameters", {})
-    )
-
-    return new_obj
-
-
-def _HVAC_Ventilator_PH_Parameters(_cls, _input_dict):
-    new_obj = _cls()
-
-    new_obj.HeatRecoveryEfficiency = _input_dict.get("HeatRecoveryEfficiency")
-    new_obj.ElectricEfficiency = _input_dict.get("ElectricEfficiency")
-    new_obj.FrostProtection = _input_dict.get("FrostProtection")
-    new_obj.Quantity = _input_dict.get("Quantity")
-    new_obj.SubsoilHeatExchangeEfficiency = _input_dict.get("SubsoilHeatExchangeEfficiency")
-    new_obj.HumidityRecoveryEfficiency = _input_dict.get("HumidityRecoveryEfficiency")
-    new_obj.VolumeFlowRateFrom = _input_dict.get("VolumeFlowRateFrom")
-    new_obj.VolumeFlowRateTo = _input_dict.get("VolumeFlowRateTo")
-    new_obj.TemperatureBelowDefrostUsed = _input_dict.get("TemperatureBelowDefrostUsed")
-    new_obj.DefrostRequired = _input_dict.get("DefrostRequired")
-    new_obj.NoSummerBypass = _input_dict.get("NoSummerBypass")
-    new_obj.HRVCalculatorData = _input_dict.get("HRVCalculatorData")
-    new_obj.Maximum_VOS = _input_dict.get("Maximum_VOS")
-    new_obj.Maximum_PP = _input_dict.get("Maximum_PP")
-    new_obj.Standard_VOS = _input_dict.get("Standard_VOS")
-    new_obj.Standard_PP = _input_dict.get("Standard_PP")
-    new_obj.Basic_VOS = _input_dict.get("Basic_VOS")
-    new_obj.Basic_PP = _input_dict.get("Basic_PP")
-    new_obj.Minimum_VOS = _input_dict.get("Minimum_VOS")
-    new_obj.Minimum_PP = _input_dict.get("Minimum_PP")
-    new_obj.AuxiliaryEnergy = _input_dict.get("AuxiliaryEnergy")
-    new_obj.AuxiliaryEnergyDHW = _input_dict.get("AuxiliaryEnergyDHW")
-    new_obj.InConditionedSpace = _input_dict.get("InConditionedSpace")
+    new_obj.system_type = _input_dict.get("system_type")
+    new_obj.properties = PHX.mechanicals.equipment.HVAC_Device_Properties.from_dict(_input_dict.get("properties", {}))
 
     return new_obj
 
@@ -431,6 +414,8 @@ def _HW_Tank(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
     new_obj.device_type = _input_dict.get("device_type")
+    new_obj.system_type = _input_dict.get("system_type")
+    new_obj.properties = PHX.mechanicals.equipment.HVAC_Device_Properties.from_dict(_input_dict.get("properties", {}))
 
     return new_obj
 
@@ -441,7 +426,8 @@ def _HW_Heater_Direct_Elec(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.name = _input_dict.get("name")
     new_obj.device_type = _input_dict.get("device_type")
-    new_obj.watts = _input_dict.get("watts")
+    new_obj.system_type = _input_dict.get("system_type")
+    new_obj.properties = PHX.mechanicals.equipment.HVAC_Device_Properties.from_dict(_input_dict.get("properties", {}))
 
     return new_obj
 

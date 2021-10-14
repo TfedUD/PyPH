@@ -12,6 +12,9 @@ preceeded by an undrscore: "_" ie: Room --> "_Room".
 """
 
 import PHX.bldg_segment
+from PHX.project import Project
+from PHX.mechanicals.systems import Mechanicals, MechanicalSystem
+from PHX.mechanicals.equipment import HVAC_Device
 from PyPH_WUFI.WUFI_xml_conversion_classes import (
     UtilizationPattern_Vent,
     UtilizationPatternCollection_Vent,
@@ -21,6 +24,9 @@ from PyPH_WUFI.WUFI_xml_conversion_classes import (
     temp_Space,
     temp_Zone,
     temp_Project,
+    temp_MechanicalSystemsGroup,
+    temp_MechanicalDevice,
+    temp_Mechanicals,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -142,7 +148,7 @@ def _build_vent_UtilCollection_from_zones(_zones: list[PHX.bldg_segment.Zone]) -
     return util_collection
 
 
-def _Project(_phx_project: PHX.project.Project) -> temp_Project:
+def _Project(_phx_project: Project) -> temp_Project:
     """Create the WUFI 'Utilization Pattern' Collections from the schedules and loads"""
 
     temp_project = temp_Project()
@@ -151,3 +157,88 @@ def _Project(_phx_project: PHX.project.Project) -> temp_Project:
     temp_project.util_pattern_collection_ventilation = _build_vent_UtilCollection_from_zones(_phx_project.zones)
 
     return temp_project
+
+
+# ------------------------------------------------------------------------------
+# -- HVAC Systems
+def _Mechanicals(_phx_mechanicals: Mechanicals) -> temp_Mechanicals:
+    """Sort the PHX Mechanical Systems by 'Group Type'
+
+    Arguments:
+    ----------
+        * _phx_mechanicals (PHX.mechanicals.systems.Mechanicals): The PHX 'Mechanicals' objetct to use.
+
+    Returns:
+    --------
+        * (temp_Mechanicals): The Temp 'Mechanicals' with the systems grouped and re-organized.
+    """
+
+    tM = temp_Mechanicals()
+
+    for phx_sys in _phx_mechanicals.systems:
+        if phx_sys.system_group_type_number not in tM._mech_groups.keys():
+            tGr = temp_MechanicalSystemsGroup()
+            tGr.group_type_number = phx_sys.system_group_type_number
+            tM._mech_groups[phx_sys.system_group_type_number] = tGr
+        else:
+            tGr = tM._mech_groups[phx_sys.system_group_type_number]
+
+        wufi_devices = _tHVAC_Devices_from_PHX_Sys(phx_sys)
+        tGr.wufi_devices.extend(wufi_devices)
+
+    return tM
+
+
+def _tHVAC_Devices_from_PHX_Sys(_phx_system: MechanicalSystem) -> list[temp_MechanicalDevice]:
+    """For WUFI, each piece of equipment in a PHX-System needs to become
+    its own 'Device' up the top-level of the System-Group.
+
+    Arguments:
+    ----------
+        * _phx_system (PHX.mechanicals.systems.MechanicalSystem): The PHX-System
+            to build the WUFI Devices from. Each piece of equipment in the
+            equiment-set will be converted into its own 'Device'
+
+    Returns:
+    --------
+        * list[temp_MechanicalDevice]: A list of the new WUFI Devices,
+            built from the PHX System.
+    """
+
+    wufi_devices = []
+
+    for equipment in _phx_system.equipment_set.equipment:
+        t = _tHVAC_Device_from_PHX_Equipment(equipment)  # Conversion function
+        t.system_usage = _phx_system.system_usage
+        wufi_devices.append(t)
+
+    return wufi_devices
+
+
+def _tHVAC_Device_from_PHX_Equipment(_phx_device: HVAC_Device) -> temp_MechanicalDevice:
+    """Return a new WUFI temp_MechanicalDevice bassed on an input PHX-Equipment.
+
+    Arguments:
+    ----------
+        * _phx_device (PHX.mechanicals.equipment.HVAC_Device): The PHX-HVAC_Device to
+            use as the source for the new WUFI Device.
+
+    Returns:
+    --------
+        * temp_MechanicalDevice: A new WUFI Device, based on the PHX input device.
+    """
+
+    t = temp_MechanicalDevice()
+
+    t.name = _phx_device.name
+    t.id = _phx_device.id
+    t.device_type = _phx_device.device_type
+    t.system_type = _phx_device.system_type
+    t.properties = _phx_device.properties
+
+    return t
+
+
+#  ------------------------------------------------------------------------------
+# -- HVAC Equipment
+# def _HVAC_Ventilator(_vent: PHX.mechanicals.equipment.HVAC_Ventilator)
