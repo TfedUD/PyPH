@@ -43,9 +43,9 @@ def test_HVAC_Ventilator_Default_serialization(reset_mechanicals):
     assert d == o2.to_dict()
 
 
-def test_HVAC_Ventilator_PH_Parameters_serialization(reset_mechanicals):
-    o1 = PHX.mechanicals.equipment.HVAC_Ventilator_PH_Parameters()
+def test_HVAC_Device_Properties_emptry_serialization(reset_mechanicals):
+    o1 = PHX.mechanicals.equipment.HVAC_Device_Properties()
     d = o1.to_dict()
 
-    o2 = PHX.mechanicals.equipment.HVAC_Ventilator_PH_Parameters.from_dict(d)
+    o2 = PHX.mechanicals.equipment.HVAC_Device_Properties.from_dict(d)
     assert d == o2.to_dict()

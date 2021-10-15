@@ -270,8 +270,8 @@ def _Mechanicals(_cls, _input_dict):
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
-    system_dicts = _input_dict.get("_systems", {})
-    for system_dict in system_dicts.values():
+    system_dicts = _input_dict.get("_systems", [])
+    for system_dict in system_dicts:
         new_obj.add_system(PHX.mechanicals.systems.MechanicalSystem.from_dict(system_dict))
 
     return new_obj

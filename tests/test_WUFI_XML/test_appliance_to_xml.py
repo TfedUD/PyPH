@@ -1,6 +1,5 @@
 from PyPH_WUFI.xml_node import XML_List
 import PHX.appliances
-import PyPH_WUFI.xml_object_data
 import PyPH_WUFI.WUFI_xml_build
 
 
