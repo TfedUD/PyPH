@@ -15,6 +15,19 @@ def test_add_Nones():
     assert app4 == app1
 
 
+def test_radd_Nones():
+    app1 = PHX.appliances.Appliance()
+    app2 = None
+
+    # Only works in this order
+    app3 = app1.__radd__(app2)
+    assert app1 == app3
+
+    # But not in the other direction (cus app2 == None)
+    with pytest.raises(AttributeError):
+        app4 = app2.__radd__(app1)
+
+
 def test_generic_appliance_add():
     app_1 = PHX.appliances.Appliance()
     app_1.type = 1
@@ -38,6 +51,29 @@ def test_generic_appliance_add():
     assert app_3.combined_energy_facor == 15
 
 
+def test_generic_appliance_radd():
+    app_1 = PHX.appliances.Appliance()
+    app_1.type = 1
+    app_1.reference_energy_norm = 2
+    app_1.energy_demand = 100
+    app_1.energy_demand_per_use = 100
+    app_1.combined_energy_facor = 10
+
+    app_2 = PHX.appliances.Appliance()
+    app_2.type = 1
+    app_2.reference_energy_norm = 2
+    app_2.energy_demand = 200
+    app_2.energy_demand_per_use = 200
+    app_2.combined_energy_facor = 20
+
+    app_3 = app_1.__radd__(app_2)
+    assert app_3.type == 1
+    assert app_3.reference_energy_norm == 2
+    assert app_3.energy_demand == 150
+    assert app_3.energy_demand_per_use == 150
+    assert app_3.combined_energy_facor == 15
+
+
 def test_unequal_reference_energy_norm():
     app_1 = PHX.appliances.Appliance()
     app_1.reference_energy_norm = 1
@@ -48,6 +84,9 @@ def test_unequal_reference_energy_norm():
     with pytest.raises(PHX.appliances.ApplianceTypeMismatchError):
         app_1 + app_2
 
+    with pytest.raises(PHX.appliances.ApplianceTypeMismatchError):
+        app_1.__radd__(app_2)
+
 
 def test_unkown_type():
     app1 = PHX.appliances.Appliance()
@@ -57,6 +96,9 @@ def test_unkown_type():
 
     with pytest.raises(PHX.appliances.ApplianceAdditionError):
         app1 + app2
+
+    with pytest.raises(PHX.appliances.ApplianceAdditionError):
+        app1.__radd__(app2)
 
 
 def test_unequal_types():

@@ -84,6 +84,9 @@ class Appliance(PHX._base._Base):
 
     def __eq__(self, other):
         # type: (Appliance, Appliance) -> Appliance
+        if type(self) != type(other):
+            return False
+
         fields = (
             "type",
             "comment",
