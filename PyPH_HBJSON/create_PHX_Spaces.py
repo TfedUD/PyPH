@@ -5,8 +5,10 @@
 
 import honeybee.room
 import PHX.spaces
+import loggers.HBJSON_loggers
 
 
+@loggers.HBJSON_loggers.log_function_info
 def create_PHX_Spaces_from_HB_room(_hb_room):
     # type: (honeybee.room.Room) -> list[PHX.spaces.Space]
     """Returns a list of new PHX-Spaces based on the Honeybee Room"""

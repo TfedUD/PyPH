@@ -7,8 +7,6 @@ import PHX.programs.loads
 import LBT_Utils.program
 import LBT_Utils.hb_schedules
 
-import logging_2WUFI
-
 import honeybee.room
 
 
@@ -65,9 +63,6 @@ def create_PHX_RoomVentilation_from_hb_room(_hb_room: honeybee.room.Room) -> PHX
     --------
         * (PHX.programs.ventilation.RoomVentilation):
     """
-    logger = logging_2WUFI.logging.getLogger("create_PHX_RoomVentilation_from_hb_room")
-    logger.debug("- " * 25)
-    logger.debug(f"--func: create_PHX_RoomVentilation_from_hb_room({_hb_room})")
 
     phx_Ventilation = PHX.programs.ventilation.RoomVentilation()
 
@@ -102,9 +97,6 @@ def create_PHX_RoomVentilation_from_hb_room(_hb_room: honeybee.room.Room) -> PHX
     # -- Convert the Ventilation Loads from HB to PH
     if getattr(_hb_room.properties.energy.ventilation, "user_data", None):
         # -- Try and get any user-determined inputs
-        logger.debug("Converting user-determined Loads from 'user_data'")
-        logger.debug(f"using: {_hb_room.properties.energy.ventilation.user_data}")
-
         ud_loads = (_hb_room.properties.energy.ventilation.user_data or {}).get("phx", {}).get("loads", None)
         print("trying to use UD Vent. Loads (.user_data), but that isnt written yet....")
 
@@ -117,22 +109,16 @@ def create_PHX_RoomVentilation_from_hb_room(_hb_room: honeybee.room.Room) -> PHX
         #
     else:
         # -- If no UD inputs, convert the normal HB Loads
-        logger.debug("No user_data inut found. Converting HB Loads")
         hb_room_vent_flow_m3h = LBT_Utils.program.calc_HB_Room_total_ventilation_m3sec(_hb_room) * 3600
         phx_Ventilation.loads.name = phx_Ventilation.name
         phx_Ventilation.loads.supply = hb_room_vent_flow_m3h
         phx_Ventilation.loads.extract = hb_room_vent_flow_m3h
         phx_Ventilation.loads.transfer = hb_room_vent_flow_m3h
-        logger.debug(f"  phx_Ventilation.loads.supply: {phx_Ventilation.loads.supply} m3h")
-        logger.debug(f"  phx_Ventilation.loads.extract: {phx_Ventilation.loads.extract} m3h")
-        logger.debug(f"  phx_Ventilation.loads.transfer: {phx_Ventilation.loads.transfer} m3h")
 
     # --------------------------------------------------------------------------
     # -- Convert the Ventilation Schedule from HB to PH
     if getattr(_hb_room.properties.energy.ventilation, "user_data", None):
         # -- Try and just use simplified user-input values
-        logger.debug("Converting user-determined Schedule from 'user_data'")
-        logger.debug(f"using: {_hb_room.properties.energy.ventilation.user_data}")
 
         print("trying to use the UD Vent Schedule (.user_data), but I haven't written this part yet")
 
@@ -146,7 +132,6 @@ def create_PHX_RoomVentilation_from_hb_room(_hb_room: honeybee.room.Room) -> PHX
 
     else:
         # -- Calc and Apply the PH-Style Schedule Values
-        logger.debug("No user_data inut found. Converting HB Schedule")
         phx_Ventilation.schedule.operating_days = 7
         phx_Ventilation.schedule.operating_weeks = 52
         phx_Ventilation.schedule.utilization_rates = _PHX_Vent_UtilRates_from_HB_room(_hb_room)

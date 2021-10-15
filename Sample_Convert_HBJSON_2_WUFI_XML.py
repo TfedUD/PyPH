@@ -35,10 +35,10 @@ import PyPH_HBJSON.create_PHX_Mechanicals
 import PyPH_HBJSON.create_PHX_programs
 import PyPH_HBJSON.infiltration
 
-# -- Startup the Logging
-import logging_2WUFI
+# -- Setup the loggers
+import loggers.config
 
-logging_2WUFI.configure()
+loggers.config.config_loggers("debug")
 
 # --- Input / Output file Paths
 SOURCE_FILE = pathlib.Path("sample", "EM_sample_input_HBJSON", "Sample_Input.hbjson")

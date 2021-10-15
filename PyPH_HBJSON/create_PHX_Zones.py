@@ -10,8 +10,10 @@ import PHX.summer_ventilation
 import PHX.programs.schedules
 import PHX.programs.occupancy
 import PHX.appliances
+import loggers.HBJSON_loggers
 
 
+@loggers.HBJSON_loggers.log_function_info
 def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segment.Zone:
     """Creates a new PHX-Zone from a single Honeybee 'Room'.
 
@@ -45,6 +47,7 @@ def create_PHX_Zone_from_HB_room(_hb_room: honeybee.room.Room) -> PHX.bldg_segme
     return zone
 
 
+@loggers.HBJSON_loggers.log_function_info
 def get_host_PHX_Zone(
     _bldg_segment: PHX.bldg_segment.BldgSegment, _hb_room: honeybee.room.Room
 ) -> PHX.bldg_segment.Zone:
