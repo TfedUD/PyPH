@@ -13,6 +13,7 @@ preceeded by an undrscore: "_" ie: Room --> "_Room".
 
 import PHX.bldg_segment
 from PHX.project import Project
+from PHX.climate import Climate
 from PHX.mechanicals.systems import Mechanicals, MechanicalSystem
 from PHX.mechanicals.equipment import HVAC_Device
 from PyPH_WUFI.WUFI_xml_conversion_classes import (
@@ -27,6 +28,7 @@ from PyPH_WUFI.WUFI_xml_conversion_classes import (
     temp_MechanicalSystemsGroup,
     temp_MechanicalDevice,
     temp_Mechanicals,
+    temp_Climate,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -242,3 +244,31 @@ def _tHVAC_Device_from_PHX_Equipment(_phx_device: HVAC_Device) -> temp_Mechanica
 #  ------------------------------------------------------------------------------
 # -- HVAC Equipment
 # def _HVAC_Ventilator(_vent: PHX.mechanicals.equipment.HVAC_Ventilator)
+
+
+#  ------------------------------------------------------------------------------
+# -- Climate
+def _Climate(_phx_climate: Climate) -> temp_Climate:
+    tCl = temp_Climate()
+    tCl.PH_Climate.summer_daily_temperature_swing = _phx_climate.summer_daily_temperature_swing
+    tCl.PH_Climate.average_wind_speed = _phx_climate.average_wind_speed
+
+    tCl.PH_Climate.location = _phx_climate.location
+    tCl.PH_Climate.ground = _phx_climate.ground
+
+    tCl.PH_Climate.monthly_temperature_air = _phx_climate.monthly_temperature_air
+    tCl.PH_Climate.monthly_temperature_dewpoint = _phx_climate.monthly_temperature_dewpoint
+    tCl.PH_Climate.monthly_temperature_sky = _phx_climate.monthly_temperature_sky
+    tCl.PH_Climate.monthly_temperature_ground = _phx_climate.monthly_temperature_ground
+
+    tCl.PH_Climate.monthly_radiation_north = _phx_climate.monthly_radiation_north
+    tCl.PH_Climate.monthly_radiation_east = _phx_climate.monthly_radiation_east
+    tCl.PH_Climate.monthly_radiation_south = _phx_climate.monthly_radiation_south
+    tCl.PH_Climate.monthly_radiation_west = _phx_climate.monthly_radiation_west
+    tCl.PH_Climate.monthly_radiation_global = _phx_climate.monthly_radiation_global
+
+    tCl.PH_Climate.peak_heating_1 = _phx_climate.peak_heating_1
+    tCl.PH_Climate.peak_heating_2 = _phx_climate.peak_heating_2
+    tCl.PH_Climate.peak_cooling = _phx_climate.peak_cooling
+
+    return tCl

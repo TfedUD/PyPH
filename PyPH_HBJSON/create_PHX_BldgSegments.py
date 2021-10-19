@@ -3,13 +3,15 @@
 
 """Functions to create PHX Materiala, Assembly-Layers, and Construction Assemblies from HB-JSON"""
 
-import honeybee.room
-import PHX.bldg_segment
-import PHX.project
-import PHX.programs.occupancy
+from honeybee.room import Room
+from honeybee.model import Model
+from PHX.bldg_segment import BldgSegment, PHIUSCertification
+from PHX.project import Project
+from PHX.programs.occupancy import BldgSegmentOccupancy
+import PHX.climate
 
 
-def create_PHX_BldgSegment_from_HB_Room(_hb_room: honeybee.room.Room) -> PHX.bldg_segment.BldgSegment:
+def create_PHX_BldgSegment_from_HB_Room(_hb_room: Room) -> BldgSegment:
     """
     Returns a new Building Segment obejct with its attributes set based on the Honyebee Room
 
@@ -29,7 +31,7 @@ def create_PHX_BldgSegment_from_HB_Room(_hb_room: honeybee.room.Room) -> PHX.bld
     var_name = seg_dict.get("name")
 
     # -- Build the new BldgSegment
-    host_bldg_segment = PHX.bldg_segment.BldgSegment()
+    host_bldg_segment = BldgSegment()
     host_bldg_segment.identifier = var_ident
     host_bldg_segment.id = var_id
     host_bldg_segment.name = var_name
@@ -37,21 +39,19 @@ def create_PHX_BldgSegment_from_HB_Room(_hb_room: honeybee.room.Room) -> PHX.bld
     # -- Set the Segment Occupancy
     occupancy_dict = _hb_room.user_data.get("phx", {}).get("segment_occupancy", {})
     if occupancy_dict:
-        occ_obj = PHX.programs.occupancy.BldgSegmentOccupancy.from_dict(occupancy_dict)
+        occ_obj = BldgSegmentOccupancy.from_dict(occupancy_dict)
         host_bldg_segment.occupancy = occ_obj
 
     # -- Set Passive House Params
     ph_cert_dict = _hb_room.user_data.get("phx", {}).get("ph_certification", {})
     if ph_cert_dict:
-        cert_obj = PHX.bldg_segment.PHIUSCertification.from_dict(ph_cert_dict)
+        cert_obj = PHIUSCertification.from_dict(ph_cert_dict)
         host_bldg_segment.PHIUS_certification = cert_obj
 
     return host_bldg_segment
 
 
-def get_host_PHX_BldgSegment(
-    _project: PHX.project.Project, _hb_room: honeybee.room.Room
-) -> PHX.bldg_segment.BldgSegment:
+def get_host_PHX_BldgSegment(_project: Project, _hb_room: Room) -> BldgSegment:
     """Returns a Honybee Room's Host PHX-BldgSegment.
 
     Will first look for the Honeybee.room.Room.user_data['phx']['bldg_segment'] to
@@ -76,7 +76,7 @@ def get_host_PHX_BldgSegment(
 
     if not seg_dict:
         # -- Use the default BldgSegment if, none is provided by the user
-        host_bldg_segment = PHX.bldg_segment.BldgSegment.default()
+        host_bldg_segment = BldgSegment.default()
     else:
         # -- Check if the Segment already exists on the Project.
         host_bldg_segment = _project.get_segment_by_identifier(seg_dict.get("identifier"))
@@ -87,3 +87,26 @@ def get_host_PHX_BldgSegment(
     _project.add_segment(host_bldg_segment)
 
     return host_bldg_segment
+
+
+def set_segment_climate_from_hb_model(_hb_model: Model, _phx_seg: BldgSegment) -> BldgSegment:
+    """Sets the BuildingSegment's Climate from HB Model user_data.
+
+    Arguments:
+    ----------
+        * _hb_model (honeybee.model.Model): The Honeybee Model to try and read the
+            climate data from.
+        * _phx_seg (PHX.bldg_segment.BldgSegment): The Building Segment to set the
+            Climate data for.
+
+    Returns:
+    --------
+        * (PHX.bldg_segment.BldgSegment): The Building Segmeng with its Climate set.
+    """
+
+    phx_climate_dict = (_hb_model.user_data or {}).get("phx", {}).get("climate", {})
+
+    if phx_climate_dict:
+        _phx_seg.climate = PHX.climate.Climate.from_dict(phx_climate_dict)
+
+    return _phx_seg

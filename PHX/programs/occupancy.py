@@ -11,7 +11,7 @@ import PHX.programs.loads
 
 
 class BldgSegmentOccupancy(PHX._base._Base):
-    """Building Segmenmt-level Occupncy Parameters
+    """Building Segmenmt-level Occupancy Parameters
 
     Bldg_Segment #<------
        |

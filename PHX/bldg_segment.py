@@ -24,6 +24,7 @@ import PHX.mechanicals.systems
 import PHX.infiltration
 import PHX.ground
 import PHX.appliances
+import PHX.climate
 
 # ------------------------------------------------------------------------------
 class ZoneTypeError(Exception):
@@ -76,10 +77,10 @@ class PHIUSCertification(PHX._base._Base):
         self.certification_criteria = 3
         self.localization_selection_type = 2
 
-        self.PHIUS2021_heating_demand = 20
-        self.PHIUS2021_cooling_demand = 21
-        self.PHIUS2021_heating_load = 22
-        self.PHIUS2021_cooling_load = 23
+        self.PHIUS2021_heating_demand = 15
+        self.PHIUS2021_cooling_demand = 15
+        self.PHIUS2021_heating_load = 10
+        self.PHIUS2021_cooling_load = 10
 
         self.building_status = 1  # In Planning
         self.building_type = 1  # New Construction
@@ -94,179 +95,6 @@ class PHIUSCertification(PHX._base._Base):
     @classmethod
     def from_dict(cls, _dict):
         return PHX.serialization.from_dict._PHIUSCertification(cls, _dict)
-
-
-class Weather_PeakLoad:
-    def __init__(self, _t, _rN, _rE, _rS, _rW, _rG):
-        self.temp = _t
-        self.rad_north = _rN
-        self.rad_east = _rE
-        self.rad_south = _rS
-        self.rad_west = _rW
-        self.rad_global = _rG
-
-
-class PH_ClimateLocation(PHX._base._Base):
-    def __init__(self):
-        super(PH_ClimateLocation, self).__init__()
-        self.Selection = 6
-        self.Latitude = 40.6
-        self.HeightNNWeatherStation = 5
-        self.Longitude = -73.8
-        self.dUTC = -4
-        self.HeightNNBuilding = None
-        self.DailyTemperatureSwingSummer = 8
-        self.AverageWindSpeed = 4
-        self.ClimateZone = 1
-        self.GroundThermalConductivity = 2
-        self.GroundHeatCapacitiy = 1000
-        self.GroundDensity = 2000
-        self.DepthGroundwater = 3
-        self.FlowRateGroundwater = 0.05
-        self.SelectionPECO2Factor = 1
-
-        self.TemperatureMonthly = [
-            1.2,
-            -0.2,
-            5.6,
-            10.9,
-            16.1,
-            21.7,
-            25.0,
-            24.8,
-            19.9,
-            14.0,
-            7.3,
-            3.3,
-        ]
-        self.NorthSolarRadiationMonthly = [
-            21,
-            29,
-            34,
-            39,
-            56,
-            60,
-            59,
-            50,
-            34,
-            30,
-            20,
-            16,
-        ]
-        self.EastSolarRadiationMonthly = [
-            32,
-            46,
-            57,
-            65,
-            82,
-            76,
-            78,
-            84,
-            60,
-            54,
-            33,
-            28,
-        ]
-        self.SouthSolarRadiationMonthly = [
-            83,
-            106,
-            103,
-            86,
-            80,
-            73,
-            78,
-            104,
-            97,
-            129,
-            87,
-            87,
-        ]
-        self.WestSolarRadiationMonthly = [
-            48,
-            70,
-            92,
-            95,
-            114,
-            121,
-            120,
-            130,
-            91,
-            94,
-            47,
-            45,
-        ]
-        self.GlobalSolarRadiationMonthly = [
-            50,
-            72,
-            111,
-            133,
-            170,
-            176,
-            177,
-            182,
-            124,
-            109,
-            62,
-            46,
-        ]
-        self.DewPointTemperatureMonthly = [
-            -4.3,
-            -7.4,
-            0.3,
-            4.7,
-            9.1,
-            15.8,
-            20.3,
-            17.1,
-            13.2,
-            7.9,
-            2.1,
-            -2.8,
-        ]
-        self.SkyTemperatureMonthly = [
-            -17.4,
-            -20.0,
-            -10.9,
-            -4.8,
-            1.0,
-            9.8,
-            14.5,
-            8.4,
-            5.8,
-            -2.8,
-            -8.6,
-            -11.4,
-        ]
-        self.GroundTemperatureMonthly = []
-
-        self.peak_heating_1 = Weather_PeakLoad(-6.7, 46, 80, 200, 113, 121)
-        self.peak_heating_2 = Weather_PeakLoad(-4.2, 16, 22, 46, 26, 38)
-        self.peak_cooling = Weather_PeakLoad(26.1, 64, 106, 132, 159, 230)
-
-
-class ClimateLocation(PHX._base._Base):
-    def __init__(self):
-        super(ClimateLocation, self).__init__()
-        self.Selection = 1
-        self.PH_ClimateLocation = PH_ClimateLocation()
-        self.IDNr_DB = None
-        self.Name_DB = None
-        self.Comment_DB = None
-        self.Latitude_DB = None
-        self.Longitude_DB = None
-        self.HeightNN_DB = None
-        self.dUTC_DB = None
-        self.FileName_DB = None
-        self.Type_DB = None
-        self.CatalogueNr_DB = 0
-        self.MapNr_DB = 0
-        self.Albedo = -2
-        self.GroundReflShort = 0.2
-        self.GroundReflLong = 0.1
-        self.GroundEmission = 0.9
-        self.CloudIndex = 0.66
-        self.CO2concenration = 350
-        self.Unit_CO2concentration = 48
 
 
 # ------------------------------------------------------------------------------
@@ -472,7 +300,7 @@ class BldgSegment(PHX._base._Base):
         super(BldgSegment, self).__init__()
         self.airflow_model = None
         self.calcScope = 4
-        self.cliLoc = ClimateLocation()
+        self.climate = PHX.climate.Climate()
         self.components = []
         self.count_generator = 0
         self.DIN4108 = {}
@@ -488,7 +316,7 @@ class BldgSegment(PHX._base._Base):
         self.occupancy = PHX.programs.occupancy.BldgSegmentOccupancy()
         self.PHIUS_certification = PHIUSCertification()
         self.plugin = None
-        self.relative_variant = True  # WUFI shit
+        self.relative_variant = True
         self.remarks = ""
         self.res = None
         self.target_room_names = []

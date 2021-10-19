@@ -12,6 +12,7 @@ ie: _Floor calls _FloorSegment.to_dict()
 import PHX
 import PHX.geometry
 import PHX.spaces
+import PHX.climate
 import PHX.programs.schedules
 import PHX.programs.loads
 import PHX.appliances
@@ -530,6 +531,7 @@ def _Space(_cls, _input_dict):
     return new_obj
 
 
+# ------------------------------------------------------------------------------
 # -- Passive House Certification
 def _PHIUSCertification(_cls, _input_dict):
     new_obj = _cls()
@@ -543,6 +545,110 @@ def _PHIUSCertification(_cls, _input_dict):
     new_obj.PHIUS2021_cooling_load = _input_dict.get("PHIUS2021_cooling_load")
     new_obj.building_status = _input_dict.get("building_status")
     new_obj.building_type = _input_dict.get("building_type")
+
+    return new_obj
+
+
+# ------------------------------------------------------------------------------
+# -- Climate
+def _Climate(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.name = _input_dict.get("name")
+    new_obj.summer_daily_temperature_swing = _input_dict.get("summer_daily_temperature_swing")
+    new_obj.average_wind_speed = _input_dict.get("average_wind_speed")
+
+    new_obj.location = PHX.climate.Climate_Location.from_dict(_input_dict.get("location", {}))
+    new_obj.ground = PHX.climate.Climate_Ground.from_dict(_input_dict.get("ground", {}))
+
+    new_obj.monthly_temperature_air = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_temperature_air", {})
+    )
+    new_obj.monthly_temperature_dewpoint = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_temperature_dewpoint", {})
+    )
+    new_obj.monthly_temperature_sky = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_temperature_sky", {})
+    )
+    new_obj.monthly_temperature_ground = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_temperature_ground", {})
+    )
+
+    new_obj.monthly_radiation_north = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_radiation_north", {})
+    )
+    new_obj.monthly_radiation_east = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_radiation_east", {})
+    )
+    new_obj.monthly_radiation_south = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_radiation_south", {})
+    )
+    new_obj.monthly_radiation_west = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_radiation_west", {})
+    )
+    new_obj.monthly_radiation_global = PHX.climate.Climate_MonthlyValueCollection.from_dict(
+        _input_dict.get("monthly_radiation_global", {})
+    )
+
+    new_obj.peak_heating_1 = PHX.climate.Climate_PeakLoadCollection.from_dict(_input_dict.get("peak_heating_1", {}))
+    new_obj.peak_heating_2 = PHX.climate.Climate_PeakLoadCollection.from_dict(_input_dict.get("peak_heating_2", {}))
+    new_obj.peak_cooling = PHX.climate.Climate_PeakLoadCollection.from_dict(_input_dict.get("peak_cooling", {}))
+
+    return new_obj
+
+
+def _Climate_Ground(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.ground_thermal_conductivity = _input_dict.get("ground_thermal_conductivity")
+    new_obj.ground_heat_capacitiy = _input_dict.get("ground_heat_capacitiy")
+    new_obj.ground_density = _input_dict.get("ground_density")
+    new_obj.depth_groundwater = _input_dict.get("depth_groundwater")
+    new_obj.flow_rate_groundwater = _input_dict.get("flow_rate_groundwater")
+
+    return new_obj
+
+
+def _Climate_Location(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.latitude = _input_dict.get("latitude")
+    new_obj.longitude = _input_dict.get("longitude")
+    new_obj.weather_station_elevation = _input_dict.get("weather_station_elevation")
+    new_obj.climate_zone = _input_dict.get("climate_zone")
+    new_obj.hours_from_UTC = _input_dict.get("hours_from_UTC")
+
+    return new_obj
+
+
+def _Climate_PeakLoadCollection(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.temp = _input_dict.get("temp")
+    new_obj.rad_north = _input_dict.get("rad_north")
+    new_obj.rad_east = _input_dict.get("rad_east")
+    new_obj.rad_south = _input_dict.get("rad_south")
+    new_obj.rad_west = _input_dict.get("rad_west")
+    new_obj.rad_global = _input_dict.get("rad_global")
+
+    return new_obj
+
+
+def _Climate_MonthlyValueCollection(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.january = _input_dict.get("january")
+    new_obj.february = _input_dict.get("february")
+    new_obj.march = _input_dict.get("march")
+    new_obj.april = _input_dict.get("april")
+    new_obj.may = _input_dict.get("may")
+    new_obj.june = _input_dict.get("june")
+    new_obj.july = _input_dict.get("july")
+    new_obj.august = _input_dict.get("august")
+    new_obj.september = _input_dict.get("september")
+    new_obj.october = _input_dict.get("october")
+    new_obj.november = _input_dict.get("november")
+    new_obj.december = _input_dict.get("december")
 
     return new_obj
 

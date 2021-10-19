@@ -31,15 +31,35 @@ class SummerVent(PHX._base._Base):
         """
         Util function to cleanly join together two SummerVent attributes,
         weighted by volume. Handles ZeroDivisionErrors and None values
+
+        Arguments:
+        ----------
+            * _a (SummerVent): The first Room's SummerVent object.
+            * _vol_a (float): The volume of the first Room.
+            * _b (SummerVent): The first SummerVent object.
+            * _vol_b (float): The volume of the second Room.
+            * _attr_str (str): The name of the attribute to try and join.
+
+        Returns:
+        --------
+            * (float | None): The weighed joined value for the new joined Room.
         """
 
-        val_a = getattr(_a, _attr_str, 0)
-        val_b = getattr(_b, _attr_str, 0)
+        # -- Get the attribute values from the 2 SummVent objects
+        val_a = getattr(_a, _attr_str, None)
+        val_b = getattr(_b, _attr_str, None)
 
-        try:
-            return ((val_a * _vol_a) + (val_b * _vol_b)) / (_vol_a + _vol_b)
-        except ZeroDivisionError:
-            return 0
+        if (val_a is None) and (val_b is None):
+            return None
+        elif (val_a is None) and (val_b is not None):
+            return val_a
+        elif (val_a is not None) and (val_b is None):
+            return val_b
+        else:
+            try:
+                return ((val_a * _vol_a) + (val_b * _vol_b)) / (_vol_a + _vol_b)
+            except ZeroDivisionError:
+                return 0
 
     @classmethod
     def weighted_join(cls, obj_1, vol_1, obj_2, vol_2):

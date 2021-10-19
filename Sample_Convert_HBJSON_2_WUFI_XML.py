@@ -14,6 +14,7 @@ import PyPH_WUFI.WUFI_xml_build
 import PyPH_WUFI.WUFI_xml_write
 
 from PyPH_HBJSON.read_HBJSON_file import read_hb_json
+
 from PyPH_HBJSON.create_PHX_components import (
     create_new_opaque_component_from_hb_face,
     set_compo_exterior_exposure_from_hb_face,
@@ -27,7 +28,10 @@ from PyPH_HBJSON.create_PHX_assemblies import (
     create_new_window_type_from_hb_face,
     set_compo_window_type_from_hb_aperture,
 )
-import PyPH_HBJSON.create_PHX_BldgSegments
+from PyPH_HBJSON.create_PHX_BldgSegments import (
+    get_host_PHX_BldgSegment,
+    set_segment_climate_from_hb_model,
+)
 import PyPH_HBJSON.create_PHX_Zones
 import PyPH_HBJSON.create_PHX_Rooms
 import PyPH_HBJSON.create_PHX_Spaces
@@ -50,6 +54,10 @@ print("- " * 50)
 print("> Reading in the HBJSON file...")
 hb_model = read_hb_json(SOURCE_FILE)
 
+# Project
+# ------------------------------------------------------------------------------
+project_1 = PHX.project.Project()
+
 # --- Build the Construction Assembly-Types, Window-Types
 # ------------------------------------------------------------------------------
 assmbly_collection = PyPH_WUFI.type_collections.AssemblyCollection()
@@ -65,14 +73,11 @@ for room in hb_model.rooms:
 
 
 # ------------------------------------------------------------------------------
-project_1 = PHX.project.Project()
-
-# ------------------------------------------------------------------------------
 # --- Build all the Rooms and Thermal-Zones first. The Thermal-Zones need to all
 # --- be in place so that the Component's exterior exposures for any adjacent-surfaces
 # --- can be set with the proper ID number when building Components.
 for room in hb_model.rooms:
-    phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
+    phx_BldgSegment = get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
     phx_Room = PyPH_HBJSON.create_PHX_Rooms.create_PHX_Room_from_HB_room(room)
     phx_Spaces = PyPH_HBJSON.create_PHX_Spaces.create_PHX_Spaces_from_HB_room(room)
@@ -99,7 +104,7 @@ for room in hb_model.rooms:
 # --- Build all the Components (Surfaces, Windows)
 # ----------------------------------------------------------------------------
 for room in hb_model.rooms:
-    phx_BldgSegment = PyPH_HBJSON.create_PHX_BldgSegments.get_host_PHX_BldgSegment(project_1, room)
+    phx_BldgSegment = get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
 
     for face in room.faces:
@@ -129,11 +134,12 @@ for bldg_segment in project_1.building_segments:
     bldg_segment.add_components(phx_shades)
 
 
-# --- Clean up the BuildingSegments
+# --- Configure and Clean up the BuildingSegments
 # ----------------------------------------------------------------------------
 for seg in project_1.building_segments:
     # -- This is required for PHIUS Certification.
     # -- Sometimes might not want this though, so needs to be user-setting
+    seg = set_segment_climate_from_hb_model(hb_model, seg)
     seg.merge_zones()
     seg.merge_components(by="assembly")
 

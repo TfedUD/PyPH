@@ -13,6 +13,7 @@ with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 
 from collections import namedtuple
 import PHX.mechanicals.systems
+import PHX.climate
 
 import PyPH_WUFI.xml_node
 from PyPH_WUFI.xml_node import xml_writable
@@ -26,6 +27,8 @@ from PyPH_WUFI.WUFI_xml_conversion_classes import (
     temp_MechanicalSystemsGroup,
     temp_Mechanicals,
     temp_MechanicalDevice,
+    temp_Climate,
+    temp_PH_Climate,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
@@ -511,68 +514,74 @@ def _PassivehouseData(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _PH_ClimateLocation(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _temp_PH_Climate(_obj: temp_PH_Climate, _wufi_obj=None) -> list[xml_writable]:
     return [
-        PyPH_WUFI.xml_node.XML_Node("Selection", _obj.Selection),
-        PyPH_WUFI.xml_node.XML_Node("Latitude", _obj.Latitude),
-        PyPH_WUFI.xml_node.XML_Node("HeightNNWeatherStation", _obj.HeightNNWeatherStation),
-        PyPH_WUFI.xml_node.XML_Node("Longitude", _obj.Longitude),
-        PyPH_WUFI.xml_node.XML_Node("dUTC", _obj.dUTC),
-        PyPH_WUFI.xml_node.XML_Node("DailyTemperatureSwingSummer", _obj.DailyTemperatureSwingSummer),
-        PyPH_WUFI.xml_node.XML_Node("AverageWindSpeed", _obj.AverageWindSpeed),
-        PyPH_WUFI.xml_node.XML_Node("ClimateZone", _obj.ClimateZone),
-        PyPH_WUFI.xml_node.XML_Node("GroundThermalConductivity", _obj.GroundThermalConductivity),
-        PyPH_WUFI.xml_node.XML_Node("GroundHeatCapacitiy", _obj.GroundHeatCapacitiy),
-        PyPH_WUFI.xml_node.XML_Node("GroundDensity", _obj.GroundDensity),
-        PyPH_WUFI.xml_node.XML_Node("DepthGroundwater", _obj.DepthGroundwater),
-        PyPH_WUFI.xml_node.XML_Node("FlowRateGroundwater", _obj.FlowRateGroundwater),
-        PyPH_WUFI.xml_node.XML_Node("SelectionPECO2Factor", _obj.SelectionPECO2Factor),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 6),  # -- User Defined
+        PyPH_WUFI.xml_node.XML_Node("SelectionPECO2Factor", 1),
+        PyPH_WUFI.xml_node.XML_Node("DailyTemperatureSwingSummer", _obj.summer_daily_temperature_swing),
+        PyPH_WUFI.xml_node.XML_Node("AverageWindSpeed", _obj.average_wind_speed),
+        # ---
+        PyPH_WUFI.xml_node.XML_Node("Latitude", _obj.location.latitude, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("Longitude", _obj.location.longitude, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("HeightNNWeatherStation", _obj.location.weather_station_elevation, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("dUTC", _obj.location.hours_from_UTC),
+        PyPH_WUFI.xml_node.XML_Node("ClimateZone", _obj.location.climate_zone, "choice", "Not defined"),
+        # ---
+        PyPH_WUFI.xml_node.XML_Node("GroundThermalConductivity", _obj.ground.ground_thermal_conductivity),
+        PyPH_WUFI.xml_node.XML_Node("GroundHeatCapacitiy", _obj.ground.ground_heat_capacitiy),
+        PyPH_WUFI.xml_node.XML_Node("GroundDensity", _obj.ground.ground_density),
+        PyPH_WUFI.xml_node.XML_Node("DepthGroundwater", _obj.ground.depth_groundwater),
+        PyPH_WUFI.xml_node.XML_Node("FlowRateGroundwater", _obj.ground.flow_rate_groundwater),
+        # ---
         PyPH_WUFI.xml_node.XML_List(
             "TemperatureMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.TemperatureMonthly)],
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_temperature_air.values)
+            ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "DewPointTemperatureMonthly",
             [
                 PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.DewPointTemperatureMonthly)
+                for i, _ in enumerate(_obj.monthly_temperature_dewpoint.values)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "SkyTemperatureMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.SkyTemperatureMonthly)],
+            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_temperature_sky.values)],
         ),
-        PyPH_WUFI.xml_node.XML_List(
-            "GroundTemperatureMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.GroundTemperatureMonthly)],
-        ),
+        # PyPH_WUFI.xml_node.XML_List(
+        #     "GroundTemperatureMonthly",
+        #     [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_temperature_ground.values)],
+        # ),
         PyPH_WUFI.xml_node.XML_List(
             "NorthSolarRadiationMonthly",
             [
                 PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.NorthSolarRadiationMonthly)
+                for i, _ in enumerate(_obj.monthly_radiation_north.values)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "EastSolarRadiationMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.EastSolarRadiationMonthly)],
+            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_radiation_east.values)],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "SouthSolarRadiationMonthly",
             [
                 PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.SouthSolarRadiationMonthly)
+                for i, _ in enumerate(_obj.monthly_radiation_south.values)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "WestSolarRadiationMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.WestSolarRadiationMonthly)],
+            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_radiation_west.values)],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "GlobalSolarRadiationMonthly",
             [
                 PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.GlobalSolarRadiationMonthly)
+                for i, _ in enumerate(_obj.monthly_radiation_global.values)
             ],
         ),
         PyPH_WUFI.xml_node.XML_Node("TemperatureHeating1", _obj.peak_heating_1.temp),
@@ -593,6 +602,13 @@ def _PH_ClimateLocation(_obj, _wufi_obj=None) -> list[xml_writable]:
         PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationCooling", _obj.peak_cooling.rad_south),
         PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationCooling", _obj.peak_cooling.rad_west),
         PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationCooling", _obj.peak_cooling.rad_global),
+    ]
+
+
+def _Climate(_obj: PHX.climate.Climate, _wufi_obj=temp_Climate) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1),  # -- User Defined
+        PyPH_WUFI.xml_node.XML_Object("PH_ClimateLocation", _wufi_obj.PH_Climate),
     ]
 
 
@@ -940,7 +956,7 @@ def _BldgSegment(_obj, _wufi_obj=None) -> list[xml_writable]:
         PyPH_WUFI.xml_node.XML_Node("Remarks", _obj.remarks),
         PyPH_WUFI.xml_node.XML_Object("Graphics_3D", _obj.geom),
         PyPH_WUFI.xml_node.XML_Object("Building", tbuilding_container),
-        PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.cliLoc),
+        PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.climate),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
         PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
         PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.mechanicals, _schema_name="_Mechanicals"),

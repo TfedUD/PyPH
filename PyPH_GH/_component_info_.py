@@ -28,6 +28,18 @@ component_params = {
         "Category": CATEGORY,
         "SubCategory": 4,
     },
+    "PyPH - WUFI Config": {
+        "NickName": "WUFI Config.",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
+    "PyPH - Climate": {
+        "NickName": "PHX Climate",
+        "Message": RELEASE_VERSION,
+        "Category": CATEGORY,
+        "SubCategory": 4,
+    },
     "PyPH - Create Bldg Segment": {
         "NickName": "PHX Bldg Segment",
         "Message": RELEASE_VERSION,

@@ -171,7 +171,44 @@ class temp_MechanicalDevice:
     properties: None = None
 
 
+@dataclass
+class temp_PH_Climate:
+    """WUFI breaks off PH Cliamte data into its own section"""
+
+    location = None
+    ground = None
+    summer_daily_temperature_swing = None
+    average_wind_speed = None
+
+    monthly_temperature_air = None
+    monthly_temperature_dewpoint = None
+    monthly_temperature_sky = None
+    monthly_temperature_ground = None
+
+    monthly_radiation_north = None
+    monthly_radiation_east = None
+    monthly_radiation_south = None
+    monthly_radiation_west = None
+    monthly_radiation_global = None
+
+    peak_heating_1 = None
+    peak_heating_2 = None
+    peak_cooling = None
+
+
+@dataclass
+class temp_Climate:
+    PH_Climate = temp_PH_Climate()
+
+
 # Type Alias
 temp_WUFI = Union[
-    temp_Project, temp_RoomVentilation, temp_Zone, temp_Space, temp_MechanicalSystemsGroup, temp_MechanicalDevice
+    temp_PH_Climate,
+    temp_Climate,
+    temp_Project,
+    temp_RoomVentilation,
+    temp_Zone,
+    temp_Space,
+    temp_MechanicalSystemsGroup,
+    temp_MechanicalDevice,
 ]

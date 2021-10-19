@@ -509,7 +509,8 @@ def _Space(_obj):
     return d
 
 
-# -- Passive House Certification
+# ------------------------------------------------------------------------------
+# -- WUFI Config
 def _PHIUSCertification(_obj):
     d = {}
 
@@ -522,6 +523,92 @@ def _PHIUSCertification(_obj):
     d.update({"PHIUS2021_cooling_load": _obj.PHIUS2021_cooling_load})
     d.update({"building_status": _obj.building_status})
     d.update({"building_type": _obj.building_type})
+
+    return d
+
+
+# ------------------------------------------------------------------------------
+# -- Climate
+def _Climate(_obj):
+    d = {}
+
+    d.update({"name": _obj.name})
+    d.update({"summer_daily_temperature_swing": _obj.summer_daily_temperature_swing})
+    d.update({"average_wind_speed": _obj.average_wind_speed})
+
+    d.update({"location": _obj.location.to_dict()})
+    d.update({"ground": _obj.ground.to_dict()})
+
+    d.update({"monthly_temperature_air": _obj.monthly_temperature_air.to_dict()})
+    d.update({"monthly_temperature_dewpoint": _obj.monthly_temperature_dewpoint.to_dict()})
+    d.update({"monthly_temperature_sky": _obj.monthly_temperature_sky.to_dict()})
+    d.update({"monthly_temperature_ground": _obj.monthly_temperature_ground.to_dict()})
+
+    d.update({"monthly_radiation_north": _obj.monthly_radiation_north.to_dict()})
+    d.update({"monthly_radiation_east": _obj.monthly_radiation_east.to_dict()})
+    d.update({"monthly_radiation_south": _obj.monthly_radiation_south.to_dict()})
+    d.update({"monthly_radiation_west": _obj.monthly_radiation_west.to_dict()})
+    d.update({"monthly_radiation_global": _obj.monthly_radiation_global.to_dict()})
+
+    d.update({"peak_heating_1": _obj.peak_heating_1.to_dict()})
+    d.update({"peak_heating_2": _obj.peak_heating_2.to_dict()})
+    d.update({"peak_cooling": _obj.peak_cooling.to_dict()})
+
+    return d
+
+
+def _Climate_Ground(_obj):
+    d = {}
+
+    d.update({"ground_thermal_conductivity": _obj.ground_thermal_conductivity})
+    d.update({"ground_heat_capacitiy": _obj.ground_heat_capacitiy})
+    d.update({"ground_density": _obj.ground_density})
+    d.update({"depth_groundwater": _obj.depth_groundwater})
+    d.update({"flow_rate_groundwater": _obj.flow_rate_groundwater})
+
+    return d
+
+
+def _Climate_Location(_obj):
+    d = {}
+
+    d.update({"latitude": _obj.latitude})
+    d.update({"longitude": _obj.longitude})
+    d.update({"weather_station_elevation": _obj.weather_station_elevation})
+    d.update({"climate_zone": _obj.climate_zone})
+    d.update({"hours_from_UTC": _obj.hours_from_UTC})
+
+    return d
+
+
+def _Climate_PeakLoadCollection(_obj):
+    d = {}
+
+    d.update({"temp": _obj.temp})
+    d.update({"rad_north": _obj.rad_north})
+    d.update({"rad_east": _obj.rad_east})
+    d.update({"rad_south": _obj.rad_south})
+    d.update({"rad_west": _obj.rad_west})
+    d.update({"rad_global": _obj.rad_global})
+
+    return d
+
+
+def _Climate_MonthlyValueCollection(_obj):
+    d = {}
+
+    d.update({"january": _obj.january})
+    d.update({"february": _obj.february})
+    d.update({"march": _obj.march})
+    d.update({"april": _obj.april})
+    d.update({"may": _obj.may})
+    d.update({"june": _obj.june})
+    d.update({"july": _obj.july})
+    d.update({"august": _obj.august})
+    d.update({"september": _obj.september})
+    d.update({"october": _obj.october})
+    d.update({"november": _obj.november})
+    d.update({"december": _obj.december})
 
     return d
 
