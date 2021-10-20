@@ -110,3 +110,26 @@ def set_segment_climate_from_hb_model(_hb_model: Model, _phx_seg: BldgSegment) -
         _phx_seg.climate = PHX.climate.Climate.from_dict(phx_climate_dict)
 
     return _phx_seg
+
+
+def filter_out_Surface_Exposure(_phx_seg: BldgSegment) -> BldgSegment:
+    """Remove any Component from the BldgSegment which has a 'Surface' exposure type (-4).
+        ie: Any component surface where Honeybee assigned a 'Surface<->Surface' adjacency.
+        This is done since WUFI does NOT want interior zone<->zone surfaces. If interior surfaces
+        are left in the model then when WUFI calculates the Peak Load it will assume
+        heat transfer accross all of those surfaces, which will give really wierd restults.
+
+    Arugments:
+    ----------
+        * _phx_seg (PHX.bldg_segment.BldgSegment): The Building Segement to filter
+            out the components for.
+
+    Returns:
+    --------
+        * (PHX.bldg_segment.BldgSegment): The Building Segment with the component
+            surfaces removed.
+    """
+
+    _phx_seg.components = [_ for _ in _phx_seg.components if _.ext_exposure_zone_id != -4]
+
+    return _phx_seg

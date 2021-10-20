@@ -183,6 +183,7 @@ class HW_Tank(HVAC_Device):
     _count = 0
     _default = None
     _default_properties = {
+        "quantity": {"base": 1, "default": 1},
         "volume": {"base": 0, "default": 300},  # 300L == 80 Gallon
         "standby_loses": {"base": 0, "default": 4},
     }

@@ -134,23 +134,22 @@ def set_compo_exterior_exposure_from_hb_face(
         "Outdoors": -1,
         "Ground": -2,
         "Adiabatic": -3,
-        "Surface": -3,
+        "Surface": -4,
     }
-
     if "SURFACE" in str(_hb_face.boundary_condition.name).upper():
         # -- Apply defaults in case can't find the matching surface
         # -- This happens with inter-zone surfaces that are exposed to another
-        ec_value = -3  # Adiabatic
-        ec_attr = None
+        ext_exp_zn_id = -4  # Adiabatic
+        ext_exp_name = _hb_face._boundary_condition.boundary_condition_object
     elif "ADIABATIC" in str(_hb_face.boundary_condition.name).upper():
-        ec_value = -3  # Adiabatic
-        ec_attr = None
+        ext_exp_zn_id = -3  # Adiabatic
+        ext_exp_name = None
     else:
-        ec_value = exterior_exposure_types.get(_hb_face.boundary_condition.name, -1)
-        ec_attr = None
+        ext_exp_zn_id = exterior_exposure_types.get(_hb_face.boundary_condition.name, -1)
+        ext_exp_name = None
 
-    _compo.ext_exposure_zone_id = ec_value
-    _compo.ext_exposure_zone_name = ec_attr
+    _compo.ext_exposure_zone_id = ext_exp_zn_id
+    _compo.ext_exposure_zone_name = ext_exp_name
 
     return _compo
 

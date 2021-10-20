@@ -31,6 +31,7 @@ from PyPH_HBJSON.create_PHX_assemblies import (
 from PyPH_HBJSON.create_PHX_BldgSegments import (
     get_host_PHX_BldgSegment,
     set_segment_climate_from_hb_model,
+    filter_out_Surface_Exposure,
 )
 import PyPH_HBJSON.create_PHX_Zones
 import PyPH_HBJSON.create_PHX_Rooms
@@ -39,17 +40,19 @@ import PyPH_HBJSON.create_PHX_Mechanicals
 import PyPH_HBJSON.create_PHX_programs
 import PyPH_HBJSON.infiltration
 
-# -- Setup the loggers
 import loggers.config
 
+# -- Setup the loggers
+# ------------------------------------------------------------------------------
 loggers.config.config_loggers("debug")
 
 # --- Input / Output file Paths
+# ------------------------------------------------------------------------------
 SOURCE_FILE = pathlib.Path("sample", "EM_sample_input_HBJSON", "Sample_Input.hbjson")
 TARGET_FILE_XML = pathlib.Path("sample", "EM_sample_output_WUFI_XML", "Sample_Output.xml")
 
-# ------------------------------------------------------------------------------
 # --- Read in an existing HB_JSON and re-build the HB Objects
+# ------------------------------------------------------------------------------
 print("- " * 50)
 print("> Reading in the HBJSON file...")
 hb_model = read_hb_json(SOURCE_FILE)
@@ -72,10 +75,10 @@ for room in hb_model.rooms:
             window_type_collection.add_new_window_type_to_collection(new_window_type)
 
 
-# ------------------------------------------------------------------------------
 # --- Build all the Rooms and Thermal-Zones first. The Thermal-Zones need to all
 # --- be in place so that the Component's exterior exposures for any adjacent-surfaces
 # --- can be set with the proper ID number when building Components.
+# ------------------------------------------------------------------------------
 for room in hb_model.rooms:
     phx_BldgSegment = get_host_PHX_BldgSegment(project_1, room)
     phx_Zone = PyPH_HBJSON.create_PHX_Zones.get_host_PHX_Zone(phx_BldgSegment, room)
@@ -141,6 +144,7 @@ for seg in project_1.building_segments:
     # -- Sometimes might not want this though, so needs to be user-setting
     seg = set_segment_climate_from_hb_model(hb_model, seg)
     seg.merge_zones()
+    seg = filter_out_Surface_Exposure(seg)
     seg.merge_components(by="assembly")
 
 # # ----------------------------------------------------------------------------

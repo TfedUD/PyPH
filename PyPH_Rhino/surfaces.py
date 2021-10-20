@@ -8,6 +8,9 @@ import math
 import ladybug_geometry.geometry3d
 import PyPH_Rhino.gh_io
 
+import honeybee.boundarycondition
+import honeybee.face
+
 
 def set_orientation(IGH, _input_objects):
     # type: (PyPH_Rhino.gh_io.IGH, list[dict]) -> list[dict]
@@ -181,3 +184,26 @@ def convert_geom_to_rh(IGH, _input_objects):
             new_objs.append(new_obj)
 
     return new_objs
+
+
+def set_HB_face_BC_to_adiabatic_if_match_not_found(_face, _set_of_potential_matches):
+    # type: (honeybee.face.Face, set[str]) -> None
+    """Compares a HB Surface to a set of potential matches, and if none are found, sets its BC as Adiabatic
+
+    This is used when splitting a model into multiple Building Segments. For any Seg<->Seg
+    surfaces, reset their BC to Adiabatic rather than 'Surface'
+
+    Arguments:
+    ----------
+        * _face (honeybee.face.Face): The Honeybee Face to modify the BC on.
+        * _set_of_potential_matches (set[str]): A list of potential matching / adjacent surface identifiers.
+
+    Returns:
+    --------
+        * None
+    """
+
+    if _face.boundary_condition.boundary_condition_object not in _set_of_potential_matches:
+        _face.boundary_condition = honeybee.boundarycondition.boundary_conditions.by_name("Adiabatic")
+
+    return None

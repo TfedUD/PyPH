@@ -141,6 +141,7 @@ class temp_Project:
     util_pattern_collection_ventilation: UtilizationPatternCollection_Vent = UtilizationPatternCollection_Vent()
 
 
+# ------------------------------------------------------------------------------
 class temp_Mechanicals:
     def __init__(self):
         self._mech_groups = defaultdict(list)
@@ -171,6 +172,7 @@ class temp_MechanicalDevice:
     properties: None = None
 
 
+# ------------------------------------------------------------------------------
 @dataclass
 class temp_PH_Climate:
     """WUFI breaks off PH Cliamte data into its own section"""
@@ -201,6 +203,61 @@ class temp_Climate:
     PH_Climate = temp_PH_Climate()
 
 
+# ------------------------------------------------------------------------------
+@dataclass
+class temp_Building:
+    numerics: None = None
+    airflow_model: None = None
+    count_generator: None = None
+    has_been_generated: None = None
+    has_been_changed_since_last_gen: None = None
+    components: None = None
+    zones: None = None
+
+
+@dataclass
+class temp_PH_Building_Internal_Gains_Data:
+    int_gains_evap_per_person: float = 0.0
+    int_gains_flush_heat_loss: float = 0.0
+    int_gains_num_toilets: int = 0
+    int_gains_toilet_room_util_pat: int = 0
+    int_gains_use_school_defaults: int = 0
+    int_gains_dhw_marginal_perf_ratio: int = 0
+
+
+@dataclass
+class temp_PH_Building_Internal_Gains:
+    data = temp_PH_Building_Internal_Gains_Data()
+
+
+@dataclass
+class temp_PH_Building:
+    id: int = 0
+    occupancy_category: int = 0
+    occupancy_type: int = 0
+    building_status: int = 0
+    building_type: int = 0
+    occupancy_setting_method: int = 0
+    num_units: int = 0
+    num_stories: int = 0
+    q50: float = 0
+    n50: float = 0
+    foundations: int = 0
+    int_gains: temp_PH_Building_Internal_Gains = temp_PH_Building_Internal_Gains()
+    summer_hrv_bypass_mode: int = 0
+
+
+@dataclass
+class temp_PassiveHouseData:
+    certification_criteria: int = 0
+    localization_selection_type: int = 0
+    PHIUS2021_heating_demand: float = 0
+    PHIUS2021_cooling_demand: float = 0
+    PHIUS2021_heating_load: float = 0
+    PHIUS2021_cooling_load: float = 0
+    PH_Buildings: list = field(default_factory=list)
+
+
 # Type Alias
 temp_WUFI = Union[
     temp_PH_Climate,
@@ -211,4 +268,9 @@ temp_WUFI = Union[
     temp_Space,
     temp_MechanicalSystemsGroup,
     temp_MechanicalDevice,
+    temp_PH_Building,
+    temp_Building,
+    temp_PH_Building_Internal_Gains,
+    temp_PH_Building_Internal_Gains_Data,
+    temp_PassiveHouseData,
 ]

@@ -11,30 +11,39 @@ Note: each function here should have the exact same name as its 'parent' but
 with an underscore in front. ie: '_Variant' maps to the 'Variant' parent class.
 """
 
-from collections import namedtuple
-import PHX.mechanicals.systems
+from PHX.mechanicals.systems import Mechanicals
 import PHX.climate
+from PHX.project import Project
+from PHX.bldg_segment import BldgSegment, Zone
 
 import PyPH_WUFI.xml_node
 from PyPH_WUFI.xml_node import xml_writable
 import PyPH_WUFI.selection
 import PyPH_WUFI.WUFI_xml_convert_phx
 from PyPH_WUFI.WUFI_xml_conversion_classes import (
-    temp_Zone,
     temp_Space,
-    temp_RoomVentilation,
-    temp_Project,
     temp_MechanicalSystemsGroup,
-    temp_Mechanicals,
     temp_MechanicalDevice,
-    temp_Climate,
     temp_PH_Climate,
+    temp_PassiveHouseData,
+    temp_PH_Building,
+    temp_PH_Building_Internal_Gains,
+    temp_Building,
+)
+from PyPH_WUFI.WUFI_xml_conversion_functions import (
+    build_PassiveHouseData,
+    build_Building,
+    build_temp_Climate,
+    build_temp_Mechanicals,
+    build_temp_Project,
+    build_temp_Zone,
+    build_temp_RoomVentilation,
 )
 
 TOL = 2  # Value tolerance for rounding. ie; 9.84318191919 -> 9.84
 
 # ------------------------------------------------------------------------------
-def _WindowType(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _WindowType(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -56,7 +65,7 @@ def _WindowType(_obj, _wufi_obj=None) -> list[xml_writable]:
 
 # ------------------------------------------------------------------------------
 # - Utilization Patterns
-def _UtilizationPattern_Vent(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _UtilizationPattern_Vent(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -75,7 +84,7 @@ def _UtilizationPattern_Vent(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _UtilizationPattern_NonRes(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _UtilizationPattern_NonRes(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
@@ -96,7 +105,7 @@ def _UtilizationPattern_NonRes(_obj, _wufi_obj=None) -> list[xml_writable]:
 
 # ------------------------------------------------------------------------------
 # - Constructions
-def _Material(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Material(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("ThermalConductivity", _obj.tConD),
@@ -108,14 +117,14 @@ def _Material(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Layer(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Layer(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Thickness", _obj.thickness, "unit", "m"),
         PyPH_WUFI.xml_node.XML_Object("Material", _obj.material),
     ]
 
 
-def _Assembly(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Assembly(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -132,7 +141,7 @@ def _Assembly(_obj, _wufi_obj=None) -> list[xml_writable]:
 
 # ------------------------------------------------------------------------------
 # - Geometry
-def _Vertex(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Vertex(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("X", round(_obj.x, 8)),
@@ -141,7 +150,7 @@ def _Vertex(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Polygon(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Polygon(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("NormalVectorX", round(_obj.nVec.x, 10)),
@@ -158,7 +167,7 @@ def _Polygon(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Geom(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Geom(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_List(
             "Vertices",
@@ -171,7 +180,7 @@ def _Geom(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _ClimateLocation(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _ClimateLocation(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Selection", _obj.Selection),
         PyPH_WUFI.xml_node.XML_Object("PH_ClimateLocation", _obj.PH_ClimateLocation),
@@ -187,7 +196,7 @@ def _ClimateLocation(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _WP_Color(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _WP_Color(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Alpha", _obj.alpha),
         PyPH_WUFI.xml_node.XML_Node("Red", _obj.red),
@@ -196,7 +205,7 @@ def _WP_Color(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Component(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Component(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
@@ -222,90 +231,208 @@ def _Component(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _RoomVentilation(_temp_space: temp_Space, _wufi_obj: temp_RoomVentilation) -> list[xml_writable]:
+# ------------------------------------------------------------------------------
+# -- PHIUS Data
+def _temp_PH_Building_Internal_Gains(_obj: temp_PH_Building_Internal_Gains) -> list[xml_writable]:
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", _temp_space.space.quantity),
-        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _temp_space.space.type).xml_data),
-        PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_temp_space.space.floor_area_weighted, TOL), "unit", "m²"),
-        PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_temp_space.space.clear_height, TOL), "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _temp_space.ventilation.schedule.id),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", _wufi_obj.ventilator_id),
+        PyPH_WUFI.xml_node.XML_Node("EvaporationHeatPerPerson", _obj.data.int_gains_evap_per_person, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("HeatLossFluschingWC", _obj.data.int_gains_flush_heat_loss),
+        PyPH_WUFI.xml_node.XML_Node("QuantityWCs", _obj.data.int_gains_num_toilets, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", 1, _obj.data.int_gains_toilet_room_util_pat),
+        PyPH_WUFI.xml_node.XML_Node("UseDefaultValuesSchool", _obj.data.int_gains_use_school_defaults),
         PyPH_WUFI.xml_node.XML_Node(
-            "DesignVolumeFlowRateSupply",
-            round(_temp_space.ventilation.loads.supply, TOL),
-            "unit",
-            "m³/h",
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            "DesignVolumeFlowRateExhaust",
-            round(_temp_space.ventilation.loads.extract, TOL),
-            "unit",
-            "m³/h",
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            "DesignFlowInterzonalUserDef",
-            round(_temp_space.ventilation.loads.transfer, TOL),
-            "unit",
-            "m³/h",
+            "MarginalPerformanceRatioDHW", _obj.data.int_gains_dhw_marginal_perf_ratio, "unit", "-"
         ),
     ]
 
 
-def _RoomLoads_Occupancy(_temp_space: temp_Space, _wufi_obj: temp_RoomVentilation) -> list[xml_writable]:
+def _temp_PH_Building(_obj: temp_PH_Building) -> list[xml_writable]:
+    if _obj.occupancy_type == 1:
+        type_category = "Occupancy::OccupancyTypeResidential"
+    else:
+        type_category = "Occupancy::OccupancyTypeNonResidential"
+
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
-        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _temp_space.occupancy.id),
-        PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
-        PyPH_WUFI.xml_node.XML_Node("NumberOccupants", round(_temp_space.peak_occupancy, TOL), "unit", "-")
-        # PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", round(_temp_space.space.floor_area_weighted, TOL)),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Occupancy::BuildingCategory", _obj.occupancy_category).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection(type_category, _obj.occupancy_type).xml_data),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("PHIUS::BuildingStatus", _obj.building_status).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("PHIUS::BuildingType", _obj.building_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("PHIUS::OccupancySettingMethod", _obj.occupancy_setting_method).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("NumberUnits", _obj.num_units, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("CountStories", _obj.num_stories),
+        PyPH_WUFI.xml_node.XML_Node("EnvelopeAirtightnessCoefficient", _obj.q50, "unit", "m³/m²h"),
+        PyPH_WUFI.xml_node.XML_List(
+            "FoundationInterfaces",
+            [
+                PyPH_WUFI.xml_node.XML_Object("FoundationInterface", _, "index", i)
+                for i, _ in enumerate(_obj.foundations)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_Object("InternalGainsAdditionalData", _obj.int_gains),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "Mech_Summer::SummerHRVHumidityRecovery", _obj.summer_hrv_bypass_mode
+            ).xml_data
+        ),
     ]
 
 
-def _RoomLoads_Lighting(_temp_space: temp_Space, _wufi_obj=None) -> list[xml_writable]:
+def _temp_PassiveHouseData(_obj: temp_PassiveHouseData) -> list[xml_writable]:
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
-        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
-        PyPH_WUFI.xml_node.XML_Node("ChoiceLightTransmissionGlazing", 1, "choice", "Triple low-e glazing: 0.69"),
-        PyPH_WUFI.xml_node.XML_Node("LightingControl", 1, "choice", "Manually"),
-        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
-        PyPH_WUFI.xml_node.XML_Node("MotionDetector", False),
-        PyPH_WUFI.xml_node.XML_Node("FacadeIncludingWindows", False),
         PyPH_WUFI.xml_node.XML_Node(
-            "FractionTreatedFloorArea", round(_temp_space.space_percent_floor_area_total, 4), "unit", "-"
-        ),
-        PyPH_WUFI.xml_node.XML_Node("DeviationFromNorth", 0, "unit", "°"),
-        PyPH_WUFI.xml_node.XML_Node("RoomDepth", 999, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("RoomWidth", 999, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("RoomHeight", 999, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("LintelHeight", 999, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("WindowWidth", 999, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "InstalledLightingPower", round(_temp_space.lighting.loads.watts_per_area, TOL), "unit", "W/m²"
+            *PyPH_WUFI.selection.Selection("PHIUS::PH_CertificateCriteria", _obj.certification_criteria).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node(
-            "LightingFullLoadHours", round(_temp_space.lighting.schedule.EFLH, TOL), "unit", "hrs/a"
+            *PyPH_WUFI.selection.Selection("PHIUS::PH_SelectionTargetData", _obj.localization_selection_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("AnnualHeatingDemand", _obj.PHIUS2021_heating_demand, "unit", "kWh/m²a"),
+        PyPH_WUFI.xml_node.XML_Node("AnnualCoolingDemand", _obj.PHIUS2021_cooling_demand, "unit", "kWh/m²a"),
+        PyPH_WUFI.xml_node.XML_Node("PeakHeatingLoad", _obj.PHIUS2021_heating_load, "unit", "W/m²"),
+        PyPH_WUFI.xml_node.XML_Node("PeakCoolingLoad", _obj.PHIUS2021_cooling_load, "unit", "W/m²"),
+        PyPH_WUFI.xml_node.XML_List(
+            "PH_Buildings",
+            [PyPH_WUFI.xml_node.XML_Object("PH_Building", _, "index", i) for i, _ in enumerate(_obj.PH_Buildings)],
         ),
     ]
 
 
-def _RoomLoads_ElecEquipment(_temp_space: temp_Space, _wufi_obj=None) -> list[xml_writable]:
+def _temp_PH_Climate(_obj: temp_PH_Climate) -> list[xml_writable]:
     return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
-        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
-        PyPH_WUFI.xml_node.XML_Node("ApplicationType", 7, "choice", "User defined"),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", 1),
-        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
-        PyPH_WUFI.xml_node.XML_Node("PowerRating", round(_temp_space.total_space_elec_wattage, TOL), "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 6),  # -- User Defined
+        PyPH_WUFI.xml_node.XML_Node("SelectionPECO2Factor", 1),
+        PyPH_WUFI.xml_node.XML_Node("DailyTemperatureSwingSummer", _obj.summer_daily_temperature_swing),
+        PyPH_WUFI.xml_node.XML_Node("AverageWindSpeed", _obj.average_wind_speed),
+        # ---
+        PyPH_WUFI.xml_node.XML_Node("Latitude", _obj.location.latitude, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("Longitude", _obj.location.longitude, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("HeightNNWeatherStation", _obj.location.weather_station_elevation, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("dUTC", _obj.location.hours_from_UTC),
+        PyPH_WUFI.xml_node.XML_Node("ClimateZone", _obj.location.climate_zone, "choice", "Not defined"),
+        # ---
+        PyPH_WUFI.xml_node.XML_Node("GroundThermalConductivity", _obj.ground.ground_thermal_conductivity),
+        PyPH_WUFI.xml_node.XML_Node("GroundHeatCapacitiy", _obj.ground.ground_heat_capacitiy),
+        PyPH_WUFI.xml_node.XML_Node("GroundDensity", _obj.ground.ground_density),
+        PyPH_WUFI.xml_node.XML_Node("DepthGroundwater", _obj.ground.depth_groundwater),
+        PyPH_WUFI.xml_node.XML_Node("FlowRateGroundwater", _obj.ground.flow_rate_groundwater),
+        # ---
+        PyPH_WUFI.xml_node.XML_List(
+            "TemperatureMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_temperature_air.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "DewPointTemperatureMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_temperature_dewpoint.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "SkyTemperatureMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_temperature_sky.values)
+            ],
+        ),
+        # PyPH_WUFI.xml_node.XML_List(
+        #     "GroundTemperatureMonthly",
+        #     [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_temperature_ground.values)],
+        # ),
+        PyPH_WUFI.xml_node.XML_List(
+            "NorthSolarRadiationMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_radiation_north.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "EastSolarRadiationMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_radiation_east.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "SouthSolarRadiationMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_radiation_south.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "WestSolarRadiationMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_radiation_west.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "GlobalSolarRadiationMonthly",
+            [
+                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
+                for i, _ in enumerate(_obj.monthly_radiation_global.values)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_Node("TemperatureHeating1", _obj.peak_heating_1.temp),
+        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationHeating1", _obj.peak_heating_1.rad_north),
+        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationHeating1", _obj.peak_heating_1.rad_east),
+        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationHeating1", _obj.peak_heating_1.rad_south),
+        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationHeating1", _obj.peak_heating_1.rad_west),
+        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationHeating1", _obj.peak_heating_1.rad_global),
+        PyPH_WUFI.xml_node.XML_Node("TemperatureHeating2", _obj.peak_heating_2.temp),
+        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationHeating2", _obj.peak_heating_2.rad_north),
+        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationHeating2", _obj.peak_heating_2.rad_east),
+        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationHeating2", _obj.peak_heating_2.rad_south),
+        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationHeating2", _obj.peak_heating_2.rad_west),
+        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationHeating2", _obj.peak_heating_2.rad_global),
+        PyPH_WUFI.xml_node.XML_Node("TemperatureCooling", _obj.peak_cooling.temp),
+        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationCooling", _obj.peak_cooling.rad_north),
+        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationCooling", _obj.peak_cooling.rad_east),
+        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationCooling", _obj.peak_cooling.rad_south),
+        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationCooling", _obj.peak_cooling.rad_west),
+        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationCooling", _obj.peak_cooling.rad_global),
+    ]
+
+
+def _Climate(_obj: PHX.climate.Climate) -> list[xml_writable]:
+    temp_climate = build_temp_Climate(_obj)
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1),  # -- User Defined
+        PyPH_WUFI.xml_node.XML_Object("PH_ClimateLocation", temp_climate.PH_Climate),
+    ]
+
+
+# ------------------------------------------------------------------------------
+# --Foundations
+def _Foundation(_obj):
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node(
-            "UtilizationHoursYear", round(_temp_space.elec_equipment.schedule.EFLH, TOL), "unit", "hrs/a"
+            *PyPH_WUFI.selection.Selection("Foundation::FloorSlabType", _obj.floor_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Foundation::SettingFloorSlabType", _obj.floor_setting).xml_data
         ),
     ]
 
 
 # ------------------------------------------------------------------------------
-# -- Zones, Rooms
-def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
+# -- Zones
+def _Zone(_obj: Zone) -> list[xml_writable]:
+    temp_Zone = build_temp_Zone(_obj)
+
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
@@ -337,28 +464,28 @@ def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
             "RoomsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("RoomVentilation", _, "index", i, "_RoomVentilation")
-                for i, _ in enumerate(_wufi_obj.spaces)
+                for i, _ in enumerate(temp_Zone.spaces)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "LoadsLightingsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("LoadsLighting", _, "index", i, "_RoomLoads_Lighting")
-                for i, _ in enumerate(_wufi_obj.spaces)
+                for i, _ in enumerate(temp_Zone.spaces)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "LoadsPersonsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("LoadsPerson", _, "index", i, "_RoomLoads_Occupancy")
-                for i, _ in enumerate(_wufi_obj.spaces)
+                for i, _ in enumerate(temp_Zone.spaces)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "LoadsOfficeEquipmentsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("LoadsOfficeEquipment", _, "index", i, "_RoomLoads_ElecEquipment")
-                for i, _ in enumerate(_wufi_obj.spaces)
+                for i, _ in enumerate(temp_Zone.spaces)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
@@ -426,7 +553,7 @@ def _Zone(_obj, _wufi_obj: temp_Zone) -> list[xml_writable]:
     ]
 
 
-def _Building(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _temp_Building(_obj: temp_Building) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Numerics", _obj.numerics),
         PyPH_WUFI.xml_node.XML_Node("AirFlowModel", _obj.airflow_model),
@@ -444,392 +571,92 @@ def _Building(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-# ------------------------------------------------------------------------------
-# -- PHIUS Data
-def _IntGainsData(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("EvaporationHeatPerPerson", _obj.int_gains_evap_per_person, "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("HeatLossFluschingWC", _obj.int_gains_flush_heat_loss),
-        PyPH_WUFI.xml_node.XML_Node("QuantityWCs", _obj.int_gains_num_toilets, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("RoomCategory", 1, _obj.int_gains_toilet_room_util_pat),
-        PyPH_WUFI.xml_node.XML_Node("UseDefaultValuesSchool", _obj.int_gains_use_school_defaults),
-        PyPH_WUFI.xml_node.XML_Node(
-            "MarginalPerformanceRatioDHW", _obj.int_gains_dhw_marginal_perf_ratio, "unit", "-"
-        ),
-    ]
-
-
-def _PH_Building(_obj, _wufi_obj=None) -> list[xml_writable]:
-    if _obj.occupancy_type == 1:
-        type_category = "Occupancy::OccupancyTypeResidential"
-    else:
-        type_category = "Occupancy::OccupancyTypeNonResidential"
+def _RoomVentilation(_temp_space: temp_Space) -> list[xml_writable]:
+    temp_RoomVentilation = build_temp_RoomVentilation(_temp_space)
 
     return [
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("Quantity", _temp_space.space.quantity),
+        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection("WP_Room::Type", _temp_space.space.type).xml_data),
+        PyPH_WUFI.xml_node.XML_Node("AreaRoom", round(_temp_space.space.floor_area_weighted, TOL), "unit", "m²"),
+        PyPH_WUFI.xml_node.XML_Node("ClearRoomHeight", round(_temp_space.space.clear_height, TOL), "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPatternVent", _temp_space.ventilation.schedule.id),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrVentilationUnit", temp_RoomVentilation.ventilator_id),
         PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Occupancy::BuildingCategory", _obj.occupancy_category).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(*PyPH_WUFI.selection.Selection(type_category, _obj.occupancy_type).xml_data),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("PHIUS::BuildingStatus", _obj.building_status).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("PHIUS::BuildingType", _obj.building_type).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("PHIUS::OccupancySettingMethod", _obj.occupancy_setting_method).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("NumberUnits", _obj.num_units, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("CountStories", _obj.num_stories),
-        # PyPH_WUFI.xml_node.XML_Node("InternalGainsSetting", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node("EnvelopeAirtightnessCoefficient", _obj.q50, "unit", "m³/m²h"),
-        PyPH_WUFI.xml_node.XML_List(
-            "FoundationInterfaces",
-            [
-                PyPH_WUFI.xml_node.XML_Object("FoundationInterface", _, "index", i)
-                for i, _ in enumerate(_obj.foundations)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_Object("InternalGainsAdditionalData", _obj.int_gains_data),
-    ]
-
-
-def _PassivehouseData(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("PHIUS::PH_CertificateCriteria", _obj.certification_criteria).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("PHIUS::PH_SelectionTargetData", _obj.localization_selection_type).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("AnnualHeatingDemand", _obj.PHIUS2021_heating_demand, "unit", "kWh/m²a"),
-        PyPH_WUFI.xml_node.XML_Node("AnnualCoolingDemand", _obj.PHIUS2021_cooling_demand, "unit", "kWh/m²a"),
-        PyPH_WUFI.xml_node.XML_Node("PeakHeatingLoad", _obj.PHIUS2021_heating_load, "unit", "W/m²"),
-        PyPH_WUFI.xml_node.XML_Node("PeakCoolingLoad", _obj.PHIUS2021_cooling_load, "unit", "W/m²"),
-        PyPH_WUFI.xml_node.XML_List(
-            "PH_Buildings",
-            [PyPH_WUFI.xml_node.XML_Object("PH_Building", _, "index", i) for i, _ in enumerate(_obj.PH_Buildings)],
-        ),
-    ]
-
-
-def _temp_PH_Climate(_obj: temp_PH_Climate, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Selection", 6),  # -- User Defined
-        PyPH_WUFI.xml_node.XML_Node("SelectionPECO2Factor", 1),
-        PyPH_WUFI.xml_node.XML_Node("DailyTemperatureSwingSummer", _obj.summer_daily_temperature_swing),
-        PyPH_WUFI.xml_node.XML_Node("AverageWindSpeed", _obj.average_wind_speed),
-        # ---
-        PyPH_WUFI.xml_node.XML_Node("Latitude", _obj.location.latitude, "unit", "°"),
-        PyPH_WUFI.xml_node.XML_Node("Longitude", _obj.location.longitude, "unit", "°"),
-        PyPH_WUFI.xml_node.XML_Node("HeightNNWeatherStation", _obj.location.weather_station_elevation, "unit", "m"),
-        PyPH_WUFI.xml_node.XML_Node("dUTC", _obj.location.hours_from_UTC),
-        PyPH_WUFI.xml_node.XML_Node("ClimateZone", _obj.location.climate_zone, "choice", "Not defined"),
-        # ---
-        PyPH_WUFI.xml_node.XML_Node("GroundThermalConductivity", _obj.ground.ground_thermal_conductivity),
-        PyPH_WUFI.xml_node.XML_Node("GroundHeatCapacitiy", _obj.ground.ground_heat_capacitiy),
-        PyPH_WUFI.xml_node.XML_Node("GroundDensity", _obj.ground.ground_density),
-        PyPH_WUFI.xml_node.XML_Node("DepthGroundwater", _obj.ground.depth_groundwater),
-        PyPH_WUFI.xml_node.XML_Node("FlowRateGroundwater", _obj.ground.flow_rate_groundwater),
-        # ---
-        PyPH_WUFI.xml_node.XML_List(
-            "TemperatureMonthly",
-            [
-                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.monthly_temperature_air.values)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "DewPointTemperatureMonthly",
-            [
-                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.monthly_temperature_dewpoint.values)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "SkyTemperatureMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_temperature_sky.values)],
-        ),
-        # PyPH_WUFI.xml_node.XML_List(
-        #     "GroundTemperatureMonthly",
-        #     [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_temperature_ground.values)],
-        # ),
-        PyPH_WUFI.xml_node.XML_List(
-            "NorthSolarRadiationMonthly",
-            [
-                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.monthly_radiation_north.values)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "EastSolarRadiationMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_radiation_east.values)],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "SouthSolarRadiationMonthly",
-            [
-                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.monthly_radiation_south.values)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "WestSolarRadiationMonthly",
-            [PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i) for i, _ in enumerate(_obj.monthly_radiation_west.values)],
-        ),
-        PyPH_WUFI.xml_node.XML_List(
-            "GlobalSolarRadiationMonthly",
-            [
-                PyPH_WUFI.xml_node.XML_Node("Item", _, "index", i)
-                for i, _ in enumerate(_obj.monthly_radiation_global.values)
-            ],
-        ),
-        PyPH_WUFI.xml_node.XML_Node("TemperatureHeating1", _obj.peak_heating_1.temp),
-        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationHeating1", _obj.peak_heating_1.rad_north),
-        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationHeating1", _obj.peak_heating_1.rad_east),
-        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationHeating1", _obj.peak_heating_1.rad_south),
-        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationHeating1", _obj.peak_heating_1.rad_west),
-        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationHeating1", _obj.peak_heating_1.rad_global),
-        PyPH_WUFI.xml_node.XML_Node("TemperatureHeating2", _obj.peak_heating_2.temp),
-        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationHeating2", _obj.peak_heating_2.rad_north),
-        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationHeating2", _obj.peak_heating_2.rad_east),
-        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationHeating2", _obj.peak_heating_2.rad_south),
-        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationHeating2", _obj.peak_heating_2.rad_west),
-        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationHeating2", _obj.peak_heating_2.rad_global),
-        PyPH_WUFI.xml_node.XML_Node("TemperatureCooling", _obj.peak_cooling.temp),
-        PyPH_WUFI.xml_node.XML_Node("NorthSolarRadiationCooling", _obj.peak_cooling.rad_north),
-        PyPH_WUFI.xml_node.XML_Node("EastSolarRadiationCooling", _obj.peak_cooling.rad_east),
-        PyPH_WUFI.xml_node.XML_Node("SouthSolarRadiationCooling", _obj.peak_cooling.rad_south),
-        PyPH_WUFI.xml_node.XML_Node("WestSolarRadiationCooling", _obj.peak_cooling.rad_west),
-        PyPH_WUFI.xml_node.XML_Node("GlobalSolarRadiationCooling", _obj.peak_cooling.rad_global),
-    ]
-
-
-def _Climate(_obj: PHX.climate.Climate, _wufi_obj=temp_Climate) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Selection", 1),  # -- User Defined
-        PyPH_WUFI.xml_node.XML_Object("PH_ClimateLocation", _wufi_obj.PH_Climate),
-    ]
-
-
-# ------------------------------------------------------------------------------
-# --Foundations
-def _Foundation(_obj, _wufi_obj=None):
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Foundation::FloorSlabType", _obj.floor_type).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Foundation::SettingFloorSlabType", _obj.floor_setting).xml_data
-        ),
-    ]
-
-
-# ------------------------------------------------------------------------------
-# -- HVAC
-def _Mechanicals(_obj: PHX.mechanicals.systems.Mechanicals, _wufi_obj: temp_Mechanicals) -> list[xml_writable]:
-
-    return [
-        PyPH_WUFI.xml_node.XML_List(
-            "Systems",
-            [
-                PyPH_WUFI.xml_node.XML_Object("System", _, "index", i, _schema_name="_MechanicalSystemGroup")
-                for i, _ in enumerate(_wufi_obj.mech_groups)  # -- temp_MechanicalSystemsGroup objects
-            ],
-        ),
-    ]
-
-
-def _MechanicalSystemGroup(_obj: temp_MechanicalSystemsGroup, _wufi_obj=None) -> list[xml_writable]:
-
-    return [
-        PyPH_WUFI.xml_node.XML_Node("Name", "System Group {}".format(_obj.group_type_number)),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Mech_System::Type", _obj.group_type_number).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.group_type_number),
-        PyPH_WUFI.xml_node.XML_List(
-            "Devices",
-            [
-                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_HVAC_Device")
-                for i, _ in enumerate(_obj.wufi_devices)
-            ],
-        ),
-    ]
-
-
-def _HVAC_Device(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
-    node_items = [
-        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Mech_Device::SystemType", _obj.system_type).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            *PyPH_WUFI.selection.Selection("Mech_Device::TypeDevice", _obj.device_type).xml_data
-        ),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.system_usage.used_for_heating),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.system_usage.used_for_DHW),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.system_usage.used_for_cooling),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.system_usage.used_for_ventilation),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.system_usage.used_for_humidification),
-        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.system_usage.used_for_dehumidification),
-        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.system_usage.used_optional_climate),
-        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.system_usage.optional_climate_id_number),
-    ]
-
-    # -- For the different types of devices, add in their specific properties
-    if _obj.device_type == 1:
-        # -- Ventilator
-        node_items.extend(_HVAC_Ventilator(_obj))
-    elif _obj.device_type == 2:
-        # -- Elec Space Heat / DHW
-        node_items.extend(_HVAC_Elec_Heat_DHW(_obj))
-    elif _obj.device_type == 8:
-        # -- Water Storage
-        node_items.extend(_HVAC_Water_Tank(_obj))
-
-    return node_items
-
-
-# -- HVAC Device | Ventilator
-def _HVAC_Ventilator(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Object(
-            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properities_Ventilation_PH"
-        ),
-        PyPH_WUFI.xml_node.XML_Object(
-            "Ventilation_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Ventilation"
-        ),
-        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.properties.heat_recovery_efficiency, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "MoistureRecovery",
-            _obj.properties.humidity_recovery_efficiency,
+            "DesignVolumeFlowRateSupply",
+            round(_temp_space.ventilation.loads.supply, TOL),
             "unit",
-            "-",
+            "m³/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "DesignVolumeFlowRateExhaust",
+            round(_temp_space.ventilation.loads.extract, TOL),
+            "unit",
+            "m³/h",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "DesignFlowInterzonalUserDef",
+            round(_temp_space.ventilation.loads.transfer, TOL),
+            "unit",
+            "m³/h",
         ),
     ]
 
 
-def _HVAC_Properities_Ventilation_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _RoomLoads_Occupancy(_temp_space: temp_Space) -> list[xml_writable]:
     return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNrUtilizationPattern", _temp_space.occupancy.id),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceActivityPersons", 3, "choice", "Adult, standing or light work"),
+        PyPH_WUFI.xml_node.XML_Node("NumberOccupants", round(_temp_space.peak_occupancy, TOL), "unit", "-")
+        # PyPH_WUFI.xml_node.XML_Node("FloorAreaUtilizationZone", round(_temp_space.space.floor_area_weighted, TOL)),
+    ]
+
+
+def _RoomLoads_Lighting(_temp_space: temp_Space) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceLightTransmissionGlazing", 1, "choice", "Triple low-e glazing: 0.69"),
+        PyPH_WUFI.xml_node.XML_Node("LightingControl", 1, "choice", "Manually"),
+        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
+        PyPH_WUFI.xml_node.XML_Node("MotionDetector", False),
+        PyPH_WUFI.xml_node.XML_Node("FacadeIncludingWindows", False),
+        PyPH_WUFI.xml_node.XML_Node(
+            "FractionTreatedFloorArea", round(_temp_space.space_percent_floor_area_total, 4), "unit", "-"
+        ),
+        PyPH_WUFI.xml_node.XML_Node("DeviationFromNorth", 0, "unit", "°"),
+        PyPH_WUFI.xml_node.XML_Node("RoomDepth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("RoomWidth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("RoomHeight", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("LintelHeight", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node("WindowWidth", 999, "unit", "m"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "InstalledLightingPower", round(_temp_space.lighting.loads.watts_per_area, TOL), "unit", "W/m²"
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "LightingFullLoadHours", round(_temp_space.lighting.schedule.EFLH, TOL), "unit", "hrs/a"
+        ),
+    ]
+
+
+def _RoomLoads_ElecEquipment(_temp_space: temp_Space) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _temp_space.space.display_name),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _temp_space.occupancy.id, "choice"),
+        PyPH_WUFI.xml_node.XML_Node("ApplicationType", 7, "choice", "User defined"),
         PyPH_WUFI.xml_node.XML_Node("Quantity", 1),
+        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", True),
+        PyPH_WUFI.xml_node.XML_Node("PowerRating", round(_temp_space.total_space_elec_wattage, TOL), "unit", "W"),
         PyPH_WUFI.xml_node.XML_Node(
-            "ElectricEfficiency",
-            _obj.electric_efficiency,
-            "unit",
-            "Wh/m³",
+            "UtilizationHoursYear", round(_temp_space.elec_equipment.schedule.EFLH, TOL), "unit", "hrs/a"
         ),
-        PyPH_WUFI.xml_node.XML_Node(
-            "SubsoilHeatExchangeEfficiency",
-            _obj.subsoil_heat_exchange_efficiency,
-            "unit",
-            "-",
-        ),
-        PyPH_WUFI.xml_node.XML_Node(
-            "HumidityRecoveryEfficiency",
-            _obj.humidity_recovery_efficiency,
-            "unit",
-            "-",
-        ),
-        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateFrom", _obj.volume_flowrate_from, "unit", "m³/h"),
-        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateTo", _obj.volume_flow_rate_to, "unit", "m³/h"),
-        PyPH_WUFI.xml_node.XML_Node(
-            "TemperatureBelowDefrostUsed",
-            _obj.temperature_below_defrost_used,
-            "unit",
-            "°C",
-        ),
-        PyPH_WUFI.xml_node.XML_Node("FrostProtection", _obj.frost_protection),
-        PyPH_WUFI.xml_node.XML_Node("DefrostRequired", _obj.defrost_required),
-        PyPH_WUFI.xml_node.XML_Node("NoSummerBypass", _obj.no_summer_bypass),
-        PyPH_WUFI.xml_node.XML_Node("HRVCalculatorData", _obj.hrv_calculator_data),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_VOS", _obj.maximum_vos),
-        PyPH_WUFI.xml_node.XML_Node("Maximum_PP", _obj.maximum_pp),
-        PyPH_WUFI.xml_node.XML_Node("Standard_VOS", _obj.standard_vos),
-        PyPH_WUFI.xml_node.XML_Node("Standard_PP", _obj.standard_pp),
-        PyPH_WUFI.xml_node.XML_Node("Basic_VOS", _obj.basic_vos),
-        PyPH_WUFI.xml_node.XML_Node("Basic_PP", _obj.basic_pp),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_VOS", _obj.minimum_vos),
-        PyPH_WUFI.xml_node.XML_Node("Minimum_PP", _obj.minimum_pp),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", _obj.auxiliary_energy, "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", _obj.auxiliary_energy_dhw, "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
-    ]
-
-
-def _HVAC_Properties_Ventilation(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("Unit", 51, "choice", "m³/h"),
-        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
-    ]
-
-
-# -- HVAC Device | Elect Heater / DHW
-def _HVAC_Elec_Heat_DHW(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Object(
-            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW_PH"
-        ),
-        PyPH_WUFI.xml_node.XML_Object(
-            "DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW"
-        ),
-    ]
-
-
-def _HVAC_Properties_Elec_Heat_DHW_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
-    ]
-
-
-def _HVAC_Properties_Elec_Heat_DHW(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
-        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
-    ]
-
-
-# -- HVAC Device | Hot Water Tank
-def _HVAC_Water_Tank(_obj: temp_MechanicalDevice, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank_PH"),
-        PyPH_WUFI.xml_node.XML_Object("DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank"),
-    ]
-
-
-def _HVAC_Properties_Water_Tank_PH(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("SolarThermalStorageCapacity", _obj.volume, "unit", "Liter"),
-        PyPH_WUFI.xml_node.XML_Node("StorageLossesStandby", "unit", "W/K"),
-        PyPH_WUFI.xml_node.XML_Node("TotalSolarThermalStorageLosses", _obj.standby_loses, "unit", "W/K"),
-        PyPH_WUFI.xml_node.XML_Node("InputOption", 1, "choice", "Specific total losses"),
-        PyPH_WUFI.xml_node.XML_Node("AverageHeatReleaseStorage", "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("TankRoomTemp", "unit", "°C"),
-        PyPH_WUFI.xml_node.XML_Node("TypicalStorageWaterTemperature", "unit", "°C"),
-        PyPH_WUFI.xml_node.XML_Node("QauntityWS", 1),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
-        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
-    ]
-
-
-def _HVAC_Properties_Water_Tank(_obj, _wufi_obj=None) -> list[xml_writable]:
-    return [
-        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
-        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
     ]
 
 
 # ------------------------------------------------------------------------------
 # -- Variant, Project
-def _BldgSegment(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _BldgSegment(_obj: BldgSegment) -> list[xml_writable]:
     """
     Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
     This is done for PHIUS modeling and allows for Non-Res and Res. sections
@@ -847,107 +674,8 @@ def _BldgSegment(_obj, _wufi_obj=None) -> list[xml_writable]:
       :          :    :
     """
 
-    # -- Create temporary objects / layers to collect the data in the right format
-    # -- Building Object
-    tBuilding = namedtuple(
-        "Building",
-        [
-            "numerics",
-            "airflow_model",
-            "count_generator",
-            "has_been_generated",
-            "has_been_changed_since_last_gen",
-            "components",
-            "zones",
-        ],
-    )
-
-    tbuilding_container = tBuilding(
-        _obj.numerics,
-        _obj.airflow_model,
-        _obj.count_generator,
-        _obj.has_been_generated,
-        _obj.has_been_changed_since_last_gen,
-        _obj.components,
-        _obj.zones,
-    )
-
-    # --- PH_Building Object
-    tIntGainsData = namedtuple(
-        "IntGainsData",
-        [
-            "int_gains_evap_per_person",
-            "int_gains_flush_heat_loss",
-            "int_gains_num_toilets",
-            "int_gains_toilet_room_util_pat",
-            "int_gains_use_school_defaults",
-            "int_gains_dhw_marginal_perf_ratio",
-        ],
-    )
-
-    tPH_Building = namedtuple(
-        "PH_Building",
-        [
-            "id",
-            "occupancy_category",
-            "occupancy_type",
-            "building_status",
-            "building_type",
-            "occupancy_setting_method",
-            "num_units",
-            "num_stories",
-            "q50",
-            "n50",
-            "foundations",
-            "int_gains_data",
-        ],
-    )
-
-    tPH_Building = tPH_Building(
-        _obj.id,
-        _obj.occupancy.category,
-        _obj.occupancy.usage_type,
-        _obj.PHIUS_certification.building_status,
-        _obj.PHIUS_certification.building_type,
-        2,
-        _obj.occupancy.num_units,
-        _obj.occupancy.num_stories,
-        _obj.infiltration.q50,
-        _obj.infiltration.n50,
-        _obj.foundations,
-        tIntGainsData(
-            _obj.PHIUS_certification.int_gains_evap_per_person,
-            _obj.PHIUS_certification.int_gains_flush_heat_loss,
-            _obj.PHIUS_certification.int_gains_num_toilets,
-            _obj.PHIUS_certification.int_gains_toilet_room_util_pat,
-            _obj.PHIUS_certification.int_gains_use_school_defaults,
-            _obj.PHIUS_certification.int_gains_dhw_marginal_perf_ratio,
-        ),
-    )
-
-    # ---- PassivehouseData Object
-    tPassivehouseData = namedtuple(
-        "PassivehouseData",
-        [
-            "certification_criteria",
-            "localization_selection_type",
-            "PHIUS2021_heating_demand",
-            "PHIUS2021_cooling_demand",
-            "PHIUS2021_heating_load",
-            "PHIUS2021_cooling_load",
-            "PH_Buildings",
-        ],
-    )
-
-    tPH_Data = tPassivehouseData(
-        _obj.PHIUS_certification.certification_criteria,
-        _obj.PHIUS_certification.localization_selection_type,
-        _obj.PHIUS_certification.PHIUS2021_heating_demand,
-        _obj.PHIUS_certification.PHIUS2021_cooling_demand,
-        _obj.PHIUS_certification.PHIUS2021_heating_load,
-        _obj.PHIUS_certification.PHIUS2021_cooling_load,
-        [tPH_Building],
-    )
+    temp_Bldg = build_Building(_obj)
+    temp_PHData = build_PassiveHouseData(_obj)
 
     # --- Build the final output list
     return [
@@ -955,15 +683,15 @@ def _BldgSegment(_obj, _wufi_obj=None) -> list[xml_writable]:
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
         PyPH_WUFI.xml_node.XML_Node("Remarks", _obj.remarks),
         PyPH_WUFI.xml_node.XML_Object("Graphics_3D", _obj.geom),
-        PyPH_WUFI.xml_node.XML_Object("Building", tbuilding_container),
+        PyPH_WUFI.xml_node.XML_Object("Building", temp_Bldg),
         PyPH_WUFI.xml_node.XML_Object("ClimateLocation", _obj.climate),
         PyPH_WUFI.xml_node.XML_Node("PlugIn", _obj.plugin),
-        PyPH_WUFI.xml_node.XML_Object("PassivehouseData", tPH_Data),
+        PyPH_WUFI.xml_node.XML_Object("PassivehouseData", temp_PHData),
         PyPH_WUFI.xml_node.XML_Object("HVAC", _obj.mechanicals, _schema_name="_Mechanicals"),
     ]
 
 
-def _Date(_obj, _wufi_obj=None):
+def _Date(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Year", _obj.Year),
         PyPH_WUFI.xml_node.XML_Node("Month", _obj.Month),
@@ -973,7 +701,7 @@ def _Date(_obj, _wufi_obj=None):
     ]
 
 
-def _ProjectData(_obj, _wufi_obj=None):
+def _ProjectData(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("Customer_Name", _obj.cN),
         PyPH_WUFI.xml_node.XML_Node("Customer_Locality", _obj.cLoc),
@@ -1003,12 +731,15 @@ def _ProjectData(_obj, _wufi_obj=None):
     ]
 
 
-def _Project(_obj, _wufi_obj=temp_Project):
+def _Project(_obj: Project) -> list[xml_writable]:
     """
     Note: For WUFI, each 'Building-Segment' will map to a separate 'Variant'.
     This is done for PHIUS modeling and allows for Non-Res and Res. sections
     of a building to be modeled in the same WUFI file, in different 'Cases'
     """
+
+    temp_Project = build_temp_Project(_obj)
+
     return [
         PyPH_WUFI.xml_node.XML_Node("DataVersion", _obj.data_version),
         PyPH_WUFI.xml_node.XML_Node("UnitSystem", _obj.unit_system),
@@ -1029,14 +760,14 @@ def _Project(_obj, _wufi_obj=temp_Project):
             "UtilisationPatternsVentilation",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPatternVent", _, "index", i)
-                for i, _ in enumerate(_wufi_obj.util_pattern_collection_ventilation)
+                for i, _ in enumerate(temp_Project.util_pattern_collection_ventilation)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
             "UtilizationPatternsPH",
             [
                 PyPH_WUFI.xml_node.XML_Object("UtilizationPattern", _, "index", i)
-                for i, _ in enumerate(_wufi_obj.util_pattern_collection_non_residential)
+                for i, _ in enumerate(temp_Project.util_pattern_collection_non_residential)
             ],
         ),
         PyPH_WUFI.xml_node.XML_List(
@@ -1048,7 +779,7 @@ def _Project(_obj, _wufi_obj=temp_Project):
 
 # ------------------------------------------------------------------------------
 # -- Appliances
-def _Appliance_dishwasher(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_dishwasher(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::Connection", _obj.dishwasher_water_connection).xml_data
@@ -1062,7 +793,7 @@ def _Appliance_dishwasher(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_clothes_washer(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_clothes_washer(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("UtilizationFactor", _obj.washer_utilization_factor, "unit", "-"),
         PyPH_WUFI.xml_node.XML_Node("MEF_ModifiedEnergyFactor", _obj.washer_modified_energy_factor, "unit", "-"),
@@ -1072,7 +803,7 @@ def _Appliance_clothes_washer(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_clothes_dryer(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_clothes_dryer(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::Dryer_Choice", _obj.dryer_type).xml_data
@@ -1088,19 +819,19 @@ def _Appliance_clothes_dryer(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_fridge(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_fridge(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance_freezer(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_freezer(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance_fridge_freezer(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_fridge_freezer(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance_cooking(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_cooking(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::CookingWith", _obj.cooktop_type).xml_data
@@ -1108,11 +839,11 @@ def _Appliance_cooking(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_PHIUS_MEL(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_PHIUS_MEL(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance_PHIUS_Lighting_Int(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_PHIUS_Lighting_Int(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node(
             "FractionHightEfficiency", round(_obj.lighting_frac_high_efficiency, TOL), "unit", "-"
@@ -1120,7 +851,7 @@ def _Appliance_PHIUS_Lighting_Int(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_PHIUS_Lighting_Ext(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_PHIUS_Lighting_Ext(_obj) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node(
             "FractionHightEfficiency", round(_obj.lighting_frac_high_efficiency, TOL), "unit", "-"
@@ -1128,15 +859,15 @@ def _Appliance_PHIUS_Lighting_Ext(_obj, _wufi_obj=None) -> list[xml_writable]:
     ]
 
 
-def _Appliance_Custom_Electric_per_Year(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_Custom_Electric_per_Year(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance_Custom_Electric_per_Use(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance_Custom_Electric_per_Use(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance(_obj, _wufi_obj=None) -> list[xml_writable]:
+def _Appliance(_obj) -> list[xml_writable]:
     """Appliances have some basic shared params, then a bunch of custom params"""
     appliances = {
         1: _Appliance_dishwasher,
@@ -1188,3 +919,205 @@ def _Appliance(_obj, _wufi_obj=None) -> list[xml_writable]:
     # --------------------------------------------------------------------------
     # -- Combine the Basic and the Custom Params
     return basic_params + appliances.get(_obj.type)(_obj)
+
+
+# ------------------------------------------------------------------------------
+# -- HVAC
+def _Mechanicals(_obj: Mechanicals) -> list[xml_writable]:
+    temp_Mechanicals = build_temp_Mechanicals(_obj)
+
+    return [
+        PyPH_WUFI.xml_node.XML_List(
+            "Systems",
+            [
+                PyPH_WUFI.xml_node.XML_Object("System", _, "index", i, _schema_name="_MechanicalSystemGroup")
+                for i, _ in enumerate(temp_Mechanicals.mech_groups)
+            ],
+        ),
+    ]
+
+
+def _MechanicalSystemGroup(_obj: temp_MechanicalSystemsGroup) -> list[xml_writable]:
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", "System Group {}".format(_obj.group_type_number)),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Mech_System::Type", _obj.group_type_number).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.group_type_number),
+        PyPH_WUFI.xml_node.XML_List(
+            "Devices",
+            [
+                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_HVAC_Device")
+                for i, _ in enumerate(_obj.wufi_devices)
+            ],
+        ),
+    ]
+
+
+def _HVAC_Device(_obj: temp_MechanicalDevice) -> list[xml_writable]:
+    node_items = [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Mech_Device::SystemType", _obj.system_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Mech_Device::TypeDevice", _obj.device_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Heating", _obj.system_usage.used_for_heating),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_DHW", _obj.system_usage.used_for_DHW),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Cooling", _obj.system_usage.used_for_cooling),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Ventilation", _obj.system_usage.used_for_ventilation),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Humidification", _obj.system_usage.used_for_humidification),
+        PyPH_WUFI.xml_node.XML_Node("UsedFor_Dehumidification", _obj.system_usage.used_for_dehumidification),
+        PyPH_WUFI.xml_node.XML_Node("UseOptionalClimate", _obj.system_usage.used_optional_climate),
+        PyPH_WUFI.xml_node.XML_Node("IdentNr_OptionalClimate", _obj.system_usage.optional_climate_id_number),
+    ]
+
+    # -- For the different types of devices, add in their specific properties
+    if _obj.device_type == 1:
+        # -- Ventilator
+        node_items.extend(_HVAC_Ventilator(_obj))
+    elif _obj.device_type == 2:
+        # -- Elec Space Heat / DHW
+        node_items.extend(_HVAC_Elec_Heat_DHW(_obj))
+    elif _obj.device_type == 8:
+        # -- Water Storage
+        node_items.extend(_HVAC_Water_Tank(_obj))
+
+    return node_items
+
+
+# -- HVAC Device | Ventilator
+def _HVAC_Ventilator(_obj: temp_MechanicalDevice) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Object(
+            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properities_Ventilation_PH"
+        ),
+        PyPH_WUFI.xml_node.XML_Object(
+            "Ventilation_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Ventilation"
+        ),
+        PyPH_WUFI.xml_node.XML_Node("HeatRecovery", _obj.properties.heat_recovery_efficiency, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "MoistureRecovery",
+            _obj.properties.humidity_recovery_efficiency,
+            "unit",
+            "-",
+        ),
+    ]
+
+
+def _HVAC_Properities_Ventilation_PH(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Quantity", 1),
+        PyPH_WUFI.xml_node.XML_Node(
+            "ElectricEfficiency",
+            _obj.electric_efficiency,
+            "unit",
+            "Wh/m³",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "SubsoilHeatExchangeEfficiency",
+            _obj.subsoil_heat_exchange_efficiency,
+            "unit",
+            "-",
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            "HumidityRecoveryEfficiency",
+            _obj.humidity_recovery_efficiency,
+            "unit",
+            "-",
+        ),
+        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateFrom", _obj.volume_flowrate_from, "unit", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node("VolumeFlowRateTo", _obj.volume_flow_rate_to, "unit", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node(
+            "TemperatureBelowDefrostUsed",
+            _obj.temperature_below_defrost_used,
+            "unit",
+            "°C",
+        ),
+        PyPH_WUFI.xml_node.XML_Node("FrostProtection", _obj.frost_protection),
+        PyPH_WUFI.xml_node.XML_Node("DefrostRequired", _obj.defrost_required),
+        PyPH_WUFI.xml_node.XML_Node("NoSummerBypass", _obj.no_summer_bypass),
+        PyPH_WUFI.xml_node.XML_Node("HRVCalculatorData", _obj.hrv_calculator_data),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_VOS", _obj.maximum_vos),
+        PyPH_WUFI.xml_node.XML_Node("Maximum_PP", _obj.maximum_pp),
+        PyPH_WUFI.xml_node.XML_Node("Standard_VOS", _obj.standard_vos),
+        PyPH_WUFI.xml_node.XML_Node("Standard_PP", _obj.standard_pp),
+        PyPH_WUFI.xml_node.XML_Node("Basic_VOS", _obj.basic_vos),
+        PyPH_WUFI.xml_node.XML_Node("Basic_PP", _obj.basic_pp),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_VOS", _obj.minimum_vos),
+        PyPH_WUFI.xml_node.XML_Node("Minimum_PP", _obj.minimum_pp),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", _obj.auxiliary_energy, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", _obj.auxiliary_energy_dhw, "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", _obj.in_conditioned_space),
+    ]
+
+
+def _HVAC_Properties_Ventilation(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 51, "choice", "m³/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]
+
+
+# -- HVAC Device | Elect Heater / DHW
+def _HVAC_Elec_Heat_DHW(_obj: temp_MechanicalDevice) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Object(
+            "PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW_PH"
+        ),
+        PyPH_WUFI.xml_node.XML_Object(
+            "DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Elec_Heat_DHW"
+        ),
+    ]
+
+
+def _HVAC_Properties_Elec_Heat_DHW_PH(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
+    ]
+
+
+def _HVAC_Properties_Elec_Heat_DHW(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]
+
+
+# -- HVAC Device | Hot Water Tank
+def _HVAC_Water_Tank(_obj: temp_MechanicalDevice) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Object("PH_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank_PH"),
+        PyPH_WUFI.xml_node.XML_Object("DHW_Parameters", _obj.properties, _schema_name="_HVAC_Properties_Water_Tank"),
+    ]
+
+
+def _HVAC_Properties_Water_Tank_PH(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("SolarThermalStorageCapacity", _obj.volume, "unit", "Liter"),
+        PyPH_WUFI.xml_node.XML_Node("StorageLossesStandby", "unit", "W/K"),
+        PyPH_WUFI.xml_node.XML_Node("TotalSolarThermalStorageLosses", _obj.standby_loses, "unit", "W/K"),
+        PyPH_WUFI.xml_node.XML_Node("InputOption", 1, "choice", "Specific total losses"),
+        PyPH_WUFI.xml_node.XML_Node("AverageHeatReleaseStorage", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("TankRoomTemp", "unit", "°C"),
+        PyPH_WUFI.xml_node.XML_Node("TypicalStorageWaterTemperature", "unit", "°C"),
+        PyPH_WUFI.xml_node.XML_Node("QauntityWS", _obj.quantity),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergy", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("AuxiliaryEnergyDHW", "unit", "W"),
+        PyPH_WUFI.xml_node.XML_Node("InConditionedSpace", True),
+    ]
+
+
+def _HVAC_Properties_Water_Tank(_obj) -> list[xml_writable]:
+    return [
+        PyPH_WUFI.xml_node.XML_Node("CoverageWithinSystem", 1, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("Unit", 120, "choice", "Ltr/h"),
+        PyPH_WUFI.xml_node.XML_Node("Selection", 1, "choice", "Periodic day profiles"),
+    ]

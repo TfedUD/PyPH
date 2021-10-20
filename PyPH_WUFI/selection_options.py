@@ -43,7 +43,17 @@ __Mech_Device = {
         },
     },
 }
-
+__Mech_Summer = {
+    "SummerHRVHumidityRecovery": {
+        "attr_name": "choice",
+        "enum": {
+            1: "None",
+            2: "Temperature controlled bypass",
+            3: "Enthalpy controlled bypass",
+            4: "Always",
+        },
+    },
+}
 
 # --- Geometry
 __Assembly = {

@@ -77,10 +77,10 @@ class PHIUSCertification(PHX._base._Base):
         self.certification_criteria = 3
         self.localization_selection_type = 2
 
-        self.PHIUS2021_heating_demand = 15
-        self.PHIUS2021_cooling_demand = 15
-        self.PHIUS2021_heating_load = 10
-        self.PHIUS2021_cooling_load = 10
+        self.PHIUS2021_heating_demand = 15.0
+        self.PHIUS2021_cooling_demand = 15.0
+        self.PHIUS2021_heating_load = 10.0
+        self.PHIUS2021_cooling_load = 10.0
 
         self.building_status = 1  # In Planning
         self.building_type = 1  # New Construction
@@ -242,6 +242,9 @@ class Zone(PHX._base._Base):
         new_obj.volume_gross = (self.volume_gross or 0) + (other.volume_gross or 0)
         new_obj.volume_net = (self.volume_net or 0) + (other.volume_net or 0)
         new_obj.floor_area = (self.floor_area or 0) + (other.floor_area or 0)
+        new_obj.floor_area_selection = 6  # user-defined
+        new_obj.volume_net_selection = 6  # user-defined
+        new_obj.volume_gross_selection = 6  # user-defined
 
         # -- Combine weighted paramaters
         new_obj.clearance_height = self._floor_area_weighted_join(self, other, "clearance_height")
