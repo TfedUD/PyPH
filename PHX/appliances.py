@@ -487,7 +487,8 @@ class ApplianceSet(PHX._base._Base):
         15: "PHIUS_Lighting_Ext",
         16: "PHIUS_Lighting_Garage",
         11: "Custom_Electric_per_Year",
-        18: "Custom_Electric_per_Use",
+        17: "Custom_Electric_Lighting_per_Year",
+        18: "Custom_Electric_MEL_per_Use",
     }
 
     def __init__(self):
