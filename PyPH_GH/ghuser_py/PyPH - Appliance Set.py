@@ -23,7 +23,7 @@
 Set Passive House Appliance and Lighting energy loads on the Honeybee Rooms.
 -----
 -
-EM September 13, 2021
+EM October 20, 2021
     Args:
         
         use_PHIUS_defaults_: (bool) If True, will add the 'standard' PHIUS residential 
@@ -51,7 +51,7 @@ import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Appliance Set"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='SEP_13_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_20_2021')
 
 if DEV:
     reload(PHX.appliances)
@@ -107,7 +107,8 @@ for i, room in enumerate(_HB_rooms):
     # --------------------------------------------------------------------------
     if lighting_interior_:
         appliance_set.remove_type_from_set('PHIUS_Lighting_Int')
-        kwargs = { 'reference_quantity':5,
+        kwargs = {  'type': 17, # "User defined - lighting"
+                    'reference_quantity':5,
                     'energy_demand':clean_get(lighting_interior_, i, 0),
                     'comment': 'PHIUS Interior Lighting'
                   }
@@ -115,7 +116,8 @@ for i, room in enumerate(_HB_rooms):
     
     if lighting_exterior_:
         appliance_set.remove_type_from_set('PHIUS_Lighting_Ext')
-        kwargs = {  'reference_quantity':5,
+        kwargs = {  'type': 17, # "User defined - lighting"
+                    'reference_quantity':5,
                     'energy_demand':clean_get(lighting_exterior_, i, 0),
                     'comment': 'PHIUS Exterior Lighting'
                   }
@@ -123,7 +125,8 @@ for i, room in enumerate(_HB_rooms):
     
     if mel_:
         appliance_set.remove_type_from_set('PHIUS_MEL')
-        kwargs = {  'reference_quantity':5,
+        kwargs = {  'type': 18, # "User defined - Misc electric loads"
+                    'reference_quantity':5,
                     'energy_demand':clean_get(mel_, i, 0),
                     'comment': 'PHIUS MEL'
                   }

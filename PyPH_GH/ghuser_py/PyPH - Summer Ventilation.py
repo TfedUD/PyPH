@@ -25,10 +25,18 @@ the inputs on the PHPP 'SummVent' worksheet. Use this to input the total daytime
 and nighttime ACH from any 'additional' ventilation beyond the basic HRV/ERV. 
 This could be from operable windows, additional fans or any other method used to 
 increase airflow during the summer months.
+
+NOTE: For Phius, as per Phius 2021 PH Building Standard Certification Guidebook v3.02, Jult 2021:
+" If a cooling system is planned, no natural ventilation may be 
+included in the model. An entry of ‘0’ is required for PHIUS+ 2018 or Phius 2021 certification."
 -
-EM August 11, 2021
+EM October 19, 2021
     Args:
-        mech_ach_: (float)
+        mech_ach_: (float) The summer-period average background ventilation ACH rate of the Ventilator 
+            (HRV/ERV). In most cases, this will be the same value as the winter-perido, although
+            in some cases the designer may wish to run the ventilator at a higher rate in summer. 
+            NOTE: For Phius projects, in most cases simply set this input to "Phius", which then
+            will autocalculate the summer ventilation flow-rate.
         mech_control_: (str)
         
         use_default_: (boolean) Default=False. Set True to use 'default' values
@@ -58,13 +66,14 @@ EM August 11, 2021
 import LBT_Utils
 import PHX
 import PHX.summer_ventilation
+import PyPH_Rhino.gh_utils
 
 # --- 
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Summer Ventilation"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='AUG 11, 2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_19_2021')
 
 if DEV:
     reload(PHX.summer_ventilation)
@@ -72,7 +81,25 @@ if DEV:
     reload(LBT_Utils.program)
     reload(PHX.serialization.to_dict)
     reload(PHX)
+    reload(PyPH_Rhino.gh_utils)
 
+def handle_mech_ach(_input):
+    """Handle the input types for avg summer-period mech vent ACH
+    
+    > if no input, return 0.0 ACH
+    > if a number input, return as a number
+    > if 'PHIUS' input, return 'None'
+    """
+    
+    if not _input:
+        return 0.0
+    
+    try:
+        return float(_input)
+    except ValueError:
+        if 'PHIUS' in str(_input).upper():
+            # None = bank in WUFI, so it autocalculates.
+            return None
 
 HB_rooms_ = []
 for hb_room in _HB_rooms:
@@ -86,7 +113,7 @@ for hb_room in _HB_rooms:
         summ_vent_obj.night_window_ach = avg_annual_vent_ach * 0.5
     
     #-- Basic HRV Ventilation
-    if mech_ach_ is not None: summ_vent_obj.avg_mech_ach = mech_ach_
+    if mech_ach_ is not None: summ_vent_obj.avg_mech_ach = handle_mech_ach(mech_ach_)
     if mech_control_ is not None: summ_vent_obj.avg_mech_control_mode = mech_control_
     
     #-- Window Ventilation
@@ -99,7 +126,7 @@ for hb_room in _HB_rooms:
     if addnl_mech_control_ is not None: summ_vent_obj.additional_mech_control_mode = addnl_mech_control_
     if exhaust_ach_ is not None: summ_vent_obj.exhaust_ach = exhaust_ach_
     if exhaust_fan_pwr_ is not None: summ_vent_obj.exhaust_spec_power = exhaust_fan_pwr_
-
+    
     d = summ_vent_obj.to_dict()
     
     
@@ -111,3 +138,5 @@ for hb_room in _HB_rooms:
                                         d, 'summ_vent', _write_mode='overwrite')
     
     HB_rooms_.append( new_hb_room )
+    
+    PyPH_Rhino.gh_utils.object_preview(summ_vent_obj)

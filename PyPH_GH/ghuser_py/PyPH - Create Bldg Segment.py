@@ -25,7 +25,7 @@ as the 'Case', while in C3RRO this will be considered the 'Variant'. For PHIUS
 projects, use this component to break mixed-use projects into separate residential-case
 and non-residential-case variants.
 -
-EM October 05, 2021
+EM October 20, 2021
     Args:
         segment_name_: Name for the building-segment
         
@@ -63,6 +63,7 @@ import Rhino as rh
 import rhinoscriptsyntax as rs
 import ghpythonlib.components as ghc
 import Grasshopper as gh
+import honeybee.boundarycondition
 
 import LBT_Utils
 import LBT_Utils.hb_schedules
@@ -79,13 +80,14 @@ import PyPH_Rhino.bldg_segment_id
 import PyPH_Rhino.occupancy
 import PyPH_Rhino.lighting
 import PyPH_Rhino.gh_utils
+import PyPH_Rhino.surfaces
 
 # --
 import PyPH_GH._component_info_
 reload(PyPH_GH._component_info_)
 ghenv.Component.Name = "PyPH - Create Bldg Segment"
 DEV = True
-PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_05_2021')
+PyPH_GH._component_info_.set_component_params(ghenv, dev='OCT_20_2021')
 
 if DEV:
     reload(LBT_Utils)
@@ -101,6 +103,7 @@ if DEV:
     reload(PyPH_Rhino.bldg_segment_id)
     reload(PyPH_Rhino.occupancy)
     reload(PyPH_Rhino.lighting)
+    reload(PyPH_Rhino.surfaces)
 
 # -- GH Interface
 IGH = PyPH_Rhino.gh_io.IGH( ghdoc, ghenv, sc, rh, rs, ghc, gh )
@@ -127,12 +130,25 @@ PyPH_Rhino.gh_utils.object_preview(new_bldg_segment)
 PyPH_Rhino.gh_utils.object_preview(occupancy)
 PyPH_Rhino.gh_utils.object_preview(new_PH_params)
 
-#-- Add the data to all the input HB Rooms
+
+# --------------------------------------------------------------------------
+# -- Add the data to all the input HB Rooms
+face_ids_in_the_segment = { face.identifier for room in _HB_rooms for face in room.faces  }
 HB_rooms_ = []
 for room in _HB_rooms:
     if not room: continue
     new_hb_room = room.duplicate()
     
+    
+    # --------------------------------------------------------------------------
+    # -- Re-Set any intersitital Segment<->Segment Face BC from 'Surface' to 'Adiabatic'
+    for face in new_hb_room.faces:
+        if not isinstance(face.boundary_condition, honeybee.boundarycondition.Surface):
+            continue
+        PyPH_Rhino.surfaces.set_HB_face_BC_to_adiabatic_if_match_not_found(face, face_ids_in_the_segment)
+    
+    
+    # --------------------------------------------------------------------------
     # -- NON_RES ONLY
     if occupancy.category == 2:
         default_name = room.properties.energy.program_type.display_name
@@ -157,7 +173,8 @@ for room in _HB_rooms:
         new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
                                     space_dict, 'spaces', _write_mode='overwrite')
     
-    # -- ALL
+    
+    # --------------------------------------------------------------------------
     #-- Pack everything back into the HB Room user-data
     bldg_seg_dict = new_bldg_segment.to_dict()
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
@@ -171,4 +188,6 @@ for room in _HB_rooms:
     new_hb_room = LBT_Utils.user_data.add_to_HB_Obj_user_data(new_hb_room,
                                     ph_param_dict, 'ph_certification', _write_mode='overwrite')
     
+    
+    # --------------------------------------------------------------------------
     HB_rooms_.append(new_hb_room)
