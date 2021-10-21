@@ -1,4 +1,5 @@
 import PHX._base
+import PHX.programs.schedules
 import PHX.serialization.from_dict
 from collections import defaultdict
 
@@ -32,14 +33,15 @@ class ApplianceTypeMismatchError(Exception):
 
 
 class Appliance(PHX._base._Base):
-    """An individual Appliance"""
+    """An individual PHX-Appliance such as a cooktop or dishwasher."""
 
     def __init__(self):
         super(Appliance, self).__init__()
+        self.name = ""
         self.type = 1
         self.comment = None
         self.reference_quantity = 2  # Zone Occupants
-        self.quantity = 1
+        self.quantity = 0
         self.in_conditioned_space = True
         self.reference_energy_norm = 2  # Year
         self.energy_demand = 100  # kwh
@@ -71,6 +73,10 @@ class Appliance(PHX._base._Base):
         self.lighting_frac_high_efficiency = 1
         self._user_defined_total = 0
 
+        # -- PHIUS Non-Res Cooking
+        self.num_meals_per_day = 0
+        self.usage = None  # For Non-Res Kitchen Schedules
+
     @property
     def user_defined_total(self):
         return self._user_defined_total
@@ -88,7 +94,9 @@ class Appliance(PHX._base._Base):
             return False
 
         fields = (
+            "name",
             "type",
+            "usage",
             "comment",
             "reference_quantity",
             "quantity",
@@ -112,13 +120,13 @@ class Appliance(PHX._base._Base):
             "cooktop_type",
             "lighting_frac_high_efficiency",
             "user_defined_total",
+            "num_meals_per_day",
         )
 
         for field in fields:
             attr_a = getattr(self, field)
             attr_b = getattr(other, field)
             if attr_a != attr_b:
-                # print("{}:{} does not equal {}:{}".format(field, attr_a, field, attr_b))
                 return False
 
         return True
@@ -134,8 +142,8 @@ class Appliance(PHX._base._Base):
             # type: (Appliance, Appliance, Appliance, str) -> None
             """Utility function used by __add__: Sets appliance energy demand on a unit-weighted average basis"""
 
-            a = getattr(_obj_a, _attr_name) * _obj_a.quantity
-            b = getattr(_obj_b, _attr_name) * _obj_b.quantity
+            a = getattr(_obj_a, _attr_name, 0) * _obj_a.quantity
+            b = getattr(_obj_b, _attr_name, 0) * _obj_b.quantity
             weighted_avg = (float(a) + float(b)) / (_obj_a.quantity + _obj_b.quantity)
             setattr(_new_obj, _attr_name, weighted_avg)
 
@@ -156,7 +164,7 @@ class Appliance(PHX._base._Base):
             return self
         elif self.type != other.type:
             raise ApplianceAdditionError(self, other)
-        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 11, 13, 14, 15, 16, 17, 18}:
+        elif self.type not in {1, 2, 3, 4, 5, 6, 7, 11, 13, 14, 15, 16, 17, 18, 21, 22, 23, 24}:
             raise ApplianceAdditionError(self, other)
 
         new_appliance = self.__class__()
@@ -207,6 +215,13 @@ class Appliance(PHX._base._Base):
                 new_appliance.energy_demand = float(self.energy_demand) + float(other.energy_demand)
                 new_appliance.energy_demand_per_use = 0
 
+        # -- PHIUS Non-Res Kitchen
+        new_appliance.name = self.name
+        # print("here", new_appliance, new_appliance.name, new_appliance.quantity)
+        # new_appliance.num_meals_per_day = _set_quantity_weighted_average(
+        #     new_appliance, self, other, "num_meals_per_day"
+        # )
+
         return new_appliance
 
     def __radd__(self, other):
@@ -215,6 +230,7 @@ class Appliance(PHX._base._Base):
         else:
             return self.__add__(other)
 
+    # --- PHIUS Residential Standard
     @classmethod
     def PHIUS_Dishwasher(cls):
         app = cls()
@@ -431,7 +447,7 @@ class Appliance(PHX._base._Base):
 
         return app
 
-    # --- Custom Loads
+    # --- Residential Custom
     @classmethod
     def Custom_Electric_per_Year(cls, **kwargs):
         app = cls()
@@ -470,6 +486,31 @@ class Appliance(PHX._base._Base):
 
         return app
 
+    # --- PHIUS NonResidential Kitchen
+    @classmethod
+    def PHIUS_NonResKitchen_Dishwasher(cls, **kwargs):
+        app = cls()
+
+        # -- Standard
+        app.name = "_Default_Dishwasher_"
+        app.type = 21
+        app.reference_quantity = 5  # User Defined
+        app.quantity = 1
+        app.in_conditioned_space = True
+        app.reference_energy_norm = 99  # Use
+        app.energy_demand = 0
+        app.energy_demand_per_use = 0
+        app.combined_energy_facor = 0
+
+        # -- Custom
+        app.num_meals_per_day = 1
+        app.usage = PHX.programs.schedules.Schedule_NonResAppliance()
+
+        for k, v in kwargs.items():
+            setattr(app, k, v)
+
+        return app
+
 
 class ApplianceSet(PHX._base._Base):
     """A Collection of Appliances"""
@@ -489,6 +530,10 @@ class ApplianceSet(PHX._base._Base):
         11: "Custom_Electric_per_Year",
         17: "Custom_Electric_Lighting_per_Year",
         18: "Custom_Electric_MEL_per_Use",
+        21: "Commercial_Dishwasher",
+        22: "Commercial_Refrigerator",
+        23: "Commercial_Cooking",
+        24: "Commercial_Custom",
     }
 
     def __init__(self):
@@ -564,7 +609,7 @@ class ApplianceSet(PHX._base._Base):
                 continue
 
             # ------------------------------------------------------------------
-            # -- Breakup/Sort the appliances based on the 'comment'. This
+            # -- Also Breakup/Sort the appliance of this type based on the 'comment'. This
             # -- allows for multiple instances of a single type to be included
             # -- in the ApplianceSet, if the user gives each a different 'comment' attr
             appliances_by_comment_type = defaultdict(list)

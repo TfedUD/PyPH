@@ -15,6 +15,7 @@ from PHX.mechanicals.systems import Mechanicals
 import PHX.climate
 from PHX.project import Project
 from PHX.bldg_segment import BldgSegment, Zone
+from PHX.appliances import Appliance
 
 import PyPH_WUFI.xml_node
 from PyPH_WUFI.xml_node import xml_writable
@@ -458,7 +459,7 @@ def _Zone(_obj: Zone) -> list[xml_writable]:
             ).xml_data
         ),
         PyPH_WUFI.xml_node.XML_Node("SpecificHeatCapacity", round(_obj.spec_heat_cap, 0), "unit", "Wh/m²K"),
-        # -- Room Loads (Occupancy, Ventilation, Lighting)
+        # -- Room Loads (Occupancy, Ventilation, Lighting) and Appliances
         # ----------------------------------------------------------------------
         PyPH_WUFI.xml_node.XML_List(
             "RoomsVentilation",
@@ -490,7 +491,17 @@ def _Zone(_obj: Zone) -> list[xml_writable]:
         ),
         PyPH_WUFI.xml_node.XML_List(
             "HomeDevice",
-            [PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i) for i, _ in enumerate(_obj.appliance_set)],
+            [
+                PyPH_WUFI.xml_node.XML_Object("Device", _, "index", i, _schema_name="_Appliance_Res")
+                for i, _ in enumerate(_obj.appliance_set)
+            ],
+        ),
+        PyPH_WUFI.xml_node.XML_List(
+            "LoadsAuxElectricitiesPH",
+            [
+                PyPH_WUFI.xml_node.XML_Object("LoadsAuxElectricity", _, "index", i, _schema_name="_Appliance_NonRes")
+                for i, _ in enumerate(_obj.appliance_set)
+            ],
         ),
         # -- Summer Ventilation
         # ----------------------------------------------------------------------
@@ -867,9 +878,48 @@ def _Appliance_Custom_Electric_per_Use(_obj) -> list[xml_writable]:
     return []
 
 
-def _Appliance(_obj) -> list[xml_writable]:
+def _Appliance_NonRes(_obj: Appliance) -> list[xml_writable]:
+    if _obj.type not in [21, 22, 23, 24]:
+        # -- Not a NonRes appliance
+        return []
+
+    def _convert_appliance_type(_num: int):
+        """Convert Non-Res type numbers from PHX to WUFI format"""
+        convert = {
+            23: 1,  # Cooktop
+            21: 2,  # Dishwasher
+            22: 3,  # Refigerator
+            24: 4,  # User Defined
+        }
+
+        return convert.get(_num, 1)
+
+    return [
+        PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", -1),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::ApplicationType", _convert_appliance_type(_obj.type)).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("ChoiceCooking", 1),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection("Appliances::ChoiceCooking", _obj.cooktop_type).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node(
+            *PyPH_WUFI.selection.Selection(
+                "Appliances::ChoiceDishwashingConection", _obj.dishwasher_water_connection
+            ).xml_data
+        ),
+        PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
+        PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", _obj.in_conditioned_space),
+        PyPH_WUFI.xml_node.XML_Node("NumberMealsUtilizationDay", _obj.num_meals_per_day, "unit", "-"),
+        PyPH_WUFI.xml_node.XML_Node("NormDemand", _obj.energy_demand, "unit", "kWh/d"),
+        PyPH_WUFI.xml_node.XML_Node("UtilizationDaysYear", 1, "unit", "days/a"),
+    ]
+
+
+def _Appliance_Res(_obj: Appliance) -> list[xml_writable]:
     """Appliances have some basic shared params, then a bunch of custom params"""
-    appliances = {
+    appliance_writer_funcs = {
         1: _Appliance_dishwasher,
         2: _Appliance_clothes_washer,
         3: _Appliance_clothes_dryer,
@@ -884,6 +934,9 @@ def _Appliance(_obj) -> list[xml_writable]:
         17: _Appliance_Custom_Electric_per_Use,
         18: _Appliance_Custom_Electric_per_Use,
     }
+    if _obj.type not in appliance_writer_funcs.keys():
+        # -- Not a residential appliance
+        return []
 
     # Fix the energy Norm.
     # WUFI uses '1' for both 'Use' and 'Day'
@@ -918,7 +971,7 @@ def _Appliance(_obj) -> list[xml_writable]:
 
     # --------------------------------------------------------------------------
     # -- Combine the Basic and the Custom Params
-    return basic_params + appliances.get(_obj.type)(_obj)
+    return basic_params + appliance_writer_funcs.get(_obj.type)(_obj)
 
 
 # ------------------------------------------------------------------------------

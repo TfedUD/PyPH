@@ -180,6 +180,17 @@ def _Schedule_ElecEquip(_cls, _input_dict):
     return new_obj
 
 
+def _Schedule_NonResAppliance(_cls, _input_dict):
+    new_obj = _cls()
+
+    new_obj.identifier = _input_dict.get("identifier")
+    new_obj.id = _input_dict.get("id")
+    new_obj.name = _input_dict.get("name")
+    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+
+    return new_obj
+
+
 # ------------------------------------------------------------------------------
 # ------- Loads  -------
 def _Load_Lighting(_cls, _input_dict):
@@ -706,6 +717,7 @@ def _Appliance(_cls, _input_dict):
 
     new_obj = _cls()
 
+    _setattr_filter(new_obj, "name", _input_dict.get("name"))
     _setattr_filter(new_obj, "type", _input_dict.get("type"))
     _setattr_filter(new_obj, "comment", _input_dict.get("comment"))
     _setattr_filter(new_obj, "reference_quantity", _input_dict.get("reference_quantity"))
@@ -741,5 +753,9 @@ def _Appliance(_cls, _input_dict):
     # -- PHIUS Lighting
     _setattr_filter(new_obj, "lighting_frac_high_efficiency", _input_dict.get("lighting_frac_high_efficiency"))
     _setattr_filter(new_obj, "_user_defined_total", _input_dict.get("_user_defined_total"))
+
+    # -- PHIUS Non-Res Kitchen
+    _setattr_filter(new_obj, "num_meals_per_day", _input_dict.get("num_meals_per_day"))
+    _setattr_filter(new_obj, "usage", _input_dict.get("usage"))
 
     return new_obj

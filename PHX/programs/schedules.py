@@ -374,3 +374,61 @@ class Schedule_ElecEquip(PHX._base._Base):
     def unique_key(self):
         """Return a key unique to this 'type' (collection of values) of pattern"""
         return "{}_".format(self.annual_utilization_factor)
+
+
+class Schedule_NonResAppliance(PHX._base._Base):
+    """Usage schedule for Non-Residential Cooking Appliances"""
+
+    _count = 0
+    _default = None
+
+    def __init__(self):
+        super(Schedule_NonResAppliance, self).__init__()
+        self.id = self._count
+        self.name = ""
+        self.start_hour = 0
+        self.end_hour = 24
+        self.annual_utilization_days = 365
+        self.relative_utilization_factor = 1.0
+
+    @property
+    def daily_operating_hours(self):
+        return abs(self.end_hour - self.start_hour)
+
+    @property
+    def annual_operating_hours(self):
+        return self.annual_utilization_days * self.daily_operating_hours
+
+    @property
+    def annual_utilization_factor(self):
+        # type: () -> float
+        """Return the annual Utilition Rate (0-1) relative to the entire year (8760 hours)"""
+        operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
+        return operating_period_utilization_factor * self.relative_utilization_factor
+
+    @classmethod
+    def default(cls):
+        if cls._default:
+            return cls._default
+
+        new_obj = cls()
+
+        new_obj.name = "_default_schedule_non_res_cooking_"
+        new_obj.annual_utilization_factor = 1.0
+
+        cls._default = new_obj
+        return new_obj
+
+    def __new__(cls, *args, **kwargs):
+        """Used so I can keep a running tally for the id variable"""
+        cls._count += 1
+        return super(Schedule_NonResAppliance, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def from_dict(cls, _dict):
+        return PHX.serialization.from_dict._Schedule_NonResAppliance(cls, _dict)
+
+    @property
+    def unique_key(self):
+        """Return a key unique to this 'type' (collection of values) of pattern"""
+        return "{}_".format(self.annual_utilization_factor)

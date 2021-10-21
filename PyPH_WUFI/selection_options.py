@@ -12,7 +12,6 @@ __Mech_System = {
         },
     },
 }
-
 __Mech_Device = {
     "SystemType": {
         "attr_name": "choice",
@@ -207,7 +206,7 @@ __Foundation = {
 
 # -- Appliances
 __Appliances = {
-    "Type": {
+    "Type": {  # Residential
         "attr_name": "choice",
         "enum": {
             1: "Kitchen dishwasher",
@@ -224,6 +223,15 @@ __Appliances = {
             16: "PHIUS+ Garage lighting",
             17: "User defined - lighting",
             18: "User defined - Misc electric loads",
+        },
+    },
+    "ApplicationType": {
+        "attr_name": "choice",
+        "enum": {
+            1: "Cooktop",
+            2: "Dishwasher",
+            3: "Refrigerator",
+            4: "User defined",
         },
     },
     "ReferenceQuantity": {
@@ -255,7 +263,14 @@ __Appliances = {
             3: "User defined",
         },
     },
-    "Connection": {
+    "Connection": {  # Dishwasher
+        "attr_name": "choice",
+        "enum": {
+            1: "DHW connection",
+            2: "Cold water connection",
+        },
+    },
+    "ChoiceDishwashingConection": {  #  Non-Residential
         "attr_name": "choice",
         "enum": {
             1: "DHW connection",
@@ -280,7 +295,14 @@ __Appliances = {
             2: "Moisture sensing",
         },
     },
-    "CookingWith": {
+    "CookingWith": {  # Residential
+        "attr_name": "choice",
+        "enum": {
+            1: "Cooking with electricity",
+            2: "Cooking with gas",
+        },
+    },
+    "ChoiceCooking": {  # Non-Residential
         "attr_name": "choice",
         "enum": {
             1: "Cooking with electricity",

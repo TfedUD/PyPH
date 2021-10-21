@@ -161,6 +161,17 @@ def _Schedule_ElecEquip(_obj):
     return d
 
 
+def _Schedule_NonResAppliance(_obj):
+    d = {}
+
+    d.update({"identifier": str(_obj.identifier)})
+    d.update({"id": _obj.id})
+    d.update({"name": _obj.name})
+    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+
+    return d
+
+
 # ------------------------------------------------------------------------------
 # ------- Loads  -------
 def _Load_Lighting(_obj):
@@ -658,6 +669,7 @@ def _ApplianceSet(_obj):
 def _Appliance(_obj):
     d = {}
 
+    d.update({"name": _obj.name})
     d.update({"type": _obj.type})
     d.update({"comment": _obj.comment})
     d.update({"reference_quantity": _obj.reference_quantity})
@@ -691,5 +703,9 @@ def _Appliance(_obj):
     # -- PHIUS Lighting
     d.update({"lighting_frac_high_efficiency": _obj.lighting_frac_high_efficiency})
     d.update({"_user_defined_total": _obj._user_defined_total})
+
+    # -- PHIUS Non-Res Kitchen
+    d.update({"num_meals_per_day": _obj.num_meals_per_day})
+    d.update({"usage": _obj.usage})
 
     return d

@@ -148,7 +148,7 @@ class Room(PHX._base._Base):
 
 
 class Zone(PHX._base._Base):
-    """A Thermal Zone. Contains one or more Rooms and relevant Zone-level attributes
+    """A PHX Thermal Zone. Contains one or more Rooms and relevant Zone-level attributes
 
     BldgSegment_1
        +----Zone_1  #<-----
