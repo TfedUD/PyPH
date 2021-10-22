@@ -10,6 +10,8 @@ to reorganize / restructure the PHX data to match the funny WUFI configuration.
 from PHX.bldg_segment import Zone, Room, BldgSegment, PHIUSCertification
 from PHX.project import Project
 from PHX.climate import Climate
+from PHX.programs.lighting import RoomLighting
+from PHX.programs.occupancy import RoomOccupancy
 from PHX.mechanicals.systems import Mechanicals, MechanicalSystem
 from PHX.mechanicals.equipment import HVAC_Device
 from PyPH_WUFI.WUFI_xml_conversion_classes import (
@@ -98,7 +100,8 @@ def build_temp_Zone(_phx_zone: Zone) -> temp_Zone:
 # ------------------------------------------------------------------------------
 # -- Project, Utilization Factors
 def build_temp_NonRes_UtilCollection_from_zones(_zones: list[Zone]):
-    """Collects and builds the Non-Res Utilization Patterns (occupancy, lighting) found on the Zone's Rooms
+    """Collects and builds the Non-Res Utilization Patterns (occupancy, lighting,
+        commercial appliances) found on the Zone's Rooms.
 
     Arguments:
     ----------
@@ -113,6 +116,7 @@ def build_temp_NonRes_UtilCollection_from_zones(_zones: list[Zone]):
     util_collection = UtilizationPatternCollection_NonRes()
 
     for zone in _zones:
+        # -- The Utilization Schedules for all the Rooms in the Zone
         for room in zone.rooms:
             util_pattern = UtilizationPattern_NonRes()
             util_pattern.occupancy = room.occupancy
@@ -122,6 +126,24 @@ def build_temp_NonRes_UtilCollection_from_zones(_zones: list[Zone]):
             util_collection.add_to_collection(util_pattern, _key=pattern_id, _reset_count=True)
             room.occupancy.id = util_pattern.id
             room.lighting.id = util_pattern.id
+
+        # -- Commerical Kitchen Appliance also need a Utilization Schedule
+        for appliance in zone.appliance_set.appliances:
+            if not appliance.usage:
+                continue
+
+            # -- Build the basic pieces
+            util_pattern = UtilizationPattern_NonRes()
+            util_pattern.occupancy = RoomOccupancy()
+            util_pattern.lighting = RoomLighting()
+
+            # -- Reset the schedule to match the Appliance Schedule
+            util_pattern.occupancy.name = appliance.usage.name
+            util_pattern.occupancy.schedule = appliance.usage  # hmmm... don't love assigning usage to occupancy?
+            pattern_id = util_pattern.occupancy.unique_key + util_pattern.lighting.unique_key
+
+            util_collection.add_to_collection(util_pattern, _key=pattern_id, _reset_count=True)
+            appliance.usage.id = util_pattern.id
 
     return util_collection
 

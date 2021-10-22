@@ -186,7 +186,10 @@ def _Schedule_NonResAppliance(_cls, _input_dict):
     new_obj.identifier = _input_dict.get("identifier")
     new_obj.id = _input_dict.get("id")
     new_obj.name = _input_dict.get("name")
-    new_obj.annual_utilization_factor = _input_dict.get("annual_utilization_factor")
+    new_obj.start_hour = _input_dict.get("start_hour")
+    new_obj.end_hour = _input_dict.get("end_hour")
+    new_obj.annual_utilization_days = _input_dict.get("annual_utilization_days")
+    new_obj.relative_utilization_factor = _input_dict.get("relative_utilization_factor")
 
     return new_obj
 
@@ -278,7 +281,6 @@ def _Polygon(_cls, _input_dict):
 # ------- HVAC --------
 # -- HVAC: System
 def _Mechanicals(_cls, _input_dict):
-    print("getting mechanicals")
     new_obj = _cls()
 
     new_obj.identifier = _input_dict.get("identifier")
@@ -756,6 +758,8 @@ def _Appliance(_cls, _input_dict):
 
     # -- PHIUS Non-Res Kitchen
     _setattr_filter(new_obj, "num_meals_per_day", _input_dict.get("num_meals_per_day"))
-    _setattr_filter(new_obj, "usage", _input_dict.get("usage"))
+    usage_sched_dict = _input_dict.get("usage", None)
+    if usage_sched_dict:
+        new_obj.usage = PHX.programs.schedules.Schedule_NonResAppliance.from_dict(usage_sched_dict)
 
     return new_obj

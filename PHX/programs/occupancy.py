@@ -8,6 +8,7 @@ PHX Program: Occupancy Classes
 import PHX._base
 import PHX.programs.schedules
 import PHX.programs.loads
+import PHX.serialization.from_dict
 
 
 class BldgSegmentOccupancy(PHX._base._Base):

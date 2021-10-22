@@ -167,7 +167,10 @@ def _Schedule_NonResAppliance(_obj):
     d.update({"identifier": str(_obj.identifier)})
     d.update({"id": _obj.id})
     d.update({"name": _obj.name})
-    d.update({"annual_utilization_factor": _obj.annual_utilization_factor})
+    d.update({"start_hour": _obj.start_hour})
+    d.update({"end_hour": _obj.end_hour})
+    d.update({"annual_utilization_days": _obj.annual_utilization_days})
+    d.update({"relative_utilization_factor": _obj.relative_utilization_factor})
 
     return d
 
@@ -706,6 +709,7 @@ def _Appliance(_obj):
 
     # -- PHIUS Non-Res Kitchen
     d.update({"num_meals_per_day": _obj.num_meals_per_day})
-    d.update({"usage": _obj.usage})
+    if _obj.usage:
+        d.update({"usage": _obj.usage.to_dict()})
 
     return d

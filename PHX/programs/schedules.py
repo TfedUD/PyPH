@@ -406,6 +406,17 @@ class Schedule_NonResAppliance(PHX._base._Base):
         operating_period_utilization_factor = self.annual_operating_hours / 8760  # Hrs / year
         return operating_period_utilization_factor * self.relative_utilization_factor
 
+    @annual_utilization_factor.setter
+    def annual_utilization_factor(self, _in):
+        # type: (Schedule_Occupancy, float) -> None
+
+        if _in is not None:
+            # -- Re-Set the relative utilization factor to match
+            self.start_hour = 0
+            self.end_hour = 24
+            self.annual_utilization_days = 365
+            self.relative_utilization_factor = _in
+
     @classmethod
     def default(cls):
         if cls._default:

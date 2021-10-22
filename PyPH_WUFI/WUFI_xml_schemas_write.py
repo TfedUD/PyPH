@@ -30,6 +30,7 @@ from PyPH_WUFI.WUFI_xml_conversion_classes import (
     temp_PH_Building,
     temp_PH_Building_Internal_Gains,
     temp_Building,
+    UtilizationPattern_NonRes,
 )
 from PyPH_WUFI.WUFI_xml_conversion_functions import (
     build_PassiveHouseData,
@@ -85,7 +86,7 @@ def _UtilizationPattern_Vent(_obj) -> list[xml_writable]:
     ]
 
 
-def _UtilizationPattern_NonRes(_obj) -> list[xml_writable]:
+def _UtilizationPattern_NonRes(_obj: UtilizationPattern_NonRes) -> list[xml_writable]:
     return [
         PyPH_WUFI.xml_node.XML_Node("IdentNr", _obj.id),
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.occupancy.name),
@@ -896,7 +897,7 @@ def _Appliance_NonRes(_obj: Appliance) -> list[xml_writable]:
 
     return [
         PyPH_WUFI.xml_node.XML_Node("Name", _obj.name),
-        PyPH_WUFI.xml_node.XML_Node("RoomCategory", -1),
+        PyPH_WUFI.xml_node.XML_Node("RoomCategory", _obj.usage.id),
         PyPH_WUFI.xml_node.XML_Node(
             *PyPH_WUFI.selection.Selection("Appliances::ApplicationType", _convert_appliance_type(_obj.type)).xml_data
         ),
@@ -909,10 +910,10 @@ def _Appliance_NonRes(_obj: Appliance) -> list[xml_writable]:
                 "Appliances::ChoiceDishwashingConection", _obj.dishwasher_water_connection
             ).xml_data
         ),
-        PyPH_WUFI.xml_node.XML_Node("Quantity", _obj.quantity),
+        PyPH_WUFI.xml_node.XML_Node("Quantity", int(_obj.quantity)),
         PyPH_WUFI.xml_node.XML_Node("WithinThermalEnvelope", _obj.in_conditioned_space),
         PyPH_WUFI.xml_node.XML_Node("NumberMealsUtilizationDay", _obj.num_meals_per_day, "unit", "-"),
-        PyPH_WUFI.xml_node.XML_Node("NormDemand", _obj.energy_demand, "unit", "kWh/d"),
+        PyPH_WUFI.xml_node.XML_Node("NormDemand", _obj.energy_demand_per_use, "unit", "kWh/d"),
         PyPH_WUFI.xml_node.XML_Node("UtilizationDaysYear", 1, "unit", "days/a"),
     ]
 

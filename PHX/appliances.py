@@ -51,7 +51,7 @@ class Appliance(PHX._base._Base):
         # -- Dishwasher
         self.dishwasher_capacity_type = 1  # standard
         self.dishwasher_capacity = 12
-        self.dishwasher_water_connection = 2  # Cold Water
+        self.dishwasher_water_connection = 1  # DHW Connection
 
         # -- Laundry Washer
         self.washer_capacity = 0.0814  # m3
@@ -76,6 +76,14 @@ class Appliance(PHX._base._Base):
         # -- PHIUS Non-Res Cooking
         self.num_meals_per_day = 0
         self.usage = None  # For Non-Res Kitchen Schedules
+
+    def __str__(self):
+        return "PHX_{}(type={}, name={}, comment={})".format(
+            self.__class__.__name__, self.type, self.name, self.comment
+        )
+
+    def __repr__(self):
+        return str(self)
 
     @property
     def user_defined_total(self):
@@ -616,9 +624,15 @@ class ApplianceSet(PHX._base._Base):
             for app in appliances:
                 appliances_by_comment_type[app.comment].append(app)
 
+            # -- Break up by Name as well, esp for Non-Res
+            appliances_by_comment_and_name = defaultdict(list)
+            for k, app_list in appliances_by_comment_type.items():
+                for app in app_list:
+                    appliances_by_comment_and_name["{}_{}".format(k, app.name)].append(app)
+
             # ------------------------------------------------------------------
             # -- Merge all the appliances of that Type into a single instance,
-            for app_list in appliances_by_comment_type.values():
+            for app_list in appliances_by_comment_and_name.values():
                 merged_appliance = sum(app_list)
                 new_set.add_appliances_to_set(merged_appliance)
 
